@@ -1,0 +1,137 @@
+#!/bin/sh
+
+# Startup script for FVWM-Crystal project (http://fvwm-crystal.berlios.de/)
+# Written by: Maciej Delmanowski <harnir@post.pl>
+
+# This script searchs for configuration files in different locations, picks
+# one and launches fvwm2 with specified configuration file.
+
+# You can set 'FVWMCRYSTAL_BASECONFIG' environment variable to omit
+# searching for configuration and use the given path.
+
+# Name of the configuration file
+configname=config
+
+# We now have both fvwm and fvwm3. fvwm-crystal work with both of them.
+# Use $FVWM_EXEC if set, fvwm3 if present, fvvwm otherwise:
+if [ "x${FVWM_EXEC}" = "x" ]; then
+    	for name in fvwm3 fvwm fvwm2; do
+	    FVWM_EXEC=`which "${name}" 2>/dev/null`
+	    if [ $? = 0 ]; then
+		break
+	    fi
+	done
+fi
+FVWM_EXEC=`basename ${FVWM_EXEC}`
+if [ "x${FVWM_EXEC}" = "x" ]; then
+	echo 'No fvwm, fvwm2 or fvwm3 executable found in $PATH.'
+	echo "Please adjust your PATH accordingly or install fvwm."
+	echo "If fvwm is installed in another location, you can provide it as:"
+	echo '    export FVWM_EXEC="/my/location/fvwm"'
+        echo "before starting fvwm-crystal."
+	exit 1
+fi
+
+# Other fvwm-crystal variables. They was previously in the configuration file, but
+# due how fvwm honor the -F option, it is better to define them before
+# fvwm statup. If they are already defined, skip this setup.
+# Where is the user-wide configuration
+if [ -z "${FVWM_USERDIR}" ]; then
+	FVWM_USERDIR="${HOME}/.fvwm-crystal"
+fi
+# Where is the system-wide configuration
+if [ -z "${FVWM_CONFIGDIR}" ]; then
+	FVWM_CONFIGDIR="/etc/X11/fvwm/fvwm-crystal"
+fi
+# Where are the system-wide files
+if [ -z "${FVWM_SYSTEMDIR}" ]; then
+	FVWM_SYSTEMDIR="/usr/share/fvwm-crystal/fvwm"
+fi
+# Where the distribution specific menu is located
+if [ -z "${FVWM_DISTROMENUDIR}" ]; then
+	FVWM_DISTROMENUDIR="/var/lib/fvwm-crystal"
+fi
+# Nema of the distribution menu
+if [ -z "${FVWM_DISTROMENUNAME}" ]; then
+	FVWM_DISTROMENUNAME="debian"
+fi
+# Where to write the log when fvwm3 is in debug mode
+if [ "${FVWM_EXEC}" = "fvwm3" ]; then
+	if [ "x${FVWM3_LOGFILE}" == "x" ]; then
+	        FVWM3_LOGFILE="${HOME}/.fvwm-crystal.log"
+	        export FVWM3_LOGFILE
+	fi
+fi
+#
+export FVWM_USERDIR FVWM_CONFIGDIR FVWM_SYSTEMDIR FVWM_DISTROMENUDIR FVWM_DISTROMENUNAME
+
+# Default path
+# if a variable 'configfile' is defined in the environment, its value is
+# preserved; otherwise, the scripts look for configuration in common places.
+configfile="$HOME/fvwm-crystal/$configname"
+if [ -n "$FVWMCRYSTAL_BASECONFIG" ]; then
+	configfile="$FVWMCRYSTAL_BASECONFIG"
+elif [ -f "$HOME/fvwm-crystal/$configname" ]; then
+	configfile=$HOME/fvwm-crystal/$configname;
+elif [ -f "`dirname ${0}`/../share/fvwm-crystal/fvwm/$configname" ]; then
+	configfile="`dirname ${0}`/../share/fvwm-crystal/fvwm/$configname";
+fi
+
+# This script will also kill the helper scripts when needed
+cleanup() {
+	exitcode="0"
+	# remove orfaned fullscreen files
+	rm /tmp/fullscreen* 2>/dev/null
+	# check for old instances and PID orfaned files
+	for i in $(ls /tmp/crystal_desktopcheckmount_* 2>/dev/null); do
+		pid=$(echo $i | sed -e 's:/tmp/crystal_desktopcheckmount_::')
+		kill $pid 2>/dev/null
+		rm $i
+		exitcode="1"
+	done
+	for i in $(ls /tmp/crystal_update_infoline_* 2>/dev/null); do
+		pid=$(echo $i | sed -e 's:/tmp/crystal_update_infoline_::')
+		kill $pid 2>/dev/null
+		rm $i
+		exitcode="1"
+	done
+	for i in $(ls /tmp/crystal_mplayer_* 2>/dev/null); do
+		pid=$(echo $i | sed -e 's:/tmp/crystal_mplayer_::')
+		kill $pid 2>/dev/null
+		kill -9 $pid 2>/dev/null
+		rm $i
+		exitcode="1"
+	done
+	# exit if not startup
+	if [ "$1" = "previous" ]; then
+		echo "FVWM-Crystal starting..."
+	else
+		echo "exit = $exitcode"
+		exit $exitcode
+	fi
+}
+
+# trap if interupted
+trap cleanup INT QUIT TERM
+
+# cleanup previuos instances
+cleanup previous
+#echo "paramètres: $@"
+#echo "exec fvwm -f $configfile $@"
+
+#exec fvwm -f $configfile $@
+if [ "x${FVWMCRYSTAL_DEBUG}" = "x" ]; then
+	echo "Fvwm-Crystal starting using ${FVWM_EXEC}."
+	exec ${FVWM_EXEC} -f $configfile $@
+else
+	if [ "${FVWM_EXEC}" = "fvwm3" ]; then
+		echo "Fvwm-Crystal starting using ${FVWM_EXEC} in debug mode, the log file is ${FVWM3_LOGFILE}."
+		exec ${FVWM_EXEC} -v -f $configfile $@
+	else
+		echo "Debug mode is not supported by ${FVWM_EXEC}. It print all errors to stderr."
+		echo "You can redirect these errors into a file whith the following line in ~/.xinitrc:"
+		echo '     exec /usr/bin/fvwm-crystal 2>./.errors.fvwm-crystal'
+		echo "Fvwm-Crystal starting using ${FVWM_EXEC}."
+		exec ${FVWM_EXEC} -f $configfile $@
+	fi
+fi

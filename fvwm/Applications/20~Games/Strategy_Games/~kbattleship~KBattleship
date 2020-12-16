@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kbattleship $@ 2>/dev/null
+

@@ -1,0 +1,16 @@
+# Basic Amiga window bindings
+# When moving a window, it stay on its layer.
+# A click will raise or lower it.
+
+Mouse 1 T	$[Mod] Window-Lower-Move-Raise
+Mouse 2 T	$[Mod] Window-Shade-Resize
+Mouse 3 T	$[Mod] Window-Raise-Move-Lower
+
+Mouse 1 WT	$[Mod1] Window-Lower-Move-Raise
+Mouse 1 WT	$[Mod1]2 Window-Lower-Move-Raise
+Mouse 2 WT	$[Mod1] Window-Resize-Opaque SE
+Mouse 2 WT	$[Mod1]2 Window-Resize-Opaque SE
+Mouse 3 WT	$[Mod1] Window-Raise-Move-Lower
+Mouse 3 WT	$[Mod1]2 Window-Raise-Move-Lower
+
+# vim:ft=fvwm

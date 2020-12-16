@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec supertux $@ 2>/dev/null
+

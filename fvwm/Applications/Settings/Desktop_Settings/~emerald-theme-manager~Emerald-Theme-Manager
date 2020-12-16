@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec emerald-theme-manager $@ 2>/dev/null

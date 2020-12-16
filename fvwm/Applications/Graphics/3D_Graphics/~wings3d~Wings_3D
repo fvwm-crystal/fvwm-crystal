@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec wings3d $@ 2>/dev/null
+

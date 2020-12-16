@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec btdownloadgui.py $@ 2>/dev/null
+

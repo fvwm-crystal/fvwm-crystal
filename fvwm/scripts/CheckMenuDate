@@ -1,0 +1,14 @@
+#!/bin/bash
+# Check for new desktop files and generate the menu if yes.
+
+DesktopDir=`awk -v ORS="" '!/(#|^$)/{print $0" "}' ${FVWM_USERDIR}/preferences/DesktopDirs`
+#echo "$DesktopDir"
+#echo "DateLastApp=$DateLastApp"
+
+if [ "${DateLastApp}" != "`stat --printf="%y\n" ${DesktopDir} | sort -n -r | head -1`" ]
+then 	echo "A fvwm-crystal.generate-menu ${FVWM_SYSTEMDIR} ${FVWM_USERDIR}"
+	echo "A ${FVWM_SYSTEMDIR}/scripts/XDG-Menu"
+else	if [ "${XDGMenu}" = "yes" ]
+	then	echo "Include .menu"
+	fi
+fi

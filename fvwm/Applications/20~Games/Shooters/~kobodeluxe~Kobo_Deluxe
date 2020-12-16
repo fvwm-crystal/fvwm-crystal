@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kobodeluxe $@ 2>/dev/null
+

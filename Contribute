@@ -1,0 +1,60 @@
+Contribute to Fvwm-Crystal
+--------------------------
+
+I would not have learned FVWM without FVWM-crystal.
+Its modular file structure made possible to concentrate
+only on a given task. With time, FVWM_Crystal has grow to
+a big project, and it is many files and many functions.
+In order to easily find where is a given function, you
+can use searchstring in the addons directory. It help me
+a lot even after years with FVWM-Crystal.
+
+And yes, FVWM is fun. I begun the Amiga recipe as a wink, and at
+the end, the Fullscreen function have been fixed and extended
+with the Disappear function, which make one of the best feature
+of the Amiga OS, its unique (?) ability to cycle trough full-
+screened windows and the workbench, available in all the
+recipes of FVWM-Crystal.
+
+You are welcomed to contribute to anything you can think about.
+This include but is not limited to translations, new recipes,
+improvement and bug fixes of existing functions, and of
+course new functions, new decorations, new colorsets,
+new pixmaps, whatever.
+
+In order to get the big picture of how Fvwm-Crystal is working,
+you must understand the loading order of the files.
+That is not that hard, the first file FVWM will read is
+	fvwm/config
+
+This file will setup some needed environment variables, load the
+recipe and last, read the userconfig file.
+
+Another important file to considere is the recipe file.
+The order of the Includes at the beginning is important.
+If you are not sure, look in another recipe.
+
+In fact, the big picture is important mostly for the loading order
+of the files. Otherwise, searchstring is your friend.
+
+Of course, you will need to RTFM. I use the man pages from FVWM
+website in their stable version:
+http://www.fvwm.org/documentation/manpages/stable/
+
+Use them for 3 raisons:
+1) they are in html
+2) the unstable version is outdated
+3) I want FVWM-Crystal to be compatible with the last released
+	FVWM version. So use it with FVWM-Crystal even if you
+	are using the cvs version of FVWM.
+
+To send your contrinutions, the prefered ways are the email list:
+https://mail.gna.org/listinfo/fvwm-crystal-users/ or an email
+to my sourceforge account: dominique_libre@users.sourceforge.net
+
+Support questions should be send exclusively to the email list.
+By support questions, I also mean questions about the internal
+of FVWM_Crystal and help with developping.
+
+Have fun !
+Dominique

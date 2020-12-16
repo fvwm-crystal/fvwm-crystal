@@ -1,0 +1,80 @@
+# Custom - nothing but a magic button!
+# Written by: Dominique Michel <dominique_libre@users.sourceforge.net>
+# See ChangeLog for details
+
+# You can use folding to navigate this file
+
+Echo Custom recipe loading from $.
+InfoStoreAdd Recipe "Custom"
+
+# Includes and FVWM modules {{{1
+Include components/bindings/Desktop-MMB-EdgeScroll
+# Type of icons on the desktop {{{2
+LoadPreferences IconsType
+
+# Media player {{{2
+Include components/functions/Music-$[infostore.MusicPlayer]
+
+# Desktop settings {{{1
+EdgeScroll	0	0
+EdgeResistance	0
+Style * EdgeMoveDelay 	0
+Style * EdgeMoveResistance 100
+HideGeometryWindow	Move, Resize
+OpaqueMoveSize	100
+EdgeThickness	1
+
+EWMH-Desktop 3 3 3 3
+# The EWMH-Panel* are set by the desktop manager and the custom bar buttons.
+# For the desktop manager and the magic buttons
+InfoStoreAdd EWMH_Recipe_Left 3
+InfoStoreAdd EWMH_Recipe_Right 3
+InfoStoreAdd EWMH_Recipe_Top 3
+InfoStoreAdd EWMH_Recipe_Bottom 3
+
+PipeRead '$[FVWM_SYSTEMDIR]/scripts/set_DesktopIconsGeom $[vp.height]'
+
+# Applications generator and main menu {{{1
+# fvwm-crystal.apps {{{2
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/32x32/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/32x32/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/32x32/apps --default-file-icon=32x32/apps/default.png --default-dir-icon=32x32/categories/directory.png --min-submenu-length=5 --sort=prio --no-panel --check-execs'
+#AddToMenu /Applications "" Nop
+#AddToMenu /Applications "%32x32/fvwm-crystal/fvwm-crystal.png%FVWM-Crystal" Popup /FVWM-Crystal
+
+# Desktop menu with left click {{{1
+#SetEnv DesktopMenu /FVWM-Crystal
+SetEnv DesktopMenu /Applications
+
+# The buttons {{{1
+# The magic button first
+Include components/functions/CustomButtonBar-Menu
+# use one of the two following lines:
+# safer, just use it
+GenerateCustomButtonBar
+# faster, but see the comment into components/functions/CustomButtonBar-Menu
+#Include tmp/CustomButtonBar
+
+# Desktop manager
+DestroyFunc RedrawIconBox
+AddToFunc RedrawIconBox
++ I PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+46))))x$(($[vp.height]-42))+$((((50*$[IconColumnsNumber]))+18))-39, IconFill left bottom, IconGrid 30 30"'
+LoadPreferences DefaultDesktopManager
+
+# Settings for icons on the desktop {{{1
+Style * StickyIcon
+Test (EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+46))))x$(($[vp.height]-42))+$((((50*$[IconColumnsNumber]))+18))-39, IconFill left bottom, IconGrid 30 30"'
+Test (!EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-36))x$(($[vp.height]-42))+3-39, IconFill left bottom, IconGrid 30 30"'
+
+# Change desktop pages using mouse wheel on pager
+Mouse (FvwmPager) 4 W $[Mod] GotoPage-Right
+Mouse (FvwmPager) 5 W $[Mod] GotoPage-Left
+
+# Styles {{{1
+#Style FvwmPager !Icon
+
+Echo /--------- Fvwm-Crystal: Recipe loaded ---------/
+
+#PrintInfo Locale 1 #2
+#PrintInfo infostore
+
+# ViM modeline {{{1
+# vim:foldmethod=marker:foldenable:foldlevel=0:ft=fvwm

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec kill `ps -C xpenguins -o pid=` $@

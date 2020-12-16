@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec monodevelop $@ 2>/dev/null
+

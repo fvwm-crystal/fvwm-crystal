@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xrick -fullscreen $@ 2>/dev/null
+

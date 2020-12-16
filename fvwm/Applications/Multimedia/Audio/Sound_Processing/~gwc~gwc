@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gwc $@ 2>/dev/null
+

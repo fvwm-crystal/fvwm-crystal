@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ripperX $@ 2>/dev/null
+

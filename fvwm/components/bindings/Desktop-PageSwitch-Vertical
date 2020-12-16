@@ -1,0 +1,5 @@
+# Switch to the prev/next desktop page using mouse wheel on the desktop
+Mouse 4 R $[Mod] GotoPage-Up
+Mouse 5 R $[Mod] GotoPage-Down
+
+# vim:ft=fvwm

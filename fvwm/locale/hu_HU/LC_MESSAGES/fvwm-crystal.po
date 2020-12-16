@@ -1,0 +1,320 @@
+# German translation for FVWM-Crystal
+# Copyright (C) 2005 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Nicolas Vilz 'niv' <niv@iaglans.de>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal\n"
+"POT-Creation-Date: 2005-07-04 14:23+0100\n"
+"PO-Revision-Date: 2006-03-09 10:19+0100\n"
+"Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
+"Language-Team: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-Country: HUNGARY\n"
+
+msgid "About FVWM-Crystal"
+msgstr "Az FVWM-Crystal névjegye"
+
+msgid "Activate"
+msgstr "Aktivál"
+
+#
+# Applications menu
+#
+msgid "Applications"
+msgstr "Alkalmazások"
+
+msgid "Author"
+msgstr "Szerző"
+
+msgid "Button model"
+msgstr "Gomb modell"
+
+msgid "Cancel"
+msgstr "Mégse"
+
+msgid "Clear playlist"
+msgstr "Lista ürítése"
+
+msgid "Close"
+msgstr "Bezár"
+
+msgid "Colorsets"
+msgstr "Színkészletek"
+
+msgid "Crossfade"
+msgstr "Átkever"
+
+msgid "Default terminal"
+msgstr "Alap terminál"
+
+msgid "Delayed fullscreen"
+msgstr "Késleltetett teljesképernyő"
+
+msgid "Desktop manager"
+msgstr "Asztalkezelő"
+
+msgid "Destroy"
+msgstr "Öl"
+
+msgid "Developer menu"
+msgstr "Fejlesztő menü"
+
+msgid "Everything"
+msgstr "Minden"
+
+msgid "Exit"
+msgstr "Kilépés"
+
+msgid "FVWM version"
+msgstr "FVWM verzió"
+
+#
+# Screensaver menu
+#
+msgid "Force suspend"
+msgstr "Pihentet"
+
+msgid "Frame"
+msgstr "Keret"
+
+#
+# Screenshot menu
+#
+msgid "Fullscreen"
+msgstr "Teljesképernyő"
+
+#
+# Window menus
+#
+msgid "Iconify"
+msgstr "Ikonra"
+
+msgid "Identify"
+msgstr "Felfed"
+
+#
+# Developer menu
+#
+msgid "Identify window"
+msgstr "Ablakazonosítás"
+
+msgid "Jump to left page"
+msgstr "Ugrás balra"
+
+msgid "Jump to previous page"
+msgstr "Előző lapra ugrik"
+
+msgid "Jump to right page"
+msgstr "Ugrás jobbra"
+
+msgid "Load playlist"
+msgstr "Lista betöltése"
+
+msgid "Lock screen"
+msgstr "Képernyőzár"
+
+#
+# Exit menu
+#
+msgid "Logout"
+msgstr "Kijelentkezés"
+
+msgid "Maximize"
+msgstr "Maxi"
+
+msgid "Maximize horizontally"
+msgstr "Maxi vízszintesen"
+
+msgid "Maximize vertically"
+msgstr "Maxi függőlegesen"
+
+msgid "Move to left page"
+msgstr "Balra"
+
+msgid "Move to page"
+msgstr "Ugrás lapra"
+
+msgid "Move to previous page"
+msgstr "Előző lapra"
+
+msgid "Move to right page"
+msgstr "Jobbra"
+
+#
+# Music menu
+#
+msgid "Music"
+msgstr "Zene"
+
+msgid "Music player"
+msgstr "Zenelejátszó"
+
+msgid "Name of the playlist"
+msgstr "Lista neve"
+
+msgid "New recipe will be used after next startup"
+msgstr "Az új receptet a következő indulástól használom"
+
+msgid "None"
+msgstr "Nincs"
+
+msgid "Normal mode"
+msgstr "Alapmód"
+
+msgid "Not now"
+msgstr "Most nem"
+
+msgid "Off"
+msgstr "Ki"
+
+msgid "On"
+msgstr "Be"
+
+msgid "Play/Pause"
+msgstr "Lejátszás/szünet"
+
+msgid "Player is stopped"
+msgstr "Lejátszó megállítva"
+
+msgid "Playlist editor"
+msgstr "Listaszerkesztő"
+
+msgid "Preferences"
+msgstr "Tulajdonások"
+
+msgid "Privileged terminals"
+msgstr "Kiváltságos terminálok"
+
+msgid "QuakeConsole terminal"
+msgstr "QuakeKonzol terminál"
+
+#
+# Wallpaper menu
+#
+msgid "Random"
+msgstr "Véletlen"
+
+msgid "Reboot computer"
+msgstr "Gép újraindítása"
+
+msgid "Refresh"
+msgstr "Frissít"
+
+msgid "Remove current song"
+msgstr "E dal eltávolítása"
+
+msgid "Remove playlist"
+msgstr "Lista eltávolítása"
+
+msgid "Restart"
+msgstr "Újraindítás"
+
+msgid "Save"
+msgstr "Ment"
+
+msgid "Save playlist"
+msgstr "Lista mentése"
+
+msgid "Save playlist..."
+msgstr "Lista mentése..."
+
+msgid "Screensaver"
+msgstr "Képernyővédő"
+
+msgid "Screenshot"
+msgstr "Képernyőkép"
+
+msgid "Selected desktop manager will be used"
+msgstr "A kijelölt asztalkezelőt lesz érvényes"
+
+msgid "Show/hide player"
+msgstr "Lejátszó mutatása/rejtése"
+
+msgid "Shuffle playlist"
+msgstr "Kevert lista"
+
+msgid "Start screensaver"
+msgstr "Képernyővédő indul"
+
+msgid "Stay lowered"
+msgstr "Alul marad"
+
+msgid "Stay raised"
+msgstr "Felül marad"
+
+msgid "Stick"
+msgstr "Szeg"
+
+msgid "Stop playback"
+msgstr "Lejátszás leállítása"
+
+msgid "Stop screensaver"
+msgstr "Képernyővédő leáll"
+
+#
+# String used in submenus (window decorations and colorsets)
+#
+msgid "System"
+msgstr "Rendszer"
+
+msgid "Take all free space"
+msgstr "Teljesen elfoglal"
+
+msgid "Take all horizontal space"
+msgstr "Vízszintesen elfoglal"
+
+msgid "Take all vertical space"
+msgstr "Függőlegesen elfoglal"
+
+msgid "Toggle FvwmConsole"
+msgstr "FVWMKonzol"
+
+msgid "Toggle random"
+msgstr "Véletlen"
+
+msgid "Toggle repeat"
+msgstr "Ismétlés"
+
+msgid "Turn off computer"
+msgstr "Gép kikapcsolása"
+
+msgid "Update database"
+msgstr "Adatbázis firssítés"
+
+#
+# Preferences menu
+#
+msgid "Used recipe"
+msgstr "Használt recept"
+
+msgid "User"
+msgstr "Felhasználó"
+
+#
+# About dialog
+#
+msgid "Version"
+msgstr "Verzió"
+
+msgid "Volume"
+msgstr "Hangerő"
+
+msgid "Wallpaper"
+msgstr "Tapéta"
+
+#
+# Main menu - usually found in recipes/*
+#
+msgid "Window decorations"
+msgstr "Ablak díszítések"
+
+msgid "Window focus policy"
+msgstr "Ablakfókusz szabály"
+
+msgid "at the next start of your X session"
+msgstr "az X folyamat következő indítása után"

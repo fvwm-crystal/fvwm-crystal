@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec qlo10k1 $@ 2>/dev/null
+

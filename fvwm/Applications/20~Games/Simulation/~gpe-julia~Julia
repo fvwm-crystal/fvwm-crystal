@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec gpe-julia $@ 2>/dev/null

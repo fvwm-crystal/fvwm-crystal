@@ -1,0 +1,34 @@
+# Remember active window on each desktop
+# Functions for Style * ClickToFocus
+# ---------------------------------------
+
+# Called when focus change, set state 2 for the focused window,
+# unset it for the other ones.
+###############################################################
+DestroyFunc Window-RememberFocused
+AddToFunc Window-RememberFocused
++ I None (CurrentPage, AcceptsFocus) Break
++ I Current (!Iconified, !Sticky) All (CurrentPage) WindowStyle !State 2
++ I Current (!Iconified) WindowStyle State 2
+
+# Called when new page and destroy window, restore the focus to the
+# previouslx focused window.
+###################################################################
+DestroyFunc Window-FocusRemembered
+AddToFunc Window-FocusRemembered
++ I Any (FvwmMiniConsoleNeedsUniqueName, Visible) Break
++ I Any (QuakeConsoleNeedsUniqueName, Visible) Break
++ I None (CurrentPage, AcceptsFocus) Break
++ I Current (Focused, Sticky, !CirculateHit) Break
++ I Next (CurrentPage, State 2) Focus
++ I None (CurrentPage, Focused, !Iconified) Prev (CurrentPage, !Iconified) Focus
+
+
+DestroyModuleConfig FvwmEvent-Window-Remember: *
+*FvwmEvent-Window-Remember: new_page Window-FocusRemembered
+*FvwmEvent-Window-Remember: focus_change Window-RememberFocused
+*FvwmEvent-Window-Remember: destroy_window Window-FocusRemembered
+
+Module FvwmEvent FvwmEvent-Window-Remember
+
+# vim:ft=fvwm

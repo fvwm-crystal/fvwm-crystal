@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xboard $@ 2>/dev/null
+

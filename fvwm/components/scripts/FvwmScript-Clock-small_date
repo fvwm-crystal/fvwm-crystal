@@ -1,0 +1,53 @@
+WindowTitle {FvwmScript-Clock-small_date}
+WindowSize  114 20
+WindowPosition 10000 10000
+Font		"xft:Verdana:pixelsize=12:Bold"
+Colorset 12
+
+Init
+ Begin
+  If (GetOutput {date "+%p"} 1 -1)=={} Then
+  Begin
+    Set $mode={24}
+    Set $timecmd={date "+%a %e, %R"}
+  End
+  Else
+  Begin
+    Set $mode={12}
+    Set $timecmd={LC_TIME=C date "+%a %e, %I:%M %p"}
+  End
+
+  ChangeTitle 1 (GetOutput $timecmd 1 -1)
+End
+
+PeriodicTasks
+ Begin 
+  If (RemainderOfDiv (GetTime) 60)==0 Then
+    ChangeTitle  1 (GetOutput $timecmd 1 -1)
+End
+
+Widget 1
+Property
+ Position 0 -3
+ Size 114 20
+ Type ItemDraw
+ Flags NoReliefString
+ Title {}
+ Colorset 12
+Main
+ Case message of
+  SingleClic :
+  Begin
+  If $mode=={24} Then
+  Begin
+    Set $mode={12}
+    Set $timecmd={LC_TIME=C date "+%a %e, %I:%M %p"}
+  End
+  Else
+  Begin
+    Set $mode={24}
+    Set $timecmd={date "+%a %e, %R"}
+  End
+  ChangeTitle  1 (GetOutput $timecmd 1 -1)
+  End
+End

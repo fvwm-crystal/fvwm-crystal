@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec tuneroid $@ 2>/dev/null
+

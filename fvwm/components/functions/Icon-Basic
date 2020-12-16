@@ -1,0 +1,26 @@
+DestroyFunc Icon-Restore-CurrentDesk
+AddToFunc Icon-Restore-CurrentDesk
+#+ I Nop
++ D Iconify False
+#+ D MoveToDesk
++ D MoveToPage $[page.nx] $[page.ny]
++ D FlipFocus
+#+ D Focus
++ D Raise
+#+ D WarpToWindow 50 50
+
+DestroyFunc Icon-Restore-DefaultDesk
+AddToFunc Icon-Restore-DefaultDesk
+#+ I Nop
++ D Iconify False
++ D FlipFocus
+#+ D Focus
++ D Raise
+#+ D WarpToWindow 50 50
+
+DestroyFunc Icon-Close
+AddToFunc Icon-Close
+#+ I Nop
++ D Close
+
+# vim:ft=fvwm

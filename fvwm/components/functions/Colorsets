@@ -1,0 +1,35 @@
+# Colorsets
+# Written by: Maciej Delmanowski <harnir@linux.net.pl>
+
+SetEnv Colorsets_Suffix ".cs"
+
+# Set default colorset if user haven't choosed it himself
+CheckPreferences LastChoosenColorset 'SavePreferences LastChoosenColorset "Colorsets-Set $[Colorsets_Path]/DarkDesktop.cs"'
+
+DestroyFunc Colorsets-Set
+AddToFunc Colorsets-Set
++ I Read $*
++ I UpdateStyles
+# remove me when stalonetray will be fixed, 4 lines:
++ I Schedule 100 All (FvwmStalonePanel) Iconify True
++ I Schedule 200 All (FvwmStalonePanel) Iconify False
++ I Schedule 100 All (FvwmButtons-BottomNotifAera) Iconify True
++ I Schedule 200 All (FvwmButtons-BottomNotifAera) Iconify False
++ I SavePreferences LastChoosenColorset "Colorsets-Set $*"
+
+
+DestroyMenu /Colorsets
+AddToMenu /Colorsets
++ MissingSubmenuFunction Colorsets-generator
++ '%22x22/categories/directory.png%$[gt.System]' Popup $[FVWM_SYSTEMDIR]/colorsets
+Test (f $[FVWM_USERDIR]/colorsets) + '%22x22/categories/directory.png%$[gt.User]' Popup $[FVWM_USERDIR]/colorsets
+
+DestroyFunc Colorsets-generator
+AddToFunc Colorsets-generator
++ I DestroyMenu recreate $0
++ I AddToMenu $0
++ I PipeRead 'for i in $0/*$[Colorsets_Suffix]; do \
+  name=$(basename "${i}" $[Colorsets_Suffix]); \
+  echo \"AddToMenu $0 \'%22x22/fvwm-crystal/colorsets-file.png%${name}\' Colorsets-Set \'${i}\'\"; done'
+
+# vim:ft=fvwm

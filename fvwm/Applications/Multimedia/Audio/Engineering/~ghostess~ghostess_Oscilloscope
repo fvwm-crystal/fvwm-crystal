@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ghostess ll-scope.so $@ 2>/dev/null
+

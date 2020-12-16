@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec jmax $@ 2>/dev/null
+

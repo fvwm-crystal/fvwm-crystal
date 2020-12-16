@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec sudo kuser $@ 2>/dev/null
+

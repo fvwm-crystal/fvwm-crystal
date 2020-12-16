@@ -1,0 +1,113 @@
+# Basic functions for controlling windows
+# Used in bindings/Window-Basic,
+# and some in bindings/Window-Basic-Amiga.
+
+DestroyFunc Window-Move
+AddToFunc Window-Move
++ I Move
+
+DestroyFunc Window-Lower-Move
+AddToFunc Window-Lower-Move
++ C Lower
++ M Move
+
+DestroyFunc Window-Raise-Move
+AddToFunc Window-Raise-Move
++ C Raise
++ M Move
+
+DestroyFunc Window-Raise-MoveRaise
+AddToFunc Window-Raise-MoveRaise
++ C Raise
++ M Move
++ M Raise
+
+DestroyFunc Window-Raise-RaiseMove
+AddToFunc Window-Raise-RaiseMove
++ C Raise
++ M Raise
++ M Move
+
+DestroyFunc Window-Raise-LowerMoveRaise
+AddToFunc Window-Raise-LowerMoveRaise
++ C Raise
++ M Lower
++ M Move
++ M Raise
+
+# { Used in bindings/Window-Basic-Amiga
+DestroyFunc Window-Lower-Move-Raise
+AddToFunc Window-Lower-Move-Raise
++ C Lower
++ M Move
++ C Raise
+
+DestroyFunc Window-Raise-Move-Lower
+AddToFunc Window-Raise-Move-Lower
++ C Raise
++ M Move
++ C Lower
++ C Next (!Iconic, AcceptsFocus, CurrentPage, !Overlapped) Focus
+# }
+
+# { Used in recipes/Amiga for the pager
+DestroyFunc PutOnTop
+AddToFunc PutOnTop
++ I Layer 6
++ I State 1 true
+
+DestroyFunc PutOnBottom
+AddToFunc PutOnBottom
++ I Layer 0 0
++ I Lower
++ I State 1 false
+
+DestroyFunc ToggleWindowOnTop
+AddToFunc ToggleWindowOnTop
++ I ThisWindow (State 1) PutOnBottom
++ I TestRc (NoMatch) ThisWindow PutOnTop
+#}
+
+# Temporary toggle a window on top
+DestroyFunc ShowWindowOnTop
+AddToFunc ShowWindowOnTop
++ I Layer 0 6
++ I Schedule 12000 Layer Default
+
+DestroyFunc Window-Resize-Base
+AddToFunc Window-Resize-Base
++ I Resize
+
+DestroyFunc Window-Resize-Opaque
+AddToFunc Window-Resize-Opaque
++ I Resize Direction $0
+
+DestroyFunc Window-Shade-Resize
+AddToFunc Window-Shade-Resize
++ C WindowShade toggle
++ M Resize
+
+DestroyFunc Window-Resize-Context
+AddToFunc Window-Resize-Context
++ I Resize $0p $1p
+
+DestroyFunc Window-Shade
+AddToFunc Window-Shade
++ I Current (!Iconifiable) Break
++ I WindowShade $*
+
+# Also in Icon-Thumbnails
+DestroyFunc Window-Iconify
+AddToFunc Window-Iconify
++ I Iconify
++ I Layer 0 2
+
+DestroyFunc Window-Decrease-Transparency
+AddToFunc Window-Decrease-Transparency
++ I Exec exec transset --actual --min 0 --dec .05
+
+DestroyFunc Window-Increase-Transparency
+AddToFunc Window-Increase-Transparency
++ I Exec exec transset --actual --max 1 --inc .05
+
+# vim:ft=fvwm

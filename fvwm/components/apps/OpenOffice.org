@@ -1,0 +1,11 @@
+# Settings for OpenOffice.org
+
+# Use "default" look
+#SetEnv OOO_FORCE_DESKTOP "none"
+
+# Use GNOME look
+SetEnv OOO_FORCE_DESKTOP "gnome"
+
+# Use KDE look
+#SetEnv OOO_FORCE_DESKTOP "kde"
+

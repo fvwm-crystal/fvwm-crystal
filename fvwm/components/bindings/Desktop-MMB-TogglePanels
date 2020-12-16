@@ -1,0 +1,15 @@
+# Default desktop bindings
+
+# Toggle panel visibility on Alt+MMB
+Mouse 2 RI $[Mod1] EWMH-Toggle Mouse 2 RI $[Mod1]
+#Mouse 2 RI $[Mod1] Panel-Toggle
+
+# Toggle panel visibility with NumLock
+Mouse 2 RI $[Mod1]2 EWMH-Toggle Mouse 2 RI $[Mod1]2
+#Mouse 2 RI $[Mod1]2 Panel-Toggle
+
+# Toggle panel between top bottom on Alt+Shift+MMB
+Mouse 2 RI $[Mod2] Panel-Toggle-OnTop
+Mouse 2 RI $[Mod2]2 Panel-Toggle-OnTop
+
+# vim:ft=fvwm

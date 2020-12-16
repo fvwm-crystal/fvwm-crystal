@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'A bastet $@ 2>/dev/null'
+

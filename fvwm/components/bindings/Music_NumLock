@@ -1,0 +1,23 @@
+# Music bindings with NumLock turned on
+
+Key Z A $[Mod1]2	Music-Prev
+Key X A $[Mod1]2	Music-Play
+Key C A $[Mod1]2	Music-Pause
+Key V A $[Mod1]2	Music-Stop
+Key B A $[Mod1]2	Music-Next
+
+Key P A $[Mod1]2	Music-Backward
+Key N A $[Mod1]2	Music-Forward
+
+Key G A $[Mod1]2	Music-GUI
+Key S A $[Mod1]2	Music-QJackGUI
+
+Key comma	A $[Mod1]2	Change-Volume-Down $[infostore.Vol_Step]
+Key period	A $[Mod1]2	Change-Volume-Up $[infostore.Vol_Step]
+Key comma	A $[Mod2]2	Change-Volume-Down 10
+Key period	A $[Mod2]2	Change-Volume-Up 10
+
+Key slash	A $[Mod1]2	Music-Find
+Key slash	A $[Mod2]2	Music-ToggleRandom
+
+# vim:ft=fvwm

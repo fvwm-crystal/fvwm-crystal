@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec startBristol -monopoly -jack $@ 2>/dev/null
+

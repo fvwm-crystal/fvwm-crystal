@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec /opt/insight/bin/insight $@ 2>/dev/null
+

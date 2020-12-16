@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec d4x $@ 2>/dev/null
+

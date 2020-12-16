@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ksnake $@ 2>/dev/null
+

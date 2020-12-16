@@ -1,0 +1,80 @@
+# User feedback for FVWM-Crystal
+#
+# Version:	1.0.0
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforget.net>	
+#
+# Created:	<07/15/2013>
+# Changed:	<07/15/2013>
+#
+# Description:	Launch a form with information on how to send feedback or receive support.
+#		It will also look for $BROWSER and set it if needed
+#
+# syntax: 	 Module FvwmForm UserFeedback-Dialog
+
+# User feedback form {{{1
+All (UserFeedback-Dialog) Close
+DestroyModuleConfig UserFeedback-Dialog: *
+*UserFeedback-Dialog: Title "$[gt.User feedback]"
+*UserFeedback-Dialog: Text "$[gt.You are welcomed to send feedback to the developer:]"
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Text "$[gt.bug reports, suggestions, patches, ideas,]"
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Text "$[gt.congratulations or complaints.]"
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Text "$[gt.This will help him make this software better.]"
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Button quit " $[gt.Send feedback (for support keep reading)] " ^M
+*UserFeedback-Dialog: Command MailDev
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Text "$[gt.To get support, the best places are the]"
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Text "$[gt.FVWM-Crystal users email list, or the]"
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Text "$[gt.fvwm-crystal IRC channel on FreeNode:]"
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Button quit " $[gt.Go to the FVWM-Crystal users email list] " ^N
+*UserFeedback-Dialog: Command BrowseEmailList
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Button quit " $[gt.Go to the fvwm-crystal IRC channel] " ^O
+*UserFeedback-Dialog: Command CrystalIRC
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Line center
+*UserFeedback-Dialog: Button quit " $[gt.Not now] " ^[
+*UserFeedback-Dialog: Command Nop
+*UserFeedback-Dialog: Line center
+
+DestroyFunc MailDev
+AddToFunc MailDev
++ I X $[BROWSER] mailto:dominique_libre@users.sourceforge.net
+
+DestroyFunc BrowseEmailList
+AddToFunc BrowseEmailList
++ I X $[BROWSER] https://sourceforge.net/p/fvwm-crystal/mailman
+
+DestroyFunc CrystalIRC
+AddToFunc CrystalIRC
++ I X $[BROWSER] irc://irc.freenode.net:6667/fvwm-crystal
+
+DestroyFunc SetBrowser
+AddToFunc SetBrowser
++ I SavePreferences BROWSER "SetEnv BROWSER $0"
++ I SetEnv BROWSER "$0"
+
+# Set browser form {{{1
+All (SetBrowser-Dialog) Close
+DestroyModuleConfig SetBrowser-Dialog: *
+*SetBrowser-Dialog: Title "$[gt.Default browser]"
+*SetBrowser-Dialog: Text "$[gt.Enter the default browser]"
+*SetBrowser-Dialog: Line center
+*SetBrowser-Dialog: Input browser 40 "/usr/bin/firefox"
+*SetBrowser-Dialog: Line center
+*SetBrowser-Dialog: Line center
+*SetBrowser-Dialog: Button quit " $[gt.Save] " ^M
+*SetBrowser-Dialog: Command SetBrowser "$(browser)"
+*SetBrowser-Dialog: Line center
+
+# Check if $BROWSER exist, if not chek preference, if not set it.{{{1
+LoadPreferences BROWSER

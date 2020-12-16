@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec fweelin $@ 2>/dev/null
+

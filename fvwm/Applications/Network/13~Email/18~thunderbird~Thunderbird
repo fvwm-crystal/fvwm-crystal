@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec thunderbird $@ 2>/dev/null
+

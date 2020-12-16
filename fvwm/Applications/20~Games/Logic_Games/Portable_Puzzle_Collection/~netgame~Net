@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec netgame $@ 2>/dev/null
+

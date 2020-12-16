@@ -1,0 +1,7 @@
+# You can put here the applications you want to start
+# in full screen, one by line.
+# Lines starting with # are ignored.
+# As name, You can use
+# the window Name, Icon Name, Class or Resource.
+#firefox
+#evince

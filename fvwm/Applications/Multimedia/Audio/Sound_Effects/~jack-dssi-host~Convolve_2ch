@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec jack-dssi-host dssi_convolve2ch.so $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kfouleggs $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec idle $@ 2>/dev/null
+

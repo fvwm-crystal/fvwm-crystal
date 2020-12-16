@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gmpc $@ 2>/dev/null
+

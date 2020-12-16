@@ -1,0 +1,66 @@
+#!/bin/bash
+# Support for amixer controls
+# Written by: Dominique Michel <dominique_libre@sourceforge.net>
+#
+# Usage:
+# PipeRead "AmixerControl $[infostore.SoundCard] $[infostore.SoundDevice]
+
+# Variables
+MenuStepMax=15
+
+# Initialisations
+# The control's name:
+CName=`amixer -c $1 cget numid="$2"|grep numid|sed -e "s:.*name='::" -e "s:'::"`
+# The hardware maximum step (and volume):
+CStepMax=`amixer -c $1 cget numid="$2"|grep type|sed -e "s:.*max=::" -e "s:,step.*::"`
+# The hardware minimum step:
+CStepMin=`amixer -c $1 cget numid="$2"|grep type|sed -e "s:.*min=::" -e "s:,max.*::"`
+# The minimum level of the volume:
+CVolMin=`amixer -c $1 cget numid="$2"|grep dBscale|sed -e "s:.*dBscale-min=::" -e "s:dB.*::"`
+# The hardware step level:
+CStepLevel=`amixer -c $1 cget numid="$2"|grep dBscale|sed -e "s:.*step=::" -e "s:dB.*::"`
+
+# Menu steps
+if [ ${CStepMax} -le $MenuStepMax ]
+then MenuStepMax="$((${CStepMax}+1))"
+fi
+
+# Initialise the menu
+CMenuStep=`echo $(( $CStepMax / $MenuStepMax ))`
+if [ ${CMenuStep} -lt 1 ]
+then CMenuStep="1"
+fi
+VolMax=`echo "${CVolMin} + (${CStepLevel} * ${CStepMax})"|bc -l`
+
+# Where is the 0dB
+AbsVolMin=`echo "a=$CVolMin/1;if(0>a)a*=-1;a"|bc -l`
+Step0dB=`echo "$AbsVolMin/$CStepLevel"|bc`
+
+# Mixer menu
+echo "+ '\$[gt.Sound Card] ${1} ${CName}' Nop"
+y=0
+db=0 # 0dB test
+for (( x=${CStepMax} ; x >= ${CStepMin} ; x -= ${CMenuStep} )) ; do
+    npas=`echo $(( ${CStepMax} - ${x} ))`
+    ndB=`echo "${VolMax} - ( ${npas} * ${CStepLevel} )"|bc -l`
+    # be sure to show the 0dB step
+    if [ ${db} -eq 0 ] && [ ${x} -le ${Step0dB} ]
+    then if [ ${x} -lt ${Step0dB} ]
+	 then echo "+ ' 0 dB' Exec exec amixer -c ${1} cset numid=${2} ${Step0dB}"
+	 fi
+    db=1
+    fi
+    # show other steps
+    echo "+ '${ndB} dB' Exec exec amixer -c ${1} cset numid=${2} ${x}"
+    # show the minimum value as last iteration
+    if [ ${x} -le ${CMenuStep} ]
+    then if [ ${y} -eq 1 ]
+	 then break
+	 fi
+	 x="${CMenuStep}"
+	 y=1
+    fi
+done
+
+# Send the control name to fvwm
+echo "InfoStoreAdd MixerControl \"${CName}\""

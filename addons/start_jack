@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#SilentOps='2>&1 1>/dev/null'
+SilentOps=''
+
+jack_control start
+sudo schedtool -R -p 20 `pidof jackdbus`
+#su -c "schedtool -R -p 20 `pidof jackdbus`"
+jack_control eps realtime true
+jack_control ds alsa
+jack_control dps device hw:SB
+jack_control dps rate 48000
+jack_control dps nperiods 2
+#jack_control dps period 64
+jack_control dps period 1024
+sleep 10
+/usr/bin/a2jmidid -e ${SilentOps} &
+sleep 10
+qjackctl ${SilentOps} &
+sleep 10
+# qmidiroute ~/All2MIDI1.qmr ${SilentOps} &
+# sleep 10
+# yoshimi -S ${SilentOps} &
+# sleep 10
+
+echo  "Press enter when you want to close these software"
+read Touch
+
+jack_control stop
+kill -15 `pidof jackdbus`
+kill -15 `pidof a2jmidid`
+kill -15 `pidof qjackctl`
+jack_control exit

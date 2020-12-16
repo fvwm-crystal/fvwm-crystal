@@ -1,0 +1,17 @@
+# Window rearrange functions
+
+Key 1 A $[Mod2]2 Window-Rearrange-One-Column
+Key 2 A $[Mod2]2 Window-Rearrange-Two-Column
+Key 3 A $[Mod2]2 Window-Rearrange-Cascade
+Key 4 A $[Mod2]2 Window-Rearrange-Cascade-Shaded
+Key D A $[Mod2]2 NS-Rearrange
+Key F A $[Mod2]2 Fullscreen-Rearrange
+
+PipeRead 'echo Key 5 A $[Mod2]2 Window-Resize-Context $(($[vp.width]-(($[vp.width]/4)))) $(($[vp.height]-(($[vp.height]/4))))'
+PipeRead 'echo Key 6 A $[Mod2]2 Window-Resize-Context $(($[vp.width]-10)) $(((($[vp.height]/2))-45))'
+PipeRead 'echo Key 7 A $[Mod2]2 Window-Resize-Context $(($[vp.width]-10)) $(($[vp.height]-(($[vp.height]/4))))'
+PipeRead 'echo Key 8 A $[Mod2]2 Window-Resize-Context $((($[vp.width]/2)-10)) $(($[vp.height]-80))'
+PipeRead 'echo Key 9 A $[Mod2]2 Window-Resize-Context $(($[vp.width]-(($[vp.width]/4)))) $(($[vp.height]-80))'
+PipeRead 'echo Key 0 A $[Mod2]2 Window-Resize-Context $(($[vp.width]-10)) $(($[vp.height]-80))'
+
+# vim:ft=fvwm

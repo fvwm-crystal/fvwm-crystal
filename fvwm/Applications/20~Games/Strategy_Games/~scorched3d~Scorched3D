@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec scorched3d $@ 2>/dev/null
+

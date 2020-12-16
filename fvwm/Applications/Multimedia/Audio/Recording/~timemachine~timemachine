@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec timemachine $@ 2>/dev/null
+

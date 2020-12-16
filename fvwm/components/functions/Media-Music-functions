@@ -1,0 +1,244 @@
+# Multimedia support in Fvwm-Crystal:
+# common functions to Media and Music players
+# Written by: Dominique Michel <dominique_libre@userssourceforge.net>
+#
+# This file must be included at the top of the Media and Music files.
+#	Include components/functions/Media-Music-functions
+#
+
+# Variables {{{1
+# playlists locations {{{2
+InfoStoreAdd AudioPlaylists "$[FVWM_USERDIR]/Playlists/Audio"
+InfoStoreAdd VideoPlaylists "$[FVWM_USERDIR]/Playlists/Video"
+InfoStoreAdd UserManagedAudioPlaylists "$[HOME]/Playlists/Audio"
+InfoStoreAdd UserManagedVideoPlaylists "$[HOME]/Playlists/Video"
+
+# Icons in media file browser
+LoadPreferences MediaMenuIcons
+
+# DVD channels lists (mplayer) {{{2
+InfostoreRemove MplayerChannelList1
+InfostoreRemove MplayerChannelList2
+InfostoreRemove MplayerChannelList3
+InfostoreRemove MplayerChannelList4
+
+# speed control (alsaplayer, mplayer) {{{2
+InfoStoreRemove speed
+# Decimal point in use (alsaplayer) {{{2
+InfoStoreRemove dec_point
+# xmms2
+InfoStoreRemove fvwm_audio_exec
+
+# Styles for media players windows {{{1
+Include components/styles/MediaPlayers-Style
+
+############################################################
+### We don't want player specific functions lying around ###
+### otherwise, we put here the functions that doesn't    ###
+### change between the players.                          ###
+############################################################
+
+# First button {{{1
+# Player controls and prefs
+# mouse 1 Menu /Player {{{2
+# Recreate the playlists (all)
+DestroyFunc Music-RecreatePlaylist
+AddToFunc Music-RecreatePlaylist
++ I A $[FVWM_SYSTEMDIR]/scripts/make_all_playlists $[infostore.AudioPlaylists] $[infostore.VideoPlaylists] $[infostore.UserManagedAudioPlaylists] $[infostore.UserManagedVideoPlaylists]
+
+# wrapper for cdcd
+DestroyFunc Music-cdcd
+# start the player(s) (alsaplayer, mplayer)
+DestroyFunc Music-Start
+# in Music-mplayer*
+DestroyMenu /Music/Start
+# player quit (alsaplayer, mplayer)
+DestroyFunc Music-Kill
+# show/hyde the player GUI/menu
+# (alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet)
+DestroyFunc Music-GUI
+# Button menu
+# (alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet)
+DestroyFunc Player-generator
+# Button menu (all)
+DestroyMenu /Player
+# mouse 2 Music-GUI : allready here {{{2
+
+DestroyFunc Music-Iconify
+AddToFunc Music-Iconify
++ I ThisWindow (Iconic) WindowStyle Icon
++ I TestRc (NoMatch) WindowStyle NoIcon
++ I Iconify toggle
++ I UpdateStyles
+
+# mouse 3 Music-QJackGUI (all)
+DestroyFunc Music-QJackGUI
+AddToFunc Music-QJackGUI
+# startjack first => it is under the other windows
++ I All (start_jack) Iconify toggle
++ I All (qjackctl) Iconify toggle
++ I All (start_cadence) Iconify
++ I All (Cadence) Iconify toggle
++ I All (Cadence-*) Iconify toggle
++ I All (Catia) Iconify toggle
++ I All (Claudia) Iconify toggle
++ I All (Logs) Iconify toggle
++ I All (Render) Iconify toggle
+#+ I TestRc (NoMatch) Test (x qjackctl) Exec pidof qjackctl || exec qjackctl
++ I Mixer-GUI
+
+# mouse 4 Mixer-Volume-Up {{{2
+# mouse 5 Mixer-Volume-Down
+# are in components/Mixer
+
+# Second button {{{1
+# Player controls and main vol 
+# mouse 1 Menu /Playlist-button {{{2
+# Load all the songs (mpd)
+DestroyFunc Music-LoadAll
+# Play DVD (mplayer)
+DestroyFunc Load-DVD
+# Show current playlist (xmms2)
+DestroyFunc Music-CurrentPlaylist-generator
+DestroyMenu /Music/CurrentPlaylist
+# Load playlist (alsaplayer, audacious, mocp)
+DestroyFunc FuncFvwmMenuAudioDirectory
+# Load playlist (mpd, xmms2)
+DestroyFunc Music-LoadPlaylist-generator
+# Load playlist (alsaplayer, audacious, mocp, mpd, xmms2)
+DestroyMenu /Music/LoadPlaylist
+# mplayer
+DestroyMenu /Music/LoadMovie
+# Load Media Playlists (mplayer)
+DestroyFunc FuncFvwmMenuMediaDirectory
+DestroyMenu /Music/LoadMediaPlaylist
+# Clear playlist (alsaplayer, audacious, mocp, mpd, xmms2)
+DestroyFunc Music-ClearPlaylist
+# Remove song (audacious, mpd, xmms2)
+DestroyFunc Music-RemoveSong
+# Remove playlist (audacious, mocp, mpd, xmms2)
+DestroyFunc Music-RemovePlaylist-generator
+# (alsaplayer, mplayer)
+DestroyFunc FuncFvwmMenuRemovePlaylistDirectory
+DestroyFunc FuncFvwmMenuMovieDirectory
+DestroyMenu /Music/RemovePlaylist
+# Save playlist dialog (audacious, mpdm, xmms2)
+All (Music-SavePlaylist-Dialog) Close
+DestroyModuleConfig Music-SavePlaylist-Dialog: *
+DestroyFunc Music-SavePlaylist
+# Add playlist (xmms2)
+DestroyFunc FuncFvwmMenuPlaylistDirectory
+DestroyMenu /Music/LoadPlaylist
+DestroyMenu /Music/AddPlaylist
+# Update the database (mpd)
+DestroyFunc Music-Update
+# Copy playlist (alsaplayer, mplayer)
+DestroyFunc FuncFvwmMenuCopyPlaylistDirectory
+DestroyMenu /Music/CopyPlaylist
+# button menu (alsaplayer, audacious, mocp, mpd, mplayer, xmms2)
+DestroyFunc Playlist-generator-button
+DestroyMenu /Playlist-button
+DestroyMenu /Playlist
+#DestroyMenu /Playlist-bot
+DestroyFunc /Playlist-generator
+#DestroyFunc /Playlist-generator-bot
+DestroyFunc Music-WatchDVB
+# DVD channels {{{2
+DestroyFunc Music-ChannelSet
+DestroyFunc Channels-generator1
+DestroyMenu /Music/ChannelSet1
+DestroyFunc Channels-generator2
+DestroyMenu /Music/ChannelSet2
+DestroyFunc Channels-generator3
+DestroyMenu /Music/ChannelSet3
+DestroyFunc Channels-generator4
+DestroyMenu /Music/ChannelSet4
+# mouse 2 Menu /Playback {{{2
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet, xmms2
+DestroyFunc Music-Next
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet, xmms2
+DestroyFunc Music-Prev
+# alsaplayer
+DestroyFunc Music-SongChange
+DestroyMenu /Music/SongChange
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, quodlibet, xmms2
+DestroyFunc Music-Stop
+# xmms with xmmx-find
+DestroyFunc Music-Find
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet, xmms2
+DestroyFunc Music-Play
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet, xmms2
+DestroyFunc Music-Pause
+# mplayer
+DestroyFunc Music-FrameStep
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, quodlibet
+DestroyFunc Music-PlayPause
+# cdcd, cmus, mpd, quodlibet
+DestroyFunc Music-Forward
+# cdcd, cmus, mpd, quodlibet
+DestroyFunc Music-Backward
+# audacious, cmus, mpd, quodlibet
+DestroyFunc Music-ToggleRandom
+# alsaplayer, mplayer
+DestroyFunc Music-Jump
+DestroyMenu /Music/Jump
+# alsaplayer, mplayer
+DestroyFunc Music-Seek
+DestroyMenu /Music/Seek
+# mpd
+DestroyMenu /Music/Crossfade
+# mpd, xmms2
+DestroyFunc Music-Shuffle
+# button menu
+# (alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, mocp, mpd, mplayer, quodlibet, xmms2)
+DestroyFunc Playback-generator
+# button menu (all)
+DestroyMenu /Playback
+# mouse 3 Menu /Mixer : in components/Mixer {{{2
+# mouse 4 Music-Next : allready here
+# mouse 4 Music-Prev : allready here
+
+# Third button {{{1
+# Player controls and vol
+# mouse 1 Music-Play : allready here {{{2
+# mouse 2 Music-Pause : allready here
+# mouse 3 Menu /Music/Volume
+# alsaplayer
+DestroyFunc Music-VolumeFr
+DestroyFunc Music-VolumeEn
+# audacious, mplayer
+DestroyFunc Music-Volume
+# mplayer
+DestroyFunc Music-VolumeUp
+DestroyFunc Music-VolumeDown
+# button menu (alsaplayer, audacious, mplayer)
+DestroyMenu /Music/Volume
+# mouse 4 Music-Speed-Up {{{2
+# mouse 5 Music-Speed-Down
+# alsaplayer, mplayer
+DestroyFunc Music-Speed-Up
+DestroyFunc Music-Speed-Down
+
+# Last button {{{1
+# speed controls
+# mouse 1 Menu /Speed {{{2
+# alsaplayer, mplayer
+DestroyFunc Music-Speed
+# button menu (alsaplayer, mplayer)
+# speed_set <0.01 to 100>
+DestroyMenu /Speed
+# mouse 4 Button-Seek-+ {{{2
+# mouse 5 Button-Seek--
+# alsaplayer mplayer
+DestroyFunc Button-Seek-+
+DestroyFunc Button-Seek--
+# Music menus {{{1
+# main music menu (alsaplayer, audacious, mocp) {{{2
+DestroyFunc Music-generator
+DestroyMenu /Music
+
+# Tooltip (alsaplayer, mplayer*) {{{1
+DestroyFunc Tittle-Tooltip
+DestroyFunc Music-Tooltip
+
+# vim:ft=fvwm

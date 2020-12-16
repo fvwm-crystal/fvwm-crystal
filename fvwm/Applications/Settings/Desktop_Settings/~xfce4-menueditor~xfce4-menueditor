@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xfce4-menueditor $@ 2>/dev/null
+

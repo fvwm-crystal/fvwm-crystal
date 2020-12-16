@@ -1,0 +1,138 @@
+# German translation for FVWM-Crystal
+# Copyright (C) 2015 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Thomas Funk <t.funk@web.de>, 2015.
+#
+
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal\n"
+"POT-Creation-Date: 2014-01-05 04:57+0100\n"
+"PO-Revision-Date: 2015-11-70 18:15+0200\n"
+"Last-Translator: Thomas Funk <t.funk@web.de>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Add line"
+msgstr "Zeile hinzufügen"
+
+msgid "Apply"
+msgstr "Anwenden"
+
+msgid "Bold"
+msgstr "Fett"
+
+msgid "Bold Italic"
+msgstr "Fett Kursiv"
+
+msgid "Browser"
+msgstr "Browser"
+
+msgid "Desktop"
+msgstr "Desktop"
+
+msgid "Directories"
+msgstr "Verzeichnisse"
+
+msgid " Edit me:"
+msgstr " Verändern:"
+
+msgid "Editor"
+msgstr "Editor"
+
+msgid "FVWM-Crystal File Editor"
+msgstr "FVWM-Crystal Datei Editor"
+
+msgid "FVWM-Crystal Font Selector"
+msgstr "FVWM-Crystal Font Selektor"
+
+msgid "FVWM-Crystal Keyboard Modifiers Editor"
+msgstr "FVWM-Crystal Tastatur Modifiers Editor"
+
+msgid "FVWM-Crystal Variables Editor"
+msgstr "FVWM-Crystal Variablen Editor"
+
+msgid "File"
+msgstr "Datei"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "Icons"
+msgstr "Icons"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Media"
+msgstr "Medien"
+
+msgid ". Menu Font"
+msgstr ". Menüschrift"
+
+msgid "Mod: any modifier (0 or more)"
+msgstr "Mod: beliebiger Modifier (0 oder mehr)"
+
+msgid "Mod0: no modifier"
+msgstr "Mod0: kein Modifier"
+
+msgid "Mod1: usually Meta"
+msgstr "Mod1: normalerweise Meta"
+
+msgid "Mod2: second mode"
+msgstr "Mod2: zweiter Mode"
+
+msgid "SelectOnRelease: for WindowLists"
+msgstr "SelectOnRelease: für WindowLists"
+
+msgid "Move song:"
+msgstr "Verschiebe Lied:"
+
+msgid ""
+"N=none, A=any (0 or more), M=Meta (Alt_L), S=Shift_L, C=Control_L, 4=Super_L "
+"(Win_L)"
+msgstr ""
+"N=nichts, A=beliebig (0 oder mehr), M=Meta (Alt_L), S=Shift_L, C=Control_L, 4=Super_L "
+"(Win_L)"
+
+msgid ". Panel Font"
+msgstr ". Panelschrift"
+
+msgid "Quit"
+msgstr "Verlassen"
+
+msgid "Regular"
+msgstr "Regular"
+
+msgid "Remove"
+msgstr "Löschen"
+
+msgid "Reset editing"
+msgstr "Zurücksetzen"
+
+msgid "Restore"
+msgstr "Wiederherstellen"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Save editing"
+msgstr "Änderungen speichern"
+
+msgid ". Title Font"
+msgstr ". Titelschrift"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "With"
+msgstr "Mit"
+
+msgid "abijk ABIJK éç ÀÉ O09 你好"
+msgstr "abijk ABIJK éç ÀÉ O09 你好"
+
+msgid "°C"
+msgstr "°C"

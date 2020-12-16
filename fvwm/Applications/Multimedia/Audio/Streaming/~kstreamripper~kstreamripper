@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kstreamripper $@ 2>/dev/null
+

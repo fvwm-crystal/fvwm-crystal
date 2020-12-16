@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gaim $@ 2>/dev/null
+

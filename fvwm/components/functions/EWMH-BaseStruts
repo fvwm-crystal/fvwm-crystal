@@ -1,0 +1,114 @@
+# Written by: Maciej Delmanowski <harnir@linux.net.pl>
+
+# Overview:
+# Functions for easier usage of EWMHBaseStruts command. How to use:
+# 1. Set the desktop boundaries using EWMH-Desktop function, example:
+#       EWMH-Desktop 3 3 3 3
+#    It will set a frame 3 pixels thick around desktop, windows will not
+#    maximize over this frame.
+# 2. Set separate space for each edge of the screen. Example of setting
+#    a border on the top edge, 30 pixels thick:
+#       EWMH-Panel-Top 30
+#    You can set all panel borders at once using EWMH-Panel function, similar
+#    to EWMH-Desktop.
+# 3. Now bind EWMH-Toggle function like this:
+#       Mouse 2 R N EWMH-Toggle Mouse 2 R N
+#    You have to tell this function what binding did you used. Now using that
+#    binding (ex. middle mouse button on the desktop) will hide or show all
+#    FvwmButtons, FvwmPager, FvwmIconMan and additionally gkrellm windows.
+#    Also desktop borders will be automatycally adjusted to shown/hidden
+#    state.
+
+# Used by the desktop icon manager and the magic button bar
+InfoStoreAdd EWMH_DI_Left 3
+InfoStoreAdd EWMH_DI_Right 3
+InfoStoreAdd EWMH_DI_Top 3
+InfoStoreAdd EWMH_DI_Bottom 3
+InfoStoreAdd EWMH_CBB_Left 3
+InfoStoreAdd EWMH_CBB_Right 3
+InfoStoreAdd EWMH_CBB_Top 3
+InfoStoreAdd EWMH_CBB_Bottom 3
+
+DestroyFunc EWMH-Desktop
+AddToFunc EWMH-Desktop
++ I SetEnv EWMH_BS_Desktop_Left		$0
++ I SetEnv EWMH_BS_Desktop_Right	$1
++ I SetEnv EWMH_BS_Desktop_Top		$2
++ I SetEnv EWMH_BS_Desktop_Bottom	$3
++ I EWMH-Set-Desktop
++ I SetEnv EWMH_BS_Panel_Left	$[EWMH_BS_Desktop_Left]
++ I SetEnv EWMH_BS_Panel_Right	$[EWMH_BS_Desktop_Right]
++ I SetEnv EWMH_BS_Panel_Top	$[EWMH_BS_Desktop_Top]
++ I SetEnv EWMH_BS_Panel_Bottom	$[EWMH_BS_Desktop_Bottom]
+
+DestroyFunc EWMH-Set-Desktop
+AddToFunc EWMH-Set-Desktop
++ I EWMHBaseStruts $[EWMH_BS_Desktop_Left] $[EWMH_BS_Desktop_Right] $[EWMH_BS_Desktop_Top] $[EWMH_BS_Desktop_Bottom]
+
+DestroyFunc EWMH-Panel
+AddToFunc EWMH-Panel
++ I SetEnv EWMH_BS_Panel_Left	$0
++ I SetEnv EWMH_BS_Panel_Right	$1
++ I SetEnv EWMH_BS_Panel_Top	$2
++ I SetEnv EWMH_BS_Panel_Bottom	$3
++ I EWMH-Set-Panel
+
+DestroyFunc EWMH-Panel-Left
+AddToFunc EWMH-Panel-Left
++ I SetEnv EWMH_BS_Panel_Left $0
++ I EWMH-Set-Panel
+
+DestroyFunc EWMH-Panel-Right
+AddToFunc EWMH-Panel-Right
++ I SetEnv EWMH_BS_Panel_Right $0
++ I EWMH-Set-Panel
+
+DestroyFunc EWMH-Panel-Top
+AddToFunc EWMH-Panel-Top
++ I SetEnv EWMH_BS_Panel_Top $0
++ I EWMH-Set-Panel
+
+DestroyFunc EWMH-Panel-Bottom
+AddToFunc EWMH-Panel-Bottom
++ I SetEnv EWMH_BS_Panel_Bottom $0
++ I EWMH-Set-Panel
+
+DestroyFunc EWMH-Set-Panel
+AddToFunc EWMH-Set-Panel
++ I EWMHBaseStruts $[EWMH_BS_Panel_Left] $[EWMH_BS_Panel_Right] $[EWMH_BS_Panel_Top] $[EWMH_BS_Panel_Bottom]
+
+DestroyFunc EWMH-Toggle
+AddToFunc EWMH-Toggle
++ I Interface_Hide $0 $1 $2 $3
+
+DestroyFunc Interface_Show
+AddToFunc Interface_Show
++ I All (DesktopIcons)			Iconify false
++ I All (FvwmPager)			Iconify false
++ I All (FvwmButtons-*)			Iconify false
++ I All (ApplicationPanel)		Iconify false
++ I All (FvwmIconMan)			Iconify false
++ I All (gkrellm)			Iconify false
++ I All (gDeskCal)			Iconify false
++ I All (trayer)			Iconify false
++ I All (FvwmStalonePanel)		Iconify false
+PipeRead "if [ \"$(echo $[infostore.Fvwm_Crystal_Recipe]| sed -e 's:.*Amiga:Amiga:')\" = \"Amiga\" ]; then echo '+ I Restore-TopBar-RaiseLower'; fi"
++ I EWMH-Set-Panel
++ I $0 $1 $2 $3 Interface_Hide $0 $1 $2 $3
+
+DestroyFunc Interface_Hide
+AddToFunc Interface_Hide
++ I All (DesktopIcons)			Iconify true
++ I All (FvwmPager)			Iconify true
++ I All (FvwmButtons-*)			Iconify true
++ I All (ApplicationPanel)		Iconify true
++ I All (FvwmIconMan)			Iconify true
++ I All (gkrellm)			Iconify true
++ I All (gDeskCal)			Iconify true
++ I All (trayer)			Iconify true
++ I All (FvwmStalonePanel)		Iconify true
++ I EWMH-Set-Desktop
++ I $0 $1 $2 $3 Interface_Show $0 $1 $2 $3
+
+# vim:ft=fvwm
+

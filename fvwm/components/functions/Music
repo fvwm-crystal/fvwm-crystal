@@ -1,0 +1,141 @@
+# Support for audio players in Fvwm-Crystal:
+# initialisations and some shared functions
+# Written by: Dominique Michel <dominique_libre@users.sourceforge.net>
+#
+# This file must be included at the top of the music player control files.
+#	Include components/functions/Music
+#
+# Some recipes do have a media button, the other do have a menu.
+# Recipes with media button: Amiga, Corner, Default, Default with ACPI, Dock
+# The bindings of the media buttons are:
+#
+#       n button        n button   fumction		    comment
+#	Button 1:	(Mouse 1) Menu /Player 		# Main player menu
+#			(Mouse 2) Music-GUI 		# show/hide the player
+#			(Mouse 3) Music-QJackGUI 	# show/hide QJackCtl + the audio mixer
+#			(Mouse 4) Mixer-Volume-Up 	# main volume up
+#			(Mouse 5) Mixer-Volume-Down 	# main volume down
+#	Button 2:	(Mouse 1) Menu /Playlist-button # playlist menu
+#			(Mouse 2) Menu /Music/Volume	# player volume menu
+#			(Mouse 3) Menu /Mixer		# main mixer menu
+#			(Mouse 4) Music-Next		# next media
+#			(Mouse 5) Music-Prev		# previous media
+#	Button 3:	(Mouse 1) Music-Play		# play
+#			(Mouse 2) Music-Pause		# pause
+#			(Mouse 3) Menu /Playback	# playback menu
+#			(Mouse 4) Music-Speed-Up	# speed up
+#			(Mouse 5) Music-Speed-Down	# speed down
+#	Button 4:	(Mouse 1) Menu /Speed		# speed control menu
+#			(Mouse 4) Music-Seek-+		# seek forward
+#			(Mouse 5) Music-Seek--		# seek backward
+# NOTE : the actual bindings are fixed into the recipes.
+#
+# Recipes with media menu: Clean, Clean Vertical, Light, Wing-Commander
+# The media menu is: Popup /Music
+#
+# TODO : - Move the media button here
+#	 - Find something to do with mouse 2 and 3 on button 4
+#############################################################################
+
+## Amixer and Mplayer are selected as default mixer and player if the user ##
+##          didn't changed it. We keep them or the user settings.          ##
+
+ ###########################################################################
+# The playlists was previously in different player dependant places.
+# They are now in 4 places:
+# 	$[FVWM_USERDIR]/Playlists/Audio for the playlists of audio files
+# 	$[FVWM_USERDIR]/Playlists/Video for the playlists of movie files
+# 	$[HOME]/Playlists/Audio for "by the user managed" audio playlists
+# 	$[HOME]/Playlists/Video for "by the user managed" video playlists
+#
+# 'Recreate the playlist' will manage the playlists in $[FVWM_USERDIR] in a
+# very simple way: delete all and recreate all. At the same time, it will
+# create the user managed directories if they don't exist.
+#
+# Note: according to /etc/xdg/user-dirs.defaults, the default medias paths
+#	are $HOME/Music and $HOME/Videos and will be translated on a
+#	per-path-element basis into the users locale.
+
+# common Media Music functions {{{1
+Include components/functions/Media-Music-functions
+# Mixer
+Include components/functions/Mixer
+
+# Variables {{{1
+# DVB channel lists (mplayer) {{{2
+InfoStoreRemove MplayerChannelList1
+InfoStoreRemove MplayerChannelList2
+InfoStoreRemove MplayerChannelList3
+InfoStoreRemove MplayerChannelList4
+
+# Decimal point in use (alsaplayer) {{{2
+PipeRead 'if [ $[infostore.MusicPlayer] = alsaplayer ] || [ $[infostore.MusicPlayer] = alsaplayerdaemon ]; \
+		then echo "InfoStoreAdd dec_point `locale decimal_point`"; else echo "InfoStoreRemove dec_point"; fi'
+
+# Functions {{{1
+# menu /Player {{{2
+# Recreate the playlists (all) Func Music-RecreatePlaylist in Media-Music-functions
+
+# Second button {{{1
+# Player controls and main vol 
+# mouse 1 Menu /Playlist-button {{{2
+
+# Remove playlist (all)
+AddToFunc Music-RemovePlaylist-generator
++ I DestroyMenu recreate /Music/RemovePlaylist
++ I AddToMenu /Music/RemovePlaylist
++ I PipeRead 'for i in $[infostore.UserManagedAudioPlaylists]/*.{m3u,pls}; do \
+  name=$(basename "$i"); \
+  sname=${name%%.m3u}; \
+  sname=${sname%%.pls}; \
+  echo \"AddToMenu /Music/RemovePlaylist \'$sname\' Exec rm -f \'$i\'\"; done'
+
+AddToMenu /Music/RemovePlaylist
++ DynamicPopupAction Function Music-RemovePlaylist-generator
+
+# Copy playlist (all)
+# Note: Visualy redundant; TODO: A recursive generator like in remove playlist
+AddToFunc FuncFvwmMenuCopyPlaylistDirectory
++ I PipeRead 'case \"$0\" in \
+	"$[infostore.AudioPlaylists]"*) myexec="Exec cp -r \'%f\' \'$[infostore.UserManagedAudioPlaylists]\'";; \
+    esac; \
+    test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
+    test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
+    fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \
+    --icon-file "${mypng:-22x22/categories/Audio.png}" \
+    --dir \"$0\" --exec-title "-" --command-file "${myexec}" \
+    --func-name "FuncFvwmMenuCopyPlaylistDirectory"'
+
+AddToMenu /Music/CopyPlaylist
+#+ '$[gt.Choose playlist to copy]' Nop
++ MissingSubmenuFunction FuncFvwmMenuCopyPlaylistDirectory
++ '%22x22/categories/video_movies_view.png%$[gt.Browse Medias]' Popup $[infostore.AudioPlaylists]
+
+# Load playlist (alsaplayer, audacious, mocp, mpd, mplayer, xmms2)
+AddToMenu /Music/LoadPlaylist
++ '$[gt.Choose playlist to load]' Nop
++ MissingSubmenuFunction FuncFvwmMenuAudioDirectory
++ '%22x22/categories/video_movies_view.png%$[gt.Audio playlists]' Popup $[infostore.AudioPlaylists]
++ '%22x22/categories/video_movies_view.png%$[gt.Personal audio playlists]' Popup $[infostore.UserManagedAudioPlaylists]
+
+# Music menus {{{1
+AddToMenu /Music
++ DynamicPopupAction Function Music-generator
+
+# Button menus {{{1
+# # # # # # # # # #
+# Button 1 mouse 1 {{{2
+# Button menu (all)
+AddToMenu /Player
++ DynamicPopupAction Function Player-generator
+
+# Button 1 mouse 4 {{{2
+# Mixer-Volume-Up in components/Mixer
+# Button 1 mouse 5
+# Mixer-Volume-Down in components/Mixer
+
+# Button 3 mouse 3 (all) {{{2
+AddToMenu /Playback
++ DynamicPopupAction Function Playback-generator
+
+# vim:ft=fvwm

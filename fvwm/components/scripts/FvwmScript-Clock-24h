@@ -1,0 +1,65 @@
+# o Support for temporary switch for display date/time after click on widget
+#   LiNiO <linio@wonder.pl> - 2005.01.16
+#
+
+
+WindowTitle {FvwmScript-Clock}
+WindowSize  60 22
+WindowPosition 10000 10000
+Font		"xft:Tahoma:pixelsize=16:Bold"
+Colorset 12
+
+Init
+ Begin
+   Set $display= time
+
+# 24-hour clock
+  Set $tmp = (GetOutput {exec date "+%R"} 1 -1)
+# 12-hour clock
+#  Set $tmp = (GetOutput {exec date "+%I:%M"} 1 -1)
+
+  ChangeTitle 1 $tmp
+End
+
+PeriodicTasks
+ Begin 
+  If (RemainderOfDiv (GetTime) 60)==0 Then
+  Begin
+
+# 24 hour clock
+    Set $tmp = (GetOutput {exec date "+%R"} 1 -1)
+# 12-hour clock
+#    Set $tmp = (GetOutput {exec date "+%I:%M"} 1 -1)
+
+    ChangeFont 1 {xft:Tahoma:pixelsize=16:Bold}
+    ChangeTitle  1 $tmp
+  End
+End
+
+Widget 1
+Property
+ Position 0 -3
+ Size 60 22
+ Type ItemDraw
+ Flags NoReliefString
+ Title {}
+ Colorset 12
+Main
+ Case message of
+  SingleClic :
+  Begin
+    If $display=={time} Then
+    Begin
+      Set $display= date
+      ChangeFont 1 {xft:Tahoma:pixelsize=16:Bold}
+      Set $tmp = (GetOutput {exec date "+%d/%m"} 1 -1)
+    End
+    Else
+    Begin
+      Set $display= time
+      ChangeFont 1 {xft:Tahoma:pixelsize=16:Bold}
+      Set $tmp = (GetOutput {exec date "+%R"} 1 -1)
+    End
+    ChangeTitle  1 $tmp
+  End
+End

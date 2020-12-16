@@ -1,0 +1,579 @@
+#!/bin/bash
+# Custom buttons bar for FVWM-Crystal
+#
+# Version:	1.0.5
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	<04/19/2016>
+# Changed:	<05/01/2020>
+#
+# Description:	Generate a custom button bar with its own preferences menu.
+# Syntax:	PipeRead "$[FVWM_SYSTEMDIR]/scripts/CustomButtonBar/CustomButtonBar \
+# ($1 $2 $3 $4)		$[vp.width] $[vp.height] $[infostore.CustomBarLocation] $[infostore.CustomButtonSize] \
+# ($5 $6 $7 $8)		$[infostore.CustomButtonClock] $[infostore.CustomButtonCpuTemp] $[infostore.CustomButtonAcpiBatt] $[infostore.CustomButtonCpuFreq] \
+# ($9 $10 $11)		$[infostore.CustomButtonPager] $[infostore.Desk_Pages_X] $[infostore.NotificationAreaManager] \
+# ($12 $13 $14 $15)	$[infostore.EWMH_DI_Left] $[infostore.EWMH_DI_Right] $[infostore.EWMH_DI_Top] $[infostore.EWMH_DI_Bottom] \
+# ($16 $17 $18 $19)	$[infostore.EWMH_Recipe_Left] $[infostore.EWMH_Recipe_Right] $[infostore.EWMH_Recipe_Top] $[infostore.EWMH_Recipe_Bottom]"
+
+#echo "$0 $@" > ${FVWM_USERDIR}/.commandf
+
+# Preferences files, must be searched in the 3 standard Crystal locations and copied into the user dir. {{{1
+PrefFileName="CustomButtonBar"
+PrefFile="${FVWM_USERDIR}/preferences/${PrefFileName}"
+
+if [ ! -e "${FVWM_USERDIR}/preferences/${PrefFileName}" ]; then
+	if [ -e "${FVWM_CONFIGDIR}/preferences/${PrefFileName}" ]; then
+		cp "${FVWM_CONFIGDIR}/preferences/${PrefFileName}" "${PrefFile}"
+	elif [ -e "${FVWM_SYSTEMDIR}/preferences/${PrefFileName}" ]; then
+		cp "${FVWM_SYSTEMDIR}/preferences/${PrefFileName}" "${PrefFile}"
+	fi
+fi
+
+# some functions {{{1
+# Output button number from pixel size {{{2
+# AddButtonNumber <button_size> <applet_size>
+AddButtonForApplet() {
+    # BUG: write a 0 lenght file called 1; do that with Clock normal, not with cputemp
+	Rest=$(($2%$1))
+	if [ "$Rest" != "0" ]; then
+	    echo "$(((($2/$1))+1))"
+	else
+	    echo "$(($2/$1))"
+	fi
+}
+
+# Output biggest of 2 integers {{{2
+SetBiggestValue() {
+	if [ "$1" -gt "$2" ]; then
+	    echo "$1"
+	else
+	    echo "$2"
+	fi
+}
+
+## set the total buttons number and the number of lines and columns {{{1
+# The applets can have different sizes. The other buttons have a 1x1 size.
+# The pager is always horizontal, which imply it is simpler to set all the other applets to be horizontal.
+# To be sure the button bar doesn't crash at startup, we have to fill the lines.
+
+# Variables initialisation
+applets=(tray clock battery cpufreq cputemp pager) # applet names
+xbuttons=(0 0 0 0 0 0)	# applet columns number
+ybuttons=(1 1 1 1 1 1)	# applet rows number TODO: dont use an array
+xmaxbuttons=1		# maximum bar width in buttons
+ymaxbuttons=1		# maximum bar heigth in buttons
+nbuttons=0		# total buttons number
+
+# set columns number to the widest applet => minimal buttons bar width when vertical bar {{{2
+for ix in ${!applets[*]}
+do
+    case ${applets[$ix]} in
+	tray)
+	    # we don't care the button position for now
+	    if [ "${trayer_width}" != "0" ] ; then
+		Rest=$((${trayer_width}%$4))
+		if [ "$Rest" != "0" ]; then
+		    xbuttons[$ix]=$((((${trayer_width} / $4))+1))
+		else
+		    xbuttons[$ix]=$((${trayer_width} / $4))
+		fi
+	    fi
+	    xmaxbuttons=$(SetBiggestValue ${xmaxbuttons} ${xbuttons[$ix]})
+	    ;;
+	clock)
+	    if [ "$5" != "no" ] ; then
+		case $5 in
+		    Clock)
+			xbuttons[$ix]=$(AddButtonForApplet $4 60)
+		    ;;
+		    Clock-24h)
+			xbuttons[$ix]=$(AddButtonForApplet $4 60)
+		    ;;
+		    Clock-small)
+			xbuttons[$ix]=$(AddButtonForApplet $4 60)
+		    ;;
+		    Clock-24h-small_date)
+			xbuttons[$ix]=$(AddButtonForApplet $4 114)
+		    ;;
+		    Clock-small_date)
+			xbuttons[$ix]=$(AddButtonForApplet $4 114)
+		    ;;
+		    *)
+			echo "Wrong_clock"
+		    ;;
+		esac
+		xmaxbuttons=$(SetBiggestValue ${xmaxbuttons} ${xbuttons[$ix]})
+	    fi
+	    ;;
+	battery)
+	    if [ "$7" != "off" ]; then
+		xbuttons[$ix]=$(AddButtonForApplet $4 48)
+		xmaxbuttons=$(SetBiggestValue ${xmaxbuttons} ${xbuttons[$ix]})
+	    fi
+	    ;;
+	cputemp)
+	    if [ "$6" != "off" ]; then
+		xbuttons[$ix]=$(AddButtonForApplet $4 48)
+		xmaxbuttons=$(SetBiggestValue ${xmaxbuttons} ${xbuttons[$ix]})
+	    fi
+	    ;;
+	cpufreq)
+	    if [ "$8" != "off" ]; then
+		case $8 in
+		    CpuFreq-small)
+			xbuttons[$ix]=$(AddButtonForApplet $4 60)
+		    ;;
+		    CpuFreq)
+			xbuttons[$ix]=$(AddButtonForApplet $4 72)
+		    ;;
+		    *)
+			:
+		    ;;
+		esac
+		xmaxbuttons=$(SetBiggestValue ${xmaxbuttons} ${xbuttons[$ix]})
+	    fi
+	    ;;
+	pager)
+	    if [ "$9" != "off" ]; then
+		xbuttons[$ix]="${10}"
+		xmaxbuttons=$(SetBiggestValue ${xmaxbuttons} ${xbuttons[$ix]})
+	    fi
+	    ;;
+	*)
+	    echo "Wrong_applet"
+	    ;;
+    esac
+done
+
+# total number of launcher buttons {{{2
+nbuttonsap=`wc -l < "${PrefFile}"`
+nbuttons="${nbuttonsap}"
+# add the applets buttons {{{2
+for ix in ${!applets[*]}
+do
+    nbuttons=$((${nbuttons}+${xbuttons[$ix]}))
+done
+
+# magic bar geometry {{{1
+# possible max bar button number per row and columns
+xmaxbarbuttons=$(($1/$4))
+ymaxbarbuttons=$(($2/$4))
+
+# real horizontal and vertical bar button number
+case $3 in
+	Top | Bottom)
+	    Rest=$((${nbuttons}%${xmaxbarbuttons}))
+	    if [[ "$Rest" != "0" ]]; then
+		ybuttonsnb=$((((${nbuttons}/${xmaxbarbuttons}))+1))
+	    else
+		ybuttonsnb=$((${nbuttons[0]}/${xmaxbarbuttons}))
+	    fi
+	    Rest=$((${nbuttons}%${ybuttonsnb}))
+	    if [[ "$Rest" != "0" ]]; then
+		xbuttonsnb=$((((${nbuttons}/${ybuttonsnb}))+1))
+	    else
+		xbuttonsnb=$((${nbuttons}/${ybuttonsnb}))
+	    fi
+	    ;;
+	Right | Left)
+	    Rest=$((${nbuttons}%${ymaxbarbuttons}))
+	    if [[ "$Rest" != "0" ]]; then
+		xbuttonsnb=$((((${nbuttons}/${ymaxbarbuttons}))+1))
+	    else
+		xbuttonsnb=$((${nbuttons}/${ymaxbarbuttons}))
+	    fi
+	    if [ "${xmaxbuttons}" -gt "${xbuttonsnb}" ]; then
+		xbuttonsnb="${xmaxbuttons}"
+	    fi
+	    Rest=$((${nbuttons}%${xbuttonsnb}))
+	    if [[ "$Rest" != "0" ]]; then
+		ybuttonsnb=$((((${nbuttons}/${xbuttonsnb}))+1))
+	    else
+		ybuttonsnb=$((${nbuttons}/${xbuttonsnb}))
+	    fi
+	    ;;
+	*)
+	    echo "Wrong_location"
+	    ;;
+esac
+# in pixels
+ButtonWidth=$((${xbuttonsnb}*$4))
+ButtonHeight=$((${ybuttonsnb}*$4))
+
+# set notif area geometry {{{2
+if [ "${trayer_width}" != "0" ] ; then
+	case $3 in
+	    Top | Bottom)
+		NotifAreaRows=1
+		case $4 in
+		    22)
+			NotifAreaColumns=${xbuttons[0]}
+		    ;;
+		    32)
+			NotifAreaColumns=${xbuttons[0]}
+		    ;;
+		    48)
+			Rest=$((${xbuttons[0]} % 4))
+			if [ "$Rest" != "0" ]; then
+			    NotifAreaColumns=$((((${xbuttons[0]} / 4))+1))
+			else
+			    NotifAreaColumns=$((${xbuttons[0]}/4))
+			fi
+		    ;;
+		esac
+		widthbuttons="$NotifAreaRows"
+		NotifAreaCells="$NotifAreaRows"
+		;;
+	    Right | Left)
+		NotifAreaColumns=1
+		case $4 in
+		    22)
+			NotifAreaRows=${xbuttons[0]}
+		    ;;
+		    32)
+			NotifAreaRows=${xbuttons[0]}
+		    ;;
+		    48)
+			Rest=$((${xbuttons[0]} % 4))
+			if [ "$Rest" != "0" ]; then
+			    NotifAreaRows=$((((${xbuttons[0]} / 4))+1))
+			else
+			    NotifAreaRows=$((${xbuttons[0]} / 4))
+			fi
+		    ;;
+		esac
+		widthbuttons="$NotifAreaColumns"
+		NotifAreaCells="$NotifAreaColumns"
+		;;
+	    *)
+		NotifAreaRows=1
+		NotifAreaColumns=1
+		;;
+	esac
+fi
+
+# applets geometry {{{2
+# Output the values for next function
+ButtonWidthButtonNumber() {
+	Rest=$(($2%$1))
+	if [ "$Rest" != "0" ]; then
+	    RowClock=$(((($2/$1))+1))
+	else
+	    RowClock=$(($2/$1))
+	fi
+	if [ "$RowClock" -gt "$widthbuttons" ]; then
+	    widthbuttons="${RowClock}"
+	fi
+}
+
+#syntax ButtonClockApplet <button_size $4> <Clock $5>
+ButtonClockApplet() {
+	case $2 in
+	    Clock)
+		ButtonWidthButtonNumber $1 60
+		;;
+	    Clock-24h)
+		ButtonWidthButtonNumber $1 60
+		;;
+	    Clock-small)
+		ButtonWidthButtonNumber $1 60
+		;;
+	    Clock-24h-small_date)
+		ButtonWidthButtonNumber $1 114
+		;;
+	    Clock-small_date)
+		ButtonWidthButtonNumber $1 114
+		;;
+	    *)
+		widthbuttons=0
+		;;
+	esac
+}
+ButtonClockApplet $4 $5
+
+# set button parameters {{{2
+# vertical_button <vp.vp.height $2> <button_size $4>
+vertical_button() {
+	PaddingX="5"
+	PaddingY="2"
+	ButtonY="+$(((($1 /2))-((${ButtonHeight} /2))))"
+}
+
+# horizontal_button <vp.height $1> <button_size $4>
+horizontal_button() {
+	PaddingX="2"
+	PaddingY="5"
+	ButtonX="+$(((($1 /2))-((${ButtonWidth} /2))))"
+}
+
+# The button
+echo '# This file is generated by fvwm-crystal.' > "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo '# All changes will be lost.' >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+
+# To set the borders of the ewmh working area, we need to know
+# the borders defined by the recipe and the desktop manager,
+# and make some calculation for each direction.
+# $12 $13 $14 $15 are the left, right, top and bottom borders of the desktop manager.
+# $16 $17 $18 $19 are the left, right, top and bottom borders of the recipe.
+# When both that button and the desktop manafer are present into a recipe,
+# this one must be placed first as it block fvwm during its generation.
+# Hopefully, this will insure they don't overlap each other.
+# The ewmh recipe borderss are not implemented at that time because
+# the Custom recipe is the only one that can have the 2 buttons
+# and it work as it.
+# TODO: - Implement the ewmh borders. This will permit to use that button into the other recipes.
+if [ "${11}" = "trayer" ]; then
+    echo 'PipeRead "killall -3 trayer"' >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+fi
+case $3 in
+    Left)
+	vertical_button $2 $4
+	ButtonX="+0"
+	MenuLocation="\$[MenuPosition_E]"
+	if [ ${12} -gt ${ButtonWidth} ]
+	then	echo "EWMH-Panel-Left ${12}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Left ${ButtonWidth}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Left ${ButtonWidth}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${13} -gt 3 ]
+	then	echo "EWMH-Panel-Right ${13}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Right 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Right 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${14} -gt 3 ]
+	then	echo "EWMH-Panel-Top ${14}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Top 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Top 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${15} -gt 3 ]
+	then	echo "EWMH-Panel-Bottom ${15}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Bottom 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Bottom 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	;;
+    Right)
+	vertical_button $2 $4
+	ButtonX="+$((${1}-${ButtonWidth}))"
+	MenuLocation="\$[MenuPosition_W]"
+	if [ ${12} -gt 3 ]
+	then	echo "EWMH-Panel-Left ${12}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Left 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Left 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${13} -gt ${ButtonWidth} ]
+	then	echo "EWMH-Panel-Right ${13}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Right ${ButtonWidth}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Right ${ButtonWidth}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${14} -gt 3 ]
+	then echo "EWMH-Panel-Top ${14}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else echo "EWMH-Panel-Top 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Top 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${15} -gt 3 ]
+	then echo "EWMH-Panel-Bottom ${15}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else echo "EWMH-Panel-Bottom 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Bottom 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	;;
+    Top)
+	horizontal_button $1 $4
+	ButtonY="+0"
+	MenuLocation="\$[MenuPosition_S]"
+	if [ ${12} -gt 3 ]
+	then	echo "EWMH-Panel-Left ${12}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Left 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Left 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${13} -gt 3 ]
+	then	echo "EWMH-Panel-Right ${13}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Right 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Right 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${14} -gt ${ButtonHeight} ]
+	then	echo "EWMH-Panel-Top ${14}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Top ${ButtonHeight}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Top ${ButtonHeight}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${15} -gt 3 ]
+	then	echo "EWMH-Panel-Bottom ${15}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Bottom 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Bottom 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	;;
+    Bottom)
+	horizontal_button $1 $4
+	ButtonY="+$((${2}-${ButtonHeight}))"
+	MenuLocation="\$[MenuPosition_N]"
+	if [ ${12} -gt 3 ]
+	then	echo "EWMH-Panel-Left ${12}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Left 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Left 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${13} -gt 3 ]
+	then	echo "EWMH-Panel-Right ${13}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Right 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Right 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${14} -gt 3 ]
+	then	echo "EWMH-Panel-Top ${14}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Top 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Top 3" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	if [ ${15} -gt ${ButtonHeight} ]
+	then	echo "EWMH-Panel-Bottom ${15}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	else	echo "EWMH-Panel-Bottom ${ButtonHeight}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	fi
+	echo "InfoStoreAdd EWMH_CBB_Bottom ${ButtonHeight}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	;;
+    *)
+	PaddingX="2"
+	PaddingY="5"
+	ButtonX="+$(((($1 /2))-((${ButtonWidth} /2))))"
+	ButtonY="+$((${2}-${4}))"
+	MenuLocation="\$[MenuPosition_N]"
+	;;
+esac
+
+# The magic button: {{{1
+echo 'All (FvwmButtons-CustomBar) Close' >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo 'DestroyModuleConfig FvwmButtons-CustomBar: *' >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo "*FvwmButtons-CustomBar: Geometry ${ButtonWidth}x${ButtonHeight}${ButtonX}${ButtonY}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo "*FvwmButtons-CustomBar: BoxSize smart" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo "*FvwmButtons-CustomBar: Colorset \$[infostore.cs_panel_active]" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo "*FvwmButtons-CustomBar: ActiveColorset \$[infostore.cs_panel_inactive]" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo "*FvwmButtons-CustomBar: Rows ${ybuttonsnb}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo "*FvwmButtons-CustomBar: Columns ${xbuttonsnb}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo "*FvwmButtons-CustomBar: Font \"xft:\$[panel_font]:pixelsize=\$[panel_font_size]:\$[panel_font_style]\"" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo "*FvwmButtons-CustomBar: Padding ${PaddingX} ${PaddingY}" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+echo "*FvwmButtons-CustomBar: Frame 0" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+# trayer {{{2
+inplacenb=0
+if [ "${trayer_width}" != "0" ] ; then
+    if [ "${11}" = "stalonetray" ]; then
+	case $3 in
+	    Top | Bottom)
+		TrayCmd="Exec exec stalonetray --decorations none --window-type dock --transparent true --tint-color \'${TrayerTintS}\' --tint-level ${TrayerAlphaS} \
+			--no-shrink true --kludges force_icons_size --icon-size 24 --geometry ${xbuttons[0]}x${ybuttons[0]}-3-3 --icon-gravity W"
+#		TrayCmd="FvwmStalonePanel 24 ${xbuttons[0]} ${ybuttons[0]} \"-3\" \"-3\" W $((${xbuttons[0]}*$4)) $4 \"-3\" \"-3\""
+#		echo FvwmStalonePanel 24 ${xbuttons[0]} ${ybuttons[0]} \"-3\" \"-3\" W $((${xbuttons[0]}*$4)) $4 \"-3\" \"-3\"
+	    ;;
+	    Right | Left)
+		TrayCmd="Exec exec stalonetray --decorations none --window-type dock --transparent true --tint-color \'${TrayerTintS}\' --tint-level ${TrayerAlphaS} \
+			--no-shrink true --kludges force_icons_size --icon-size 24 --geometry ${xbuttons[0]}x${ybuttons[0]}-3-3 --icon-gravity NE"
+#		TrayCmd="FvwmStalonePanel 24 ${xbuttons[0]} ${ybuttons[0]} \"-3\" \"-3\" NE $4 $((${xbuttons[0]}*$4)) \"-3\" \"-3\""
+#		echo FvwmStalonePanel 24 ${xbuttons[0]} ${ybuttons[0]} \"-3\" \"-3\" NE $4 $((${xbuttons[0]}*$4)) \"-3\" \"-3\"
+	    ;;
+	esac
+    echo "*FvwmButtons-CustomBar: (${xbuttons[0]}x${ybuttons[0]}, Frame 0, Padding 0, Swallow (Close, Respawn, FvwmModule) stalonetray \"${TrayCmd}\")" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+#    echo "*FvwmButtons-CustomBar: (${xbuttons[0]}x${ybuttons[0]}, Frame 0, Padding 0, Swallow (Close, Respawn, FvwmModule) FvwmStalonePanel Nop)" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    else
+	case $3 in
+	    Top | Bottom)
+		echo "FvwmTrayerPanel pixel pixel $((${ybuttons[0]}*$4)) bottom right 0 0 \"--width $((${xbuttons[0]}*$4))\"" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	    ;;
+	    Right | Left)
+		echo "FvwmTrayerPanel pixel pixel $((${ybuttons[0]}*$4)) bottom right 0 0 \"--width $((${xbuttons[0]}*$4))\"" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+	    ;;
+	esac
+    echo "*FvwmButtons-CustomBar: (${xbuttons[0]}x${ybuttons[0]}, Frame 0, Padding 0, Swallow (UseOld, FvwmModule) trayer Nop)" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    fi
+    inplacenb="${xbuttons[0]}"
+fi
+
+# applets and launchers {{{2
+placeapplet() {
+	case $1 in
+	    clock)
+		if [ "$2" != "no" ] ; then
+		    echo "*FvwmButtons-CustomBar: (${xbuttons[1]}x${ybuttons[1]}, Frame 0, Padding 0, Swallow (Close, Respawn, FvwmModule) \"FvwmScript-$2\" \"Script components/scripts/FvwmScript-$2\", \
+		        Action (Mouse 3) SendToModule *FvwmScript-$2 SendString 1 1 str)" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+		fi
+		;;
+	    battery)
+		if [ "$3" != "off" ]; then
+		    echo "*FvwmButtons-CustomBar: (${xbuttons[2]}x${ybuttons[2]}, Frame 0, Padding 0, Swallow (Close, Respawn, FvwmModule) \"FvwmScript-$3\" \"Script components/scripts/FvwmScript-$3\")" \
+		        >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+		fi
+		;;
+	    cpufreq)
+		if [ "$4" != "off" ]; then
+		    echo "*FvwmButtons-CustomBar: (${xbuttons[3]}x${ybuttons[3]}, Frame 0, Padding 0, Swallow (Close, Respawn, FvwmModule) \"FvwmScript-$4\" \"Script components/scripts/FvwmScript-$4\")" \
+		        >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+		fi
+		;;
+	    cputemp)
+		if [ "$5" != "off" ]; then
+		    echo "*FvwmButtons-CustomBar: (${xbuttons[4]}x${ybuttons[4]}, Frame 0, Padding 0, Swallow (Close, Respawn, FvwmModule) \"FvwmScript-$5\" \"Script components/scripts/FvwmScript-$5\")" \
+		        >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+		fi
+		;;
+	esac
+}
+
+m=1
+placelauncher() {
+    ButtonIcon="$(sed -n "$1{p;q;}" "${PrefFile}" | cut -d "%" -f 1)"
+    ButtonName="$(sed -n "$1{p;q;}" "${PrefFile}" | cut -d "%" -f 2)"
+    ButtonCommand="$(sed -n "$1{p;q;}" "${PrefFile}" | cut -d "%" -f 3-)"
+    ButtonCommand="$(echo "${ButtonCommand}" | sed -e s:Popup:Menu:)"
+    if [[ `echo ${ButtonCommand} | grep Menu` ]] ; then
+	    ButtonCommand="${ButtonCommand} ${MenuLocation}"
+    fi
+    echo "*FvwmButtons-CustomBar: (1x1, Frame 0, Padding 0, Icon \"${ButtonIcon}\", ActiveTitle \"${ButtonName}\". \
+         Action (Mouse 1) ${ButtonCommand}, \
+         Action (Mouse 2) DeleteThatButton ${ButtonIcon}, \
+         Action (Mouse 3) ShowCustomButtonMenu ${m} ${MenuLocation})" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    m=$(($m+1))
+}
+
+# place the applets
+# n° line for next = (nbinplace / nbcomuns) + 1
+# number of free button(s) on the line = (n° line * nb columns) - inplacenb
+for ix in 1 2 3 4
+do	if [ "${applets[$ix]}" != "no" -a "${applets[$ix]}" != "off"  ]
+	# if enough space, place applet, else fill with launchers and place applet on new line
+	then	nofline=$((((${inplacenb}/${xbuttonsnb}))+1))
+		nfreebuttons=$((((${nofline}*${xbuttonsnb}))-${inplacenb}))
+		if [ "${nfreebuttons}" -ge "${xbuttons[$ix]}" ]
+		then	placeapplet "${applets[$ix]}" $5 $7 $8 $6
+			inplacenb="$((${inplacenb} + ${xbuttons[${ix}]}))"
+		else	for (( i=1; i <= "${nfreebuttons}" ; i++ )) ; do
+				placelauncher "${m}"
+				inplacenb="$((${inplacenb}+1))"
+			done
+			placeapplet "${applets[$ix]}" $5 $7 $8 $6
+			inplacenb="$((${inplacenb} + ${xbuttons[${ix}]}))"
+		fi
+	fi
+done
+
+# we place the remaining launchers
+while [ "${m}" -le "${nbuttonsap}" ] ; do placelauncher "${m}"; done
+
+# pager
+if [ "$9" != "off" ]; then
+    echo "DestroyFunc FvwmPagerWindow" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "AddToFunc FvwmPagerWindow" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I All (FvwmPager) Close" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I DestroyModuleConfig FvwmPager: *" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: Geometry +100000+100000" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: MiniIcons" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: Font none" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: WindowBorderWidth 1" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: Window3DBorders" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: UserSkipList" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: Colorset * \$[infostore.cs_panel_inactive]" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: HilightColorset * \$[infostore.cs_panel_active]" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: WindowColorsets \$[infostore.cs_panel_wininactive] \$[infostore.cs_panel_winactive]" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "FvwmPagerWindow" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "*FvwmButtons-CustomBar: (${xbuttons[5]}x${ybuttons[5]}, Frame 0, Padding 0, Swallow (Close, Respawn, FvwmModule) \"FvwmPager\" \"Module FvwmPager\")" \
+	    >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+fi
+
+echo "Module FvwmButtons FvwmButtons-CustomBar" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+
+# check for existing magic button
+echo 'Any (DesktopIcons) LoadPreferences DefaultDesktopManager' >> "${FVWM_USERDIR}/tmp/CustomButtonBar"

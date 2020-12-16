@@ -1,0 +1,52 @@
+# AmigaOS version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle Inactive AdjustedPixmap $./title-inactive.png
++ TitleStyle Active AdjustedPixmap $./title-active.png
++ TitleStyle Centered
++ TitleStyle -- flat
+PipeRead 'echo "+ TitleStyle Height $(($[title_font_size]+$(($[title_font_size]/3))))"'
+
++ BorderStyle -- HiddenHandles
++ BorderStyle -- Flat
+
+# Close
++ ButtonStyle 1 Inactive AdjustedPixmap $./button-gray.png
++ ButtonStyle 1 ActiveUp AdjustedPixmap $./button-red.png
++ ButtonStyle 1 ActiveDown AdjustedPixmap $./button-red-icon.png
+
+# Maximize
++ ButtonStyle 2 Inactive AdjustedPixmap $./button-gray.png
++ ButtonStyle 2 ActiveUp AdjustedPixmap $./button-green.png
++ ButtonStyle 2 ActiveDown AdjustedPixmap $./button-green-icon.png
+
+# Options
++ ButtonStyle 4 Inactive AdjustedPixmap $./button-gray.png
++ ButtonStyle 4 ActiveUp AdjustedPixmap $./button-violet.png
++ ButtonStyle 4 ActiveDown AdjustedPixmap $./button-violet-icon.png
+
+# Arrows
++ ButtonStyle 6 Inactive AdjustedPixmap $./button-gray.png
++ ButtonStyle 6 ActiveUp AdjustedPixmap $./button-blue.png
++ ButtonStyle 6 ActiveDown AdjustedPixmap $./button-blue-icon.png
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- flat
+
+Style * HandleWidth 1, BorderWidth 1
+Style * Colorset                $[cs-window-inactive], \
+        BorderColorset          $[cs-window-inactive], \
+        HilightColorset         $[cs-window-active], \
+        HilightBorderColorset   $[cs-window-active]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-amigaos

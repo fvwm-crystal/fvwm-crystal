@@ -1,0 +1,141 @@
+# Menu for different ways to run away ;)
+# Created by: Pawel "NEMO" Drygas <nemo@braxis.org>
+# Modified by Dominique Michel <dominique_libre@sourceforge.net> for use with
+# session managers as gnome-session (its old and outdated now)
+# + pm-utils and systemd supports - anyway, hibernation is much better
+# than session management because it just work and is fast.
+
+# We don't know how fvwm-crystal is started and what its PATH is
+InfoStoreAdd sysctl no
+Test (x systemctl) InfoStoreAdd sysctl systemctl
+# Fallbacks
+Test (x /usr/bin/systemctl) InfoStoreAdd sysctl /usr/bin/systemctl
+Test (x /bin/systemctl) InfoStoreAdd sysctl /bin/systemctl
+Test (x /usr/sbin/systemctl) InfoStoreAdd sysctl /usr/sbin/systemctl
+Test (x /sbin/systemctl) InfoStoreAdd sysctl /sbin/systemctl
+
+# ps -C ... truncate the command name (see man 5 proc); use pgrep -f ...
+DestroyFunc KillAutoHibernate
+AddToFunc KillAutoHibernate
++ I Piperead 'for i in `pgrep -f AutoHibernate` ; do kill $i $[infostore.SILENT]; done'
+
+DestroyFunc EndAutoHibernate
+AddToFunc EndAutoHibernate
++ I KillAutoHibernate
++ I SavePreferences AutoHibernation Nop
+
+DestroyMenu /AutoHibernatePMValue
+AddToMenu /AutoHibernatePMValue
++ "$[gt. 1 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 1 pm
++ "$[gt. 2 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 2 pm
++ "$[gt. 3 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 3 pm
++ "$[gt. 5 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 5 pm
++ "$[gt.10 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 10 pm
++ "$[gt.15 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 15 pm
++ "$[gt.20 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 20 pm
++ "$[gt.25 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 25 pm
++ "$[gt.50 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 50 pm
++ "$[gt.75 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 75 pm
+
+DestroyMenu /AutoHibernateSysValue
+AddToMenu /AutoHibernateSysValue
++ "$[gt. 1 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 1 sys
++ "$[gt. 2 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 2 sys
++ "$[gt. 3 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 3 sys
++ "$[gt. 5 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 5 sys
++ "$[gt.10 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 10 sys
++ "$[gt.15 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 15 sys
++ "$[gt.20 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 20 sys
++ "$[gt.25 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 25 sys
++ "$[gt.50 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 50 sys
++ "$[gt.75 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 75 sys
+
+DestroyFunc AutoHibernate-generator
+AddToFunc AutoHibernate-generator
++ I DestroyMenu recreate /AutoHibernate
++ I Piperead "if test `pkill -0 AutoHibernate`; \
+	then AddToMenu /AutoHibernate \\'$[gt.Stop]\\' EndAutoHibernate; \
+	else if [ $[infostore.sysctl] = no ]; \
+	     then echo AddToMenu /AutoHibernate \\'$[gt.Start when battery is as low as]\\' Popup /AutoHibernatePMValue; \
+	     else echo AddToMenu /AutoHibernate \\'$[gt.Start when battery is as low as]\\' Popup /AutoHibernateSysValue; \
+	     fi; \
+	fi"
+
+DestroyMenu /AutoHibernate
+AddToMenu /AutoHibernate
++ DynamicPopupAction Function AutoHibernate-generator
+
+DestroyFunc ScreenLidSuspend
+AddToFunc ScreenLidSuspend
++ I Exec exec $[FVWM_SYSTEMDIR]/scripts/ScreenLidSuspend $0
++ I SavePreferences ScreenLidSuspend "Exec if [ \\`pgrep -c ScreenLidSuspen\\` -eq 0 ]; then exec $[FVWM_SYSTEMDIR]/scripts/ScreenLidSuspend $0; fi"
+
+DestroyFunc NoScreenLidSuspend
+AddToFunc NoScreenLidSuspend
++ I Piperead 'pkill ScreenLidSuspen'
++ I SavePreferences ScreenLidSuspend Nop
+
+DestroyFunc ScreenLidSuspend-generator
+AddToFunc ScreenLidSuspend-generator
++ I DestroyMenu recreate /ScreenLidSuspend
++ I Piperead "if [ `pgrep -c ScreenLidSuspen` -gt 0 ]; \
+	then echo AddToMenu /ScreenLidSuspend \\'$[gt.No resume hybride with screen lid]\\' NoScreenLidSuspend; \
+	else if [ $[infostore.sysctl] = no ]; \
+	     then echo AddToMenu /ScreenLidSuspend \\'$[gt.Resume hybride with screen lid]\\' ScreenLidSuspend pm; \
+	     else echo AddToMenu /ScreenLidSuspend \\'$[gt.Resume hybride with screen lid]\\' ScreenLidSuspend sys; \
+	     fi; \
+	fi"
+
+DestroyMenu /ScreenLidSuspend
+AddToMenu /ScreenLidSuspend
++ DynamicPopupAction Function ScreenLidSuspend-generator
+
+DestroyFunc Exit-Menu-pm
+AddToFunc Exit-Menu-pm
++ I AddToMenu /Exit '' Nop
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
++ I AddToMenu /Exit '' Nop
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' S pm-suspend
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' S pm-suspend-hybrid
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Suspend to disk]' S pm-hibernate
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Powersave]' S pm-powersave
+
+DestroyFunc Exit-Menu-sysctl
+AddToFunc Exit-Menu-sysctl
++ I AddToMenu /Exit '' Nop
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
++ I AddToMenu /Exit '' Nop
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' A $0 suspend -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' A $0 hybrid-sleep -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Suspend to disk]' A $0 hibernate -i
++ I AddToMenu /Exit "" Nop
++ I AddToMenu /Exit '%22x22/fvwm-crystal/system-reboot.png%$[gt.Reboot computer]' A $0 reboot -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/system-shutdown.png%$[gt.Turn off computer]' A $0 poweroff -i
+
+DestroyFunc Exit-SelectLogoutManager
+AddToFunc Exit-SelectLogoutManager
++ I Test (X gdmflexiserver) PipeRead 'pidof gdm > /dev/null && echo "Include components/functions/Exit-gdm" || echo "Exit-SelectExitManager"'
++ I TestRc (NoMatch) Include components/functions/Exit-sudo
+
+DestroyFunc Exit-Menu
+AddToFunc Exit-Menu
++ I DestroyMenu /Exit
++ I AddToMenu /Exit 
++ I AddToMenu /Exit '%22x22/fvwm-crystal/view-refresh.png%$[gt.Restart]' Restart
++ I Test (x /usr/bin/xscreensaver) AddToMenu /Exit '%22x22/fvwm-crystal/system-lock-screen.png%$[gt.Lock screen]' X xscreensaver-command -lock
++ I Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/system-log-out.png%$[gt.Logout]' QuitSession
++ I Test (!EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/system-log-out.png%$[gt.Logout]' Quit
++ I Test (EnvMatch infostore.sysctl no) KeepRc Test (x /usr/sbin/pm-hibernate) Exit-Menu-pm
++ I TestRc (NoMatch) Test (x $[infostore.sysctl]) Exit-Menu-sysctl $[infostore.sysctl]
++ I Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '' Nop
+Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Save session]' Exec exec gnome-session-save --gui
+Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Manage session]' Exec exec gnome-session-properties
++ I Test (EnvMatch infostore.sysctl no) Exit-SelectLogoutManager
+
+Exit-Menu
+
+Test (x /usr/sbin/pm-hibernate) AddToFunc ExitFunction I Test (ToRestart) KillAutoHibernate
+
+# vim:ft=fvwm

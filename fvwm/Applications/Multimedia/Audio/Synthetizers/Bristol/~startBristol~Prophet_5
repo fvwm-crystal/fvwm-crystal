@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec startBristol -pro5 -jack $@ 2>/dev/null
+

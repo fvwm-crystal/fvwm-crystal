@@ -1,0 +1,27 @@
+# Multimedia keys bindings
+
+# see 
+# http:///gentoo-wiki.com/HOWTO_Use_Multimedia_Keys
+# to setup xmodmap
+
+Key XF86AudioRaiseVolume A $[Mod0] Change-Volume-Up $[infostore.Vol_Step]
+Key XF86AudioLowerVolume A $[Mod0] Change-Volume-Down $[infostore.Vol_Step]
+
+Key XF86AudioLowerVolume A C Music-Speed-Down
+Key XF86AudioRaiseVolume A C Music-Speed-Up
+Key XF86AudioMute A $[Mod0] Mixer-Volume-Toggle
+key XF86AudioMute A C Mixer-Mute-Toggle
+key XF86AudioPlay A $[Mod0] Music-FrameStep
+#key XF86AudioPlay A $[Mod0] Music-PlayPause
+key XF86AudioPlay A $[Mod1] Music-Speed normal mplayer
+#key XF86AudioPlay A $[Mod1] Music-Speed normal
+key XF86AudioPlay A C Music-Pause
+# key XF86AudioStop A $[Mod0] Music-Stop
+key XF86AudioStop A C Music-Pause
+key XF86AudioStop A $[Mod1] Music-Speed normal mplayer
+#key XF86AudioStop A $[Mod1] Music-Play
+Key XF86AudioNext A $[Mod] Music-Next
+Key XF86AudioPrev A $[Mod] Music-Prev
+Key XF86AudioMedia A $[Mod] Music-GUI
+
+# vim:ft=fvwm

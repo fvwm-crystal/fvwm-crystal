@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'SX synaptic 2>/dev/null'
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec lightspeed $@ 2>/dev/null
+

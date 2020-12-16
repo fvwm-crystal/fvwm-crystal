@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'S poldek $@ 2>/dev/null'
+

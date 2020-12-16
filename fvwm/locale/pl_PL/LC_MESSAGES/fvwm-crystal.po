@@ -1,0 +1,345 @@
+# Polish translation for FVWM-Crystal
+# Copyright (C) 2005 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Maciej Delmanowski <harnir@post.pl>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal\n"
+"POT-Creation-Date: 2005-07-04 14:23+0100\n"
+"PO-Revision-Date: 2005-07-04 06:00+0100\n"
+"Last-Translator: Maciej Delmanowski <harnir@post.pl>\n"
+"Language-Team: Polish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "About FVWM-Crystal"
+msgstr "O FVWM-Crystal"
+
+msgid "Activate"
+msgstr "Uaktywnij"
+
+#
+# Applications menu
+#
+msgid "Applications"
+msgstr "Aplikacje"
+
+msgid "Audio mixer"
+msgstr "Regulator g³o¶no¶ci"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Button model"
+msgstr "Model przycisków"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Clear playlist"
+msgstr "Wyczy¶æ listê utworów"
+
+msgid "Close"
+msgstr "Zamknij"
+
+msgid "Colorsets"
+msgstr "Zestawy kolorów"
+
+msgid "Crossfade"
+msgstr "Przenikanie utworów"
+
+msgid "Default terminal"
+msgstr "Standardowy terminal"
+
+msgid "Delayed fullscreen"
+msgstr "Opó¼niony pe³ny ekran"
+
+msgid "Desktop manager"
+msgstr "Zarz±dca pulpitu"
+
+msgid "Destroy"
+msgstr "Zniszcz"
+
+msgid "Developer menu"
+msgstr "Menu dewelopera"
+
+msgid "Everything"
+msgstr "Wszystko"
+
+msgid "Exit"
+msgstr "Wyj¶cie"
+
+msgid "FVWM version"
+msgstr "Wersja FVWM"
+
+#
+# Screensaver menu
+#
+msgid "Force suspend"
+msgstr "Wymu¶ wygaszenie monitora"
+
+msgid "Frame"
+msgstr "Ramka"
+
+#
+# Screenshot menu
+#
+msgid "Fullscreen"
+msgstr "Pe³ny ekran"
+
+msgid "I am sure"
+msgstr "Na pewno"
+
+#
+# Window menus
+#
+msgid "Iconify"
+msgstr "Do ikony"
+
+msgid "Identify"
+msgstr "Identyfikacja"
+
+msgid "Identify window"
+msgstr "Identyfikacja okna"
+
+msgid "Jump to left page"
+msgstr "Przeskocz w lewo"
+
+msgid "Jump to lower page"
+msgstr "Przeskocz na ni¿sz±"
+
+msgid "Jump to previous page"
+msgstr "Przeskocz na poprzedni±"
+
+msgid "Jump to right page"
+msgstr "Przeskocz w prawo"
+
+msgid "Jump to upper page"
+msgstr "Przeskocz na wy¿sz±"
+
+msgid "Load playlist"
+msgstr "Za³aduj listê utworów"
+
+msgid "Lock screen"
+msgstr "Zablokuj ekran"
+
+#
+# Exit menu
+#
+msgid "Logout"
+msgstr "Wyloguj siê"
+
+msgid "Maximize"
+msgstr "Maksymalizacja"
+
+msgid "Maximize horizontally"
+msgstr "Maksymalizacja w poziomie"
+
+msgid "Maximize vertically"
+msgstr "Maksymalizacja w pionie"
+
+msgid "Move to left page"
+msgstr "Przesuñ w lewo"
+
+msgid "Move to lower page"
+msgstr "Przesuñ na ni¿sz±"
+
+msgid "Move to page"
+msgstr "Przesuñ na stronê"
+
+msgid "Move to previous page"
+msgstr "Przesuñ na poprzedni±"
+
+msgid "Move to right page"
+msgstr "Przesuñ w prawo"
+
+msgid "Move to upper page"
+msgstr "Przesuñ na wy¿sz±"
+
+#
+# Music menu
+#
+msgid "Music"
+msgstr "Muzyka"
+
+msgid "Music player"
+msgstr "Odtwarzacz muzyki"
+
+msgid "Name of the playlist"
+msgstr "Nazwa listy utworów"
+
+msgid "New login"
+msgstr "Nowy login"
+
+msgid "New nested login"
+msgstr "Nowy zagnie¿d¿ony login"
+
+msgid "New recipe will be used after next startup"
+msgstr "Nowa receptura bêdzie u¿yta po nastêpnym uruchomieniu"
+
+msgid "None"
+msgstr "¯aden"
+
+msgid "Normal mode"
+msgstr "Zwyk³a warstwa"
+
+msgid "Not now"
+msgstr "Nie teraz"
+
+msgid "Off"
+msgstr "Wy³±czone"
+
+msgid "On"
+msgstr "W³±czone"
+
+msgid "Play/Pause"
+msgstr "Odtwarzanie/Pauza"
+
+msgid "Player is stopped"
+msgstr "Odtwarzacz zatrzymany"
+
+msgid "Playlist editor"
+msgstr "Edytor listy utworów"
+
+msgid "Preferences"
+msgstr "Ustawienia"
+
+msgid "Privileged terminals"
+msgstr "Uprzywilejowane terminale"
+
+msgid "QuakeConsole terminal"
+msgstr "Terminal dla QuakeConsole"
+
+#
+# Wallpaper menu
+#
+msgid "Random"
+msgstr "Losuj"
+
+msgid "Reboot computer"
+msgstr "Uruchom ponownie komputer"
+
+msgid "Refresh"
+msgstr "Od¶wie¿ okno"
+
+#
+# Developer menu
+#
+msgid "Reload current recipe"
+msgstr "Prze³aduj aktualn± recepturê"
+
+msgid "Remove current song"
+msgstr "Usuñ aktualn± piosenkê"
+
+msgid "Remove playlist"
+msgstr "Usuñ listê utworów"
+
+msgid "Restart"
+msgstr "Restart"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Save playlist"
+msgstr "Zapisz listê utworów"
+
+msgid "Save playlist..."
+msgstr "Zapisz listê utworów..."
+
+msgid "Screensaver"
+msgstr "Wygaszacz ekranu"
+
+msgid "Screenshot"
+msgstr "Zrzut ekranu"
+
+msgid "Selected desktop manager will be used"
+msgstr "Wybrany zarz±dca pulpitu zostanie u¿yty"
+
+msgid "Show/hide player"
+msgstr "Poka¿/ukryj odtwarzacz"
+
+msgid "Shuffle playlist"
+msgstr "Przetasuj listê utworów"
+
+msgid "Start screensaver"
+msgstr "Uruchom wygaszacz ekranu"
+
+msgid "Stay lowered"
+msgstr "Pozostañ pod spodem"
+
+msgid "Stay raised"
+msgstr "Pozostañ na wierzchu"
+
+msgid "Stick"
+msgstr "Przyklej"
+
+msgid "Stop playback"
+msgstr "Zatrzymaj odtwarzanie"
+
+msgid "Stop screensaver"
+msgstr "Zatrzymaj wygaszacz ekranu"
+
+#
+# String used in submenus (window decorations and colorsets)
+#
+msgid "System"
+msgstr "Systemowe"
+
+msgid "Take all free space"
+msgstr "Zajmij woln± przestrzeñ"
+
+msgid "Take all horizontal space"
+msgstr "Zajmij przestrzeñ w poziomie"
+
+msgid "Take all vertical space"
+msgstr "Zajmij przestrzeñ w pionie"
+
+msgid "Toggle FvwmConsole"
+msgstr "Prze³±cz FvwmConsole"
+
+msgid "Toggle random"
+msgstr "Prze³±cz losowanie"
+
+msgid "Toggle repeat"
+msgstr "Prze³±cz powtarzanie"
+
+msgid "Turn off computer"
+msgstr "Wy³±cz komputer"
+
+msgid "Update database"
+msgstr "Od¶wie¿ bazê danych"
+
+#
+# Preferences menu
+#
+msgid "Used recipe"
+msgstr "U¿ywana receptura"
+
+msgid "User"
+msgstr "U¿ytkownika"
+
+#
+# About dialog
+#
+msgid "Version"
+msgstr "Wersja"
+
+msgid "Volume"
+msgstr "G³o¶no¶æ"
+
+msgid "Wallpaper"
+msgstr "Tapeta"
+
+#
+# Main menu - usually found in recipes/*
+#
+msgid "Window decorations"
+msgstr "Dekoracje okien"
+
+msgid "Window focus policy"
+msgstr "Styl aktywacji okien"
+
+msgid "at the next start of your X session"
+msgstr "podczas nastêpnego uruchomienia sesji Xów"

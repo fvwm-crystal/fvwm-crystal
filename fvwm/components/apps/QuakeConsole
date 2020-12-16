@@ -1,0 +1,72 @@
+
+# Variables
+SetEnv QuakeConsole_Border "1"
+#SetEnv QuakeConsoleTerminal "NO_QUAKECONSOLE_TERMINAL_FOUND"
+#SetEnv QuakeConsole_Height "50"
+
+CheckPreferences QuakeConsoleTerminal "SavePreferences QuakeConsoleTerminal 'FindCommand QuakeConsoleTerminal mrxvt urxvt aterm xterm'"
+LoadPreferences QuakeConsoleTerminal
+
+CheckPreferences QuakeConsoleHeight "SavePreferences QuakeConsoleHeight 'SetEnv QuakeConsole_Height 50'"
+LoadPreferences QuakeConsoleHeight
+
+#Include preferences/QuakeConsole_Height
+
+DestroyFunc QuakeConsole
+AddToFunc QuakeConsole
++ I None (QuakeConsoleNeedsUniqueName) QuakeConsole_Init
++ I All (QuakeConsoleNeedsUniqueName, CurrentDesk) QuakeConsole_Hide
++ I TestRc (0) QuakeConsole_Show
+
+DestroyFunc QuakeConsole_Init
+AddToFunc QuakeConsole_Init
++ I	Style QuakeConsoleNeedsUniqueName !Title, !Handles, SkipMapping, \
+	WindowListSkip, VariableSize, VariablePosition, NoIcon, StaysOnTop, \
+	!Iconifiable, EWMHMaximizeIgnoreWorkingArea, StickyAcrossPages, \
+	Maximizable, BorderWidth $[QuakeConsole_Border], \
+	Colorset $[infostore.cs_quakeconsole], HilightColorset $[infostore.cs_quakeconsole], \
+	BorderColorset $[infostore.cs_quakeconsole], \
+	HilightBorderColorset $[infostore.cs_quakeconsole], WindowShadeSteps 8, \
+	WindowShadeShrinks
+
+# If you want to change QuakeConsole command, do it here!
++ I Exec exec $[infostore.QuakeConsoleTerminal] -name QuakeConsoleNeedsUniqueName -geometry +0+0
+# If you want to change QuakeConsole command, do it here!
+
++ I Wait QuakeConsoleNeedsUniqueName
++ I All (QuakeConsoleNeedsUniqueName) Maximize 100 $[QuakeConsole_Height]
+# The folowing line imply a horizontal shift, don't know why it is here:
+#+ I All (QuakeConsoleNeedsUniqueName) Piperead 'echo Move `expr $[vp.width] / 2 - $[w.width] / 2`p w0'
++ I Style QuakeConsoleNeedsUniqueName FixedPosition
++ I All (QuakeConsoleNeedsUniqueName) MoveToDesk 0 666 
++ I Style QuakeConsoleNeedsUniqueName VariableSize, !Maximizable
++ I Prev (CurrentPage, AcceptsFocus, Visible) Focus
+
+DestroyFunc QuakeConsole_Show
+AddToFunc QuakeConsole_Show
+#+ I Window-RememberFocused
++ I All (QuakeConsoleNeedsUniqueName) MoveToDesk 0 $[desk.n]
++ I All (QuakeConsoleNeedsUniqueName) Raise 
+#+ I All (QuakeConsoleNeedsUniqueName) WindowShade false
++ I All (QuakeConsoleNeedsUniqueName) Focus 
+ 
+DestroyFunc QuakeConsole_Hide
+AddToFunc QuakeConsole_Hide
+#+ I All (QuakeConsoleNeedsUniqueName) WindowShade true
++ I All (QuakeConsoleNeedsUniqueName) MoveToDesk 0 666 
+#+ I All (QuakeConsoleNeedsUniqueName) WindowShade false
++ I Window-FocusRemembered
+
+DestroyFunc QuakeConsole-Resize
+AddToFunc QuakeConsole-Resize
++ H Resize Direction S
++ H SetEnv QuakeConsole_Height "$[w.height]p"
++ H SavePreferences QuakeConsoleHeight "SetEnv QuakeConsole_Height $[w.height]p"
+
+Mouse (QuakeConsoleNeedsUniqueName) 2 W $[Mod1] QuakeConsole-Resize
+
+# Dummy functions to avoid error messages
+AddToFunc Window-FocusRemembered I Nop
+AddToFunc Window-RememberFocused I Nop
+
+# vim:ft=fvwm

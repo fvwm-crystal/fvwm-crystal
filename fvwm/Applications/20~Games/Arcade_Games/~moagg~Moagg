@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec moagg $@ 2>/dev/null
+

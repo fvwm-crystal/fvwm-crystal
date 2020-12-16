@@ -1,0 +1,21 @@
+# Let gettext do character conversion.
+# Copyright (C) 2015 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal 3.4.0 (rev. 709)\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2015-09-24 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "abijk ABIJK éç ÀÉ O09 你好"
+msgstr "abijk ABIJK éç ÀÉ O09 你好"
+
+msgid "°C"
+msgstr "°C"

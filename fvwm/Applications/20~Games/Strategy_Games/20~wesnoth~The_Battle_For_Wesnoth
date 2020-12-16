@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec wesnoth $@ 2>/dev/null
+

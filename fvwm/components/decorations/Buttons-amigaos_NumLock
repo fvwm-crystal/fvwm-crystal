@@ -1,0 +1,39 @@
+# AmigaOS Button Setup
+# Written by Dominique Michel <dominique_libre@sourceforge.net>
+# from the work of Maciej Delmanowski <harnir@linux.net.pl>
+#
+# This is the AmigaOS window button setup. Hold the mouse buttons
+# to see the popup menu of a certain button.
+# Additional support for NumLock key
+
+# First button - close, destroy, iconify #save default geometry
+Mouse 1 1 $[Mod0]2	Window-Button-Function Button1 /Window-Menu-Close Close
+Mouse 2 1 $[Mod0]2	Window-Button-Function Button1 /Window-Menu-Close FvwmIdent
+Mouse 2 1 $[Mod1]2	Window-Button-Function Button1 /Window-Menu-Close Destroy
+Mouse 3 1 $[Mod0]2	Window-Button-Function Button1 /Window-Menu-Close Window-Iconify
+
+# 2th button - various ways to maximize a window
+Mouse 1 2 $[Mod0]2	Window-Button-Function Button2 /Window-Menu-Maximize Maximize
+Mouse 2 2 $[Mod0]2	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True 0 100
+Mouse 3 2 $[Mod0]2	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True 100 0
+Mouse 1 2 $[Mod1]2	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True grow grow
+Mouse 2 2 $[Mod1]2	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True 0 grow
+Mouse 3 2 $[Mod1]2	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True grow 0
+
+# 4th button - minimize, stick and layers
+Mouse 1 4 $[Mod0]2	Window-Button-Function Button4 /Window-Menu-Layer Minimize
+Mouse 1 4 $[Mod1]2	Window-Button-Function Button4 /Window-Menu-Layer Stick
+Mouse 2 4 $[Mod0]2	Window-Button-Function Button4 /Window-Menu-Layer Layer 0 5
+Mouse 2 4 $[Mod1]2	Window-Button-Function Button4 /Window-Menu-Layer Layer 0 3
+Mouse 3 4 $[Mod0]2	Window-Button-Function Button4 /Window-Menu-Layer Layer 0 4
+
+# 6th button - iconify, move a window between pages
+Mouse 1 6 $[Mod0]2	Window-Button-Function Button6 /Window-Menu-Page Window-Iconify
+#Mouse 1 6 $[Mod0]2	Window-Button-Function Button6 /Window-Menu-Page Window-MoveToPage-Backward
+Mouse 2 6 $[Mod0]2	Window-Button-Function Button6 /Window-Menu-Page MoveToPage-Focus prev
+Mouse 3 6 $[Mod0]2	Window-Button-Function Button6 /Window-Menu-Page Window-MoveToPage-Forward
+Mouse 1 6 $[Mod1]2	Window-Button-Function Button6 /Window-Menu-Page Window-WarpToPage-Backward
+Mouse 2 6 $[Mod1]2	Window-Button-Function Button6 /Window-Menu-Page WarpToPage prev
+Mouse 3 6 $[Mod1]2	Window-Button-Function Button6 /Window-Menu-Page Window-WarpToPage-Forward
+
+# vim:ft=fvwm

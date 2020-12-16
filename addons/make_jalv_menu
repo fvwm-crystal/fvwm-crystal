@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# This script will make a jalv menu for fvwm-crystal with all the lv2 plugins available.
+
+# menu location
+MENU_LOCATION="${FVWM_USERDIR}/Applications/Multimedia/Audio/LV2_jalv"
+#mkdir -p ${MENU_LOCATION}
+
+# Make a plugin list
+PLUGIN_LIST=`lv2ls`
+
+# test
+want_test() {
+	echo "Do you want to test each plugin?"
+	echo "This will slow down the process a lot, but will give you the possibility to choose which plugin you want into the menu or not."
+	echo "Please answer y/n."
+	read WANT_TEST
+	case $WANT_TEST in
+		y)	echo "Good, each plugins will be tested."
+			;;
+		n)	echo "Good, automatic creation will follow."
+			;;
+		*)	echo "How old are you? You must first learn how to read and type!!!";
+			echo ""
+			want_test
+			;;
+	esac
+}
+# If the plugin is buggy and have no GUI, ctrl-c will kill that scipt
+#want_test
+
+test_plugin() {
+	$1
+	echo "Do you want to remove that file ${1}?"
+	echo "Type y to remove it or anything else to keep it."
+	read REMOVE_IT
+	case $REMOVE_IT in
+		y)	rm "${1}";
+			echo "${1} removed"
+			;;
+		*)	echo "Menu entry created for ${2}"
+			;;
+	esac
+}
+
+## Some functions
+create_menu() {
+	mkdir -p ${MENU_LOCATION}/${1}
+	for i in ${PLUGIN_LIST}
+	do
+		MENU_DIR=`lv2info $i | grep -m 1 Class | sed -e "s|\(.*\)\(Class: *\)||" -e "s: :_:g" -e "s:/:_:g" -e "s:':_:g"`
+		mkdir -p ${MENU_LOCATION}/${1}/${MENU_DIR}
+		MENU_NAME=`lv2info $i | grep -m 1 Name | sed -e "s|\(.*\)\(Name: *\)||" -e "s: :_:g" -e "s:/:_:g" -e "s:':_:g"`
+		FILE_NAME="${MENU_LOCATION}/${1}/${MENU_DIR}/~jalv.${1}~${MENU_NAME}"
+		echo '#!/bin/sh' > ${FILE_NAME}
+		echo "exec jalv.${1} $i \$@" >> ${FILE_NAME}
+		chmod +x ${FILE_NAME}
+#		if [ $WANT_TEST = y ]
+#		then test_plugin ${FILE_NAME} ${MENU_NAME}
+#		fi
+done
+}
+
+menu_choice() {
+	echo "Do you want to make a LV2_${1} menu? Type y/n."
+	read CHOICE
+	case $CHOICE in
+		y)	JALV_EXE="${1}";
+			echo "Creation of the ${1} menu...";
+			create_menu ${1}
+			;;
+		n)	echo "Nothing to be done."
+			;;
+		*)	menu_choice ${1}
+			;;
+	esac
+}
+
+# Do it
+TEST_JALV=`ls /usr/bin | grep jalv.`
+for i in ${TEST_JALV}
+do
+	JALV_SUFFIX=`echo $i | sed -e "s|\(.*\)\(\.\)\(.*\)$|\3|"`
+	menu_choice ${JALV_SUFFIX}
+done

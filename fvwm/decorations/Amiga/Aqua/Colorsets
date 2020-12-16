@@ -1,0 +1,17 @@
+# Colorset setup
+
+# What colorset numbers do we use?
+InfoStoreAdd cs_window_inactive "9"
+InfoStoreAdd cs_window_active "10"
+
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Colorsets
+
+Colorset $[infostore.cs_window_inactive]  RootTransparent, \
+Foreground  "turquoise1", bg "#104E8B", \
+Tint "#104E8B" 76, \
+Hilight "#104E8B", Shadow "#32bdc6"
+
+Colorset $[infostore.cs_window_active]  RootTransparent, \
+Foreground "black", bg "#00FFFF", \
+Tint "#00FFFF" 76, Hilight "white", Shadow "black"

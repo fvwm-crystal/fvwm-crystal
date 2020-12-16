@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec FvwmCommand 'A start_jack $@ 2>/dev/null'

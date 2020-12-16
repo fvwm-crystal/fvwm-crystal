@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# need jack_control (jack_dbus)
+SRATE=$(jack_control dp|grep rate|sed 's;\(.*:\)\([0-9]*\)\(:.*\);\2;')
+exec FvwmCommand "AT Timidity++ \"timidity -iA -s${SRATE} -B2,8 -Oj $@ 2>/dev/null\""

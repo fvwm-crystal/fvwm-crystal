@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xnec2c $@ 2>/dev/null
+

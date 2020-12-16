@@ -1,0 +1,17 @@
+# MS Windows Button Setup
+# Written by Maciej Delmanowski <harnir@linux.net.pl>
+# Maintained and updated by Dominique Michel <dominique_libre@users.sourceforge,net>
+#
+# This is the window titlebar button setup similar to the MS Windows
+# buttons on the titlebar
+# Additional support for NumLock key
+
+# 4th button - various ways to maximize a window
+Mouse 1 4 $[Mod0]2	Window-Button-Function Button4 /Window-Menu-Maximize Maximize
+Mouse 2 4 $[Mod0]2	Window-Button-Function Button4 /Window-Menu-Maximize Maximize 0 100
+Mouse 3 4 $[Mod0]2	Window-Button-Function Button4 /Window-Menu-Maximize Maximize 100 0
+Mouse 1 4 $[Mod1]2	Window-Button-Function Button4 /Window-Menu-Maximize Maximize grow grow
+Mouse 2 4 $[Mod1]2	Window-Button-Function Button4 /Window-Menu-Maximize Maximize 0 grow
+Mouse 3 4 $[Mod1]2	Window-Button-Function Button4 /Window-Menu-Maximize Maximize grow 0
+
+# vim:ft=fvwm

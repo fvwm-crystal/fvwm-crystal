@@ -1,0 +1,25 @@
+# Menu for different ways to run away ;)
+# Created by: Pawel "NEMO" Drygas <nemo@braxis.org>
+# Modified by Dominique Michel <dominique_libre@sourceforge.net> for use with
+# session managers as gnome-session
+
+DestroyFunc FuncFvwmMenuXephyrDirectory
+AddToFunc FuncFvwmMenuXephyrDirectory
++ I PipeRead 'case "$0" in \
+	"/usr/share/xsessions"*) myexec="$[FVWM_SYSTEMDIR]/scripts/launchwm $[vp.width] $[vp.height]";; \
+    esac; \
+    test -f "$0"/.icontitle.png && mytitle="$0"/.icontitle.png; \
+    test -f "$0"/.media.png && mypng="$0"/.media.png; \
+    fvwm-menu-directory --func-name "FuncFvwmMenuXephyrDirectory" \
+    --icon-file "${mypng:-22x22/fvwm-crystal/gdm-xnest.png}" \
+    --title "" \
+    --dir "$0" \
+    --func="FuncFvwmMenuXephyrDirectory" \
+    --exec-file "^${myexec}"'
+
+#DestroyMenu /Xephyr
+#AddToMenu /Xephyr
+#+ MissingSubmenuFunction FuncFvwmMenuXephyrDirectory
+#+ '%22x22/fvwm-crystal/gdm-xnest.png%$[gt.Nested sessions]' Popup /etc/X11/Sessions
+
+# vim:ft=fvwm

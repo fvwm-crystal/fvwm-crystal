@@ -1,0 +1,22 @@
+#!/bin/sh
+# E17-Bling helper script for FVWM-Crystal
+#
+# Version:	1.0.0
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	15/05/2013
+# Changed:	15/05/2013
+#
+# Description:	This function will change the windows translucency
+# 	with focus change. Original idea: Gronono on the gentoo forum
+#	http://forums.gentoo.org/viewtopic-t-606068.html?sid=5dea73ee0b5eeda5a75999520455e577
+# TODO: preferences for the translucency values.
+
+if [ "$1" != "$2" ]; then
+        transset -i $1 -m 0.5 -x 0.5
+        transset -i $2 -m 1   -x 1
+fi
+
+

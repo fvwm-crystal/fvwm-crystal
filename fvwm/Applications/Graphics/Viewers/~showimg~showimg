@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec showimg $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec pd $@ 2>/dev/null
+

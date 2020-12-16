@@ -1,0 +1,52 @@
+#
+# FVWM-Crystal - main initialization file
+#
+
+# By default, FVWM ignore the caps lock.
+# Must be first. L: caps lock; 2: num-lock; 5: scroll-lock
+# IgnoreModifiers L2
+
+# Hello World
+# Echo /--------- Welcome to Fvwm-Crystal ---------/
+
+# Where is the user-wide configuration
+Test (!EnvisSet FVWM_USERDIR) SetEnv FVWM_USERDIR $[HOME]/.fvwm-crystal
+
+# Where is the system-wide configuration
+Test (!EnvisSet FVWM_CONFIGDIR) SetEnv FVWM_CONFIGDIR /etc/X11/fvwm/fvwm-crystal
+
+# Where are the system-wide files
+Test (!EnvisSet FVWM_SYSTEMDIR) SetEnv FVWM_SYSTEMDIR $.
+
+# Where the distribution specific menu is located
+Test (!EnvisSet FVWM_DISTROMENUDIR) SetEnv FVWM_DISTROMENUDIR /var/lib/fvwm-crystal
+
+# Name of the distribution menu
+Test (!EnvisSet FVWM_DISTROMENUNAME) SetEnv FVWM_DISTROMENUNAME debian
+
+# Where are the locales
+LocalePath $[FVWM_USERDIR]/locale;fvwm-crystal:$[FVWM_SYSTEMDIR]/locale;fvwm-crystal:+
+
+# Load the standard functions (Include function doesn't work yet)
+Read $[FVWM_SYSTEMDIR]/components/Standard
+
+# Look if there is a recipe selected. If not, select the default
+CheckPreferences LastChoosenRecipe "SavePreferences LastChoosenRecipe 'Include recipes/Default'"
+
+# Convert preferences from older releases
+PipeRead "$[FVWM_SYSTEMDIR]/scripts/convert_preferences"
+
+# Load last used recipe
+LoadPreferences LastChoosenRecipe
+# Load stuffs common to all the recipes
+Include components/functions/LoadCommonStuffs
+# Load the recipe
+Read "$[infostore.Fvwm_Crystal_Recipe]"
+
+# Load user configuration file, if it's present
+Include userconfig
+
+# Debug line - uncomment to see it in the ~/.xsession-errors
+#Echo -----8<----- Initialization finished -----8<-----
+
+# vim:foldmethod=marker:foldenable:foldlevel=0:filetype=fvwm

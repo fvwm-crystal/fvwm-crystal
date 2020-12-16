@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# timidity make a core dump with STOP, use KILL
+exec killall -9 timidity $@ 2>/dev/null
+

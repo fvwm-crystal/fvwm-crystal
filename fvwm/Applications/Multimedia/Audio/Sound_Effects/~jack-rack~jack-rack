@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec jack-rack $@ 2>/dev/null
+

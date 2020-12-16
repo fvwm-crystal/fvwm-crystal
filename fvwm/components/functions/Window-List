@@ -1,0 +1,21 @@
+# WindowList replacement
+
+# Works similar to the window list in MS Windows - current window is placed at
+# the end of the menu, previous window is first.
+
+# Shows windows from all desktop pages
+DestroyFunc Window-List
+AddToFunc Window-List
++ I WindowList "$*" Function Window-Focus-DefaultDesk-Raised, CurrentAtEnd, CurrentDesk, NoGeometry, MaxLabelWidth 40, NoIcons, NoCurrentDeskTitle, NoHotkeys, SelectOnRelease $[SelectOnReleaseKey]
+
+# Shows windows only from current desktop page
+DestroyFunc Window-List-Page
+AddToFunc Window-List-Page
++ I WindowList (CurrentPage) "$*" Function Window-Focus-DefaultDesk-Raised, CurrentAtEnd, CurrentDesk, NoGeometry, MaxLabelWidth 40, NoIcons, NoCurrentDeskTitle, NoHotkeys, SelectOnRelease $[SelectOnReleaseKey]
+
+# Shows only iconified windows
+DestroyFunc Window-List-Icons
+AddToFunc Window-List-Icons
++ I WindowList "$*" Function Window-Focus-CurrentDesk-Raised, CurrentDesk, NoGeometry, MaxLabelWidth 40, OnlyIcons, NoHotkeys, NoCurrentDeskTitle, SelectOnRelease $[SelectOnReleaseKey]
+
+# vim:ft=fvwm

@@ -1,0 +1,38 @@
+#!/bin/bash
+
+cleanup() {
+    rm ~/.jackdrc
+    rm ~/.config/jack/conf.xml
+}
+
+qjackcleanuo() {
+    rm ~/.config/rncbc.org/QjackCtl.conf
+}
+
+stopjack() {
+    jack_control stop
+    killall -9 jackdbus
+    killall -9 a2jmidid
+    killall -9 qjackctl
+    # qmidiroute ~/All2MIDI1.qmr ${SilentOps} &
+    # yoshimi -S ${SilentOps} &
+}
+
+echo "Choix des action :"
+echo ""
+echo "j:	will stop the jack server and programs launched by start_jack."
+echo "c:	as j but will also remove the jackd config files."
+echo "a:	as c but will also clean QJackCtl config file."
+echo "*:	as j"
+read ACTION
+
+case $ACTION in
+    j)	stopjack;;
+    c)	cleanup;
+        stopjack;;
+    a)  cleanup;
+	qjackcleanup;
+	stopjack;;
+    *)	stopjack;;
+esac
+

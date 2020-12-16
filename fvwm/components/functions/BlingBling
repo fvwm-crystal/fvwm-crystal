@@ -1,0 +1,32 @@
+# Function Bling bling for FVWM-Crystal
+#
+# Version:	0.9.1
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	15/05/2013
+# Changed:	18/05/2013
+#
+# Description:	This function will change the windows translucency
+# 	with focus change. Original idea: Gronono on the gentoo forum
+#	http://forums.gentoo.org/viewtopic-t-606068.html?sid=5dea73ee0b5eeda5a75999520455e577
+#
+# Warning: Translucency is not supported by FVWM.
+#	Keap this file version below 1.0.0 because of that.
+
+# Set last focused window translucent, and focused window opaque
+DestroyFunc FvwmTranslucencyChange
+AddToFunc FvwmTranslucencyChange
++ I ThisWindow (!FvwmButtons*, !ApplicationPanel, !FvwmPager*, !FvwmIconMan*, !Iconic) Exec $[FVWM_SYSTEMDIR]/scripts/SetTranslucency $[LastFocus] $[w.id]
++ I ThisWindow (!FvwmButtons*, !ApplicationPanel, !FvwmPager*, !FvwmIconMan*, !Iconic) SetEnv LastFocus $[w.id]
+
+# FvwmEvent config
+DestroyModuleConfig FvwmTranslucencyChangeEvent: *
+*FvwmTranslucencyChangeEvent: focus_change FvwmTranslucencyChange
+
+# Start it, from the menu for now.
+#AddToFunc StartFunction
+#+ I Module FvwmEvent FvwmTranslucencyChangeEvent 
+
+# vim:ft=fvwm

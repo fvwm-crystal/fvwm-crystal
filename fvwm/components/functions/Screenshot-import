@@ -1,0 +1,26 @@
+# Screenshot - using import from ImageMagick
+
+DestroyFunc Screenshot
+AddToFunc Screenshot
++ I Exec exec mkdir -p $[FVWM_USERDIR]/screenshots
++ I Exec exec import -window root -quality 100 "$[FVWM_USERDIR]/screenshots/`echo "$[gt.Screenshot]" | sed 's/[\]//g;s/[^[:alnum:]]/_/g'`-`date +%Y%m%d_%H%M%S`.png"
+
+DestroyFunc Screenshot-Delay
+AddToFunc Screenshot-Delay
++ I Exec exec mkdir -p $[FVWM_USERDIR]/screenshots
++ I Exec exec import -pause 10 -window root -quality 100 "$[FVWM_USERDIR]/screenshots/`echo "$[gt.Screenshot]" | sed 's/[\]//g;s/[^[:alnum:]]/_/g'`-`date +%Y%m%d_%H%M%S`.png"
+
+DestroyFunc Screenshot-Frame
+AddToFunc Screenshot-Frame
++ I Exec exec mkdir -p $[FVWM_USERDIR]/screenshots
++ I All (CurrentPage) Exec exec import -frame -quality 100 "$[FVWM_USERDIR]/screenshots/`echo "$[gt.Screenshot]" | sed 's/[\]//g;s/[^[:alnum:]]/_/g'`-`date +%Y%m%d_%H%M%S`.png" 2>/dev/null
+
+
+# A little menu...
+DestroyMenu /Screenshot
+AddToMenu /Screenshot
++ '$[gt.Fullscreen]' Screenshot
++ '$[gt.Delayed fullscreen]' Screenshot-Delay
++ '$[gt.Frame]' Screenshot-Frame
+
+# vim:ft=fvwm

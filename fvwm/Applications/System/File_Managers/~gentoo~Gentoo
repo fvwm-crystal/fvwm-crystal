@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gentoo $@ 2>/dev/null
+

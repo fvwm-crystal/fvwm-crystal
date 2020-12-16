@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec lash_save_button $@ 2>/dev/null
+

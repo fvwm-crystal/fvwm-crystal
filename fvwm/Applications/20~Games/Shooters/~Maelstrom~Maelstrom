@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec maelstrom -fullscreen $@ 2>/dev/null
+

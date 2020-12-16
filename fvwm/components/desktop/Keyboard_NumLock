@@ -1,0 +1,13 @@
+# Standard keyboard layout - version with NumLock turned on
+# You need several functions to use all of the keybindings
+# This file is meant to be used _with_ components/desktop/Keyboard
+
+Include components/bindings/Music_NumLock
+Include components/bindings/Pager-Horizontal_NumLock
+Include components/bindings/PageSwitch-Horizontal_NumLock
+Include components/bindings/Window-Control_NumLock
+Include components/bindings/Window-Rearrange_NumLock
+Include components/bindings/Window-Warp_NumLock
+Include components/bindings/Misc-Keybindings_NumLock
+
+# vim:ft=fvwm

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ipodder $@ 2>/dev/null
+

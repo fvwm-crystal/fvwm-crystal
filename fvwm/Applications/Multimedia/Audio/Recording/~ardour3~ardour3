@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec ardour3 $@ 2>/dev/null

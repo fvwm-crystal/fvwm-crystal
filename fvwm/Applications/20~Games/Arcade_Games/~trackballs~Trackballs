@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec trackballs $@ 2>/dev/null
+

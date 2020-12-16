@@ -1,0 +1,133 @@
+# In this file you can find some functions used in FVWM-Crystal to launch
+# applications. They are provided here for easier global change (you don't
+# need to edit, for example, every entry in ApplicationDatabase to change
+# a terminal type). You can use those commands in FvwmConsole window (by
+# default in the bottom-left corner of the screen, accesible by pressing
+# Alt+;).
+# Near the functions you can find commented out entries, from which you can
+# choosed a preffered command.
+
+# Functions:
+
+# A
+# Launches a terminal with optional program as an argument. Terminal settings
+# should be set using ~/.Xresources file or (in Eterm) theme file.
+
+# AA
+# A special version of the 'A' function. It just opens a terminal without
+# additional application launched in it. It exists because certain terminal
+# emulators (xterm, Eterm, something else?) won't run with '-e' argument being
+# null.
+
+# AT
+# As 'A' function, but give a Title to the window terminal.
+
+# ATG
+# As 'AT' function, but give a geometry to the window terminal.
+
+# C
+# Launches a the fvwm console terminal with optional program as an argument.
+# Terminal settings should be set using ~/.Xresources file or (in Eterm) theme file.
+
+# X
+# Launches a command in the background. Typically this function is used to
+# launch some X application without additional terminal window.
+
+# S
+# Launch a command using 'sudo'. You need to have provileges in /etc/sudoers
+# file to execute choosen command - consult your administrator or man sudo,
+# man sudoers, man visudo. Usually 'sudo' asks for a password, so it's a good
+# choice to launch it in a terminal window (otherwise you should use
+# a specialized program for password verification).
+
+# SX
+# It does the same thing as 'S', but instead of opening a terminal with sudo
+# it uses graphical client called 'gksudo' to execute a command. Unfortunately
+# this variant is only usable with graphical applications.
+
+# TODO: check the --title and -e options for all terms, gnome-terminal have a new syntyx !?????! with -- command
+
+CheckPreferences DefaultTerminal "SavePreferences DefaultTerminal 'FindCommand DefaultTerminal urxvt aterm xterm x-terminal-emulator'"
+LoadPreferences DefaultTerminal
+
+# If urxvtc is killed, urxvtd is killed too, so start urxvtd if needed.
+# StartUrxvtc need an argument or urxvtc will fail; see the A, AA and AT functions.
+# With superflous argument quoting, fvwm work fine after startup, but not sometime after Restart.
+DestroyFunc StartUrxvtc
+AddToFunc StartUrxvtc
++ I Piperead 'urxvtc $* $[infostore.SILENT]; if [ $? = 2 ]; then \
+				urxvtd -f -o $[infostore.SILENT]; \
+				urxvtc $*; \
+			fi'
+
+DestroyFunc StartTerminal
+AddToFunc StartTerminal
++ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch DefaultTerminal multi-gnome-terminal, !EnvMatch DefaultTerminal terminator, !EnvMatch DefaultTerminal x-terminal-emulator, !EnvMatch DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] -e $*  $[infostore.SILENT]
++ I TestRc (NoMatch) Exec exec $[infostore.DefaultTerminal] -e "$*" $[infostore.SILENT]
+
+DestroyFunc StartTitledTerminal
+AddToFunc StartTitledTerminal
++ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch DefaultTerminal multi-gnome-terminal, !EnvMatch DefaultTerminal terminator, !EnvMatch DefaultTerminal x-terminal-emulator, !EnvMatch DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] --title "$0" -e $[1-]  $[infostore.SILENT]
++ I TestRc (NoMatch) Exec exec $[infostore.DefaultTerminal] --title "$0" -e "$[1-]" $[infostore.SILENT]
+
+DestroyFunc StartGTitledTerminal
+AddToFunc StartGTitledTerminal
++ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch DefaultTerminal multi-gnome-terminal, !EnvMatch DefaultTerminal terminator, !EnvMatch DefaultTerminal x-terminal-emulator, !EnvMatch DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] --title "$0" --geometry "$1" -e $[2-]  $[infostore.SILENT]
++ I TestRc (NoMatch) Exec exec $[infostore.DefaultTerminal] --title "$0" --geometry "$1" -e "$[2-]" $[infostore.SILENT]
+
+# Usage: A [command] [command options]
+DestroyFunc A
+AddToFunc A
++ I Window-SetPlacementPolicy
++ I Test (EnvMatch infostore.DefaultTerminal urxvtc) StartUrxvtc -e $*
++ I TestRc (NoMatch) StartTerminal "$*"
+
+DestroyFunc AA
+AddToFunc AA
++ I Window-SetPlacementPolicy
++ I Test (EnvMatch infostore.DefaultTerminal urxvtc) StartUrxvtc -name urxvt
++ I TestRc (NoMatch) Exec exec $[infostore.DefaultTerminal] $[infostore.SILENT]
+
+# Usage: AT [title] [command] (Use quotes if you want command options or title with spaces)
+# !: doesn't work anymore with gnome-terminal due to a bug in gnome-terminal (doesn't honor anymore it's own --title option (and --name and --class too)).
+# The preceding similar bug tooks years to be fixed, and a new one was introduced only a few months later, better just choose another terminal
+DestroyFunc AT
+AddToFunc AT
++ I Window-SetPlacementPolicy
++ I Test (EnvMatch infostore.DefaultTerminal urxvtc) StartUrxvtc --title "$0" -name "$0" -e $[1-]
++ I TestRc (NoMatch) StartTitledTerminal "$0" $[1-]
+
+# Usage: AGT [title] [geometry] [command] (Use quotes if you want command options or title with spaces)
+DestroyFunc AGT
+AddToFunc AGT
++ I Window-SetPlacementPolicy
++ I Test (EnvMatch infostore.DefaultTerminal urxvtc) StartUrxvtc --title "$0" -name "$0" --geometry "$1" -e $[2-]
++ I TestRc (NoMatch) StartGTitledTerminal "$0" "$1" "$[2-]"
+
+# Usage: C [command] [command options]
+DestroyFunc C
+AddToFunc C
++ I	Window-SetPlacementPolicy
++ I	Exec exec $[infostore.FvwmConsoleTerminal] -e $* $[infostore.SILENT]
+
+# Usage: X [command] [command options]
+DestroyFunc X
+AddToFunc X
++ I	Window-SetPlacementPolicy
++ I	Exec exec $* $[infostore.SILENT]
+
+# Usage: S [command] [command options]
+DestroyFunc S
+AddToFunc S
++ I	C sudo $* $[infostore.SILENT]
+
+# Usage: SX [command]
+DestroyFunc SX
+AddToFunc SX
++ I	X gksudo $* $[infostore.SILENT]
+
+# Dummy function created to avoid the error messages.
+# If the real function is used, this does nothing.
+AddToFunc Window-SetPlacementPolicy I Nop
+
+# vim:ft=fvwm

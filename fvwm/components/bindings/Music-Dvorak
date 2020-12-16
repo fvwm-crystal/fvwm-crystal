@@ -1,0 +1,23 @@
+# Music bindings
+
+Key semicolon  A $[Mod1]		Music-Prev
+Key Q A $[Mod1]		Music-Play
+Key J A $[Mod1]		Music-Pause
+Key K A $[Mod1]		Music-Stop
+Key X A $[Mod1]		Music-Next
+
+Key P A $[Mod1]		Music-Backward
+Key N A $[Mod1]		Music-Forward
+
+Key G A $[Mod1]		Music-GUI
+Key S A $[Mod1]		Music-QJackGUI
+
+Key W 	A $[Mod1]	Change-Volume-Down $[infostore.Vol_Step]
+Key V 	A $[Mod1]	Change-Volume-Up $[infostore.Vol_Step]
+Key W	A $[Mod2]	Change-Volume-Down 10
+Key V	A $[Mod2]	Change-Volume-Up 10
+
+Key slash	A $[Mod1]	Music-Find
+Key slash	A $[Mod2]	Music-ToggleRandom
+
+# vim:ft=fvwm

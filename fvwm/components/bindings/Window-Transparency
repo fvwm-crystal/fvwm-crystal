@@ -1,0 +1,6 @@
+# Basic window transparency bindings
+
+Mouse 4 T	$[Mod] Window-Increase-Transparency
+Mouse 5 T	$[Mod] Window-Decrease-Transparency
+
+# vim:ft=fvwm

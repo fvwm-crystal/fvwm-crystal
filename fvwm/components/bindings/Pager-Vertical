@@ -1,0 +1,35 @@
+# Desktop switching using Function keys
+Key F1	A $[Mod1] GotoPage 0 0
+Key F2  A $[Mod1] GotoPage 0 1
+Key F3  A $[Mod1] GotoPage 0 2
+Key F4  A $[Mod1] GotoPage 0 3
+Key F5  A $[Mod1] GotoPage 0 4
+Key F6  A $[Mod1] GotoPage 0 5
+Key F7  A $[Mod1] GotoPage 0 6
+Key F8  A $[Mod1] GotoPage 0 7
+Key F9	A $[Mod1] GotoPage 0 8
+Key F10	A $[Mod1] GotoPage 0 9
+Key F11	A $[Mod1] GotoPage 0 10
+Key F12	A $[Mod1] GotoPage 0 11
+
+# Go to previouse page using Escape
+Key Escape A $[Mod1] GotoPage prev
+
+# Move focused window to the selected desktop page
+Key F1  A $[Mod2] MoveToPage-Focus 0 0
+Key F2  A $[Mod2] MoveToPage-Focus 0 1
+Key F3  A $[Mod2] MoveToPage-Focus 0 2
+Key F4  A $[Mod2] MoveToPage-Focus 0 3
+Key F5  A $[Mod2] MoveToPage-Focus 0 4
+Key F6  A $[Mod2] MoveToPage-Focus 0 5
+Key F7  A $[Mod2] MoveToPage-Focus 0 6
+Key F8  A $[Mod2] MoveToPage-Focus 0 7
+Key F9	A $[Mod2] MoveToPage-Focus 0 8
+Key F10	A $[Mod2] MoveToPage-Focus 0 9
+Key F11	A $[Mod2] MoveToPage-Focus 0 10
+Key F12	A $[Mod2] MoveToPage-Focus 0 11
+
+# Move focused window to the last used page
+Key Escape A $[Mod2] MoveToPage-Focus prev
+
+# vim:ft=fvwm

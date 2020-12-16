@@ -1,0 +1,10 @@
+# Default numpad layout
+# You need to load numpad functions as well
+# This version automatically raises windows after focusing
+
+Include components/bindings/Numpad-Control
+Include components/bindings/Numpad-Focus-Raise
+Include components/bindings/Numpad-Move
+Include components/bindings/Numpad-Warp
+
+# vim:ft=fvwm

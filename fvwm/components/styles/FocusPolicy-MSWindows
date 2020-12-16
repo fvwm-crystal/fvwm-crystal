@@ -1,0 +1,26 @@
+# Window focusing policy - MS Windows
+
+# - click to focus
+# - windows are automatically raised upon focus (raised by clicks)
+# - new windows are automatically being focused
+
+Style * !FPEnterToFocus, !FPLeaveToUnfocus, FPClickToFocus, FPClickDecorToFocus
+Style * FPClickRaisesFocused, FPClickDecorRaisesFocused
+Style * FPAllowRaiseClickFunction
+Style * FPClickRaisesUnfocused, FPClickDecorRaisesUnfocused
+Style * FPFocusByProgram, FPFocusByFunction, !FPFocusByFunctionWarpPointer
+Style * FPGrabFocus, FPGrabFocusTransient
+Style * FPReleaseFocus, FPReleaseFocusTransient
+Style * FPFocusClickModifiers $[Mod]$[Mod0]
+
+Style FvwmScript !FPEnterToFocus, !FPLeaveToUnfocus, FPClickToFocus, FPClickDecorToFocus
+Style FvwmScript FPClickRaisesFocused, FPClickDecorRaisesFocused
+Style FvwmScript FPGrabFocus, FPGrabFocusTransient
+Style FvwmScript FPReleaseFocus, FPReleaseFocusTransient
+
+Include components/styles/FocusPolicy-NeverFocus
+
+# Functions for remembering last focused window on a desktop page
+Include components/functions/Window-Remember-ClickToFocus
+
+# vim:ft=fvwm

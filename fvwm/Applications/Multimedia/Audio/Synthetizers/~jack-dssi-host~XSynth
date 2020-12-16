@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec jack-dssi-host xsynth-dssi.so $@ 2>/dev/null
+

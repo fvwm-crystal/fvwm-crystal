@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec startBristol -sidney -jack $@ 2>/dev/null
+

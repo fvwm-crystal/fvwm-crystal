@@ -1,0 +1,9 @@
+# Move mouse pointer to the upper-left corner of the screen
+# using Alt+Home (by default)
+
+Key Home A $[Mod1] WindowId root 1 WarpToWindow 0 0
+
+# Move mouse pointer with NumLock
+Key Home A $[Mod1]2 WindowId root 1 WarpToWindow 0 0
+
+# vim:ft=fvwm

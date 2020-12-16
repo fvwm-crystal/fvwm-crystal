@@ -1,0 +1,34 @@
+# Keyboard modifiers
+
+# Overview:
+# Here you can easily change modifier keys:
+# N - no modifier (none pressed)
+# A - any modifier (0 or more)
+# S - Shift key (Shift_L)
+# M - Meta or Alt key (Alt_L)
+# C - Control key (Control_L)
+# 4 - Windows left key (Super_L)
+
+# Mod - any modifier
+SetEnv Mod A
+
+# Mod0 - no modifier
+SetEnv Mod0 N
+
+# Mod1, usually Meta (Alt). Used as "base" modifier for many functions.
+SetEnv Mod1 M
+#SetEnv Mod1 4
+
+# Mod2 - "second mode" of some functions
+SetEnv Mod2 MS
+#SetEnv Mod2 4S
+
+# SelectOnRelease is used in WindowLists. If you run WindowLists from another
+# key than Meta, you should change it to that key's name:
+SetEnv SelectOnReleaseKey Alt_L
+#SetEnv SelectOnReleaseKey Super_L
+
+# Read user preference if any
+Include preferences/CustomKeyModifiers
+
+# vim:ft=fvwm

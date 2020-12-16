@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec zapping $@ 2>/dev/null
+

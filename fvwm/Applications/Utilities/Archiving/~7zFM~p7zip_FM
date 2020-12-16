@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec 7zFM $@ 2>/dev/null

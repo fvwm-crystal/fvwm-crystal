@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec jmeters -t vu -f small VU $@ 2>/dev/null

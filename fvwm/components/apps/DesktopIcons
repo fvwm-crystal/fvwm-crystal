@@ -1,0 +1,197 @@
+# Desktop icons for Fvwm-Crystal. Support any file manager.
+#
+# Version:	2.1.0
+# License:	GPL 3+
+#
+# Written by Dominique Michel <dominique_libre@users.sourceforge.net>, 2010-2015
+# for Fvwm-Crystal.
+#
+# From Fvwm FAQ, 7.13 with huge modifications and added functions.
+# This file will add nice 2 pictures icons (a standard feature on the Amiga OS) on the desktop:
+# one mandatory for $HOME, the other are optional and are divided into 2 ranges:
+# the XDG user directories and the mounted partitions.
+# A left click will launch Thunar into the corresponding mount point.
+# A middle click will do the same with mc (Thunar doesn't heve a built-in shell).
+# A right click on the $HOME icon open the preferences.
+#
+# Requirement: gawk, sort, at least one file manager like Thunar or mc, mount, and /proc/mounts.
+# Recommanded: pmount and pmount-gui, fusermount for some mobile phones.
+#
+# To use it in your recipe, add "LoadPreferences DefaultDesktopManager" after
+# the EWMH-Desktop configuration. See the Custom recipe for an example.
+
+
+# Preferences {{{1
+LoadPreferences ShowXDG
+LoadPreferences ShowPartitions
+LoadPreferences FileBrowser1
+LoadPreferences FileBrowser2
+LoadPreferences DeskIconsSign.$[infostore.Recipe]
+LoadPreferences DeskIconsOnTop
+
+# unique temporary file
+AddToFunc ExitFunction I Test (Quit) Exec exec rm $[infostore.tmpdrivefile] $[infostore.SILENT]
+AddToFunc ExitFunction I Test (ToRestart) Exec exec rm $[infostore.tmpdrivefile] $[infostore.SILENT]
+
+# For the recipes
+SetEnv DefaultDesktopManager Crystal
+AddToFunc ExitFunction I UnsetEnv DefaultDesktopManager
+
+# umount/pumount wrapper
+DestroyFunc DesktopUmount
+AddToFunc DesktopUmount
++ I PipeRead 'if [ "$(echo $* | grep -e media)" != "" ]; \
+      then exem="pumount"; \
+      else if [ "$(mount | grep \"$* \" | grep simple-mtpfs)" != "" ]; \
+    	    then exem="fusermount -u"; \
+	    else exem="umount"; \
+      fi ; fi; \
+      echo "+ \\\"$[gt.Umount] $*\\\" Exec exec ${exem} $*"'
+
+# Functions {{{1
+DestroyMenu /Preferences/XDG
+AddToMenu /Preferences/XDG
++ '%22x22/fvwm-crystal/On.png%$[gt.On]' ShowXDG
++ '%22x22/fvwm-crystal/Off.png%$[gt.Off]' DontShowXDG
+
+DestroyFunc ShowXDG
+AddToFunc ShowXDG
++ I SavePreferences ShowXDG "SetEnv ShowXDG yes"
++ I SetEnv ShowXDG yes
++ I LoadDesktopIcons
+
+DestroyFunc DontShowXDG
+AddToFunc DontShowXDG
++ I SavePreferences ShowXDG "SetEnv ShowXDG no"
++ I SetEnv ShowXDG no
++ I LoadDesktopIcons
+
+DestroyMenu /Preferences/Partitions
+AddToMenu /Preferences/Partitions
++ '%22x22/fvwm-crystal/On.png%$[gt.On]' ShowPartitions
++ '%22x22/fvwm-crystal/Off.png%$[gt.Off]' DontShowPartitions
+
+DestroyFunc ShowPartitions
+AddToFunc ShowPartitions
++ I SavePreferences ShowPartitions "SetEnv ShowPartitions yes"
++ I SetEnv ShowPartitions yes
++ I LoadDesktopIcons
+
+DestroyFunc DontShowPartitions
+AddToFunc DontShowPartitions
++ I SavePreferences ShowPartitions "SetEnv ShowPartitions no"
++ I SetEnv ShowPartitions no
++ I LoadDesktopIcons
+
+DestroyMenu /Preferences/FileBrowser
+AddToMenu /Preferences/FileBrowser
++ MissingSubmenuFunction FileBrowser-generator
++ '%22x22/categories/directory.png%$[gt.Action ]1: "$[infostore.FileBrowser1]"' Popup BrowserAction1
++ '%22x22/categories/directory.png%$[gt.Action ]2: "$[infostore.FileBrowser2]"' Popup BrowserAction2
++ '%22x22/categories/directory.png%$[gt.Custom action ]1' Module FvwmForm FileBrowser-Action1-Dialog
++ '%22x22/categories/directory.png%$[gt.Custom action ]2' Module FvwmForm FileBrowser-Action2-Dialog
+
+DestroyFunc FileBrowser-generator
+AddToFunc FileBrowser-generator
++ I DestroyMenu recreate $0
++ I AddToMenu $0
++ I PipeRead 'index=`echo "$0" | sed -e "s:BrowserAction::"`; $[FVWM_SYSTEMDIR]/scripts/DesktopActions "$0" ${index}'
+
+All (FileBrowser-Action1-Dialog) Close
+DestroyModuleConfig FileBrowser-Action1-Dialog: *
+*FileBrowser-Action1-Dialog: Title "$[gt.File browser action]"
+*FileBrowser-Action1-Dialog: Text "$[gt.Type a command to bind to the first mouse button.]"
+*FileBrowser-Action1-Dialog: Line center
+*FileBrowser-Action1-Dialog: Line center
+*FileBrowser-Action1-Dialog: Text "$[gt.A console command must be prefixed by A and space,]"
+*FileBrowser-Action1-Dialog: Line center
+*FileBrowser-Action1-Dialog: Line center
+*FileBrowser-Action1-Dialog: Text "$[gt.use X and space otherwise.]"
+*FileBrowser-Action1-Dialog: Line center
+*FileBrowser-Action1-Dialog: Line center
+*FileBrowser-Action1-Dialog: Input ActionName 40 "$[infostore.FileBrowser1]"
+*FileBrowser-Action1-Dialog: Line center
+*FileBrowser-Action1-Dialog: Line center
+*FileBrowser-Action1-Dialog: Button quit " $[gt.Save] " ^M
+*FileBrowser-Action1-Dialog: Command SetFileBrowser 1 "$(ActionName)"
+*FileBrowser-Action1-Dialog: Button quit " $[gt.Not now] " ^[
+*FileBrowser-Action1-Dialog: Command Nop
+*FileBrowser-Action1-Dialog: Line center
+
+All (FileBrowser-Action2-Dialog) Close
+DestroyModuleConfig FileBrowser-Action2-Dialog: *
+*FileBrowser-Action2-Dialog: Title "$[gt.File browser action]"
+*FileBrowser-Action2-Dialog: Text "$[gt.Type a command to bind to the second mouse button.]"
+*FileBrowser-Action2-Dialog: Line center
+*FileBrowser-Action2-Dialog: Line center
+*FileBrowser-Action2-Dialog: Text "$[gt.A console command must be prefixed by A and space,]"
+*FileBrowser-Action2-Dialog: Line center
+*FileBrowser-Action2-Dialog: Line center
+*FileBrowser-Action2-Dialog: Text "$[gt.use X and space otherwise.]"
+*FileBrowser-Action2-Dialog: Line center
+*FileBrowser-Action2-Dialog: Line center
+*FileBrowser-Action2-Dialog: Input ActionName 40 "$[infostore.FileBrowser2]"
+*FileBrowser-Action2-Dialog: Line center
+*FileBrowser-Action2-Dialog: Line center
+*FileBrowser-Action2-Dialog: Button quit " $[gt.Save] " ^M
+*FileBrowser-Action2-Dialog: Command SetFileBrowser 2 "$(ActionName)"
+*FileBrowser-Action2-Dialog: Button quit " $[gt.Not now] " ^[
+*FileBrowser-Action2-Dialog: Command Nop
+*FileBrowser-Action2-Dialog: Line center
+
+DestroyFunc SetFileBrowser
+AddToFunc SetFileBrowser
++ I SavePreferences FileBrowser$[0] "InfoStoreAdd FileBrowser$[0] \'$[1]\'"
++ I InfoStoreAdd FileBrowser$[0] '$[1]'
++ I Exec exec killall DesktopCheckMounts $[infostore.SILENT]
++ I KillModule FvwmButtons DesktopIcons
++ I DestroyModuleConfig DesktopIcons: *
++ I Exec exec FvwmCommand "Include components/apps/DesktopIcons"
+
+AddToFunc ExitFunction I Test (Quit) Exec exec killall DesktopCheckMounts $[infostore.SILENT]
+AddToFunc ExitFunction I Test (ToRestart) Exec exec killall DesktopCheckMounts $[infostore.SILENT]
+
+DestroyMenu /Preferences/DeskIconsPlace
+AddToMenu /Preferences/DeskIconsPlace
++ '%22x22/fvwm-crystal/Left.png%$[gt.Left]' SetDeskIconsPlace " "
++ '%22x22/fvwm-crystal/Right.png%$[gt.Right]' SetDeskIconsPlace "-"
+
+
+DestroyFunc SetDeskIconsPlace
+AddToFunc SetDeskIconsPlace
++ I Exec exec killall DesktopCheckMounts $[infostore.SILENT]
++ I SavePreferences DeskIconsSign.$[infostore.Recipe] "InfoStoreAdd DeskIconsSign \'$[0]\'"
++ I InfoStoreAdd DeskIconsSign '$[0]'
++ I KillModule FvwmButtons DesktopIcons
++ I DestroyModuleConfig DesktopIcons: *
++ I Exec exec rm $[infostore.tmpdrivefile] $[infostore.SILENT]
+# Schedule time should be > DesktopCheckMounts time loop
++ I Schedule 4500 Exec exec FvwmCommand "Include components/apps/DesktopIcons"
+
+DestroyMenu /Preferences/DeskIconsTop
+AddToMenu /Preferences/DeskIconsTop
++ '%22x22/fvwm-crystal/On.png%$[gt.On]' DeskIconsOnTop
++ '%22x22/fvwm-crystal/Off.png%$[gt.Off]' DeskIconsOnBottom
+
+DestroyFunc DeskIconsOnTop
+AddToFunc DeskIconsOnTop
++ I SavePreferences DeskIconsOnTop "Style DesktopIcons State 30"
++ I All (DesktopIcons) WindowStyle State 30
+
+DestroyFunc DeskIconsOnBottom
+AddToFunc DeskIconsOnBottom
++ I SavePreferences DeskIconsOnTop "Style DesktopIcons !State 30"
++ I All (DesktopIcons) WindowStyle !State 30
+
+DestroyFunc LoadDesktopIcons
+AddToFunc LoadDesktopIcons
++ I PipeRead '$[FVWM_SYSTEMDIR]/scripts/desktop_manager \"$[infostore.DeskIconsSign]\" $[infostore.cs_transparent] "$[infostore.SILENT]" \
+	\"$[infostore.FileBrowser1]\" \"$[infostore.FileBrowser2]\" $[vp.height] $[infostore.tmpdrivefile] \
+	$[infostore.EWMH_CBB_Left] $[infostore.EWMH_CBB_Right] $[infostore.EWMH_CBB_Top] $[infostore.EWMH_CBB_Bottom] \
+	$[vp.width] $[infostore.EWMH_Recipe_Left] $[infostore.EWMH_Recipe_Right] $[infostore.EWMH_Recipe_Top] $[infostore.EWMH_Recipe_Bottom]'
++ I Include tmp/DesktopIcons
++ I RedrawIconBox
+
+LoadDesktopIcons
+
+# vim:ft=fvwm

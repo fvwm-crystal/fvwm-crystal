@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec darksnow $@ 2>/dev/null
+

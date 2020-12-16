@@ -1,0 +1,50 @@
+# Function CheckForFiles for FVWM-Crystal
+#
+# Version:	1.1.1
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	04/19/2014
+# Changed:	08/09/2014
+#
+# Description:	This file check for preference and application database files and launch the Preferences Editor or fvwm-crystal.generate-menu accordingly.
+
+# Load date for last installed package with a desktop file
+LoadPreferences DateLastApp
+# XDG Menu
+LoadPreferences XDGMenu
+Test (EnvMatch XDGMenu yes) LoadXDGMenu
+# Load the system editor
+LoadPreferences EDITOR
+
+# check for preferences files
+# CheckPrefFile <filename>
+DestroyFunc CheckPrefFile
+AddToFunc CheckPrefFile
++ I PipeRead 'if [ ! -f "${FVWM_USERDIR}/preferences/$0" ]; \
+	then cp -R "${FVWM_SYSTEMDIR}/preferences/$0" "${FVWM_USERDIR}/preferences/$0"; \
+		echo "SetEnv PrefEd 1"; \
+	fi'
+
+# check for applications database in the user directory
+# and for date of the desktop files
+DestroyFunc CheckApplicationsDatabase
+AddToFunc CheckApplicationsDatabase
++ I PipeRead 'if [ ! -d "${FVWM_USERDIR}/Applications" ]; then \
+		echo "A fvwm-crystal.generate-menu ${FVWM_SYSTEMDIR} ${FVWM_USERDIR}"; \
+		echo "A ${FVWM_SYSTEMDIR}/scripts/XDG-Menu"; \
+		else ${FVWM_SYSTEMDIR}/scripts/CheckMenuDate; fi'
+
+CheckPrefFile MediaDirectories
+CheckPrefFile DesktopDirs
+CheckPrefFile IconDirs
+CheckPrefFile BROWSER
+CheckPrefFile EDITOR
+CheckPrefFile Startup
+CheckPrefFile FullScreenApps
+CheckPrefFile ShowDirectories
+CheckApplicationsDatabase
+Test (EnvIsSet PrefEd) Script scripts/PrefVars/PrefVars
+UnsetEnv PrefEd
+UnsetEnv DateLastApp

@@ -1,0 +1,25 @@
+# /etc/sudoers
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# See the man page for details on how to write a sudoers file.
+#
+
+# Changing the default settings
+Defaults	!root_sudo
+Defaults	timestamp_timeout=3
+
+# Host alias specification
+
+# User alias specification
+User_Alias	USERS = username1, username2
+
+# Cmnd alias specification
+Cmnd_Alias	SHUTDOWN = /sbin/shutdown, /sbin/halt, /sbin/reboot
+Cmnd_Alias	APT = /usr/bin/aptitude
+
+# User privilege specification
+root	ALL=(ALL) ALL
+USERS	ALL = APT
+USERS	ALL = NOPASSWD: SHUTDOWN
+

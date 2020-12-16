@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Set IconColumnsNumber which is used by all recipes to determinate the IconBox size, and
+# by the FVWM-Crystal desktop icons manager.
+# Written by Dominique Michel <dominique_libre@users.sourceforge.net>, 2015
+
+# Must be included in all the recipes before to check for the Icon manager:
+#	PipeRead '$[FVWM_SYSTEMDIR]/scripts/set_DesktopIconsGeom $[vp.height]'
+
+deskmanfile="${FVWM_USERDIR}/tmp/DesktopIcons"
+echo "" > "${deskmanfile}"
+
+# unique temporary file
+tmpdrivefile="/tmp/Icon-Drives_$((`dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -d' ' -f1` % 32768))"
+echo "InfoStoreAdd tmpdrivefile ${tmpdrivefile}"
+
+# We must calculate the size of the button box {{{1
+# Home: 1 icon, XDG user dirs: 8 icons, partitions: variable, directories: variable
+IconNumber=0
+if [[ "`cat ${FVWM_USERDIR}/preferences/DefaultDesktopManager | grep components/apps/DesktopIcons`" != "" ]]
+then
+    IconNumber=1
+    if [[ "${ShowXDG}" == "yes" ]]; then IconNumber=9; fi
+    if [[ "${ShowPartitions}" == "yes" ]]
+	then	mount | gawk -v sq="'" '/^\/.*|^simple-mtpfs.*\// { print "" sq "" $3 "" sq ""; }' | sort > ${tmpdrivefile} # | sed -e 's:\\:\\\\:g'
+		IconNumber="$((${IconNumber}+`wc -l < ${tmpdrivefile}`))"
+		IconNumber="$((${IconNumber}+`wc -l < ${HOME}/.fvwm-crystal/preferences/ShowDirectories`))"
+    fi
+    IconRowsNumber="$((((${1}-((${EWMH_BS_Panel_Top}+${EWMH_BS_Panel_Bottom}))))/50))"
+    echo "SetEnv IconRowsNumber ${IconRowsNumber}"
+    tmpvar=$((${IconNumber}/${IconRowsNumber}))
+    if [[ "$((${IconRowsNumber}*${tmpvar}))" != "${IconNumber}" ]]
+	then echo "SetEnv IconColumnsNumber $((${tmpvar}+1))"
+	else echo "setEnv IconColumnsNumber ${tmpvar}"
+    fi
+else
+    echo "SetEnv IconRowsNumber 0"
+    echo "SetEnv IconColumnsNumber 0"
+fi

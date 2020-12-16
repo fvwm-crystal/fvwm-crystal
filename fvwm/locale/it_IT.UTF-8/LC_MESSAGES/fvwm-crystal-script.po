@@ -1,0 +1,222 @@
+# Italian translation for FVWM-Crystal
+# Copyright (C) 2019 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Original by Emanuele Petrucci 'kysmor' <kysmor@kysmor.com>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal 3.5.1\n"
+"POT-Creation-Date: 2019-09-14 20:00+0200\n"
+"PO-Revision-Date: 2019-09-14 20:00+0200\n"
+"Last-Translator: Emanuele Petrucci <kysmor@kysmor.com>\n"
+"Language-Team: Italian\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../fvwm/components/scripts/FvwmScript-CpuTemp:18
+#: ../fvwm/components/scripts/FvwmScript-CpuTemp:28
+msgid "°C"
+msgstr "°C"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:19
+msgid "FVWM-Crystal File Editor"
+msgstr "Editor di File FVWM-Crystal"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:106
+msgid "File"
+msgstr "File"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:122
+#: ../fvwm/scripts/PrefVars/PrefVars:614
+msgid "Help"
+msgstr "Aiuto"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:141
+#: ../fvwm/scripts/PrefVars/PrefVars:273
+#: ../fvwm/scripts/PrefVars/PrefVars:445
+#: ../fvwm/scripts/PrefVars/PrefVars:630
+#: ../fvwm/scripts/PrefVars/PrefVars:815
+msgid "Add line"
+msgstr "Aggiungi linea"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:162
+#: ../fvwm/scripts/FontSelector/FontSelector:812
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:289
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:400
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:510
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:620
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:730
+#: ../fvwm/scripts/PrefVars/PrefVars:120
+#: ../fvwm/scripts/PrefVars/PrefVars:187
+#: ../fvwm/scripts/PrefVars/PrefVars:294
+#: ../fvwm/scripts/PrefVars/PrefVars:466
+#: ../fvwm/scripts/PrefVars/PrefVars:651
+#: ../fvwm/scripts/PrefVars/PrefVars:836
+msgid "Save"
+msgstr "Salva"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:200
+#: ../fvwm/scripts/PrefVars/PrefVars:334
+#: ../fvwm/scripts/PrefVars/PrefVars:504
+#: ../fvwm/scripts/PrefVars/PrefVars:689
+#: ../fvwm/scripts/PrefVars/PrefVars:874
+msgid "Remove"
+msgstr "Cancella"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:220
+#: ../fvwm/scripts/PrefVars/PrefVars:354
+#: ../fvwm/scripts/PrefVars/PrefVars:524
+#: ../fvwm/scripts/PrefVars/PrefVars:709
+#: ../fvwm/scripts/PrefVars/PrefVars:894
+msgid "Update"
+msgstr "Aggiorna"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:8
+msgid "FVWM-Crystal Font Selector"
+msgstr "Selettore dei caratteri FVWM-Crystal"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:80
+#: ../fvwm/scripts/FontSelector/FontSelector:603
+#: ../fvwm/scripts/FontSelector/FontSelector:620
+#: ../fvwm/scripts/FontSelector/FontSelector:637
+#: ../fvwm/scripts/FontSelector/FontSelector:654
+#: ../fvwm/scripts/FontSelector/FontSelector:671
+#: ../fvwm/scripts/FontSelector/FontSelector:707
+msgid "abijk ABIJK éç ÀÉ O09 你好"
+msgstr "abijk ABIJK éç ÀÉ O09 你好"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:384
+#: ../fvwm/scripts/FontSelector/FontSelector:408
+msgid "Regular"
+msgstr "Regolare"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:424
+#: ../fvwm/scripts/FontSelector/FontSelector:448
+msgid "Bold"
+msgstr "Grassetto"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:464
+#: ../fvwm/scripts/FontSelector/FontSelector:488
+msgid "Italic"
+msgstr "Corsivo"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:504
+#: ../fvwm/scripts/FontSelector/FontSelector:528
+msgid "Bold Italic"
+msgstr "Grassetto Corsivo"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:568
+msgid "With"
+msgstr "Con"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:688
+msgid " Edit me:"
+msgstr " Modificami: "
+
+#: ../fvwm/scripts/FontSelector/FontSelector:724
+msgid "Save editing"
+msgstr "Salva le modifiche"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:740
+msgid "Reset editing"
+msgstr "Ripulisci le modifiche"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:764
+msgid "Quit"
+msgstr "Esci"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:780
+msgid "Apply"
+msgstr "Applica"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:854
+msgid ". Panel Font"
+msgstr ". Caratteri del Pannello"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:882
+msgid ". Title Font"
+msgstr ". Caratteri del Titolo"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:911
+msgid ". Menu Font"
+msgstr ". Caratteri del Menu"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:10
+msgid "FVWM-Crystal Keyboard Modifiers Editor"
+msgstr "Editor del Modificatore della Tastiera FVWM-Crystal"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:221
+msgid "N=none, A=any (0 or more), M=Meta (Alt_L), S=Shift_L, C=Control_L, 4=Super_L (Win_L)"
+msgstr "N=nessuno, A=qualsiasi (0 o più), M=Meta (Alt_L), S=Shift_L, C=Control_L, "
+"4=Super_L (Win_L)"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:252
+msgid "Mod: any modifier (0 or more)"
+msgstr "Mod : qualsiasi modificatore (0 o più)"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:331
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:441
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:551
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:661
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:771
+msgid "Restore"
+msgstr "Ripristina"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:363
+msgid "Mod0: no modifier"
+msgstr "Mod0 : nessun modificatore"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:473
+msgid "Mod1: usually Meta"
+msgstr "Mod1 : generalmente Meta"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:583
+msgid "Mod2: second mode"
+msgstr "Mod2 : secondo modificatore"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:693
+msgid "SelectOnRelease: for WindowLists"
+msgstr "SelectOnRelease: per WindowLists"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:10
+msgid "FVWM-Crystal Variables Editor"
+msgstr "Editor delle Variabili di FVWM-Crystal"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:104
+msgid "Browser"
+msgstr "Browser"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:171
+msgid "Editor"
+msgstr "Editor"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:242
+msgid "Desktop"
+msgstr "Scrivania"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:257
+#: ../fvwm/scripts/PrefVars/PrefVars:429
+#: ../fvwm/scripts/PrefVars/PrefVars:599
+msgid "Directories"
+msgstr "Cartelle"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:414
+msgid "Icons"
+msgstr "Icone"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:584
+msgid "Media"
+msgstr "Media"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:769
+msgid "Full screen"
+msgstr "Schermo intero"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:784
+msgid "Applications"
+msgstr "Applicazioni"
+
+# End of generated strings

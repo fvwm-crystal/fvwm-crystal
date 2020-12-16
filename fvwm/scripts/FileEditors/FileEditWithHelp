@@ -1,0 +1,235 @@
+# FvwmScript File Editor with Help for Fvwm-Crystal
+# Copyright Dominique Michel <dominique_libre@users.sourceforge.net> 2014
+# Released under the GNU GPL license v3 or later
+
+# Usage: 	SetEnv FileEditWithHelp <file_name>
+#		Include scripts/FileEditors/<file_name>-Help
+#		Script scripts/FileEditors/FileEditWithHelp
+#
+# or simpler:	LaunchFileWithHelp <file_name>
+#
+# 	where <file_name> is the name of the preeference file (must be in $FVWM_USERDIR/preferences)
+#	A help file with name <file_name-help> must exist in the same direectory than this script.
+#	The environmental variable is unset whn quiting the script.
+
+# $FileEditWithHelp = <file_name>
+
+# Header ̣{{{1
+UseGettext {$FVWM_USERDIR/locale;fvwm-crystal-script:$FVWM_SYSTEMDIR/locale;fvwm-crystal-script:+}
+WindowLocaleTitle {FVWM-Crystal File Editor}
+
+WindowSize 800 400
+#WindowPosition 300 300
+Colorset	1
+# Dont change it or the text titles will be shorted: 
+Font	"xft:$[panel_font]:pixelsize:$[panel_font_size]:style:$[panel_font_style]"
+
+# Initialisation {{{1
+Init
+Begin
+    Set $FDIR = (GetOutput {echo "$FVWM_USERDIR"} 1 -1)
+    Set $PDIR = $FDIR {/preferences/}
+    # Load file
+    Set $mfile = $PDIR {$FileEditWithHelp}
+    Set $cmd = {cat }$mfile{ | tr '\n' '|'}
+    ChangeTitle 1 (GetOutput $cmd 1 -1)
+    Set $mediad = (GetTitle 1)
+    Set $cmd = {echo }$mfile
+    ChangeTitle 2 (GetOutput $cmd 1 -1)
+End
+
+# Periodic Tasks {{{1
+PeriodicTasks
+Begin
+    # use a timer for flickering {{{2
+    If (RemainderOfDiv (GetTime) 1) == 0 Then
+    Begin
+	# faster if we do nothing here
+	Do Nop
+    End
+End
+
+# Quit Function {{{1
+QuitFunc
+Begin
+  Do {UnsetEnv FileEditWithHelp}
+#  Do {Echo The font: }$SetFont{ is xft:}$FontName{:pixelsize=}$Size{:}$Style
+End
+
+# Main {{{1
+Widget 1
+Property
+    Flags NoReliefString	
+    Position 130 45
+    Size 480 315
+    Type List
+#    Font "xft:$[panel_font]:size=10:$[panel_font_style]"
+    Title { }
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $mediad = (GetTitle 1)
+    Set $mindex = (GetValue 1)
+    Set $cmd = {exec echo "}$mediad{"|cut -d '|' -f }$mindex
+    Set $Mstring = (GetOutput $cmd 1 -1)
+    Set $oldMstring = $Mstring
+    HideWidget 14
+    ChangeTitle 14 $Mstring
+    ShowWidget 14
+ End
+End
+
+# Label
+Widget 2
+Property
+    Flags NoReliefString Center	
+    Position 130 5
+    Size 465 35
+    Type ItemDraw
+    Title { }
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Label
+Widget 10
+Property
+    Flags NoReliefString Center	
+    Position 5 5
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {File}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Launch the Help
+Widget 110
+Property
+ Flags NoReliefString
+ Position 5 45
+ Size 120 35
+ Type PushButton
+ LocaleTitle {Help}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo $FileEditWithHelp}
+      Set $HelpFile = (GetOutput $cmd 1 -1)
+      Set $cmd = {Module FvwmForm }$HelpFile{-Dialog}
+      Do $cmd
+  End
+End
+
+# Add line
+Widget 12
+Property
+ Flags NoReliefString
+ Position 625 320
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Add line}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$mediad{"|sed -e "s:^.*$:&}$Mstring{|:"}
+      Set $mediad = (GetOutput $cmd 1 -1)
+      HideWidget 1
+      ChangeTitle 1 $mediad
+      ShowWidget 1
+      Set $oldMstring = $Mstring
+  End
+End
+
+# Save media dirs
+Widget 13
+Property
+ Flags NoReliefString
+ Position 625 280
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $cmd = {PipeRead "printf %s \"}$mediad{\"| tr '|' '\\n' > }$mfile{"}
+    Do $cmd
+  End
+End
+
+# Edit entry
+Widget 14
+Property
+    Flags NoReliefString	
+    Position 130 365
+    Size 480 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $Mstring = (GetTitle 14)
+ End
+ 1 :
+ Begin
+    Set $Mstring = (GetTitle 14)
+ End
+End
+
+# Remove string
+Widget 15
+Property
+ Flags NoReliefString
+ Position 5 360
+ Size 120 35
+ Type PushButton
+ LocaleTitle {Remove}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$mediad{"|sed -e "s:}$oldMstring{|::"}
+      Set $mediad = (GetOutput $cmd 1 -1)
+      HideWidget 1
+      ChangeTitle 1 $mediad
+      ShowWidget 1
+  End
+End
+
+# Update string
+Widget 16
+Property
+ Flags NoReliefString
+ Position 625 360
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Update}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$mediad{"|sed -e "s:}$oldMstring{:}$Mstring{:"}
+#    Do {Echo cmd=}$cmd
+      Set $mediad = (GetOutput $cmd 1 -1)
+      HideWidget 1
+      ChangeTitle 1 $mediad
+      ShowWidget 1
+      Set $oldMstring = $Mstring
+  End
+End
+
+# vim:ft=fvwm

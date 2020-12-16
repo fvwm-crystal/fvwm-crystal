@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec glame $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gstreamer-properties $@ 2>/dev/null
+

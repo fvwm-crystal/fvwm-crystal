@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec acidrip $@ 2>/dev/null
+

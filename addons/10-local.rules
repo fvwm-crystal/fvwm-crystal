@@ -1,0 +1,11 @@
+# Make mplayer to work with multituners dvb cards.
+# Symlink a second adapter to the first one, that with reverse tuners order.
+# Your udev implementation can or not autorize this.
+# You may need to adjust the device string for you card.
+# To find the device string for the first dvb card, run
+# udevadm info -a -p $(udevadm info -q path -n /dev/dvb/adapter0/frontend0)
+
+KERNEL=="dvb0.demux1", SUBSYSTEM=="dvb", ATTRS{device}=="0x8802", SYMLINK+="dvb/adapter1/demux0"
+KERNEL=="dvb0.dvr1", SUBSYSTEM=="dvb", ATTRS{device}=="0x8802", SYMLINK+="dvb/adapter1/dvr0"
+KERNEL=="dvb0.frontend1", SUBSYSTEM=="dvb", ATTRS{device}=="0x8802", SYMLINK+="dvb/adapter1/frontend0"
+KERNEL=="dvb0.net1", SUBSYSTEM=="dvb", ATTRS{device}=="0x8802", SYMLINK+="dvb/adapter1/net0"

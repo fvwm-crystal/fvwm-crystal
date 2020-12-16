@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec jaaa -J $@ 2>/dev/null
+

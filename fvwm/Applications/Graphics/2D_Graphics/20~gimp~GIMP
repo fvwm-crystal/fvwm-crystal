@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gimp $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xtraceroute $@ 2>/dev/null
+

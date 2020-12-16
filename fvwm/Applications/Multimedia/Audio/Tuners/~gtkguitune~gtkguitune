@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gtkguitune $@ 2>/dev/null
+

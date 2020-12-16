@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gcfilms $@ 2>/dev/null
+

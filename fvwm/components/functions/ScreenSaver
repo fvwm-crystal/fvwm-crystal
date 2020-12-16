@@ -1,0 +1,11 @@
+# FVWM-Crystal: BlankScreen
+# Written by Dominique Michel
+# Not all computers have an instant blanking key, this file add such a function
+# that can be called by a key binding (Alt+B by default).
+#
+# We need to use xset 2 consecutive times for it to stay
+DestroyFunc  BlankScreen
+AddToFunc BlankScreen
++ I Exec exec xset dpms force off
++ I Exec exec xset dpms force off
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec lomath $@ 2>/dev/null

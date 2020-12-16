@@ -1,0 +1,205 @@
+ApplicationDatabase(1)
+======================
+:doctype: manpage
+:man source:   ApplicationDatabase
+:man version:  3.4.0
+:man manual:   FVWM-Crystal
+
+NAME
+----
+
+ApplicationDatabase - provide "fvwm-crystal.apps" - a feature rich script that generate FVWM-Crystal applications menu from database entries and icons. It can be used in conjunction with "fvwm-crystal.generate-menu" - a script that generate the database entries and the icons used by fvwm-crystal.apps, by reading the desktop files provided by the applications, that with full support of the FreeDesktop additional categories.
+
+
+SYNOPSIS
+--------
+
+None
+
+
+DESCRIPTION
+-----------
+
+Application database (with fvwm-crystal.apps and fvwm-crystal.generate-menu scripts) is one of the most interesting elements of FVWM-Crystal desktop.
+Thanks to these elements you can have a panel or the menu with applications currently installed on a given system.
+
+Database structure is very flexible, allowing you to combine several databases into one (system-wide and user-wide, for example), mask selected applications or even whole directories, so they won't be visible, and so on.
+
+Application panel/menu generator also has many interesting features - you can create different panels and menu systems and easily blend them with your FVWM configuration.
+
+
+Database structure
+~~~~~~~~~~~~~~~~~~
+A database is a set of directories and scripts with special naming structure.
+Each directory and subdirectory creates a *category* in which you can put
+selected applications, for example *Games* or *Office*. Categories can be
+nested, in turn creating subcategories, like *FPP Games* or *OpenOffice.org*.
+In generation process each subdirectory is transformed into a submenu containg menu items specified in this subdirectory.
+
+Each directory and script have a special naming pattern. Here's the list of possible names:
+
+	entry_name
+	~entry_name
+	~~entry_name
+	~executable_name~entry_name
+	priority~entry_name
+	priority~~entry_name
+	priority~executable_name~entry_name
+
+_entry_name_::
++
+is the name of the menu item or button on a panel. This is a required field. If it's the only one present, generator assumes that this entry should be put in the menu or panel without checking if associated application is present.
+
+_executable_name_::
++
+is used to specify a name of the executable file. It's used to determine if
+selected application is installed on the system, and in turn decide if this
+entry should be put in the menu/panel or not. Applications are searched in the
+directories specified using $PATH environment variable. This field is
+optional, and is only tested, if _--check-exec_ option is present.
+
+_priority_::
++
+is a numeric only field (also optional). It is used in the sorting mechanism to determine, what *importance* has particular menu item. Entries with higher priorities will be put higher in the menu system (therefore closer to the mouse pointer), lower priorities will be pushed at the end of the menu.
+By default an entry without priority field has priority set to 0.
+
+As you can see, each directory and script name is used to sort and create
+menus and panels. Also attributes of the files and directories are used in
+this process. Each directory and script has an executable (x) bit set, for
+allowing execution (see below) or reading inside directories. This can be used
+to exclude certain files or directories from the generated menus or panels. By
+removing the executable bit (_chmod -x_) from a file or directory you can
+prevent it to be seen by the generator and ommited in the generated menu. By
+combining this ability with *database merging* (each database masks previous one) you can use, for example, user-side application database to remove certain programs from this users menu.
+
+Generator doesn't put in the menu entry complete path to the binary it found - instead it puts the path to the script itself. In the end, what users do is not launching applications directly, but instead launching scripts located in the application database, which in turn launch the applications themselves.
+That means, what's inside of the script, is completely meaningless to the generator; you can write complex scripts which are shown in the menu system and easily launch them.
+
+Instead of using the scripts, you can also make symlinks to selected binaries (using the specified naming rules), they also will be checked and included in the menu system. Script automatically tests, if symlink is correct (ie. target is present), and if the target has an executable bit set.
+
+
+Database masking
+~~~~~~~~~~~~~~~~
+You can give *fvwm-crystal.apps* script several databases in one command, for example:
+----
+fvwm-crystal.apps --database=/some/directory --database=/other/dir
+----
+When that happens, generator first reads first given database
+(/some/directory), and after that adds next databases (/other/dir) to the
+first one. You can use this feature to make changes in separate database that
+affect generated menus and panels, but not modify the original database
+itself. This mechanism is used in FVWM-Crystal by combining user-side database
+located in *~/.fvwm/Applications* with system-wide, located in
+*/usr/share/fvwm-crystal/fvwm/Applications* (by default).
+
+For successfull *database masking* you need to use the same directory
+structure as the original database. That means, if you want to modify an entry
+located in, for example, */Applications/Games/FPP*, you need to create the
+same directories in your *local* database. You can omit the *priority* field in directory/file names, or change it, thus moving selected menu entry in the menu hierarhy. For example:
+
+	system-wide:	/Applications/20~Games/FPP/10~quake~Quake
+	user-wide:	/Applications/Games/FPP/30~quake~Quake
+
+File attributes also can be masked. If you want to remove a menu entry (or
+even entire submenu), you need to create all directories and a script which
+lead to selected entry, and then remove the executable bit (chmod -x) from the
+directory or script in your *local* database.
+
+Consequently, if you want to move a menu entry or submenu itself from one
+place to another in the menu structure, you can create neccesary files in
+desired location (or make symlinks to files/directories in original database),
+then create the *old* files and directories, and remove their executable bit. Menu entries will disappear from their original locations and appear in those selected by your database.
+
+
+Application icons
+~~~~~~~~~~~~~~~~~
+Each application has it's own icon. Icon files are found using the entry or exectuable file name, like this:
+
+	entry_name.png
+	executable_name.png
+
+First *entry_name* is tested, if icon doesn't exist, script looks for one with
+*executable_name*.
+
+Icon directories can be specified using *--search-icons-in* option. You can specify more than one directory by separating them using : (colon) sign.
+
+There are two special file names:
+
+*directory.png*::
++
+is used for the *categories* which doesn't have their own icon (it was not
+found by the generator in specified directory). You can specify your own name
+using *--default-dir-icon* option. For example:
+
+	ImagePath $[FVWM_USERDIR]/icons/
+  	fvwm-crystal.apps --search-icons-in=$[FVWM_USERDIR]/icons/ \
+	--default-dir-icon=22x22/dir.png
+
+	Result: <ImagePath>22x22/dir.png
+
+*default.png*::
++
+is used for applications which doesn't have their own icon. You can use
+*--default-file-icon* to change the name, in the same way
+  *--default-dir-icon* can be used.
+
+
+Panel/menu generator
+~~~~~~~~~~~~~~~~~~~~
+Here I will describe some example uses of the generator, if you want to see complete list of commandline options, you can use command:
+----
+fvwm-crystal.apps --help | less
+----
+
+*Creating panels*::
++
+Generator doesn't create all panel options specified in *man FvwmButtons*,
+just the button themselves. Therefore you can use FVWM configuration to decide
+how the resulting panel will look and where it will be placed. For example,
+you can create panels with swallowed windows and application buttons, by
+putting PipeRead command with *fvwm-crystal.apps* in between the panel configuration, like this:
+
+	*SomePanel: (1x1, Swallow FvwmPager)
+	PipeRead 'fvwm-crystal.apps --database=/some/base \
+		--panel-name="SomePanel"'
+	*SomePanel: (1x1, Swallow xclock)
++
+You can make application panels which will open app menus, with different icon size on the panel and in the menu (big on the panel, small in the menu), by using generator several times with different options. For example:
+
+	PipeRead 'fvwm-crystal.apps --database=/some/base \
+		--panel-action1=menu --search-icons-in=/icons/32x32/apps \
+		--no-menus'
+	PipeRead 'fvwm-crystal.apps --database=/some/base \
+		--search-icons-in=/icons/22x22/apps --no-panel'
+
+
+TODO
+----
+Add more examples here...
+
+
+AUTHORS
+-------
+Documentation written by Maciej Delmanowski <harnir@berlios.de>
+and ported to asciidoc by Dominique Michel
+
+fvwm-crystal.apps (C) 2005 by Rafal Bisingier
+bugfixes 2008-2013 by Dominique Michel
+
+fvwm-crystal.generate-menu (C) 2008-2015 by Dominique Michel
+<dominique_libre@users.sourceforge.org>
+
+
+COPYRIGHT
+---------
+*FVWM-Crystal* and all the scripts and other files coming with 
+the distribution are subject to the GNU General Public License (GPL). 
+Please refer to the COPYING file that came with *FVWM-Crystal* for details.
+
+
+BUGS
+----
+Bug reports can be sent to the fvwm-crystal-users mailing list at 
+<https://mail.gna.org/listinfo/fvwm-crystal-users/>.
+
+

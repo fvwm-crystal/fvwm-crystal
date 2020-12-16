@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# FVWM-Crystal: wraapper for automatic Fullscreen
+# Written by: Dominique Michel 2015
+# <dominique_libre@users.sourceforge.net>
+
+while read myline
+do 	if [ "${myline}" != "" ]
+	then if [ "${myline}" == "Firefox" ]
+		then echo "+ I ThisWindow (${myline}, !Transient) Schedule 10000 Fullscreen"
+		else echo "+ I ThisWindow (${myline}, !Transient) Fullscreen"
+		fi
+	fi
+done < ${FVWM_USERDIR}/preferences/FullScreenApps|grep -v -e '#'

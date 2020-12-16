@@ -1,0 +1,140 @@
+#!/bin/bash
+# Read player's current speed and output the wanted speed
+# pause +- value will not work.
+# No music + or - 1 octave is always no music.
+
+speed="$3"
+
+speedcalc() {
+	if [[ "`locale decimal_point`" == , ]] ; then
+		speed=$(echo ${speed/,/.})
+	fi
+	speed=$(echo $speed*$1|bc -l)
+	if [[ "`locale decimal_point`" == , ]] ; then
+		if [[ "$2" == "alsaplayer" ]] ; then
+		speed=$(echo ${speed/./,})
+		else
+		speed=$(echo ${speed/,/.})
+		fi
+	fi
+	echo $speed
+}
+
+speedcase() {
+case "$1" in
+	max)
+		if [[ "$2" == "alsaplayer" ]] ; then
+		echo 10
+		else
+		echo 100
+		fi
+		;;
+	normal)
+		echo 1
+		;;
+	pause)
+		echo 0
+		;;
+	back)
+		echo -1
+		;;
+	min)
+		if [[ "$2" == "alsaplayer" ]] ; then
+		echo -10
+		else
+		speedcalc 0.01 "$2"
+		fi
+		;;
+	+6octave)
+		speedcalc 64 "$2"
+		;;
+	+5octave)
+		speedcalc 32 "$2"
+		;;
+	+4octave)
+		speedcalc 16 "$2"
+		;;
+	+3octave)
+		speedcalc 8 "$2"
+		;;
+	+2octave)
+		speedcalc 4 "$2"
+		;;
+	+1octave)
+		speedcalc 2 "$2"
+		;;
+	+1septieme)
+		speedcalc 1.88774862536 "$2"
+		;;
+	+1sixte)
+		speedcalc 1.68179283051 "$2"
+		;;
+	+1quinte)
+		speedcalc 1.49830707688 "$2"
+		;;
+	+1quarte)
+		speedcalc 1.33483985417 "$2"
+		;;
+	+1tierce)
+		speedcalc 1.25992104989 "$2"
+		;;
+	+1ton)
+		speedcalc 1.12246204831 "$2"
+		;;
+	+1/2ton)
+		speedcalc 1.05946309436 "$2"
+		;;
+	+1comma)
+		speedcalc 531441/524288 "$2"
+		;;
+	-1comma)
+		speedcalc 524288/531441 "$2"
+		;;
+	-1/2ton)
+		speedcalc 0.943874312682 "$2"
+		;;
+	-1ton)
+		speedcalc 0.89089871814 "$2"
+		;;
+	-1tierce)
+		speedcalc 0.793700525984 "$2"
+		;;
+	-1quarte)
+		speedcalc 0.749153538438 "$2"
+		;;
+	-1quinte)
+		speedcalc 0.667419927085 "$2"
+		;;
+	-1sixte)
+		speedcalc 0.594603557501 "$2"
+		;;
+	-1septieme)
+		speedcalc 0.52973154718 "$2"
+		;;
+	-1octave)
+		speedcalc 0.5 "$2"
+		;;
+	-2octave)
+		speedcalc 0.25 "$2"
+		;;
+	-3octave)
+		speedcalc 0.125 "$2"
+		;;
+	-4octave)
+		speedcalc 0.0625 "$2"
+		;;
+	-5octave)
+		speedcalc 0.03125 "$2"
+		;;
+	-6octave)
+		speedcalc 0.015625 "$2"
+		;;
+	*)
+		echo 1
+		;;
+esac
+}
+
+speedcase $1 $2
+
+# references: http://fr.wikipedia.org/wiki/Gamme_temp%C3%A9r%C3%A9e

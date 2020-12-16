@@ -1,0 +1,15 @@
+# Window list
+
+# Show only windows on current page
+Key Tab A $[Mod1]	Window-List-Page "root c c"
+Key Tab A $[Mod1]2	Window-List-Page "root c c"
+# Show windows on all pages
+#Key Tab A $[Mod1]	Window-List "root c c"
+#Key Tab A $[Mod1]2	Window-List "root c c"
+
+
+# This menu shows iconified windows
+Key Tab A $[Mod2]	Window-List-Icons "root c c"
+Key Tab A $[Mod2]2	Window-List-Icons "root c c"
+
+# vim:ft=fvwm

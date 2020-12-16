@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gizmo $@ 2>/dev/null
+

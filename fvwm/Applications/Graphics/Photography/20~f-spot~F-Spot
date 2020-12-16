@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec f-spot $@ 2>/dev/null
+

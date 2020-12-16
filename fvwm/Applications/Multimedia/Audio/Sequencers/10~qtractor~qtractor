@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec qtractor $@ 2>/dev/null
+

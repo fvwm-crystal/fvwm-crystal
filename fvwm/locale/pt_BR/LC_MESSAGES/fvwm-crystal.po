@@ -1,0 +1,593 @@
+# Portuguese Brazilian translation for FVWM-Crystal
+# Copyright (C) 2005 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Nycholas de Oliveira e Oliveira <nycholas@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal\n"
+"POT-Creation-Date: 2009-05-29 14:50-0300\n"
+"PO-Revision-Date: 2009-05-29 14:50-0300\n"
+"Last-Translator: \n"
+"Language-Team: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "+1 fifth"
+msgstr "+1 quinto"
+
+msgid "+1 fourth"
+msgstr "+1 quarto"
+
+msgid "+1 seventh"
+msgstr "+1 sétimo"
+
+msgid "+1 sixth"
+msgstr "+1 sexto"
+
+msgid "+1 third"
+msgstr "+1 terceiro"
+
+msgid "+1 tone"
+msgstr "+1 tom"
+
+msgid "+1/2 tone"
+msgstr "+1/2 tom"
+
+msgid "-1 fifth"
+msgstr "-1 quinto"
+
+msgid "-1 fourth"
+msgstr "-1 quarto"
+
+msgid "-1 seventh"
+msgstr "-1 sétimo"
+
+msgid "-1 sixth"
+msgstr "-1 sexto"
+
+msgid "-1 third"
+msgstr "-1 terceiro"
+
+msgid "-1 tone"
+msgstr "-1 tom"
+
+msgid "-1/2 tone"
+msgstr "-1/2 tom"
+
+msgid "1 icon width"
+msgstr "1 ícone de largura"
+
+msgid "12 icons width"
+msgstr "12 ícones de largura"
+
+msgid "15 icons width"
+msgstr "15 ícones de largura"
+
+msgid "2 icons width"
+msgstr "2 ícones de largura"
+
+msgid "20 icons width"
+msgstr "20 ícones de largura"
+
+msgid "3 icons width"
+msgstr "3 ícones de largura"
+
+msgid "4 icons width"
+msgstr "4 ícones de largura"
+
+msgid "5 icons width"
+msgstr "5 ícones de largura"
+
+msgid "6 icons width"
+msgstr "6 ícones de largura"
+
+msgid "7 icons width"
+msgstr "7 ícones de largura"
+
+msgid "8 icons width"
+msgstr "8 ícones de largura"
+
+msgid "9 icons width"
+msgstr "9 ícones de largura"
+
+msgid "About FVWM-Crystal"
+msgstr "Sobre o FVWM-Crystal"
+
+msgid "Activate"
+msgstr "Ativar"
+
+msgid "Application database"
+msgstr ""
+
+# Applications menu
+msgid "Applications"
+msgstr "Aplicativos"
+
+msgid "Audio mixer"
+msgstr "Misturador de som"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Browse DVD"
+msgstr "Gerenciador de DVD"
+
+msgid "Browse Medias"
+msgstr "Gerenciador de mídias"
+
+msgid "Button model"
+msgstr "Modelo de botões"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Changed desktop manager"
+msgstr "Alterado o gerenciador de janelas"
+
+msgid "Changed notification area manager"
+msgstr "Alterando área do gerenciador de notificação"
+
+msgid "Characters fonts"
+msgstr "Configuração de fontes"
+
+msgid "Clear playlist"
+msgstr "Limpar lista"
+
+msgid "Close"
+msgstr "Fechar"
+
+msgid "Colorsets"
+msgstr "Esquema de cores"
+
+msgid "Crossfade"
+msgstr "Crossfade"
+
+msgid "Crystal Rox! HOWTO"
+msgstr ""
+
+msgid "Decorations and colorsets"
+msgstr "Decoração de janelas e esquema de cores"
+
+msgid "Default terminal"
+msgstr "Terminal padrão"
+
+msgid "Delayed fullscreen"
+msgstr "Tela inteira com atraso"
+
+msgid "Desktop manager"
+msgstr "Gerenciador de janela"
+
+msgid "Destroy"
+msgstr "Destruir"
+
+msgid "Developer menu"
+msgstr "Menu do desenvolvedor"
+
+msgid "Everything"
+msgstr "Qualquer coisa"
+
+msgid "Exit"
+msgstr "Sair"
+
+msgid "External scripts and applications"
+msgstr "Scripts e aplicativos externos"
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "FVWM manpages"
+msgstr "Páginas de manual do FVWM"
+
+msgid "FVWM version"
+msgstr "Versão do FVWM"
+
+msgid "FVWM-Crystal documentation"
+msgstr "Documentação do FVWM-Crystal"
+
+#
+# Screensaver menu
+#
+msgid "Force suspend"
+msgstr "Forçar suspensão"
+
+msgid "Frame"
+msgstr "Região"
+
+msgid "Frame step"
+msgstr "Próxima região"
+
+#
+# Screenshot menu
+#
+msgid "Fullscreen"
+msgstr "Tela inteira"
+
+msgid "I am sure"
+msgstr "Eu tenho certeza"
+
+#
+# Window menus
+#
+msgid "Iconify"
+msgstr "Miniminizar em ícone"
+
+msgid "Identify"
+msgstr "Identificar"
+
+msgid "Identify window"
+msgstr "Identificar janela"
+
+msgid "Interface look and feel"
+msgstr ""
+
+msgid "Jump"
+msgstr "Pular"
+
+msgid "Jump to left page"
+msgstr "Saltar para a área a esquerda"
+
+msgid "Jump to lower page"
+msgstr "Saltar para a área inferior"
+
+msgid "Jump to previous page"
+msgstr "Saltar para a área anterior"
+
+msgid "Jump to right page"
+msgstr "Saltar para a área a direita"
+
+msgid "Jump to upper page"
+msgstr "Saltar para área superior"
+
+#
+# Developer/FVWM-Crystal documentation menu
+#
+msgid "Keyboard bindings"
+msgstr ""
+
+msgid "Load DVD"
+msgstr "Carregar DVD"
+
+msgid "Load media file"
+msgstr "Carregar arquivo de mídia"
+
+msgid "Load playlist"
+msgstr "Carregar lista"
+
+msgid "Lock screen"
+msgstr "Bloquear tela"
+
+#
+# Exit menu
+#
+msgid "Logout"
+msgstr "Encerrar sessão"
+
+#
+# Developer/FVWM manpages menu
+#
+msgid "Main documentation"
+msgstr "Documentação principal"
+
+msgid "Main system documentation"
+msgstr "Documentação do sistema principal"
+
+msgid "Max back"
+msgstr "Voltar ao máximo"
+
+msgid "Maximize"
+msgstr "Maximizar"
+
+msgid "Maximize horizontally"
+msgstr "Maximizar horizontalmente"
+
+msgid "Maximize vertically"
+msgstr "Maximizar verticalmente"
+
+msgid "Menus"
+msgstr "Menus"
+
+msgid "Mixer"
+msgstr "Misturador de som"
+
+msgid "Modules used in FVWM-Crystal"
+msgstr "Módulos utilizados no FVWM-Crystal"
+
+msgid "Mouse bindings"
+msgstr ""
+
+msgid "Move"
+msgstr "Mover"
+
+msgid "Move to left page"
+msgstr "Mover para a área a esquerda"
+
+msgid "Move to lower page"
+msgstr "Mover para a área inferior"
+
+msgid "Move to page"
+msgstr "Mover para a área"
+
+msgid "Move to previous page"
+msgstr "Mover para a área anterior"
+
+msgid "Move to right page"
+msgstr "Mover para a área a direita"
+
+msgid "Move to upper page"
+msgstr "Mover para área superior"
+
+#
+# Music menu
+#
+msgid "Music"
+msgstr "Música"
+
+msgid "Music player"
+msgstr "Reprodutor de música"
+
+msgid "Name of the playlist"
+msgstr "Nome da lista de reprodução"
+
+msgid "New login"
+msgstr "Nova sessão"
+
+msgid "New nested login"
+msgstr "Nova sessão aninhada"
+
+msgid "New notification area width will be used after next startup"
+msgstr "A nova largura da área será alterada após na próxima inicialização"
+
+msgid "New recipe will be used after next startup"
+msgstr "Novo estilo será utilizado após a próxima inicialização"
+
+msgid "Next"
+msgstr "Próximo"
+
+#
+# Preferences/Notification area manager menu
+#
+msgid "No notification area"
+msgstr "Sem área de notificação"
+
+#
+# Preferences/Desktop manager menu
+#
+msgid "None"
+msgstr "Nenhum"
+
+msgid "Normal backward"
+msgstr "Ir normal para trás"
+
+msgid "Normal mode"
+msgstr "Modo normal"
+
+msgid "Not now"
+msgstr "Não agora"
+
+msgid "Notification area manager"
+msgstr "Área do gerenciador de notificação"
+
+msgid "Off"
+msgstr "Desligado"
+
+#
+# Preferences/Privileged terminals menu
+#
+msgid "On"
+msgstr "Ligado"
+
+msgid "Open debug window"
+msgstr "Abrir janela de depuração"
+
+#
+# Preferences/Characters fonts menu
+#
+msgid "Panels"
+msgstr "Paineis"
+
+msgid "Pause"
+msgstr "Pausar"
+
+msgid "Play DVD"
+msgstr "Reproduzir DVD"
+
+msgid "Play/Pause"
+msgstr "Reproduzir/Pausar"
+
+msgid "Player is stopped"
+msgstr "Reprodutor está parado"
+
+msgid "Player volume"
+msgstr "Volume do reprodutor"
+
+msgid "Playlist editor"
+msgstr "Editor de lista"
+
+msgid "Preferences"
+msgstr "Preferências"
+
+msgid "Prev"
+msgstr "Anterior"
+
+msgid "Privileged terminals"
+msgstr "Terminais privilegiados"
+
+msgid "Programming and debugging"
+msgstr "Programação e depuração"
+
+msgid "QuakeConsole terminal"
+msgstr "Terminal para o QuakeConsole"
+
+#  Wallpaper menu
+msgid "Random"
+msgstr "Aleatório"
+
+msgid "Reboot computer"
+msgstr "Reiniciar computador"
+
+msgid "Refresh"
+msgstr "Atualizar"
+
+#
+# Developer menu
+#
+msgid "Reload current recipe"
+msgstr "Recarregar o estilo atual"
+
+msgid "Remove current song"
+msgstr "Remover música atual"
+
+msgid "Remove playlist"
+msgstr "Remover lista"
+
+msgid "Resize"
+msgstr "Redimensionar"
+
+msgid "Restart"
+msgstr "Reiniciar sessão"
+
+msgid "Save"
+msgstr "Salvar"
+
+msgid "Save playlist"
+msgstr "Salvar lista"
+
+msgid "Save playlist..."
+msgstr "Salvar lista..."
+
+msgid "Screensaver"
+msgstr "Proteção de tela"
+
+msgid "Screenshot"
+msgstr "Captura de tela"
+
+msgid "Seek"
+msgstr "Buscar"
+
+msgid "Selected desktop manager will be used"
+msgstr "Selecione o gerenciador de janela será utilizado"
+
+msgid "Selected notification area manager"
+msgstr "Selecionando área do gerenciador de notificação"
+
+msgid "Show main mixer"
+msgstr "Mostrar misturador de som principal"
+
+msgid "Show/hide player"
+msgstr "Mostrar/Ocultar reprodutor"
+
+msgid "Shuffle playlist"
+msgstr "Lista aleatória"
+
+msgid "Speed control"
+msgstr "Controle de velocidade"
+
+msgid "Start MPlayer"
+msgstr "Iniciar MPlayer"
+
+msgid "Start screensaver"
+msgstr "Iniciar o protetor de tela"
+
+msgid "Stay lowered"
+msgstr "Manter por baixo"
+
+msgid "Stay raised"
+msgstr "Manter por cima"
+
+msgid "Stick"
+msgstr "Pregado"
+
+msgid "Stop MPlayer"
+msgstr "Parar MPlayer"
+
+msgid "Stop playback"
+msgstr "Para de reproduzir"
+
+msgid "Stop screensaver"
+msgstr "Parar o protetor de tela"
+
+#
+# String used in submenus (window decorations and colorsets)
+#
+msgid "System"
+msgstr "Sistema"
+
+msgid "Take all free space"
+msgstr "Ocupar todo espaço livre"
+
+msgid "Take all horizontal space"
+msgstr "Ocupar todo espaço horizontal"
+
+msgid "Take all vertical space"
+msgstr "Ocupar todo espaço vertical"
+
+msgid "Tips"
+msgstr ""
+
+msgid "Title bars"
+msgstr "Título da janela"
+
+msgid "Toggle FvwmConsole"
+msgstr "Mostrar FvwmConsole"
+
+msgid "Toggle random"
+msgstr "Ativar modo aleatório"
+
+msgid "Toggle repeat"
+msgstr "Ativar modo repetir"
+
+msgid "Turn off computer"
+msgstr "Desligar computador"
+
+#
+# Developer/X.org documentation menu
+#
+msgid "Under construction"
+msgstr "Em contrução"
+
+msgid "Update database"
+msgstr "Atualizar base de dados"
+
+#
+# Preferences menu
+#
+msgid "Used recipe"
+msgstr "Estilo utilizado"
+
+msgid "User"
+msgstr "Usuário"
+
+#
+# About dialog
+#
+msgid "Version"
+msgstr "Versão"
+
+msgid "Volume"
+msgstr "Volume"
+
+msgid "Wallpaper"
+msgstr "Fundo da área de trabalho"
+
+#
+# Main menu - usually found in recipes/*
+#
+msgid "Window decorations"
+msgstr "Decoração de janela"
+
+msgid "Window focus policy"
+msgstr "Política de foco"
+
+msgid "WindowStyle"
+msgstr "Estilo da janela"
+
+msgid "X.org documentation"
+msgstr "Documentação do X.org"
+
+msgid "at the next start of your X session"
+msgstr "no início da sua próxima sessão do X"
+
+msgid "show/hide QJackCtl"
+msgstr "Mostrar/Ocultar QJackCtl"

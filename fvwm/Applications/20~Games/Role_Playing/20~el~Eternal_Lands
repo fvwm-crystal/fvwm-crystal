@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec el $@ 2>/dev/null
+

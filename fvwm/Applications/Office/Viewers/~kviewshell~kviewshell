@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kviewshell $@ 2>/dev/null
+

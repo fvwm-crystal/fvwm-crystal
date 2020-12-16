@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec /usr/bin/non-session-manager $@ 2>/dev/null

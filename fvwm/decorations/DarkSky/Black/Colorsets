@@ -1,0 +1,28 @@
+# Colorset setup
+
+# What colorset numbers do we use?
+InfoStoreAdd cs_window_inactive "9"
+InfoStoreAdd cs_window_active "10"
+InfoStoreAdd cs_window_inactiveborder "11"
+InfoStoreAdd cs_window_activeborder "12"
+
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Colorsets
+
+Colorset $[infostore.cs_window_inactive] \
+Foreground "#4a4d57", Background "#8e8e8e", \
+fgsh "black", hilight "#42444a", shadow "#010103", \
+VGradient 64 "#313339" "#010103", Tint
+
+Colorset $[infostore.cs_window_active] \
+Foreground "#ffb921", Background "#61a2a2", \
+fgsh "black", hilight "#313339", shadow "black", \
+VGradient 64 "#202228" "black", Tint
+
+Colorset $[infostore.cs_window_inactiveborder] \
+Background "#2b2d31", hilight "#42444a", \
+shadow "#010103"
+
+Colorset $[infostore.cs_window_activeborder] \
+Background "#202228", hilight "#313339", \
+shadow "black"

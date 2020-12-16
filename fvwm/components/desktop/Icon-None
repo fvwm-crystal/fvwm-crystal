@@ -1,0 +1,3 @@
+# No icon on the desktop
+#SetEnv IconsType None
+Include components/functions/Icon-None

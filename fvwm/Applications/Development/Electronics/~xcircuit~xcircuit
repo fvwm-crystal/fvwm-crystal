@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xcircuit $@ 2>/dev/null
+

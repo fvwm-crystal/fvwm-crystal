@@ -1,0 +1,68 @@
+# Decoration-Functions
+# Written by: Maciej Delmanowski <harnir@linux.net.pl>
+
+# Set default button model on the titlebars
+CheckPreferences LastChoosenButtonModel 'SavePreferences LastChoosenButtonModel "SetEnv Window_Decorations_ButtonModel Theme.fvwm-crystal"'
+LoadPreferences LastChoosenButtonModel
+
+# Set default decoration if user haven't choosed it himself
+CheckPreferences LastChoosenWindowDecoration 'SavePreferences LastChoosenWindowDecoration "Window-Decorations-Set $[FVWM_SYSTEMDIR]/decorations/Crystal/DarkDesktop"'
+
+DestroyFunc Window-Decorations-Set
+AddToFunc Window-Decorations-Set
++ I Test (f '$0/$[Window_Decorations_ButtonModel]') Read '$0/$[Window_Decorations_ButtonModel]'
+#+ I TestRc (Match) KeepRc Include components/styles/Window-Decorations
++ I TestRc (Match) KeepRc SavePreferences LastChoosenWindowDecoration "Window-Decorations-Set $*"
++ I TestRc (NoMatch) KeepRc FindFile Window_Decorations_ButtonModel-Temp '$0' Theme.nextstep Theme.os2 Theme.macosx Theme.windows Theme.amigaos Theme.fvwm-crystal
++ I TestRc (NoMatch) Test (f '$0/$[Window_Decorations_ButtonModel-Temp]') Read '$0/$[Window_Decorations_ButtonModel-Temp]'
+#+ I TestRc (Match) KeepRc Include components/styles/Window-Decorations
++ I TestRc (Match) KeepRc SavePreferences LastChoosenWindowDecoration "Window-Decorations-Set $*"
++ I UnsetEnv Window_Decorations_ButtonModel-Temp
++ I Style * HandleWidth $[infostore.handle_width]
+
+DestroyMenu /Window-Decorations
+AddToMenu /Window-Decorations
++ MissingSubmenuFunction Window-Decorations-generator
++ '%22x22/categories/directory.png%$[gt.System]' Popup $[FVWM_SYSTEMDIR]/decorations
+Test (f $[FVWM_USERDIR]/decorations) + '%22x22/categories/directory.png%$[gt.User]' Popup $[FVWM_USERDIR]/decorations
++ "" Nop
++ '$[gt.Button model]' Popup /Window-Decorations-ButtonModel
+
+DestroyFunc Window-Decorations-generator
+AddToFunc Window-Decorations-generator
++ I DestroyMenu $0
++ I AddToMenu $0
++ I PipeRead 'for directory in $0/*; do \
+	if [ $(ls "${directory}" | wc -l) -gt 1 ]; then \
+		dirname=$(basename "${directory}"); \
+		dirid=$(echo "${dirname}" | sed -e "s:\ :_:g"); \
+		echo \"AddToMenu \'$0\' \'%22x22/fvwm-crystal/dd.png%${dirname}\' Popup \'$0/${dirid}\'\"; \
+		echo \"DestroyMenu \'$0/${dirid}\'\"; \
+		for themedir in "${directory}"/*; do \
+			themedirname=$(basename "${themedir}"); \
+			echo \"AddToMenu \'$0/${dirid}\' \'%22x22/fvwm-crystal/df.png%${themedirname}\' Window-Decorations-Set \'${themedir}\'\"; \
+		done \
+	elif [ $(ls "${directory}" | wc -l) -eq 1 ]; then \
+		dirname=$(basename "${directory}"); \
+		echo \"AddToMenu \'$0\' \'%22x22/fvwm-crystal/df.png%${dirname}\' Window-Decorations-Set \'${directory}/$(ls \"${directory}\")\'\"; \
+	fi \
+done'
+
+
+DestroyMenu /Window-Decorations-ButtonModel
+AddToMenu /Window-Decorations-ButtonModel
++ "FVWM-Crystal"	Window-Decorations-SetButtonModel Theme.fvwm-crystal
++ "AmigaOS"		Window-Decorations-SetButtonModel Theme.amigaos
++ "AmigaOS Fullscreen"		Window-Decorations-SetButtonModel Theme.amigaos-fullscreen
++ "MS Windows"		Window-Decorations-SetButtonModel Theme.windows
++ "MacOS X"		Window-Decorations-SetButtonModel Theme.macosx
++ "OS/2"		Window-Decorations-SetButtonModel Theme.os2
++ "NeXTStep"		Window-Decorations-SetButtonModel Theme.nextstep
+
+DestroyFunc Window-Decorations-SetButtonModel
+AddToFunc Window-Decorations-SetButtonModel
++ I SetEnv Window_Decorations_ButtonModel "$*"
++ I SavePreferences LastChoosenButtonModel "SetEnv Window_Decorations_ButtonModel '$*'"
++ I LoadPreferences LastChoosenWindowDecoration
+
+# vim:ft=fvwm

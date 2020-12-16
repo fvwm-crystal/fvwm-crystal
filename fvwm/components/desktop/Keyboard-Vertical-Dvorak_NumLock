@@ -1,0 +1,13 @@
+# Dvorak keyboard layout - version with NumLock turned on
+# You need several functions to use all of the keybindings
+# This file is meant to be used _with_ components/desktop/Keyboard-Vertical
+
+Include components/bindings/Music-Dvorak_NumLock
+Include components/bindings/Pager-Vertical_NumLock
+Include components/bindings/PageSwitch-Vertical_NumLock
+Include components/bindings/Window-Control_NumLock
+Include components/bindings/Window-Rearrange_NumLock
+Include components/bindings/Window-Warp-Dvorak_NumLock
+Include components/bindings/Misc-Keybindings_NumLock
+
+# vim:ft=fvwm

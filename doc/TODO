@@ -1,0 +1,128 @@
+FVWM-Crystal TODO / Roadmap
+===========================
+
+The content of this file is a relic. Anyway, I done so much bug fixes and
+improvements that the next release number will certainly divert from what
+is described here. My priority was first to fix existing functions like
+Fullscreen. This was not only wanted, but also needed, because to have
+good working functions is the only way to go in order to exploit them
+to their full potential.
+
+I will keep the rest of this file like it is for historical raison,
+and also because it is some good ideas. 
+
+- The colorset implementation sucks. Need standardisation, extension and more
+  colorsets.
+
+- As mentionned by harnir, pixmaps implementation sucks too. This is not
+  limited to colorsets but seam mostly related with flaky Xorg drivers
+  and maybe also transparency support.
+  
+- The FvwmScripts are not internationalized.
+
+- Investigate how it is possible to make a FvwmScript Font Selector. It must be
+  possible to show not only the font name, but also how it look.
+
+- More recipes, especialy for wide-screen (16/9, ...) screens. Maybe put
+  all the decorations and the title bars on the left or the right.
+
+- One directory per recipe? I am not sure. It would be nice to find a way
+  to create wrappers for the decorations. That would simplify the code in
+  the recipes, but presnet the risk of standardisation.
+  Also, study the configuration of Fvwm-Nightshade. It have very nice decorations,
+  is simple and is well commented.
+
+- More players, especialy the multimedia ones like xine or VLC.
+
+- MPlayer sucks. MPlayer2 sucks too. This seam to be related with flaky X graphic
+  drivers. Not much to do here. Ctrl-Alt-F<n> and kill(all) are our friends.
+
+- The Expose clone sucks. It is very flaky. Find a way to swallow display but
+  with transparency, or find another application than display which will 
+  support transparency.
+
+The Relic
+=========
+* Version 3.0.5 (devel)
+
+I'm thinking about releasing this one as a "development" release, since last
+version was released many months ago... It would be good to show that project
+is not dead. Preferred date of the release - end of April 2007.
+
+- remove all non-free icons from the source tree; that would be the Firefox
+  icon, commercial application and game icons, and other with unknown license
+  terms. For now applications can go without replacement icons, but if you
+  have some on the free license, bring 'em on;
+
+- add support for stalonetray/trayer in all current recipes;
+
+- synchronize application and menu icons with the Tango Project. Good source
+  of icons is on the http://tango.freedesktop.org/Tango_Fridays site;
+
+- add support for gnome-session proposed by Dominique Michel;
+
+
+* Version 3.0.6 (stable)
+
+This version should be focused on polishing current code, removing bugs and
+adding missing translations and documentation. Proposed release date: summer
+2007 (July or August probably).
+
+- create a downloadable package or repository with all non-free application
+  icons, so users can easily download them and use on their desktops if they
+  wish. I know that not all apps will have free icon alternatives and some
+  people prefer Mozilla Firefox logo instead of IceWeasel;
+
+- find a way to better handling of 'fvwm-crystal-minimal' vs main version.
+  I just don't feel that it's very useful at the moment, maybe there's
+  a better way to do this? Possible way is to split the package into:
+  
+  'fvwm-crystal' - main "core", 1 or 2 window decorations (preferably Crystal
+  and Clearlooks), some application icons (xterm.png, default.png,
+  directory.png, something else?), 1 wallpaper (fvwm-crystal-dark1)
+
+  'fvwm-crystal-artwork' - rest of the wallpapers/window decorations/icons,
+  optional
+
+  That way Crystal will be either small but functional (good for LiveCD) or
+  big and colorful ("normal" distributions);
+
+- add new translations, update the current ones with the missing strings;
+
+- debug all recipes;
+
+- add the documentation sources in DocBook format, create a Makefile entry to
+  easily generate the different documentation formats from DocBook;
+
+- write a doc about Crystal's configuration structure and initialization
+  process - it's somewhere on the list, but the better place would be to
+  include it in the doc/ directory;
+
+- finish writing FAQ and Application database documentation;
+
+- update all window decorations to support UTF-8 strings (similar way as the
+  menu supports it, although this way is a dirty hack, maybe in the newest
+  FVWM release it's already fixed?);
+
+- clean up the application database - support for xfg menu structure is nice,
+  but for me still some applications are in different sections than they
+  should be. Add icons for as many applications as we can;
+
+
+* After 3.0.7
+
+New ideas, scripts and configurations... Any thoughts?
+
+- add gettext support for FvwmApplet-MpdPlEd
+
+- do something with colorsets, they suck... I just don't know if
+  implementation in Crystal sucks or how FVWM handles colorsets suck ;)
+  Anyway, pixmapped panels would be cool, but how to make good
+  horizontal/vertical themes?
+
+  Integrate colorsets with recipes. Put recipes in subdirectories, so they can
+  use their own pixmaps for shaped panels, etc. Colorset numbers need to be
+  changed: #1-#4 for window decorations (that's max they can use anyway), the
+  rest for panels/menus/forms, depending on the recipe.
+
+

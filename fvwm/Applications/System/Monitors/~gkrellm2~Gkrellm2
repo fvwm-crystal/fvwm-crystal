@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gkrellm2 -geometry -5-300 $@ 2>/dev/null
+

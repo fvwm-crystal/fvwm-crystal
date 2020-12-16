@@ -1,0 +1,53 @@
+# You can find here some basic FVWM-Crystal functions
+
+# This function looks for specified file in the user's directory (~/.fvwm/),
+# then system-wide directory (/etc/X11/fvwm/fvwm-crystal/), then "package"
+# directory (/usr/[local]/share/fvwm-crystal/fvwm) and loads the first one it
+# finds. It's useful for files that should be changed/replaced as a whole, ex.
+# functions or scripts.
+#
+DestroyFunc Include
+AddToFunc Include
++ I Test (f $[FVWM_USERDIR]/$*) Read $[FVWM_USERDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/$*) Read $[FVWM_CONFIGDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/$*) Read $[FVWM_SYSTEMDIR]/$*
+
+# This function works exactly as the above, except that it looks for specified
+# FvwmScript script and launches it.
+#
+DestroyFunc Script
+AddToFunc Script
++ I Test (f $[FVWM_USERDIR]/$*) FvwmScript $[FVWM_USERDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/$*) FvwmScript $[FVWM_CONFIGDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/$*) FvwmScript $[FVWM_SYSTEMDIR]/$*
+
+# This function kills previously started FvwmScript
+#
+DestroyFunc KillScript
+AddToFunc KillScript
++ I Test (f $[FVWM_USERDIR]/$*) KillModule FvwmScript $[FVWM_USERDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/$*) KillModule FvwmScript $[FVWM_CONFIGDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/$*) KillModule FvwmScript $[FVWM_SYSTEMDIR]/$*
+
+
+
+# This function looks for specified file in package-wide directory, then
+# system-wide directory and the user-wide directory at the end, loading any
+# that is found (all of them can be loaded one after another, if present).
+# It's useful for files which holds the general settings, like window styles.
+#
+DestroyFunc Append
+AddToFunc Append
++ I Test (f $[FVWM_SYSTEMDIR]/$*) Read $[FVWM_SYSTEMDIR]/$*
++ I Test (f $[FVWM_CONFIGDIR]/$*) Read $[FVWM_CONFIGDIR]/$*
++ I Test (f $[FVWM_USERDIR]/$*) Read $[FVWM_USERDIR]/$*
+
+# Load other useful functions by default used in many places
+Include components/bindings/Remove-Defaults
+Include components/functions/Preferences
+Include components/functions/Keyboard-Modifiers
+Include components/functions/FindFunctions
+LoadPreferences SilentOps
+Include components/functions/Exec-Accelerator
+
+# vim:ft=fvwm

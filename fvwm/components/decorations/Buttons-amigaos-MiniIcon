@@ -1,0 +1,64 @@
+# FVWM-Crystal Button Setup
+# Written by Dominique Michel <dominique_libre@sourceforge.net>
+# from the work of Maciej Delmanowski <harnir@post.pl>
+#
+# This is the AmigaOS window button setup. Hold the mouse buttons
+# to see the popup menu of a certain button.
+
+
+# First button - close, destroy, iconify
+Mouse 1 1 $[Mod0]	Window-Button-Function Button1 /Window-Menu-Close Close
+Mouse 2 1 $[Mod0]	Window-Button-Function Button1 /Window-Menu-Close FvwmIdent
+Mouse 2 1 $[Mod1]	Window-Button-Function Button1 /Window-Menu-Close Destroy
+Mouse 3 1 $[Mod0]	Window-Button-Function Button1 /Window-Menu-Close Window-Iconify
+Style * Button 1
+
+# Second button -various ways to maximize a window
+Mouse 1 2 $[Mod0]	Window-Button-Function Button2 /Window-Menu-Maximize Maximize
+Mouse 2 2 $[Mod0]	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True 0 100
+Mouse 3 2 $[Mod0]	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True 100 0
+Mouse 1 2 $[Mod1]	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True grow grow
+Mouse 2 2 $[Mod1]	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True 0 grow
+Mouse 3 2 $[Mod1]	Window-Button-Function Button2 /Window-Menu-Maximize Maximize True grow 0
+Style * Button 2
+#Mouse 1 2 $[Mod0] RaiseLower
+
+# MiniIcon as the third button
+Mouse 1 3       $[Mod] Window-Raise-MoveRaise
+Mouse 2 3       $[Mod] Window-Shade-Resize
+Mouse 3 3       $[Mod] Window-Lower-Move
+Style * Button 3
+
+# 4th button - minimize, stick and layers
+Mouse 1 4 $[Mod0]	Window-Button-Function Button4 /Window-Menu-Layer Minimize
+Mouse 1 4 $[Mod1]	Window-Button-Function Button4 /Window-Menu-Layer Stick
+Mouse 2 4 $[Mod0]	Window-Button-Function Button4 /Window-Menu-Layer Layer 0 5
+Mouse 2 4 $[Mod1]	Window-Button-Function Button4 /Window-Menu-Layer Layer 0 3
+Mouse 3 4 $[Mod0]	Window-Button-Function Button4 /Window-Menu-Layer Layer 0 4
+Style * Button 4
+
+Style * NoButton 5
+
+# 6th button - iconify, move a window between pages
+Mouse 1 6 $[Mod0]	Window-Button-Function Button6 /Window-Menu-Page Window-Iconify
+#Mouse 1 6 $[Mod0]	Window-Button-Function Button6 /Window-Menu-Page Window-MoveToPage-Backward
+Mouse 2 6 $[Mod0]	Window-Button-Function Button6 /Window-Menu-Page MoveToPage-Focus prev
+Mouse 3 6 $[Mod0]	Window-Button-Function Button6 /Window-Menu-Page Window-MoveToPage-Forward
+Mouse 1 6 $[Mod1]	Window-Button-Function Button6 /Window-Menu-Page Window-WarpToPage-Backward
+Mouse 2 6 $[Mod1]	Window-Button-Function Button6 /Window-Menu-Page WarpToPage prev
+Mouse 3 6 $[Mod1]	Window-Button-Function Button6 /Window-Menu-Page Window-WarpToPage-Forward
+Style * Button 6
+
+Style * NoButton 7
+
+# 8th button
+Style * NoButton 8
+
+Style * NoButton 9
+
+Style * NoButton 0
+
+# NumLock support
+Read $./Buttons-amigaos_NumLock
+
+# vim:ft=fvwm

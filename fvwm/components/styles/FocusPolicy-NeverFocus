@@ -1,0 +1,9 @@
+# Window focus policy for windows that must never focus
+
+Style FvwmParts NeverFocus
+Style FvwmButtons NeverFocus
+Style FvwmPager NeverFocus
+Style FvwmIconMan NeverFocus
+Style trayer NeverFocus
+Style stalonetray NeverFocus
+Style FvwmIdent NeverFocus

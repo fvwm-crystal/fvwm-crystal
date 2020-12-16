@@ -1,0 +1,88 @@
+# Wallpaper menu and functions
+# ----------------------------
+
+# Stop the random wallpaper loop script
+DestroyFunc Wallpaper-StopLoop
+AddToFunc Wallpaper-StopLoop
++ I Test (EnvIsSet LOOPWP) Exec exec kill $[LOOPWP] $[infostore.SILENT]
+
+# Set the specified wallpaper using available programs
+DestroyFunc Wallpaper-Set
+AddToFunc Wallpaper-Set
++ I Test (x Esetroot) Exec Esetroot -scale $*
++ I TestRc (NoMatch) Test (x hsetroot) Exec hsetroot -fill $*
++ I TestRc (NoMatch) Test (x feh) Exec feh --bg-scale --no-fehbg $*
++ I SavePreferences LastChoosenWallpaper "Wallpaper-Set $*"
+# Fix icon redraw in stalonetray
++ I Schedule 1000 All (FvwmStalonePanel) Iconify True
++ I Schedule 1100 All (FvwmStalonePanel) Iconify False
+
+# Select random wallpaper from given directories and set it
+DestroyFunc Wallpaper-Random
+AddToFunc Wallpaper-Random
++ I PipeRead "echo Wallpaper-Set \\'`fvwm-crystal.wallpaper \"$*\"`\\'"
+
+# Check and set the thumbnail Size
+CheckPreferences WallpaperThumbSize 'SavePreferences WallpaperThumbSize "InfoStoreAdd WallpaperThumbSize 42"'
+LoadPreferences WallpaperThumbSize
+
+# Where are kept wallpaper thumbnails?
+SetEnv WallpaperThumbnails "$[FVWM_USERDIR]/wallpaper-thumbnails-$[infostore.WallpaperThumbSize]"
+
+# Check if there is a wallpaper set at startup
+# If there isn't, set default one
+CheckPreferences LastChoosenWallpaper 'SavePreferences LastChoosenWallpaper "Wallpaper-Set $[FVWM_SYSTEMDIR]/wallpapers/fvwm-crystal-dark1-1024x768.jpg"'
+
+# Menu for wallpapers
+DestroyMenu /Wallpaper
+AddToMenu /Wallpaper
++ "%22x22/fvwm-crystal/On.png%$[gt.Auto wallpaper]" Popup /Random-Wallpaper
++ "" Nop
++ "$[gt.Thumbnails size]" Popup /WPThumbSize
++ "" Nop
++ MissingSubmenuFunction Wallpaper-Browser
++ "%22x22/categories/directory.png%FVWM-Crystal" Popup $[FVWM_SYSTEMDIR]/wallpapers
+Test (f $[FVWM_USERDIR]/wallpapers) + "%22x22/categories/directory.png%~/.fvwm-crystal/wallpapers" Popup $[FVWM_USERDIR]/wallpapers
+Test (f $[HOME]/wallpapers) + "%22x22/categories/directory.png%~/wallpapers" Popup $[HOME]/wallpapers
+Test (f /usr/local/share/wallpapers) + "%22x22/categories/directory.png%/usr/local/share/wallpapers" Popup /usr/local/share/wallpapers
+Test (f /usr/share/wallpapers) + "%22x22/categories/directory.png%/usr/share/wallpapers" Popup /usr/share/wallpapers
+
+# Wallpapaer menu generator
+DestroyFunc Wallpaper-Browser
+AddToFunc Wallpaper-Browser I PipeRead 'for i in "$0/"*; do \
+                test -d "${i}" && continue; \
+                mkdir -p "$[WallpaperThumbnails]${i%/*}"; \
+                test -f "$[WallpaperThumbnails]${i}" -a  "$[WallpaperThumbnails]${i}" -nt "${i}" || \
+                convert -quality 0 -sample $[infostore.WallpaperThumbSize] "${i}" "png:$[WallpaperThumbnails]${i}" 2>/dev/null &  \
+        done; \
+    wait && fvwm-menu-directory --title "$[gt.Random]" --icon-title "" --icon-file __PIXMAP__ \
+    --icon-dir "22x22/categories/directory.png" --dir "$0" --links --command-file "Wallpaper-Set \'\\"%f\\"\'" \
+    --command-t="Wallpaper-Random $0" | sed -e "s#FuncFvwmMenuDirectory#Wallpaper-Browser#g" \
+    -e "s#__PIXMAP__\\(.*\\)\\\"\\(.*/\\)\\(.*\\)\\\"#$[WallpaperThumbnails]/\\2\\3\\1\\2\\3#g"'
++ I Wallpaper-StopLoop
+
+# lopp random wallpaper menu
+DestroyMenu /LoopRandom-Wallpaper
+AddToMenu /LoopRandom-Wallpaper
++ "%22x22/fvwm-crystal/On.png%$[gt.5 seconds]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 5
++ "%22x22/fvwm-crystal/On.png%$[gt.10 seconds]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 10
++ "%22x22/fvwm-crystal/On.png%$[gt.15 seconds]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 15
++ "%22x22/fvwm-crystal/On.png%$[gt.30 seconds]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 30
++ "%22x22/fvwm-crystal/On.png%$[gt.1 minute]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 60
++ "%22x22/fvwm-crystal/On.png%$[gt.5 minutes]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 300
++ "%22x22/fvwm-crystal/On.png%$[gt.10 minutes]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 600
++ "%22x22/fvwm-crystal/On.png%$[gt.15 minutes]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 900
++ "%22x22/fvwm-crystal/On.png%$[gt.30 minutes]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 1800
++ "%22x22/fvwm-crystal/On.png%$[gt.1 hour]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 3600
++ "%22x22/fvwm-crystal/On.png%$[gt.3 hours]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 10800
++ "%22x22/fvwm-crystal/On.png%$[gt.8 hours]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 28800
++ "%22x22/fvwm-crystal/On.png%$[gt.1 day]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper loop 86400
+
+# Menu for random wallpapers
+DestroyMenu /Random-Wallpaper
+AddToMenu /Random-Wallpaper
++ "%22x22/fvwm-crystal/On.png%$[gt.Random wallpaper]" Exec exec $[FVWM_SYSTEMDIR]/scripts/random-wallpaper
++ "%22x22/fvwm-crystal/On.png%$[gt.Toggle loop wallpaper]" Popup /LoopRandom-Wallpaper
++ "%22x22/fvwm-crystal/Off.png%$[gt.Stop loop wallpaper]" Wallpaper-StopLoop
+
+# vim:ft=fvwm

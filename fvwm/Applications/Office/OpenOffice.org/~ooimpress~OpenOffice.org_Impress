@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ooimpress $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xchat-2 $@ 2>/dev/null
+

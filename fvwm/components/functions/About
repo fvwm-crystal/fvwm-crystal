@@ -1,0 +1,53 @@
+# "About" dialog
+# Some little info about FVWM-Crystal desktop;
+
+DestroyModuleConfig About: *
+*About: Line center
+*About: Text "FVWM-Crystal"
+*About: Line center
+*About: Text "$[gt.Version]: 3.7.1"
+*About: Line center
+*About: Text "Magic Star"
+*About: Line center
+*About: Line center
+*About: Text "$[gt.Authors]: Maciej Delmanowski <harnir@gna.org>"
+*About: Line center
+*About: Text "Dominique Michel <dominique_libre@users.sourceforge.net>"
+*About: Line center
+*About: Text "$[gt.With contributions from:] Rafal Bisingier <rafal@man.poznan.pl>"
+*About: Line center
+*About: Text "Dominik Tomasik <d.tomasik@gaming.pl>"
+*About: Line center
+*About: Text "Lukasz Strzygowski <lucass@gentoo.pl>"
+*About: Line center
+*About: Text "Michael Stilkerich <stilkerm@uci.edu>"
+*About: Line center
+*About: Text "Myles Green <rmg57@telus.net>"
+*About: Line center
+*About: Text "Daniel da Silva <daniel@meltingwax.net>"
+*About: Line center
+*About: Text "Bert \'theBlackDragon\' Geens <bert@lair.be>"
+*About: Line center
+*About: Text "Alwin <translations@ziggo.nl>"
+*About: Line center
+*About: Text "$[gt.The majority of the icons are from the Tango project and from]"
+*About: Line center
+*About: Text "Kenneth E. Lester, Jr. <klesterjr@hotmail.com>"
+*About: Line center
+*About: Text "http://fvwm-crystal.sourceforge.net/"
+*About: Line center
+*About: Line center
+*About: Text "$[gt.FVWM version]: $[version.num] $[version.info]"
+*About: Line center
+*About: Text "http://www.fvwm.org/"
+*About: Line center
+*About: Line center
+*About: Line center
+*About: Button quit " $[gt.Feedback, support] " ^M
+*About: Command Module FvwmForm UserFeedback-Dialog
+*About: Button quit " $[gt.Close] " ^[
+*About: Command Nop
+*About: Line center
+Module FvwmForm About
+
+# vim:ft=fvwm

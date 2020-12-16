@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec sudo /etc/init.d/timidity start $@ 2>/dev/null
+

@@ -1,0 +1,796 @@
+# FvwmScript Keyboard Modifiers Editor
+# A keyboard nodifiers for Fvwm-Crystal
+# Copyright Dominique Michel <dominique_libre@users.sourceforge.net> 2013
+# Released under the GNU GPL license v3 or later
+
+# Usage: Script scripts/BindingsEditor/KeyboardModifiersEditor
+
+# Header ̣{{{1
+UseGettext {$FVWM_USERDIR/locale;fvwm-crystal-script:$FVWM_SYSTEMDIR/locale;fvwm-crystal-script:+}
+WindowLocaleTitle {FVWM-Crystal Keyboard Modifiers Editor}
+
+WindowSize 800 245
+#WindowPosition 300 300
+Colorset	1
+# Dont change it or the text titles will be shorted: 
+Font	"xft:$[panel_font]:pixelsize:$[panel_font_size]:style:$[panel_font_style]"
+
+# Initialisation {{{1
+Init
+Begin
+    # We must know if we must reload the bindings
+    Set $RELOAD = {0}
+    Set $RELOAD2 = {0}
+    Set $RELOAD3 = {0}
+    Set $RELOAD4 = {0}
+    Set $RELOAD5 = {0}
+    Set $RELOAD6 = {0}
+    # Useful directories
+    Set $UDIR = (GetOutput {echo "$FVWM_USERDIR"} 1 -1)
+    Set $CDIR = (GetOutput {echo "$FVWM_CONFIGDIR"} 1 -1)
+    Set $SDIR = (GetOutput {echo "$FVWM_SYSTEMDIR"} 1 -1)
+    Set $FDIR = {/components/functions/}
+    # The file to save to
+    Set $SAVEFILE = $UDIR {/preferences/CustomKeyModifiers}
+    Do {Exec exec touch }$SAVEFILE
+    # Load Desktop default bindings {{{2
+    Set $filename1 = {Keyboard-Modifiers}
+    Set $UFILE1 = $UDIR $FDIR $filename1
+    Set $CFILE1 = $CDIR $FDIR $filename1
+    Set $SFILE1 = $SDIR $FDIR $filename1
+    ## Test if files exist and use the first of user, config and system
+    Set $cmd = {if [ -f } $UFILE1 { ] ; then echo oui; else echo non; fi}
+    Set $UFE1 = (GetOutput $cmd 1 -1)
+    Set $cmd = {if [ -f } $CFILE1 { ] ; then echo oui; else echo non; fi}
+    Set $CFE1 = (GetOutput $cmd 1 -1)
+    Set $cmd = {if [ -f } $SFILE1 { ] ; then echo oui; else echo non; fi}
+    Set $SFE1 = (GetOutput $cmd 1 -1)
+    If $SFE1=={oui} Then
+	Set $FILE1 = $SFILE1
+    If $CFE1=={oui} Then
+	Set $FILE1 = $CFILE1
+    If $UFE1=={oui} Then
+	Set $FILE1 = $UFILE1
+    # Check the number of lines
+    Set $cmd = {i=0; while read myline; do for j in $(echo $myline | grep -v \# | grep -v '^$'); do i=$(( $i + 1 )); done; done <} $FILE1 {; echo $i}
+    Set $Index1 = (GetOutput $cmd 1 -1)
+
+    # Widget 2
+    ## Check the value dans $arrayn
+    Set $cmd = {i=0; while read myline; do for j in $(echo $myline | grep -v \# | grep -v '^$'); do eval array$i="$j"; i=$(( $i + 1 )); done; done <} $FILE1 {; echo $array2}
+    Set $OrigTitle200 = (GetOutput $cmd 1 -1)
+    ## Check the user save file
+    # $OrigTitle200 is the original key; $OldTitle200 is the same or the user binding if present; $Title200 is the actual binding
+    Set $cmd = {String="SetEnv Mod "; if [ "$(grep 'SetEnv Mod ' } $SAVEFILE {)" = "" ]; then echo "non"; else grep 'SetEnv Mod ' } $SAVEFILE {; fi}
+    Set $TestVal = (GetOutput $cmd 1 -1)
+    If $TestVal=={non} Then
+    Begin
+	Set $Title200 = $OrigTitle200
+	Set $OldTitle200 = $OrigTitle200
+    End
+    Else
+    Begin
+	Set $cmd = {echo }$TestVal{|cut -d " " -f 3}
+	Set $Title200 = (GetOutput $cmd 1 -1)
+	Set $OldTitle200 = $Title200
+    End
+    ChangeTitle 200 $Title200
+    Set $String200 = $Title200
+ 
+    # Widget 3
+    ## Check the value dans $arrayn
+    Set $cmd = {i=0; while read myline; do for j in $(echo $myline | grep -v \# | grep -v '^$'); do eval array$i="$j"; i=$(( $i + 1 )); done; done <} $FILE1 {; echo $array5}
+    Set $OrigTitle300 = (GetOutput $cmd 1 -1)
+    ## Check the user save file
+    Set $cmd = {String="SetEnv Mod "; if [ "$(grep 'SetEnv Mod0 ' } $SAVEFILE {)" = "" ]; then echo "non"; else grep 'SetEnv Mod0 ' } $SAVEFILE {; fi}
+    Set $TestVal = (GetOutput $cmd 1 -1)
+    If $TestVal=={non} Then
+    Begin
+	Set $Title300 = $OrigTitle300
+	Set $OldTitle300 = $OrigTitle300
+    End
+    Else
+    Begin
+	Set $cmd = {echo }$TestVal{|cut -d " " -f 3}
+	Set $Title300 = (GetOutput $cmd 1 -1)
+	Set $OldTitle300 = $Title300
+    End
+    ChangeTitle 300 $Title300
+    Set $String300 = $Title300
+ 
+    # Widget 4
+    ## Check the value dans $arrayn
+    Set $cmd = {i=0; while read myline; do for j in $(echo $myline | grep -v \# | grep -v '^$'); do eval array$i="$j"; i=$(( $i + 1 )); done; done <} $FILE1 {; echo $array8}
+    Set $OrigTitle400 = (GetOutput $cmd 1 -1)
+    ## Check the user save file
+    Set $cmd = {String="SetEnv Mod "; if [ "$(grep 'SetEnv Mod1 ' } $SAVEFILE {)" = "" ]; then echo "non"; else grep 'SetEnv Mod1 ' } $SAVEFILE {; fi}
+    Set $TestVal = (GetOutput $cmd 1 -1)
+    If $TestVal=={non} Then
+    Begin
+	Set $Title400 = $OrigTitle400
+	Set $OldTitle400 = $OrigTitle400
+    End
+    Else
+    Begin
+	Set $cmd = {echo }$TestVal{|cut -d " " -f 3}
+	Set $Title400 = (GetOutput $cmd 1 -1)
+	Set $OldTitle400 = $Title400
+    End
+    ChangeTitle 400 $Title400
+    Set $String400 = $Title400
+ 
+    # Widget 5
+    ## Check the value dans $arrayn
+    Set $cmd = {i=0; while read myline; do for j in $(echo $myline | grep -v \# | grep -v '^$'); do eval array$i="$j"; i=$(( $i + 1 )); done; done <} $FILE1 {; echo $array11}
+    Set $OrigTitle500 = (GetOutput $cmd 1 -1)
+    ## Check the user save file
+    Set $cmd = {String="SetEnv Mod "; if [ "$(grep 'SetEnv Mod2 ' } $SAVEFILE {)" = "" ]; then echo "non"; else grep 'SetEnv Mod2 ' } $SAVEFILE {; fi}
+    Set $TestVal = (GetOutput $cmd 1 -1)
+    If $TestVal=={non} Then
+    Begin
+	Set $Title500 = $OrigTitle500
+	Set $OldTitle500 = $OrigTitle500
+    End
+    Else
+    Begin
+	Set $cmd = {echo }$TestVal{|cut -d " " -f 3}
+	Set $Title500 = (GetOutput $cmd 1 -1)
+	Set $OldTitle500 = $Title500
+    End
+    ChangeTitle 500 $Title500
+    Set $String500 = $Title500
+ 
+    # Widget 6
+    ## Check the value dans $arrayn
+    Set $cmd = {i=0; while read myline; do for j in $(echo $myline | grep -v \# | grep -v '^$'); do eval array$i="$j"; i=$(( $i + 1 )); done; done <} $FILE1 {; echo $array14}
+    Set $OrigTitle600 = (GetOutput $cmd 1 -1)
+    ## Check the user save file
+    Set $cmd = {String="SetEnv Mod "; if [ "$(grep 'SetEnv SelectOnRelease ' } $SAVEFILE {)" = "" ]; then echo "non"; else grep 'SetEnv SelectOnRelease ' } $SAVEFILE {; fi}
+    Set $TestVal = (GetOutput $cmd 1 -1)
+    If $TestVal=={non} Then
+    Begin
+	Set $Title600 = $OrigTitle600
+	Set $OldTitle600 = $OrigTitle600
+    End
+    Else
+    Begin
+	Set $cmd = {echo }$TestVal{|cut -d " " -f 3}
+	Set $Title600 = (GetOutput $cmd 1 -1)
+	Set $OldTitle600 = $Title600
+    End
+    ChangeTitle 600 $Title600
+    Set $String600 = $Title600
+
+#  Do {Echo The file: }$FILE1{ }$UFE1{ }$CFE1{ }$SFE1
+End
+
+# Periodic Tasks {{{1
+PeriodicTasks
+Begin
+    # use a timer for flickering {{{2
+    If (RemainderOfDiv (GetTime) 1) == 0 Then
+    Begin
+	# faster if we do nothing here
+	Do Nop
+    End
+End
+
+# Quit Function {{{1
+QuitFunc
+Begin
+    If $RELOAD2=={1} Then
+    Begin
+	Set $RELOAD = {1}
+    End
+    If $RELOAD3=={1} Then
+    Begin
+	Set $RELOAD = {1}
+    End
+    If $RELOAD4=={1} Then
+    Begin
+	Set $RELOAD = {1}
+    End
+    If $RELOAD5=={1} Then
+    Begin
+	Set $RELOAD = {1}
+    End
+    If $RELOAD6=={1} Then
+    Begin
+	Set $RELOAD = {1}
+    End
+    If $RELOAD=={1} Then
+    Begin
+	# Better, but don't work well
+#	Do {Include components/functions/Keyboard-Modifiers}
+#	Do {Include components/functions/LoadCommonStuffs}
+#	Do {ReloadRecipe}
+	# Strarge, it is faster
+	Do {Restart}
+    End
+End
+
+# Main {{{1
+
+# Help label {{{2
+Widget 1
+Property
+    Flags NoReliefString Center	
+    Position 5 5
+    Size 790 35
+    Type ItemDraw
+    LocaleTitle {N=none, A=any (0 or more), M=Meta (Alt_L), S=Shift_L, C=Control_L, 4=Super_L (Win_L)}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Separation
+Widget 10
+Property
+ Flags NoReliefString
+ Position 0 40
+ Size 800 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# Any modifier {{{2
+Widget 2
+Property
+    Flags NoReliefString Center	
+    Position 5 43
+    Size 335 35
+    Type ItemDraw
+    LocaleTitle {Mod: any modifier (0 or more)}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Edit entry
+Widget 200
+Property
+    Flags NoReliefString	
+    Position 345 45
+    Size 150 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $Title200 = (GetTitle 200)
+ End
+ 1 :
+ Begin
+    Set $Title200 = (GetTitle 200)
+ End
+End
+
+# Save binding
+Widget 201
+Property
+ Flags NoReliefString
+ Position 650 43
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    If $OrigTitle200==$Title200 Then
+    Begin
+	If $OldTitle200==$Title200 Then
+	    Set $RELOAD2 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod }$OldTitle200{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+#	    Do {Echo cmd = }$cmd
+	    Do $cmd
+	    Set $OldTitle200 = $Title200
+	    Set $RELOAD2 = {1}
+	End
+    End
+    Else
+    Begin
+	If $OldTitle200==$Title200 Then
+	    Set $RELOAD2 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'String="SetEnv Mod }$Title200{"; if [ "$(grep \'SetEnv Mod \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Do $cmd
+	    Set $OldTitle200 = $Title200
+	    Set $RELOAD2 = {1}
+	End
+    End
+#  Do {Echo cmd: }$cmd
+#    WriteToFile $dfile $desktopd # crash
+  End
+End
+
+# Restore binding
+Widget 202
+Property
+ Flags NoReliefString
+ Position 500 43
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Restore}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $Title200 = $OrigTitle200
+      ChangeTitle 200 $Title200
+  End
+End
+
+# Separation
+Widget 203
+Property
+ Flags NoReliefString
+ Position 5 80
+ Size 780 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# No modifier {{{2
+Widget 3
+Property
+    Flags NoReliefString Center	
+    Position 5 83
+    Size 335 35
+    Type ItemDraw
+    LocaleTitle {Mod0: no modifier}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Edit entry
+Widget 300
+Property
+    Flags NoReliefString	
+    Position 345 85
+    Size 150 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $Title300 = (GetTitle 300)
+ End
+ 1 :
+ Begin
+    Set $Title300 = (GetTitle 300)
+ End
+End
+
+# Save binding
+Widget 301
+Property
+ Flags NoReliefString
+ Position 650 83
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    If $OrigTitle300==$Title300 Then
+    Begin
+	If $OldTitle300==$Title300 Then
+	    Set $RELOAD3 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod0 }$OldTitle300{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+	    Do $cmd
+	    Set $OldTitle300 = $Title300
+	    Set $RELOAD3 = {1}
+	End
+    End
+    Else
+    Begin
+	If $OldTitle300==$Title300 Then
+	    Set $RELOAD3 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'String="SetEnv Mod0 }$Title300{"; if [ "$(grep \'SetEnv Mod0 \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod0 \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Do $cmd
+	    Set $OldTitle200 = $Title300
+	    Set $RELOAD3 = {1}
+	End
+    End
+#  Do {Echo cmd: }$cmd
+#    WriteToFile $dfile $desktopd # crash
+  End
+End
+
+# Restore binding
+Widget 302
+Property
+ Flags NoReliefString
+ Position 500 83
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Restore}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $Title300 = $OrigTitle300
+      ChangeTitle 300 $Title300
+  End
+End
+
+# Separation
+Widget 303
+Property
+ Flags NoReliefString
+ Position 5 120
+ Size 780 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# Meta modifier {{{2
+Widget 4
+Property
+    Flags NoReliefString Center	
+    Position 5 123
+    Size 335 35
+    Type ItemDraw
+    LocaleTitle {Mod1: usually Meta}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Edit entry
+Widget 400
+Property
+    Flags NoReliefString	
+    Position 345 125
+    Size 150 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $Title400 = (GetTitle 400)
+ End
+ 1 :
+ Begin
+    Set $Title400 = (GetTitle 400)
+ End
+End
+
+# Save binding
+Widget 401
+Property
+ Flags NoReliefString
+ Position 650 123
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    If $OrigTitle400==$Title400 Then
+    Begin
+	If $OldTitle400==$Title400 Then
+	    Set $RELOAD4 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod1 }$OldTitle400{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+	    Do $cmd
+	    Set $OldTitle400 = $Title400
+	    Set $RELOAD4 = {1}
+	End
+    End
+    Else
+    Begin
+	If $OldTitle400==$Title400 Then
+	    Set $RELOAD4 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'String="SetEnv Mod1 }$Title400{"; if [ "$(grep \'SetEnv Mod1 \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod1 \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Do $cmd
+	    Set $OldTitle400 = $Title400
+	    Set $RELOAD4 = {1}
+	End
+    End
+#  Do {Echo cmd: }$cmd
+#    WriteToFile $dfile $desktopd # crash
+  End
+End
+
+# Restore binding
+Widget 402
+Property
+ Flags NoReliefString
+ Position 500 123
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Restore}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $Title400 = $OrigTitle400
+      ChangeTitle 400 $Title400
+  End
+End
+
+# Separation
+Widget 403
+Property
+ Flags NoReliefString
+ Position 5 160
+ Size 780 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# Second mode modifier {{{2
+Widget 5
+Property
+    Flags NoReliefString Center	
+    Position 5 163
+    Size 335 35
+    Type ItemDraw
+    LocaleTitle {Mod2: second mode}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Edit entry
+Widget 500
+Property
+    Flags NoReliefString	
+    Position 345 165
+    Size 150 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $Title500 = (GetTitle 500)
+ End
+ 1 :
+ Begin
+    Set $Title500 = (GetTitle 500)
+ End
+End
+
+# Save binding
+Widget 501
+Property
+ Flags NoReliefString
+ Position 650 163
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    If $OrigTitle500==$Title500 Then
+    Begin
+	If $OldTitle500==$Title500 Then
+	    Set $RELOAD5 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod2 }$OldTitle500{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+	    Do $cmd
+	    Set $OldTitle500 = $Title500
+	    Set $RELOAD5 = {1}
+	End
+    End
+    Else
+    Begin
+	If $OldTitle500==$Title500 Then
+	    Set $RELOAD5 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'String="SetEnv Mod2 }$Title500{"; if [ "$(grep \'SetEnv Mod2 \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod2 \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Do $cmd
+	    Set $OldTitle500 = $Title500
+	    Set $RELOAD5 = {1}
+	End
+    End
+#  Do {Echo cmd: }$cmd
+#    WriteToFile $dfile $desktopd # crash
+  End
+End
+
+# Restore binding
+Widget 502
+Property
+ Flags NoReliefString
+ Position 500 163
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Restore}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $Title500 = $OrigTitle500
+      ChangeTitle 500 $Title500
+  End
+End
+
+# Separation
+Widget 503
+Property
+ Flags NoReliefString
+ Position 5 200
+ Size 780 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# SelectOnRelease modifier {{{2
+Widget 6
+Property
+    Flags NoReliefString Center	
+    Position 5 203
+    Size 335 35
+    Type ItemDraw
+    LocaleTitle {SelectOnRelease: for WindowLists}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Edit entry
+Widget 600
+Property
+    Flags NoReliefString	
+    Position 345 205
+    Size 150 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $Title600 = (GetTitle 600)
+ End
+ 1 :
+ Begin
+    Set $Title600 = (GetTitle 600)
+ End
+End
+
+# Save binding
+Widget 601
+Property
+ Flags NoReliefString
+ Position 650 203
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    If $OrigTitle600==$Title600 Then
+    Begin
+	If $OldTitle600==$Title600 Then
+	    Set $RELOAD6 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'FileStr="SetEnv SelectOnRelease }$OldTitle600{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+	    Do $cmd
+	    Set $OldTitle600 = $Title600
+	    Set $RELOAD6 = {1}
+	End
+    End
+    Else
+    Begin
+	If $OldTitle600==$Title600 Then
+	    Set $RELOAD6 = {0}
+	Else
+	Begin
+	    Set $cmd = {PipeRead 'String="SetEnv SelectOnRelease }$Title600{"; if [ "$(grep \'SetEnv SelectOnRelease \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv SelectOnRelease \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Do $cmd
+	    Set $OldTitle600 = $Title600
+	    Set $RELOAD6 = {1}
+	End
+    End
+#  Do {Echo cmd: }$cmd
+#    WriteToFile $dfile $desktopd # crash
+  End
+End
+
+# Restore binding
+Widget 602
+Property
+ Flags NoReliefString
+ Position 500 203
+ Size 145 35
+ Type PushButton
+ LocaleTitle {Restore}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $Title600 = $OrigTitle600
+      ChangeTitle 600 $Title600
+  End
+End
+
+# Separation
+Widget 603
+Property
+ Flags NoReliefString
+ Position 62 240
+ Size 666 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# vim:ft=fvwm

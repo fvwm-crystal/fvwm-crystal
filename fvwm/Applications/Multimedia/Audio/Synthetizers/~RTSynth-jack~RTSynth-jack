@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec RTSynth-jack $@ 2>/dev/null
+

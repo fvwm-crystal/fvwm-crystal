@@ -1,0 +1,201 @@
+FVWM-Crystal installation instructions
+======================================
+
+Installing
+----------
+Uncompress the archive to a temporary directory and run:
+
+	make install
+
+FVWM-Crystal will be installed in /usr/local directory, so you need to become
+root for installation to work. If you want to install Crystal in other
+directory, or you don't have access to a root account, you can change the
+prefix:
+
+	make prefix=/usr install
+
+The installation process will create a tmp directory into the
+temporary directory. You can delete it with
+
+	make clean
+
+but this is not needed between successivve 'make install' runs.
+
+To be able to use the Exit menu, each user using fvwm-crystal must be
+in the group fvwm-crystal. For that, first create the group:
+
+	groupadd fvwm-crystal
+
+and for each wanted user:
+
+	useradd -G fvwm-crystal <user_name>
+
+When done, logout, login and start fvwm-crystal.
+
+IMPORTANT NOTICE
+----------------
+	make correctpath
+sould NOT be called directly. It is for internal use by
+'make install' only.
+
+
+Installing from svn repository
+------------------------------
+Download the repository and process as before
+
+
+Uninstalling the software
+-------------------------
+Run
+	make uninstall
+or
+	make prefix=/usr uninstall
+
+
+Needed adjustement by the user
+------------------------------
+
+Preferences
+-----------
+All the preferences are done from the menu of Fvwm-Crystal
+with 3 notable exceptions:
+
+1) The preferences for the FVWM-Crystal dekstop manager (dekstop icons)
+are done from the contextual menu of the Home icon.
+
+2) The media player and mixer preferences are done from the menu
+of the Music button.
+
+3) The preferences for Recreate the Playlists must be done by hand:
+Edit ~/.fvwn-crystal/preferences/MediaDirectories.
+Each line must contain the type of media (one of <audio>,
+<video>, <cdrom>, <dvd>), followed by the main path to the media files or
+device file. This file will be created for you the first time you call
+that function, and you will be warned to edit it.
+With recent fvwm-crystal versions, a file editor can be launched from
+the preferences menu for these files.
+
+Note on fvwm-crystal.generate-menu
+----------------------------------
+fvwm-crystal.generate-menu is a script that can be used to generate the missing
+FVWM-Crystal applications database entries. To be able to do that, it must know
+where FVWM-Crystal is installed and where are the applications type *.desktop
+files. This is handled by a few variables in the script and it can be needed
+to edit some of them before to run the script.
+
+The FVWM-Crystal related variables will be modified to the correct location
+by "make install". But it is no way the Makefile can know for sure where the
+application type desktop files are installed in your distribution.
+
+At the first run of fvwm-crystal.generate-menu from the preferences menu,
+2 popups will show the user what to do. See also "man fvwm-crystal".
+
+XDG-Menu
+---------
+A XDG menu can be made available with Alt+A. It is not enabled by default because
+the icon generation generate a lot of workings. Anyway, it is safe to use and
+you must repport these warnings or errors to upstream (to the ones providing
+buggy icon or desktop files with their applications). 
+
+The XDG menu will work best with 'fvwm-xdg-menu', the only one XDG menu with
+full support fot the additional XDG categories: https://github.com/domichel/fvwm-xdg-menu
+
+Note to distribution maintainers:
+---------------------------------
+If you package management system doesn't honor $DISTDIR and $prefix, you should
+pay attention to the following variables in fvwm-crystal.generate-menu:
+
+FC_MENUBASEROOT="path_to_FVWM-Crystal_application_menu", usualy
+"/usr/share/fvwm-crystal/fvwm/Applications".
+
+FC_ICONBASEROOT="path_to_FVWM-Crystal_icons", usualy
+"/usr/share/fvwm-crystal/fvwm/icons/Default".
+
+
+Libpng warnings
+...............
+The current version (3.1.7 at that time of writing) of fvwm-crystal.generate-menu
+include a fix to get ride of warnings like the following:
+    libpng warning: Ignoring incorrect gAMA value .55 when sRGB is also present.
+
+Howeher, it will not fix already present icon files. For that, you may want
+to run the following commands:
+    cd ${HOME}/.fvwm-crystal/icons/Default
+    find -name "*.png* -exex convert "{}" "{}" \;
+
+When inside individual directory, you may prefer:
+    for i in $(ls); do convert "$i" "$i"; done
+
+In order to get ride of all the warnings, it can be necessary to run convert
+several times (up to 3 times) on some files. This is important becuuse
+Fvwm-Crystal feel faster without these warnings.
+
+General installation tips
+-------------------------
+If you don't have your own ~/.Xresources, copy one from 'addons/' directory.
+You can also find there sample ~/.Xsession (or ~/.xinitrc) file.
+It is also a Xdefaults file that can be copied to ~/.Xdefaults.
+
+You need recent version of Python installed for 'fvwm-crystal.apps' script.
+And of course unstable version of FVWM (2.6.5+ or CVS) would be good... ;)
+
+
+-----------------------------------------------------------------------------
+Useful applications:
+
+Needed:
+-------
+- fvwm>=2.6.9 or fvwm3 with FvwmPrompt (with --enable-golang).
+- python3 - tested with 3.6, should work with any python3 version.
+    python2 is not supported anymore because upstream will end
+    its support at the end of that year (2019).
+- ImageMagick (convert is used for application menu icons generation)
+- xwd for on the fly icon generation and expose function
+- coreutils
+- sed
+- pidof
+- awk (tested with gawk)
+- bc if mplayer or alsaplayer are installed (used for speed control)
+- xdg-user-dirs for localized xdg desktop user directories and icons
+
+Strongly recommended:
+---------------------
+- ImageMagick package for screenshots and thumbnailed icons
+- 'feh' 'hsetroot' or 'Esetroot' for setting a wallpaper
+- one of 'trayer' for tray icons (available on FVWM-Crystal webpage) or
+  'stalonetray'
+- One of 'aterm', 'urxvt', 'mrxvt', 'xterm', 'Eterm', 'gnome-terminal', 'konsole' ,
+  'terminator' or 'xfce4-terminal' - for terminal emulator
+- One of 'mrxvt', 'urxvt', aterm' or 'xterm' for Quake console
+- A file manager to use with the icons on the desktop. Anything will go.
+- mount, umount, pmount for mounting/unmounting of partitions and remouvable medias.
+- fuse for simple-mtpfs support (a.o. some mobile phones mounting/unmounting).
+- pm-utils or systemd for resume/hibernate support.
+- A recent version of sudo (configuration files in /etc/sudoers.d).
+
+Optional, but supported:
+------------------------
+- 'xscreensaver' for screen saver
+- 'fvwm-xdg-menu' for a XDG menu with full support for the additional XDG categories
+- At least one of 'mpd', 'mpc', 'gmpc' or 'xmms', 'xmms-shell', 'xmms-find' or 'xmms2' or
+  'quodlibet' or 'cdcd' or 'cmus' or 'alsaplayer' or 'mplayer' for built-in music
+  player support (even video support with mplayer)
+  The mpd support depend on python-mpd (the github python-mpd2 up-to-date version).
+- 'transset' and 'xcompmgr'for full transparency support.
+- A mixer application. I recommand alsamixer.
+- 'sudo' and 'gksudo' for running text/graphical applications as superuser and
+  for reboot/shutdown options in the Exit menu
+- 'xrandr' for video mode switching
+- 'gdmflexiserver' (distributed with gdm) for GDM login manager support
+- ROX-Filer or Nautilus for alternatives to the Fvwm-Crystal managed desktop icons
+  (those 2 functions are provided for backward compatibility)
+- 'gnome-session' for session management support. Follow the instructions in 
+  'addons/session-management.README'. It is for Gnome 2, if you can get it to
+   work with a current Gnome version, please consider to contribute with
+  some kind of up-to-date explaination.
+- pmount-gui for mounting / unmounting of removable medias.
+
+Note:
+-----
+The configuration and testing of external software such as (but not limited to) pm-utils,
+mount, etc. is out of the scope of this file or of fvwm-crystal.

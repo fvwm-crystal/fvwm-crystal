@@ -1,0 +1,65 @@
+Note: that file is obsolete. If you know how to make
+fvwm-crystal work with session management, please
+take contact with us.
+
+FVWM-Crystal and session management
+-----------------------------------
+
+Gnome's Session management have evoveld a lot.
+The bad news is than it is more complicated than before.
+The good news is than it is much more easier to setup.
+
+In order to use session manager in Gnome, you need to follow
+the following steps:
+
+1) Install Gnome, gnome-session and gconf-editor.
+
+2) From the Crystal menu -> Nested sessions, start Gnome.
+   The following steps are inside your nested Gnome session.
+
+3) Start a console and run
+    fvwm-crystal --replace &
+
+   Don't exit this console. At that point, you must have a mix of Gnome and FVWM-Crystal.
+
+4) Start gconf-editor from Gnome's menu (Applications-System Tools->Configuration Editor).
+   Under desktop->gnome->session modify the key required_components_list
+   and remove every thing but windowmanager.
+   Modify desktop->gnome->session->required_components->windowmanager to,
+   I am sure you know what, fvwm-crystal.
+   Exit gconf-editor.
+
+5) From Gnome's menu, start System->Preferences-> Startup Applications.
+    Go into the second tab and save the current state of the running applications.
+
+6) Exit Gnome and close the Xephyr window.
+  You are back into FVWM-Crystal.
+
+7) With a file manager, go into ~/.config/gnome-session/saved-session
+  and look at the files. One must contain one line begining with something like
+    Exec=fvwm -f /usr/bin/../share/fvwm-crystal
+  Keep this file and remove all the other.
+
+8) Restart the nested FVWM-Crystal session. That's all.
+_______________________________________________________
+
+You will find 2 more options into the Crystal Quit menu: Save session and Manage session.
+
+For the change to be permanent, replace fvwm-crystal by gnome-session into
+/usr/share/xsessions/fvwm-crystal.desktop (graphical login users)
+or ~/.xinitrc (startx users).
+________________________________________________________
+
+Bug: For the correct wallpaper to appear, FVWM-Crystal must be resterted or a new
+    wallpaper must be choosen.
+
+Keybindings: Ctrl-Alt-Shift from inside the nested session will grab and release the mouse.
+  This keybinding is Xephyr dependant and can change on your system.
+
+Warning: Your Gnome session will be the same than a FVWM-Crystal session after making
+    those changes. In order to restore a "normal" Gnome session, remove all the files in
+    ~/.config/gnome-session/saved-session and the ~/.gconf directory. By doing this,
+    you will loose session management suport inside FVWM-Crystal.
+
+TODO: Make FVWM-Crystal session management work together with a "normal" Gnome session.
+

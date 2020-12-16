@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec Eterm --geometry 95x25 $@ 2>/dev/null
+

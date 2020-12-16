@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gtk-gnutella $@ 2>/dev/null
+

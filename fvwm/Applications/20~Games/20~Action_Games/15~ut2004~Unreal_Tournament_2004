@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ut2004 $@ 2>/dev/null
+

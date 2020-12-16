@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec startBristol -explorer -jack $@ 2>/dev/null
+

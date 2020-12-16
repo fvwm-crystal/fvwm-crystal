@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec simsam $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xsnow -santa 2 -santaspeed 10 $@ 2>/dev/null
+

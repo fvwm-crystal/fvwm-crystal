@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec traverso $@ 2>/dev/null
+

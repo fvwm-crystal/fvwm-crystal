@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kspaceduel $@ 2>/dev/null
+

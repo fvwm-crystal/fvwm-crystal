@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gnome-alsamixer $@ 2>/dev/null
+

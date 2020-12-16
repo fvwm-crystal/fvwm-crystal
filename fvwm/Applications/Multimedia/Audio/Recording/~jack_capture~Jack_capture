@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'A jack_capture $@ 2>/dev/null'
+

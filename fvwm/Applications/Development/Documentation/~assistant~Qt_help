@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec assistant $@ 2>/dev/null
+

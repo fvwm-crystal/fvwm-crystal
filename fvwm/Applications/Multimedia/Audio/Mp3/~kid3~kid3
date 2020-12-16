@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kid3 $@ 2>/dev/null
+

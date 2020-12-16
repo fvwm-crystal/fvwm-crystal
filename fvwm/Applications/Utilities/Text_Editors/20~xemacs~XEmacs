@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xemacs $@ 2>/dev/null
+

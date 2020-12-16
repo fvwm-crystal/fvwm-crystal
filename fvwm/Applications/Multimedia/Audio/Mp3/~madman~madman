@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec madman $@ 2>/dev/null
+

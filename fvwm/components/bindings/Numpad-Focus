@@ -1,0 +1,13 @@
+# Here are the bindings for focus-switching using the numpad
+# This version only switches the focus
+Key KP_Home             A $[Mod0] Window-FocusInDirection NorthWest
+Key KP_Left             A $[Mod0] Window-FocusInDirection West
+Key KP_End              A $[Mod0] Window-FocusInDirection SouthWest
+Key KP_Up               A $[Mod0] Window-FocusInDirection North
+Key KP_Down             A $[Mod0] Window-FocusInDirection South
+Key KP_Page_Up          A $[Mod0] Window-FocusInDirection NorthEast
+Key KP_Page_Down        A $[Mod0] Window-FocusInDirection SouthEast
+Key KP_Right            A $[Mod0] Window-FocusInDirection East
+Key KP_Begin            A $[Mod0] Window-FocusInDirection Center
+
+# vim:ft=fvwm

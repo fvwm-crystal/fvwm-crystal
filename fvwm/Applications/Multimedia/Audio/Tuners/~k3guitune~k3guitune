@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec k3guitune $@ 2>/dev/null
+

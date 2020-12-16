@@ -1,0 +1,112 @@
+# Written by: Maciej Delmanowski <harnir@linux.net.pl>
+
+# Overview
+# You can find here some functions designed to control and manupulate pages of
+# the desktop and move windows between pages.
+
+# How to use:
+# You can bind functions to a key, or mouse button, or to a panel button.
+# Usually you just need to use the name of selected function, if there are any
+# parameters, they are specified near this function definition (look down).
+
+# A list of functions:
+
+# GotoPage-[Left|Right|Up|Down]
+# ------------------------------
+# These functions will move you one page in selected direction. Difference
+# between usual FVWM "GotoPage" function is that you cannot specify how much
+# pages you can go, it's always 1 page, and that you can go "around" your
+# desktop, ie. from Page 0 to the left, to the last page on your current
+# desktop. Functions are scalable, so you can make any desk you want, example
+# 12x5, and they should work.
+
+# MoveToPage-Focus
+# -----------------
+# This is a small wrapper for the "MoveToPage" function. By default,
+# MoveToPage will move a window to the selected page, and leave it's focus
+# unchanged. This wrapper, after moving a window to selected page, will focus
+# next window on the current page. If on the current page there is no other
+# window, moved window stays focused.
+
+# MoveToPage-[Left|Right|Up|Down]
+# --------------------------------
+# These functions will move currently focused window 1 page in the specified
+# direction, and focus next window on the current page. If there is no window
+# left on the current page, moved window will stay focused.
+
+
+DestroyFunc GotoPage-Left
+AddToFunc GotoPage-Left
++ I PipeRead 'test $[page.nx] = 0 && echo "GotoPage `expr $[desk.pagesx] - 1` 0p" || echo "GotoPage -1p 0p"'
+
+DestroyFunc GotoPage-Right
+AddToFunc GotoPage-Right
++ I PipeRead 'test $[page.nx] = `expr $[desk.pagesx] - 1` && echo "GotoPage 0 0p" || echo "GotoPage +1p 0p"'
+
+DestroyFunc GotoPage-Up
+AddToFunc GotoPage-Up
++ I PipeRead 'test $[page.ny] = 0 && echo "GotoPage 0p `expr $[desk.pagesy] - 1`" || echo "GotoPage 0p -1p"'
+
+DestroyFunc GotoPage-Down
+AddToFunc GotoPage-Down
++ I PipeRead 'test $[page.ny] = `expr $[desk.pagesy] - 1` && echo "GotoPage 0p 0" || echo "GotoPage 0p +1p"'
+
+
+# Usage: MoveToPage-Focus [x[p] y[p]] | [prev]
+# man FVWM, "MoveToPage"
+DestroyFunc MoveToPage-Focus
+AddToFunc MoveToPage-Focus
++ I MoveToPage $*
++ I Next (CurrentPage, AcceptsFocus, Visible) Focus
+
+
+DestroyFunc MoveToPage-Left
+AddToFunc MoveToPage-Left
++ I PipeRead 'test $[page.nx] = 0 && echo "MoveToPage `expr $[desk.pagesx] - 1` 0p" || echo "MoveToPage -1p 0p"'
++ I Next (CurrentPage, AcceptsFocus, Visible) Focus
+
+DestroyFunc MoveToPage-Right
+AddToFunc MoveToPage-Right
++ I PipeRead 'test $[page.nx] = `expr $[desk.pagesx] - 1` && echo "MoveToPage 0 0p" || echo "MoveToPage +1p 0p"'
++ I Next (CurrentPage, AcceptsFocus, Visible) Focus
+
+DestroyFunc MoveToPage-Up
+AddToFunc MoveToPage-Up
++ I PipeRead 'test $[page.ny] = 0 && echo "MoveToPage 0p `expr $[desk.pagesy] - 1`" || echo "MoveToPage 0p -1p"'
++ I Next (CurrentPage, AcceptsFocus, Visible) Focus
+
+DestroyFunc MoveToPage-Down
+AddToFunc MoveToPage-Down
++ I PipeRead 'test $[page.ny] = `expr $[desk.pagesy] - 1` && echo "MoveToPage 0p 0" || echo "MoveToPage 0p +1p"'
++ I Next (CurrentPage, AcceptsFocus, Visible) Focus
+
+
+# Usage: WarpToPage [x[p] y[p]] | [prev]
+# man FVWM, "MoveToPage", "GotoPage"
+DestroyFunc WarpToPage
+AddToFunc WarpToPage
++ I MoveToPage $*
++ I GotoPage $*
+
+
+DestroyFunc WarpToPage-Left
+AddToFunc WarpToPage-Left
++ I PipeRead 'test $[page.nx] = 0 && echo "MoveToPage `expr $[desk.pagesx] - 1` 0p" || echo "MoveToPage -1p 0p"'
++ I PipeRead 'test $[page.nx] = 0 && echo "GotoPage `expr $[desk.pagesx] - 1` 0p" || echo "GotoPage -1p 0p"'
+
+DestroyFunc WarpToPage-Right
+AddToFunc WarpToPage-Right
++ I PipeRead 'test $[page.nx] = `expr $[desk.pagesx] - 1` && echo "MoveToPage 0 0p" || echo "MoveToPage +1p 0p"'
++ I PipeRead 'test $[page.nx] = `expr $[desk.pagesx] - 1` && echo "GotoPage 0 0p" || echo "GotoPage +1p 0p"'
+
+DestroyFunc WarpToPage-Up
+AddToFunc WarpToPage-Up
++ I PipeRead 'test $[page.ny] = 0 && echo "MoveToPage 0p `expr $[desk.pagesy] - 1`" || echo "MoveToPage 0p -1p"'
++ I PipeRead 'test $[page.ny] = 0 && echo "GotoPage 0p `expr $[desk.pagesy] - 1`" || echo "GotoPage 0p -1p"'
+
+DestroyFunc WarpToPage-Down
+AddToFunc WarpToPage-Down
++ I PipeRead 'test $[page.ny] = `expr $[desk.pagesy] - 1` && echo "MoveToPage 0p 0" || echo "MoveToPage 0p +1p"'
++ I PipeRead 'test $[page.ny] = `expr $[desk.pagesy] - 1` && echo "GotoPage 0p 0" || echo "GotoPage 0p +1p"'
+
+# vim:ft=fvwm

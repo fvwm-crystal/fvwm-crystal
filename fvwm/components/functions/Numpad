@@ -1,0 +1,57 @@
+# Numpad
+
+# ---------------------------------------------------------------------------
+# Focus functions
+DestroyFunc Window-FocusInDirection
+AddToFunc Window-FocusInDirection
++ I Direction $0 (CurrentPage, AcceptsFocus, !Iconic) Focus
+
+DestroyFunc Window-FocusAndRaiseInDirection
+AddToFunc Window-FocusAndRaiseInDirection
++ I Direction $0 (CurrentPage, AcceptsFocus, !Iconic) Focus
++ I Current (Focused) Raise
+
+# ---------------------------------------------------------------------------
+# Move functions
+DestroyFunc Window-MPAnimatedMove
+AddToFunc Window-MPAnimatedMove
++ I Current (HasPointer) AnimatedMove $0 $1 Warp
++ I TestRc (NoMatch) AnimatedMove $0 $1
+
+DestroyFunc Window-Warp-CenterCenter
+AddToFunc Window-Warp-CenterCenter
++ I Current Piperead 'echo Window-MPAnimatedMove `expr $[wa.width] / 2 - $[w.width] / 2`p `expr $[wa.height] / 2 - $[w.height] / 2`p'
+
+DestroyFunc Window-Warp-LeftCenter
+AddToFunc Window-Warp-LeftCenter
++ I Current Piperead 'echo Window-MPAnimatedMove $[EWMH_BS_Panel_Left]p `expr $[wa.height] / 2 - $[w.height] / 2`p'
+
+DestroyFunc Window-Warp-LeftTop
+AddToFunc Window-Warp-LeftTop
++ I Current Window-MPAnimatedMove $[EWMH_BS_Panel_Left]p $[EWMH_BS_Panel_Top]p
+
+DestroyFunc Window-Warp-CenterTop
+AddToFunc Window-Warp-CenterTop
++ I Current Piperead 'echo Window-MPAnimatedMove `expr $[wa.width] / 2 - $[w.width] / 2`p $[EWMH_BS_Panel_Top]p'
+
+DestroyFunc Window-Warp-RightTop
+AddToFunc Window-Warp-RightTop
++ I Current Piperead 'echo Window-MPAnimatedMove `expr $[wa.width] - $[w.width]`p $[EWMH_BS_Panel_Top]p'
+
+DestroyFunc Window-Warp-RightCenter
+AddToFunc Window-Warp-RightCenter
++ I Current Piperead 'echo Window-MPAnimatedMove `expr $[wa.width] - $[w.width]`p `expr $[wa.height] / 2 - $[w.height] / 2`p'
+
+DestroyFunc Window-Warp-CenterBottom
+AddToFunc Window-Warp-CenterBottom
++ I Current Piperead 'echo Window-MPAnimatedMove `expr $[wa.width] / 2 - $[w.width] / 2`p `expr $[vp.height] - $[EWMH_BS_Panel_Bottom] - $[w.height]`p'
+
+DestroyFunc Window-Warp-LeftBottom
+AddToFunc Window-Warp-LeftBottom
++ I Current Piperead 'echo Window-MPAnimatedMove $[EWMH_BS_Panel_Left]p `expr $[wa.height] - $[w.height]`p'
+
+DestroyFunc Window-Warp-RightBottom
+AddToFunc Window-Warp-RightBottom
++ I Current Piperead 'echo Window-MPAnimatedMove `expr $[wa.width] - $[w.width]`p `expr $[wa.height] - $[w.height]`p'
+
+# vim:ft=fvwm

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec rox $@ 2>/dev/null
+

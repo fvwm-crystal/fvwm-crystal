@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec patchage $@ 2>/dev/null
+

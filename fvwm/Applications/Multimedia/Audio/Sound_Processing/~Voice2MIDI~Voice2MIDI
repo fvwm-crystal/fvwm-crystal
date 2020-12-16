@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec Voice2MIDI $@ 2>/dev/null

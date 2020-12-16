@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gg2 $@ 2>/dev/null
+

@@ -1,0 +1,14 @@
+# Standard keyboard layout
+# You need several functions to use all of the keybindings
+
+Include components/bindings/Music
+Include components/bindings/Pager-Horizontal
+Include components/bindings/PageSwitch-Horizontal
+Include components/bindings/Mouse-GoHome
+Include components/bindings/Window-Control
+Include components/bindings/Window-List
+Include components/bindings/Window-Rearrange
+Include components/bindings/Window-Warp
+Include components/bindings/Misc-Keybindings
+
+# vim:ft=fvwm

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec swami $@ 2>/dev/null
+

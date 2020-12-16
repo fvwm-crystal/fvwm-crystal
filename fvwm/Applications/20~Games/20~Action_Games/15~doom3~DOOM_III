@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec doom3 $@ 2>/dev/null
+

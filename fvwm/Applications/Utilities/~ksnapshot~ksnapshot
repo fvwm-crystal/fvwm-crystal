@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ksnapshot $@ 2>/dev/null
+

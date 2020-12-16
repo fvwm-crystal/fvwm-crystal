@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec canorus $@ 2>/dev/null

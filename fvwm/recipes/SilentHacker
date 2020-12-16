@@ -1,0 +1,119 @@
+# SilentHacker desktop
+# Written by: Maciej Delmanowski <harnir@linux.net.pl>
+#
+# 2007-2013 - Dominique Michel
+# See ChangeLog for details
+#
+# You can use folding to navigate this file
+
+Echo SilentHacker recipe loading from $.
+InfoStoreAdd Recipe "SilentHacker"
+
+# No magic button, we nedd to reset its ewmh values after a recipe change.
+InfoStoreAdd EWMH_CBB_Left 3
+InfoStoreAdd EWMH_CBB_Right 3
+InfoStoreAdd EWMH_CBB_Top 3
+InfoStoreAdd EWMH_CBB_Bottom 3
+
+# Includes and FVWM modules {{{1
+Include components/bindings/Desktop-MMB-ToggleTopBar
+# Type of icons on the desktop {{{2
+LoadPreferences IconsType
+
+# Media player {{{2
+Include components/functions/Music-$[infostore.MusicPlayer]
+
+# Desktop settings {{{1
+EdgeScroll	0	0
+EdgeResistance			0
+Style * EdgeMoveDelay		250
+Style * EdgeMoveResistance	100
+HideGeometryWindow	Move, Resize
+OpaqueMoveSize	100
+EdgeThickness	1
+
+PipeRead 'echo "EWMH-Desktop 0 0 0 0"'
+PipeRead 'echo "EWMH-Panel-Top $(($[panel_font_size]+10))"'
+# The EWMH-Panel* can be modified the desktop manager and the custom bar buttons.
+# For the desktop manager and the magic buttons
+InfoStoreAdd EWMH_Recipe_Left $[EWMH_BS_Panel_Left]
+InfoStoreAdd EWMH_Recipe_Right $[EWMH_BS_Panel_Right]
+InfoStoreAdd EWMH_Recipe_Top $[EWMH_BS_Panel_Top]
+InfoStoreAdd EWMH_Recipe_Bottom $[EWMH_BS_Panel_Bottom]
+
+PipeRead '$[FVWM_SYSTEMDIR]/scripts/set_DesktopIconsGeom $[vp.height]'
+
+# Desktop manager {{{2
+DestroyFunc RedrawIconBox
+AddToFunc RedrawIconBox
++ I PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+50))))x$(($[vp.height]-33))+$((((50*$[IconColumnsNumber]))+25))+30, IconFill left bottom, IconGrid 30 30"'
+LoadPreferences DefaultDesktopManager
+
+# Settings for icons on the desktop {{{1
+#Style * IconBox 1200x800+30-30, IconFill left bottom, IconGrid 30 30
+Style * StickyIcon
+Test (EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+50))))x$(($[vp.height]-33))+$((((50*$[IconColumnsNumber]))+25))+30, IconFill left bottom, IconGrid 30 30"'
+Test (!EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-6))x$(($[vp.height]-50))+3+30, IconFill left bottom, IconGrid 30 30"'
+
+# Applications generator and main menu{{{1
+# This creates the menu with applications available under Alt+Win_R
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/apps --default-file-icon=22x22/apps/default.png --default-dir-icon=22x22/categories/directory.png --min-submenu-length=5 --sort=prio --panel-icons=topapp --panel-action1=menu --panel-action2=none --panel-action3=topapp --menu-pos=S --no-panel --check-execs'
+
+# Desktop menu with left click
+SetEnv DesktopMenu /FVWM-Crystal
+#SetEnv DesktopMenu /Applications
+
+# InfoLine {{{1
+DestroyFunc Get-InfoLine
+AddToFunc Get-InfoLine
++ I PipeRead 'fvwm-crystal.infoline'
++ I SendToModule FvwmButtons-InfoLine ChangeButton InfoLine Title "$[FVWM_INFOLINE]"
+
+All (FvwmButtons-InfoLine) Close
+DestroyModuleConfig FvwmButtons-InfoLine: *
+PipeRead "echo \*FvwmButtons-InfoLine: Geometry $(($[vp.width]-180))x$(($[panel_font_size]+10))+90+-1"
+*FvwmButtons-InfoLine: BoxSize smart
+*FvwmButtons-InfoLine: ActiveColorset $[infostore.cs_panel_active]
+*FvwmButtons-InfoLine: Colorset $[infostore.cs_panel_inactive]
+PipeRead 'echo "*FvwmButtons-InfoLine: Columns $(((($[vp.width]-180))/24))"'
+*FvwmButtons-InfoLine: Padding 2 2
+*FvwmButtons-InfoLine: Frame 0
+*FvwmButtons-InfoLine: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+
+PipeRead 'fvwm-crystal.infoline'
+
+PipeRead 'echo "*FvwmButtons-InfoLine: ($(((((($[vp.width]-180))/24))-3))x1, Size $(($[vp.width]-240)) $(($[panel_font_size]+10)), Id InfoLine, Title (Left) \\"$[FVWM_INFOLINE]\\", Action Get-InfoLine)"'
+
+# Update Infoline
+AddToFunc ExitFunction I Test (Quit) Exec exec killall UpdateInfoline $[infostore.SILENT]
+AddToFunc ExitFunction I Test (ToRestart) Exec exec killall UpdateInfoline $[infostore.SILENT]
+Exec exec $[FVWM_SYSTEMDIR]/scripts/UpdateInfoline 5 $[infostore.Fvwm_Crystal_Recipe]
+
+# Clock {{{1
+# original height = 16
+PipeRead "echo \"*FvwmButtons-InfoLine: (3x1, Size 60 $(($[panel_font_size]+10)), \
+Swallow (Close, Respawn, FvwmModule) FvwmScript-Clock 'Script components/scripts/FvwmScript-Clock', \
+Action (Mouse 3) SendToModule *FvwmScript-Clock SendString 1 1 str)\""
+
+Module FvwmButtons FvwmButtons-InfoLine
+Style FvwmButtons-InfoLine StaysOnTop
+
+# MMB Toggle-TopBar-OnTop 1{{{
+DestroyFunc Toggle-TopBar-OnTop
+AddToFunc Toggle-TopBar-OnTop
++ I All (FvwmButtons-InfoLine, !State 1) PutTopBar-OnTop
++ I TestRc (NoMatch) PutTopBar-OnBottom
++ I Restore-TopBar-RaiseLower
+
+DestroyFunc PutTopBar-OnTop
+AddToFunc PutTopBar-OnTop
++ I All (FvwmButtons-InfoLine) PutOnTop
+
+DestroyFunc PutTopBar-OnBottom
+AddToFunc PutTopBar-OnBottom
++ I All (FvwmButtons-InfoLine) PutOnBottom
+
+Echo /--------- Fvwm-Crystal: Recipe loaded ---------/
+#PrintInfo infostore
+
+# vim:foldmethod=marker:foldenable:foldlevel=0:ft=fvwm

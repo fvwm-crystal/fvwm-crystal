@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'A cplay $@ 2>/dev/null'
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec rrip_gui $@ 2>/dev/null

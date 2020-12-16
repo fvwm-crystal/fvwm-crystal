@@ -1,0 +1,180 @@
+# FVWM-Crystal Developer menu
+
+DestroyMenu /Developer
+AddToMenu /Developer '$[gt.Developer menu]' Title
++ '$[gt.Reload current recipe]' ReloadRecipe
++ '$[gt.Identify window]' Pick Module FvwmIdent
++ '$[gt.Toggle FvwmConsole]' FvwmMiniConsole
++ '$[gt.Open debug window]' Include components/functions/Debug-Functions
++ "" Nop
++ "mc ~/.fvwm-crystal/" A mc $[FVWM_SYSTEMDIR] $[FVWM_USERDIR]
++ "tail -f ~/.xsession-errors" A tail -f ~/.xsession-errors
+Test (x htop)	+ "htop" A htop
+Test (x top)	+ "top" A top
+Test (x xev)	+ "xev" A xev
+Test (x xzoom)	+ "xzoom" X xzoom
+Test (x xmag)	+ "xmag" X xmag
+Test (x xkill)	+ "xkill" X xkill
++ "" Nop
++ '$[gt.FVWM-Crystal documentation]' Popup /Developer/FVWM-Crystal-Documentation
++ '$[gt.FVWM manpages]' Popup /Developer/FvwmManpages
++ '$[gt.X.org documentation]' Popup /Developer/X.Org-Documentation
+Test (x emacs) + "" Nop
+Test (!x emacs, x pinfo) + "" Nop
+Test (!x emacs, !x pinfo, x tkinfo) + "" Nop
+Test (x emacs)	+ '$[gt.Browse Info pages with EMacs]' X emacs -f info
+Test (x pinfo)	+ '$[gt.Browse Info pages with pinfo]' A pinfo
+Test (x tkinfo)	+ '$[gt.Browse Info pages with tkinfo]' X tkinfo
++ "" Nop
++ '$[gt.WindowStyle]'	Popup /Developer/WindowStyle
+
+DestroyMenu /Developer/FVWM-Crystal-Documentation
+AddToMenu /Developer/FVWM-Crystal-Documentation
++ "%22x22/categories/help.png%FVWM-Crystal" FvwmViewManPage fvwm-crystal
++ "%22x22/categories/help.png%$[gt.Keyboard bindings]" FvwmViewManPage KeyboardBindings
++ "%22x22/categories/help.png%$[gt.Mouse bindings]" FvwmViewManPage MouseBindings
++ "%22x22/categories/help.png%$[gt.FAQ]" FvwmViewManPage FVWMCrystalFAQ
++ "%22x22/categories/help.png%$[gt.Tips]" FvwmViewManPage Tips
++ "%22x22/categories/help.png%$[gt.Crystal Rox! HOWTO]" FvwmViewManPage CrystalRoxHOWTO
++ "%22x22/categories/help.png%$[gt.Application database]" FvwmViewManPage ApplicationDatabase
+
+# With a title that begin with Fvwm, fvwm apply the wrong style
+DestroyFunc FvwmViewManPage
+AddToFunc FvwmViewManPage
++ I AT "man $0" "man $0"
+
+DestroyMenu /Developer/FvwmManpages
+AddToMenu /Developer/FvwmManpages
++ "%22x22/categories/help.png%$[gt.Main documentation]" FvwmViewManPage fvwm
++ "%22x22/categories/help.png%$[gt.Decorations and colorsets]" FvwmViewManPage FvwmTheme
++ '$[gt.Modules used in FVWM-Crystal]' Popup /Developer/FvwmManpages/FVWM-Crystal-Modules
++ "" Nop
++ '$[gt.Interface look and feel]' Popup /Developer/FvwmManpages/Look-Feel
++ '$[gt.Programming and debugging]' Popup /Developer/FvwmManpages/Programming-Debugging
++ '$[gt.External scripts and applications]' Popup /Developer/FvwmManpages/External-Scripts-Apps
+
+DestroyMenu /Developer/FvwmManpages/FVWM-Crystal-Modules
+AddToMenu /Developer/FvwmManpages/FVWM-Crystal-Modules
++ "%22x22/categories/help.png%FvwmButtons" FvwmViewManPage FvwmButtons
++ "%22x22/categories/help.png%FvwmPager" FvwmViewManPage FvwmPager
++ "%22x22/categories/help.png%FvwmIconMan" FvwmViewManPage FvwmIconMan
++ "%22x22/categories/help.png%FvwmForm" FvwmViewManPage FvwmForm
++ "" Nop
++ "%22x22/categories/help.png%FvwmIdent" FvwmViewManPage FvwmIdent
++ "%22x22/categories/help.png%FvwmEvent" FvwmViewManPage FvwmEvent
++ "%22x22/categories/help.png%FvwmScript" FvwmViewManPage FvwmScript
++ "%22x22/categories/help.png%FvwmRearrange" FvwmViewManPage FvwmRearrange
++ "" Nop
++ "%22x22/categories/help.png%FvwmConsole" FvwmViewManPage FvwmConsole
++ "%22x22/categories/help.png%FvwmCommand" FvwmViewManPage FvwmCommand
+
+DestroyMenu /Developer/FvwmManpages/Look-Feel
+AddToMenu /Developer/FvwmManpages/Look-Feel
++ "%22x22/categories/help.png%FvwmButtons" FvwmViewManPage FvwmButtons
++ "%22x22/categories/help.png%FvwmForm" FvwmViewManPage FvwmForm
++ "%22x22/categories/help.png%FvwmGtk" FvwmViewManPage FvwmGtk
++ "%22x22/categories/help.png%FvwmIconMan" FvwmViewManPage FvwmIconMan
++ "%22x22/categories/help.png%FvwmPager" FvwmViewManPage FvwmPager
++ "" Nop
++ "%22x22/categories/help.png%FvwmScroll" FvwmViewManPage FvwmScroll
++ "%22x22/categories/help.png%FvwmTabs" FvwmViewManPage FvwmTabs
++ "" Nop
++ "%22x22/categories/help.png%FvwmAnimate" FvwmViewManPage FvwmAnimate
++ "%22x22/categories/help.png%FvwmAuto" FvwmViewManPage FvwmAuto
++ "%22x22/categories/help.png%FvwmBacker" FvwmViewManPage FvwmBacker
++ "%22x22/categories/help.png%FvwmBanner" FvwmViewManPage FvwmBanner
++ "" Nop
++ "%22x22/categories/help.png%FvwmIconBox" FvwmViewManPage FvwmIconBox
++ "%22x22/categories/help.png%FvwmTaskBar" FvwmViewManPage FvwmTaskBar
++ "%22x22/categories/help.png%FvwmWharf" FvwmViewManPage FvwmWharf
++ "%22x22/categories/help.png%FvwmWinList" FvwmViewManPage FvwmWinList
++ "%22x22/categories/help.png%FvwmWindowMenu" FvwmViewManPage FvwmWindowMenu
++ "" Nop
++ "%22x22/categories/help.png%FvwmSave" FvwmViewManPage FvwmSave
++ "%22x22/categories/help.png%FvwmSaveDesk" FvwmViewManPage FvwmSaveDesk
++ "" Nop
++ "%22x22/categories/help.png%FvwmProxy" FvwmViewManPage FvwmProxy
++ "%22x22/categories/help.png%FvwmDragWell" FvwmViewManPage FvwmDragWell
+
+DestroyMenu /Developer/FvwmManpages/Programming-Debugging
+AddToMenu /Developer/FvwmManpages/Programming-Debugging
++ "%22x22/categories/help.png%FvwmForm" FvwmViewManPage FvwmForm
++ "%22x22/categories/help.png%FvwmGtk" FvwmViewManPage FvwmGtk
++ "%22x22/categories/help.png%FvwmScript" FvwmViewManPage FvwmScript
++ "" Nop
++ "%22x22/categories/help.png%FvwmConsole" FvwmViewManPage FvwmConsole
++ "%22x22/categories/help.png%FvwmCommand" FvwmViewManPage FvwmCommand
++ "" Nop
++ "%22x22/categories/help.png%FvwmCpp" FvwmViewManPage FvwmCpp
++ "%22x22/categories/help.png%FvwmM4" FvwmViewManPage FvwmM4
++ "%22x22/categories/help.png%FvwmPerl" FvwmViewManPage FvwmPerl
++ "" Nop
++ "%22x22/categories/help.png%FvwmDebug" FvwmViewManPage FvwmDebug
++ "%22x22/categories/help.png%FvwmGtkDebug" FvwmViewManPage FvwmGtkDebug
++ "%22x22/categories/help.png%FvwmConsoleC.pl" FvwmViewManPage FvwmConsoleC.pl
+
+DestroyMenu /Developer/FvwmManpages/External-Scripts-Apps
+AddToMenu /Developer/FvwmManpages/External-Scripts-Apps
++ "%22x22/categories/help.png%fvwm-menu-desktop" FvwmViewManPage fvwm-menu-desktop
++ "%22x22/categories/help.png%fvwm-menu-directory" FvwmViewManPage fvwm-menu-directory
++ "%22x22/categories/help.png%fvwm-menu-headlines" FvwmViewManPage fvwm-menu-headlines
++ "%22x22/categories/help.png%fvwm-menu-xlock" FvwmViewManPage fvwm-menu-xlock
++ "%22x22/categories/help.png%fvwm-root" FvwmViewManPage fvwm-root
+
+DestroyMenu /Developer/X.Org-Documentation
+AddToMenu /Developer/X.Org-Documentation
++ '$[gt.X.Org documentation]' Popup /Developer/X.Org/X.Org
+#+ '$[gt.X.Org-X11 documentation]' Popup /Developer/X.Org/X11
++ '$[gt.X.Org-Xserver documentation]' Popup /Developer/X.Org/Xserver
+
+DestroyMenu /Developer/X.Org/X.Org
+AddToMenu /Developer/X.Org/X.Org
++ "%22x22/categories/help.png%X" FvwmViewManPage X
++ "%22x22/categories/help.png%XOrgFoundation" FvwmViewManPage XOrgFoundation
++ "%22x22/categories/help.png%Consortium" FvwmViewManPage Consortium
++ "%22x22/categories/help.png%Standards" FvwmViewManPage Standards
++ "%22x22/categories/help.png%XProjectTeam" FvwmViewManPage XProjectTeam
++ "%22x22/categories/help.png%Xprint" FvwmViewManPage Xprint
++ "%22x22/categories/help.png%Xsecurity" FvwmViewManPage Xsecurity
+
+#DestroyMenu /Developer/X.Org/X11
+#AddToMenu /Developer/X.Org/X11
+#+ "%22x22/categories/help.png%X" FvwmViewManPage X
+
+DestroyMenu /Developer/X.Org/Xserver
+AddToMenu /Developer/X.Org/Xserver
++ "%22x22/categories/help.png%Xorg" FvwmViewManPage Xorg
++ "%22x22/categories/help.png%Xserver" FvwmViewManPage Xserver
++ "%22x22/categories/help.png%Xnest" FvwmViewManPage Xnest
++ "%22x22/categories/help.png%Xvfb" FvwmViewManPage Xvfb
++ "%22x22/categories/help.png%cvt" FvwmViewManPage cvt
++ "%22x22/categories/help.png%gtf" FvwmViewManPage gtf
++ "%22x22/categories/help.png%xorgcfg" FvwmViewManPage xorgcfg
++ "%22x22/categories/help.png%xorgconfig" FvwmViewManPage xorgconfig
++ "%22x22/categories/help.png%xorg.conf" FvwmViewManPage xorg.conf
++ "%22x22/categories/help.png%exa" FvwmViewManPage exa
++ "%22x22/categories/help.png%fbdevhw" FvwmViewManPage fbdevhw
+
+DestroyMenu /Developer/WindowStyle
+AddToMenu /Developer/WindowStyle "$[gt.WindowStyle]" Title
++ "DestroyWindowStyle"		Pick DestroyWindowStyle
++ "" Nop
++ "VariablePosition/Size"	Pick WindowStyle VariablePosition, VariableSize
++ "FixedPosition/Size"	Pick WindowStyle FixedPosition, FixedSize
++ "" Nop
++ "!Title"		Pick WindowStyle !Title
++ "Title"		Pick WindowStyle Title
++ "TitleAtBottom"	Pick WindowStyle TitleAtBottom
++ "TitleAtLeft"		Pick WindowStyle TitleAtLeft
++ "TitleAtRight"	Pick WindowStyle TitleAtRight
++ "TitleAtTop"		Pick WindowStyle TitleAtTop
++ "" Nop
++ "!Borders"            Pick WindowStyle !Borders
++ "Borders"             Pick WindowStyle Borders
++ "" Nop
++ "ResizeOpaque"        Pick WindowStyle ResizeOpaque
++ "ResizeOutline"       Pick WindowStyle ResizeOutline
+#+ "" Nop
+#+ "Layer 1"             Pick WindowStyle Layer 2
+
+# vim:ft=fvwm

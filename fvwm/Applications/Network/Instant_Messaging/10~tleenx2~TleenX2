@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec tleenx2 $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec fst /usr/lib/vst/CheezeMachine.dll $@ 2>/dev/null
+

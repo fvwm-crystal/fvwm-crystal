@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec tod $@ 2>/dev/null
+

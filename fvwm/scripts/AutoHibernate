@@ -1,0 +1,61 @@
+#!/bin/bash
+# FVWM-Crystal helper script that put the omputer in hibernation
+# when the battery is low
+# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate <rate [%]> <init [pm|sd]
+
+cleanup() {
+	exit 0
+}
+
+trap cleanup INT QUIT TERM
+
+if [[ ! "$2" ]]; then
+	cleanup
+fi
+
+# write the preference file
+echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/AutoHibernate $1" > ${FVWM_USERDIR}/preferences/AutoHibernation
+
+# check for battery file
+if [ -e /sys/class/power_supply/BAT0/energy_now ]
+then NOWBAT="energy"
+else 	if [ -e /sys/class/power_supply/BAT0/charge_now ]
+	then NOWBAT="charge"
+	else cleanup
+	fi
+fi
+
+# the main loop
+CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now)/(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100))))
+MinCharge=$(($1+1))
+Resumed="0"
+
+while :
+do
+	sleep "5"
+	# fvwm is started by exec; be sure it is running
+	pidof fvwm 1>/dev/null || cleanup
+
+	if [[ "$CurrentCharge" -lt "$MinCharge" ]]; then
+		# avoid hibernation loop
+		if [[ "${Resumed}" == "0" ]] ; then
+			# mplayer doesn't like hibernation
+			${FVWM_SYSTEMDIR}/scripts/killmplayer 9
+			killall -9 mplayer 2>/dev/null
+			if [[ "${2}" == "pm" ]] ; then
+				sudo pm-hibernate
+			else	systemctl hibernate -i
+			fi
+			# we must kill that script after rebbot to avoid loop
+			Resumed="1"
+		else
+			CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now)/(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100))))
+		fi
+	else
+		CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now)/(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100))))
+		# return to normal loop after resuming when CurrentCharge > $1
+		if [[ "$CurrentCharge" -gt "$MinCharge" ]]; then
+			Resumed="0"
+		fi
+	fi
+done

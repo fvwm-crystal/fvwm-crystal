@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec jmeters -t vu -f rect -r -20 -name "VU 0dBFS" "VU 0dBFS" $@ 2>/dev/null

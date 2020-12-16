@@ -1,0 +1,10 @@
+# Default settings for FvwmForm
+*FvwmFormDefault: Colorset $[infostore.cs_panel_inactive]
+*FvwmFormDefault: ItemColorset $[infostore.cs_panel_active]
+*FvwmFormDefault: Font "xft:$[menu_font]:pixelsize=$[menu_font_size]:$[menu_font_style]"
+*FvwmFormDefault: InputFont "xft:$[menu_font]:pixelsize=$[menu_font_size]:$[menu_font_style]"
+*FvwmFormDefault: ButtonFont "xft:$[menu_font]:pixelsize=$[menu_font_size]:$[menu_font_style]"
+*FvwmFormDefault: TimeoutFont "xft:$[menu_font]:pixelsize=$[menu_font_size]:$[menu_font_style]"
+
+# ViM modeline {{{1
+# vim:foldmethod=marker:foldenable:foldlevel=0:filetype=fvwm

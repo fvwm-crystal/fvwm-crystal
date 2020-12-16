@@ -1,0 +1,17 @@
+# preferences/DesktopDirs:
+# FVWM-Crystal preference for desktop files
+# Put in this file, all the directories that
+# must be searched for application desktop files.
+# Those directories will be searched by
+# fvwm-crystal.generate-menu for the generation
+# of the application menu.
+# It must be one directory per line.
+# Lines that begin with # will be ignored.
+/usr/share/applications
+#/usr/share/applications/kde
+/usr/share/applications/kde4
+#/usr/share/gnome/apps
+#/usr/local/share/applications
+#/usr/kde/3.5/share/applications/kde
+#/usr/kde/3.5/share/applnk
+#/usr/kde/3.5/share/apps/kaoofinder/apps

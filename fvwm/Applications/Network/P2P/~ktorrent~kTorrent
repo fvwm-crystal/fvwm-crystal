@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ktorrent $@ 2>/dev/null
+

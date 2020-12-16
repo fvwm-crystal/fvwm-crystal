@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec bomber $@ 2>/dev/null
+

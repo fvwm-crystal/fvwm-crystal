@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec koshell $@ 2>/dev/null
+

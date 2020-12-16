@@ -1,0 +1,27 @@
+# Written by: Maciej Delmanowski <harnir@linux.net.pl>
+
+
+# Variables for menus, which are opened from the root window, or when there is
+# no other relative position
+SetEnv MenuPosition_Above "mouse o100+50m -100m-5p"
+SetEnv MenuPosition_Below "mouse o100+50m 15p"
+SetEnv MenuPosition_AboveLeft "mouse -100m-5p -100m-5p"
+SetEnv MenuPosition_BelowLeft "mouse -100m-5p 15p"
+SetEnv MenuPosition_AboveRight "mouse 15p -100m-5p"
+SetEnv MenuPosition_BelowRight "mouse 15p 15p"
+
+# Variables for menus opened from buttons
+SetEnv MenuPosition_N	"Rectangle $widthx$height+$left+$top@c o50 -100m"
+SetEnv MenuPosition_W	"Rectangle $widthx$height+$left+$top@c -100m o50"
+SetEnv MenuPosition_E	"Rectangle $widthx$height+$left+$top@c 100 o50"
+SetEnv MenuPosition_S	"Rectangle $widthx$height+$left+$top@c o50 100"
+SetEnv MenuPosition_NE	"Rectangle $widthx$height+$left+$top@c 0 -100m"
+SetEnv MenuPosition_NW	"Rectangle $widthx$height+$left+$top@c o100 -100m"
+SetEnv MenuPosition_WN	"Rectangle $widthx$height+$left+$top@c -100m o100"
+SetEnv MenuPosition_WS	"Rectangle $widthx$height+$left+$top@c -100m 0"
+SetEnv MenuPosition_EN	"Rectangle $widthx$height+$left+$top@c 100 o100"
+SetEnv MenuPosition_ES	"Rectangle $widthx$height+$left+$top@c 100 0"
+SetEnv MenuPosition_SE	"Rectangle $widthx$height+$left+$top@c 0 100"
+SetEnv MenuPosition_SW	"Rectangle $widthx$height+$left+$top@c o100 100"
+
+# vim:ft=fvwm

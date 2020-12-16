@@ -1,0 +1,256 @@
+#!/bin/sh
+
+# POT file creator (or PO file updater) for FVWM-Crystal
+#
+# Version:	3.4.0 (rev. 800)
+# License:	GPL 3+
+#
+# Author:	Alwin <translations@ziggo.nl>
+#
+# Created:	<12/11/2015>
+# Changed:	<17/11/2015>	Description added.
+#		<26/11/2015>	Prevent infinite loops better.
+# 		<27/12/2015>	Adjust Fvwm-Tooltip filter.
+#
+# Description:	The purpose of this script, is to generate gettext
+# 		templates for localization of FVWM-Crystal. Support for
+# new languages can be created, or languages that seem to be
+# unmaintained updated. Please consider sending your work to the package
+# developer. Translations are a valuable part of this project!
+#
+# This script should be run from the `addons' directory, before or after
+# installation. It can run with or without command line options.
+#
+# Options:
+# -h	Help message about command line options
+# -n	No file location info added. (Loss of context)
+# -o	Old style (of the former script); shorthand for -ns
+# -s	Sort strings alphabetically. (Loss of context)
+# -t	Text version created additionally (for no particular reason)
+#
+# By default, this script will produce two POT files: `fvwm-crystal.pot'
+# and `fvwm-crystal-script.pot'. These files are meant to start
+# translating from scratch.
+#
+# Previously translated files have the `.po' extension, and are located
+# under the `locale' directory. When PO files (`fvwm-crystal.po' and/or
+# `fvwm-crystal-script.po' of your language) are copied to the `addons'
+# directory, then the newly created templates will be merged
+# automatically by this script. After that, a possible workflow would be
+# to search for empty msgstr's, check translations marked by the `fuzzy'
+# flag, remove the lines containing `fuzzy', and (optionally) remove
+# marked obsolete entries at the end of the PO files.
+
+
+
+# Defaults if no option(s) specified
+NOLOC="0"
+OLDSTYLE="0"
+SORT="0"
+TEXT="0"
+
+# Command line options overide defaults
+while getopts ":hnost" opt; do
+	case $opt in
+		h)	echo "Usage: $0 [-hnost]"; exit
+			;;
+		n)	NOLOC="1"
+			;;
+		o)	OLDSTYLE="1"
+			;;
+		s)	SORT="1"
+			;;
+		t)	TEXT="1"
+			;;
+		\?)	echo "Invalid option: -$OPTARG" >&2
+			;;
+	esac
+done
+
+# The former script did this (more or less):
+if [ "$OLDSTYLE" = "1" ]; then
+	NOLOC="1"
+	SORT="1"
+	LC_COLLATE="C"; export LC_COLLATE
+else
+	# Keep the same sorting for now
+	LC_COLLATE="C"; export LC_COLLATE
+fi
+
+
+PREFIX="fvwm-crystal fvwm-crystal-script"
+
+DATE="$(date '+%F %R%z')"
+VERSION="$(grep Version ../fvwm/components/functions/About | cut -d" " -f 4 | sed -e 's:"::')"
+
+###
+for i in $PREFIX; do
+
+
+if [ "$TEXT" = "1" ]; then
+	TEXTFILE="$i.txt"
+else
+	TEXTFILE="/dev/null"
+fi
+
+# Create tmp file and optional plain text for fvwm-crystal
+if [ "$i" = "fvwm-crystal" ]; then
+	# "../bin" is alphabetically first
+	FCGENMENU="../bin/fvwm-crystal.generate-menu"
+
+	# The file moves after installation
+	if [ ! -e $FCGENMENU ]; then
+		FCGENMENU="../../$FCGENMENU"
+	fi
+
+	grep -H -n '^[[:space:]]*[^#].*[^_]CAT="/[^$]' $FCGENMENU | sed \
+		-e 's|\([^:]*:[[:digit:]]*\):.*/\([^/]*\)".*|\1]\n\2|' | sed \
+			-e '2~2s|^[[:digit:]]*~*~||' \
+			-e '2~2y|_| |' | paste -d '' - - | tee .make.pot.tmp | sed \
+				-e 's|[^:]*:[[:digit:]]*]\(.*\)|\1|' >$TEXTFILE
+
+	# "../fvwm/Applications" is alphabetically second, etc.
+	ls -R ../fvwm/Applications | sed \
+		-e '\|^\.\./|!d' \
+		-e 's|\(.*/\)\([^/]*\):|\1]\n\2|' | sed \
+			-e '2~2s|^[[:digit:]]*~*~||' \
+			-e '2~2y|_| |' | paste -d '' - - | tee -a .make.pot.tmp | sed \
+				-e 's|.*/]\([^/]*\)|\1|' >>$TEXTFILE
+
+	grep -n -d skip --exclude=../fvwm/components/functions/Tooltip \
+		-e '^[[:space:]]*[^#].*\[gt\.' \
+		-e '^[[:space:]]*[^#].*Fvwm-Tooltip [^ ]* [\"]*[^\"$]' \
+			../fvwm/components/apps/* \
+			../fvwm/components/functions/* \
+			../fvwm/recipes/* \
+			../fvwm/scripts/* \
+			../fvwm/scripts/*/* | sed \
+				-e 's/\([^:]*:[[:digit:]]*\):.*\[gt\.\([^]]*\).*\[gt\.\([^]]*\).*/\1]\2\n\1]\3/' \
+				-e 's/\([^:]*:[[:digit:]]*\):.*\[gt\.\([^]]*\).*/\1]\2/' \
+				-e 's/\([^:]*:[[:digit:]]*\):.*Fvwm-Tooltip [^ ]* [\"]*\([^\"]*\)[\"]* [^ ]* [^ ]* [^ ]* [^ ]*/\1]\2/' \
+				-e 's/\\*$//' | tee -a .make.pot.tmp | sed \
+					-e 's/[^:]*:[[:digit:]]*]\(.*\)/\1/' >>$TEXTFILE
+
+	if [ "$TEXTFILE" != "/dev/null" ]; then
+		sort -u -o $TEXTFILE $TEXTFILE
+	fi
+
+# Create tmp file and optional plain text for fvwm-crystal-script
+elif [ "$i" = "fvwm-crystal-script" ]; then
+	grep -n -d skip -e '^[[:space:]]*[^#].*ocaleTitle {' \
+			-e '^[[:space:]]*[^#].*(Gettext {' \
+				../fvwm/components/scripts/* \
+				../fvwm/scripts/*/* | sed \
+			-e 's/\([^:]*:[[:digit:]]*\):.*LocaleTitle {\([^}]*\).*/\1]\2/' \
+			-e 's/\([^:]*:[[:digit:]]*\):.*Gettext {\([^}]*\).*/\1]\2/' | tee .make.pot.tmp | sed \
+				-e 's/[^:]*:[[:digit:]]*]\(.*\)/\1/' | sort -u >$TEXTFILE
+fi
+
+
+if [ "$SORT" = "1" ]; then
+		sort -t ']' -k 2 -o .make.pot.tmp .make.pot.tmp
+fi
+
+
+# Headers for pot files
+(
+cat <<'EOF'
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Using quoting characters into a translation can confuse fvwm.
+# To avoid this, you MUST use other UTF-8 characters like , ‘ ’ “ ” « or ».
+# The most used one can be the apostrophe: please use ’ instead of '.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal\n"
+"POT-Creation-Date: 1970-01-01 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+EOF
+) | sed -e "s/1970-01-01 00:00+0000/${DATE}/" \
+	-e "s/Project-Id-Version: fvwm-crystal/& ${VERSION}/" \
+		>$i.pot
+
+
+COUNT1="$(wc -l .make.pot.tmp | sed -e 's/\([[:digit:]]*\).*/\1/')"
+
+# Create rest of pot file from tmp file
+while [ -s .make.pot.tmp ]; do
+	STRING="$(sed \
+		-e '1!d' \
+		-e 's/.*]\([^]]*\)/\1/' \
+		-e 's/[*.\]/\\&/g' \
+			.make.pot.tmp)"
+
+	if [ "$NOLOC" = "1" ]; then
+		grep -e "]${STRING}\$" .make.pot.tmp | sed \
+			-e '$!d' \
+			-e 's/[\]/\\&/g' \
+			-e 's/.*]\([^]]*\)/msgid "\1"\nmsgstr ""\n/' \
+				>>$i.pot
+	else
+		grep -e "]${STRING}\$" .make.pot.tmp | sed \
+			-e '$!s/\(.*\)][^]]*/#: \1/' \
+			-e '$s/[\]/\\&/g' \
+			-e '$s/\(.*\)]\([^]]*\)/#: \1\nmsgid "\2"\nmsgstr ""\n/' \
+				>>$i.pot
+	fi
+
+	sed -i -e "\\]\\]${STRING}\$]d" .make.pot.tmp
+
+	# Prevent infinite loops
+	COUNT2="$(wc -l .make.pot.tmp | sed -e 's/\([[:digit:]]*\).*/\1/')"
+
+	if [ "$COUNT2" -lt "$COUNT1" ]; then
+		COUNT1="$COUNT2"
+	else
+		echo "Error: infinite loop"; exit 1
+	fi
+done
+
+echo '# End of generated strings' >>$i.pot
+
+# put non conventional strings here:
+if [ "$i" = "fvwm-crystal" ]; then
+	echo '#: ..fvwm/scripts/XDG-Menu' >>$i.pot
+	echo 'msgid "Configure"' >>$i.pot
+	echo 'msgstr ""' >>$i.pot
+	echo '' >>$i.pot
+	echo '#: ..fvwm/scripts/XDG-Menu' >>$i.pot
+	echo 'msgid "Regenerate"' >>$i.pot
+	echo 'msgstr ""' >>$i.pot
+fi
+
+# Merge po files
+if [ -e $i.po ]; then
+	MERGEOPTS="-U --no-wrap -q"
+
+	if [ "$NOLOC" = "1" ]; then
+		MERGEOPTS="$MERGEOPTS --no-location"
+	fi
+
+	if [ "$SORT" = "1" ]; then
+		MERGEOPTS="$MERGEOPTS -s"
+	fi
+
+	msgmerge $MERGEOPTS $i.po $i.pot && (rm -f $i.pot; sed -i -e \
+		"s/^\"Project-Id-Version:.*/\"Project-Id-Version: fvwm-crystal ${VERSION}\\\\n\"/" \
+			$i.po)
+fi
+
+
+done
+###
+
+# Cleanup
+rm -f .make.pot*

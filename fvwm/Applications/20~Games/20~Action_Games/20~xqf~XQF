@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xqf $@ 2>/dev/null
+

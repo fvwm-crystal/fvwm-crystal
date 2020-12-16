@@ -1,0 +1,61 @@
+# Some default keybindings, not fitting anywhere else
+# The # at comment ends show my own settings. Make them defsult?
+
+# Open QuakeConsole using Alt+`
+Key grave A $[Mod1] QuakeConsole
+# Open QuakeConsole using Alt+Q #
+#Key Q A $[Mod1] QuakeConsole
+
+# Open new terminal using Alt+Shift+`
+Key grave A $[Mod2] AA
+# Open new terminal using Alt+Shift+Q #
+#Key Q A $[Mod2] AA
+
+# Open FvwmConsole using Alt+;
+Key semicolon A $[Mod1] FvwmMiniConsole
+# Open FvwmConsole using Alt+F
+#Key F A $[Mod1] FvwmMiniConsole #
+
+# Screenshot
+Key Print A $[Mod] Screenshot
+
+# ScreenBlanker
+Key O A $[Mod1] BlankScreen
+
+# "Menu * root c c" place the menu at the center of the screen,
+# if you want it, comment out these lines and comment the lines
+# without it which use fvwm default under the mouse cursor.
+
+# Application menu
+# Alt + Windows Left
+#Key Super_L A $[Mod1] Menu /Applications root c c
+#Key Super_L A $[Mod1] Menu /Applications
+# Alt + Windows Right
+#Key Super_R A $[Mod1] Menu /Applications root c c
+Key Super_R A $[Mod1] Menu /Applications
+# Alt + M #
+#Key M A $[Mod1] Menu /Applications
+# Alt + Shift + Menu #
+#Key Menu A $[Mod2] Menu /Applications root c c
+Key Menu A $[Mod2] Menu /Applications
+
+# Main menu
+# Alt + Menu #
+#Key Menu A $[Mod1] Menu /FVWM-Crystal root c c
+Key Menu A $[Mod1] Menu /FVWM-Crystal
+# Alt + Shift + Windows Right
+#Key Super_R A $[Mod2] Menu /FVWM-Crystal root c c
+Key Super_R A $[Mod2] Menu /FVWM-Crystal
+# Shift + Alt + M #
+#Key M A $[Mod2] Menu /FVWM-Crystal
+
+# XDG application menu
+# Alt + A #
+#Test (EnvMatch XDGMenu yes) Key A A $[Mod1] Menu FvwmMenu root c c
+Test (EnvMatch XDGMenu yes) Key A A $[Mod1] Menu FvwmMenu
+
+# FvwmExpose
+# Alt + E
+Key E A $[Mod1] FvwmExpose
+
+# vim:ft=fvwm

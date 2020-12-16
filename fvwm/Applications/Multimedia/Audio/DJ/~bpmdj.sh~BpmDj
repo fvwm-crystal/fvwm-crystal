@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec bpmdj.sh $@ 2>/dev/null

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec wired $@ 2>/dev/null
+

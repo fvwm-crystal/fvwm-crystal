@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec dominosa $@ 2>/dev/null
+

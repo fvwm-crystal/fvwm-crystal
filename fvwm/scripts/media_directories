@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# Generation of multimedia browser menu for FVWM-Crystal
+# Written by Dominique Michel <dominique_libre@users.sourceforge.net>, 2008-2013
+# Read $[USER_USERDIR"/preferences/MediaDirectories and generate the /Music/LoadMovie
+# menu in $[FVWM_USERDIR]/tmp/MenuMovieDirectory"
+
+# Syntax:
+# PipeRead '$[FVWM_SYSTEMDIR]/scripts/media_directories $[infostore.USERDIR] $[MediaMenuIcons]'
+# Include tmp/MenuMovieDirectory
+
+# mplayer command line
+fvwm_video_exec="fvwm-crystal.mplayer-wrapper file $1"
+
+# find media type and related strings creation {{{1
+find_type() {
+    case "$1" in
+    audio*)
+      Audio="${Audio} \"`echo "$1 "|cut -d " " -f 2`\"*) myexec=\"${fvwm_video_exec}\";; "
+      BrowseAudio="${BrowseVideo} + '%22x22/categories/video_movies_view.png%\$[gt.Browse Music]' Popup `echo "$1 "|cut -d " " -f 2` \\n"
+      ;;
+    video*)
+      Video="${Video} \"`echo "$1 "|cut -d " " -f 2`\"*) myexec=\"${fvwm_video_exec}\";; "
+      BrowseVideo="${BrowseVideo} + '%22x22/categories/video_movies_view.png%\$[gt.Browse Medias]' Popup `echo "$1 "|cut -d " " -f 2` \\n"
+      ;;
+    cdrom*)
+      CDrom="${CDrom} \"`echo "$1 "|cut -d " " -f 2`\"*) myexec=\"${fvwm_video_exec}\";; "
+      BrowseCDrom="${BrowseCDrom} + '%22x22/categories/video_movies_view.png%\$[gt.Browse CDROM]' Popup `echo "$1 "|cut -d " " -f 2` \\n"
+      ;;
+    dvd*)
+      DVD="${DVD} \"`echo "$1 "|cut -d " " -f 2`\"*) myexec=\"${fvwm_video_exec}\";; "
+      BrowseDVD="${BrowseDVD} + '%22x22/categories/video_movies_view.png%\$[gt.Browse DVD]' Popup `echo "$1 "|cut -d " " -f 2` \\n"
+      ;;
+    *)
+      echo "something wrong"
+      exit 66
+      ;;
+    esac
+}
+
+# variables initialisations {{{1
+Audio=""
+BrowseAudio=""
+Video=""
+BrowseVideo=""
+CDrom=""
+BrowseCDrom=""
+DVD=""
+BrowseDVD=""
+
+# we just create a file from those variables.
+
+# the main function {{{1
+while read line; do
+    find_type "$line"
+done <"${FVWM_USERDIR}/preferences/MediaDirectories"
+
+mkdir -p "${FVWM_USERDIR}/tmp"
+menufile="${FVWM_USERDIR}/tmp/MenuMovieDirectory"
+#menufile="/dev/null"
+
+# Menu creation {{{2
+# From Taviso's configuration
+# 22x22/categories/Audio-Video.png will be used for all the files that doesn't have a .media.png inside their directory
+# 22x22/categories/directory.png will be used for all the directories that doesn't have a .icontitle.png file
+echo "DestroyFunc FuncFvwmMenuMovieDirectory" > "${menufile}"
+echo "AddToFunc FuncFvwmMenuMovieDirectory" >> "${menufile}"
+echo "+ I PipeRead 'case \'\$0\' in \\" >> "${menufile}"
+echo -e "${Video} ${CDrom} ${DVD} \\" >> "${menufile}"
+echo "esac; \\" >> "${menufile}"
+# The following commented out lines hang fvwm with a lot of file/dir names. Don't complain, fix fvwm!
+# Note that the generated menu by fvwm-menu-directory look correct in any case, so the issue is in fvwm itself.
+#echo "test -f \\\"\$0\\\"/.icontitle.png && mytitle=\\\"\$0\\\"/.icontitle.png; \\" >> "${menufile}"
+#echo "test -f \\\"\$0\\\"/.media.png && mypng=\\\"\$0\\\"/.media.png; \\" >> "${menufile}"
+#echo "fvwm-menu-directory --icon-title \"\${mytitle:-22x22/categories/directory.png}\"  \\" >> "${menufile}"
+echo "fvwm-menu-directory --icon-title \"22x22/categories/directory.png\"  \\" >> "${menufile}"
+# Idem:
+#echo "--icon-file \"\${mypng:-22x22/categories/Audio-Video.png}\" \\" >> "${menufile}"
+if [ "$2" = "1" ]
+then
+    echo "--icon-file \"22x22/categories/Audio-Video.png\" \\" >> "${menufile}"
+    echo "--icon-dir \"22x22/categories/video_movies_view.png\" \\" >> "${menufile}"
+fi
+echo "--func=\"FuncFvwmMenuMovieDirectory\" \\" >> "${menufile}"
+# workarounf fvwm file names bug
+if [ "$2" = "1" ]
+then
+    echo "--exec-file \"^\${myexec}\" --dir \'\$0\' --exec-title \"^fvwm-crystal.play-movies\"'" >> "${menufile}"
+else
+    echo "--exec-file \"^\${myexec}\" --dir \'\$0\''" >> "${menufile}"
+fi
+# --exec-t=\"^fvwm-crystal.play-movies \\\"\$0\\\"\"
+echo "" >> "${menufile}"
+echo "DestroyMenu /Music/LoadMovie" >> "${menufile}"
+echo "AddToMenu /Music/LoadMovie" >> "${menufile}"
+echo "+ MissingSubmenuFunction FuncFvwmMenuMovieDirectory" >> "${menufile}"
+echo -e "${BrowseVideo} ${BrowseCDrom} ${BrowseDVD}" >> "${menufile}"

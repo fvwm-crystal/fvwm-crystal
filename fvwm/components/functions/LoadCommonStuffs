@@ -1,0 +1,72 @@
+# LoadCommonStuffs function for FVWM-Crystal
+#
+# Version:	1.0.0
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>
+#
+# Created:	<14/05/2013>
+# Changed:	<14/05/2013>
+#
+# Description:	This file is a centralized place to load all the stuffs
+# shared by all the recipes like styles, shared functions, and so on.
+#
+# TODO: move ImagePath into the recipes
+
+# ImagePath {{{1
+InfoStoreAdd Icon_Theme "Default"
+ImagePath $[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]
+
+# Includes and FVWM modules {{{1
+DestroyFunc StartCommandPipe
+AddToFunc StartCommandPipe
++ I Test (Version >= 2.6.9) Module FvwmCommandS
++ I TestRc (NoMatch) Module FvwmMFL
+StartCommandPipe
+
+# Default FVWM-Crystal functions, initialization {{{2
+Include components/functions/Clear-FVWM-Settings
+Include components/desktop/FVWM-Crystal_Functions
+Include components/desktop/FVWM-Crystal_Preferences
+Include components/functions/Feedback
+Include components/functions/Fullscreen
+Include components/functions/FvwmExpose
+Include components/functions/BlingBling
+Include components/functions/Fvwm-Crystal-Menu
+Include components/functions/CheckForFiles
+Include components/functions/Tooltip
+Include components/functions/Panel-Display
+Append preferences/Startup
+
+# Preferred applications {{{2
+Include components/functions/Screenshot-import
+Include components/apps/XScreenSaver
+Include components/apps/FvwmMiniConsole
+Include components/apps/QuakeConsole
+Include components/apps/OpenOffice.org
+Include components/functions/Xephyr
+Include components/functions/ScreenSaver
+
+# Desktop & window bindings {{{2
+Include components/bindings/Desktop-RMB-OpenTerminal
+Include components/bindings/Desktop-MMB-EdgeScroll
+Include components/bindings/Desktop-MMB-TogglePanels
+Include components/bindings/Window-Basic
+Include components/bindings/Window-Border
+Include components/bindings/Window-Transparency
+
+# Keyboard bindings {{{2
+Include components/desktop/Keyboard
+Include components/desktop/Keyboard_NumLock
+Include components/desktop/Numpad
+Include components/bindings/Multimedia_Keys
+Include components/bindings/Multimedia_Keys_NumLock
+LoadPreferences DesktopMenu
+
+# Various styles {{{2
+Include components/desktop/FVWM-Crystal_Styles
+Include components/styles/CursorStyle-Border
+
+# Notification area {{{2
+Include components/functions/NotificationAreaManager-$[infostore.NotificationAreaManager]
+Include preferences/NotificationArea-Width

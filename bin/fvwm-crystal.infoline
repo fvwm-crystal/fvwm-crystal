@@ -1,0 +1,34 @@
+#!/bin/sh
+# fvwm-crystal.infoline
+# Script used to display various information about system
+# in FVWM-Crystal desktop
+# ---------------------------------------------------------------------------
+# Author:	Maciej Delmanowski <harnir@linux.net.pl>
+# License:	GPLv3+
+# ---------------------------------------------------------------------------
+
+# Here are some sample commands you can combine
+# We can use only 1 line with limited length
+
+# Uptime
+uptime=`uptime | sed -e 's/.*up\ //g' -e 's/,.*//g'`
+
+# Hostname
+hostname=`hostname`
+
+# Kernel info
+kernel=`uname -sr`
+
+# Free memory (MB)
+memory_free=`free -m | grep "Mem\:" | awk '{print $4}'`
+
+# Free swap (MB)
+swap_free=`free -m | grep "Swap\:" | awk '{print $4}'`
+
+# ---------------------------------------------------------------------------
+# What will be displayed in FVWM-Crystal?
+# Format: "SetEnv FVWM_INFOLINE \"[displayed text]\""
+
+echo "SetEnv FVWM_INFOLINE \"$hostname | $kernel | Free RAM $memory_free MB, swap $swap_free MB | Uptime: $uptime\""
+
+

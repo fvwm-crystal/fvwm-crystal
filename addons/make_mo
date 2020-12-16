@@ -1,0 +1,4 @@
+#!/bin/sh
+rm *.mo
+msgfmt fvwm-crystal.po -o fvwm-crystal.mo
+msgfmt fvwm-crystal-script.po -o fvwm-crystal-script.mo

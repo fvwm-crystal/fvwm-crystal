@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec diglog $@ 2>/dev/null
+

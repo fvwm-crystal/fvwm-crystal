@@ -1,0 +1,54 @@
+# MS Windows version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle InActive Colorset $[infostore.cs_window_inactive]
++ TitleStyle Active Colorset $[infostore.cs_window_active]
++ TitleStyle LeftJustified
++ TitleStyle -- Raised
+PipeRead 'echo "+ TitleStyle Height $(($[title_font_size]+$(($[title_font_size]/3))))"'
+
++ BorderStyle -- Raised HiddenHandles
+
+# Menu
++ ButtonStyle 1 \
+	Active (AdjustedPixmap $./button-active-menu.png) \
+	Inactive (AdjustedPixmap $./button-inactive-menu.png)
+
+# Close
++ ButtonStyle 2 \
+	Active (AdjustedPixmap $./button-active-close.png) \
+	Inactive (AdjustedPixmap $./button-inactive-close.png)
+
+# Maximize
++ ButtonStyle 4 \
+	Active (AdjustedPixmap $./button-active-maximize.png) \
+	Inactive (AdjustedPixmap $./button-inactive-maximize.png)
+
+# Iconify
++ ButtonStyle 6 \
+	Active (AdjustedPixmap $./button-active-iconify.png) \
+	Inactive (AdjustedPixmap $./button-inactive-iconify.png)
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- Raised
+
+Style * HandleWidth 4, BorderWidth 4
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactiveborder], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_activeborder]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * MwmBorder
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-windows
+

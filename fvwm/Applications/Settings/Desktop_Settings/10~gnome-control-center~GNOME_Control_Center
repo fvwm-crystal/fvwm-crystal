@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gnome-control-center $@ 2>/dev/null
+

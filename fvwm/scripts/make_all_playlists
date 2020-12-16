@@ -1,0 +1,219 @@
+#!/bin/bash
+
+# Wrapper for make_playlist into Fvwm-Crystal
+# Dominique Michel <dominique_libre@users.sourceforge.net> 2008-2013
+#
+# This script scan each directories and subdirectories for media file
+# and write the corresponding playlist files.
+#
+# Where the playlists are created. Must be writable by the user.
+# AudioPlaylists="/home/$(id -un)/PlaylistsAudio"
+# VideoPlaylists="/home/$(id -un)/PlaylistsVideo"
+# Temporary files, must be into a writable directory.
+#
+# Syntax:
+# PipeRead $[FVWM_SYSTEMDIR]/scripts/make_all_playlists \
+# $[infostore.AudioPlaylists] $[infostore.VideoPlaylists]
+
+
+DirList="/tmp/mkpl_dirlist"
+MediaList="/tmp/mkpl_medialist"
+
+# Create the playlists dir if it doesn't exist
+writedir() {
+if [[ ! -e "$1" ]]; then
+  mkdir -p "$1"
+  echo "Creating $1"
+fi
+}
+mediatype() {
+case "$1" in
+    audio)
+      writedir ${AudioPlaylists}
+      ;;
+    video)
+      writedir ${VideoPlaylists}
+      ;;
+    cdrom)
+      echo "This is a CDROM, skipping it."
+      ;;
+    dvd)
+      echo "This is a DVD, skipping it."
+      ;;
+    *)
+      echo "$1 is not a valid media type for ${FVWM_USERDIR}/preferences/MediaDirectories."
+      echo "Please adjust your setting."
+      ;;
+esac
+}
+
+# scan for dir and subdir
+scandir() {
+find -type d |sort| sed -e 's\.\\' >${DirList}
+echo "Scanning $1 for subdirectories."
+}
+
+# scan for audio files
+# added ac3, 
+scanaudiomedia() {
+find -maxdepth 1 -regex ".*.[aA][cC][3]\|.*.[aA][pP][eE]\|.*.[fF][lL][aA][cC]\|.*.[mM][pP][3]\|.*.[mM][pP][cC]\|.*.[nN][rR][gG]\|.*.[oO][gG][gG]\|.*.[tT][sS]\|.*.[tT][tT][aA]\|.*.[wW][aA][vV]\|.*.[wW][mM][aA]\|.*.[wW][vV]"|sort
+}
+
+# scan for video files
+# added flv, ts
+scanvideomedia() {
+find -maxdepth 1 -regex ".*.[aA][sS][fF]\|.*.[aA][vV][iI]\|.*.[dD][iI][vV][xX]\|.*.[fF][lL][vV]\|.*.[iI][mM][gG]\|.*.[mM][2][tT]\|.*.[mM][kK][vV]\|.*.[mM][oO][vV]\|.*.[mM][pP][4]\|.*.[mM][pP][eE][gG]\|.*.[mM][pP][gG]\|.*.[nN][rR][gG]\|.*.[oO][gG][mM]\|.*.[rR][aA][mM]\|.*.[rR][mM]\|.*.[rR][mM][vV][bB]\|.*.[tT][sS]\|.*.[wW][eE][bB][mM]\|.*.[vV][oO][bB]\|.*.[wW][mM][vV]"|sort
+}
+
+# write the audio files into the playlist
+writeaudio() {
+if [[ `scanaudiomedia` != "" ]]; then
+  scanaudiomedia| sed -e 's\.\\' > ${MediaList}
+  ## Create the playlist, overwrite the file if it exist
+  # variable with the first character of the sub-path
+  subdir="${AudioPlaylists}/`pwd| sed -e "s,$1,,"| sed -e 's,/,,'|sed -e 's,/,_,g'|sed -e 's,\(.\).*,\1,'`"
+  # Check for main path. Needed because mplayer need a name before ".m3u". And also for this script when multiple calls.
+  # We also filter out some non wanted characters from the playlist names.
+  if [[ "$1" == `pwd` ]]; then
+    echo -n "" >> "${AudioPlaylists}/`echo \"$1\"| sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`.m3u"
+  else
+    # make sub-dirs
+    mkdir -p ${subdir}
+    echo -n "" >> "${subdir}/`pwd| sed -e \"s,$1,,\"| sed -e 's,/,,'| sed -e \"s,',_,g\"|sed -e 's,[/"\*\^?\$],_,g'`".m3u
+  fi
+  # Append the audio files into the playlist
+  while read line; do
+  if [[ "$1" == `pwd` ]]; then
+    echo "$(pwd)${line}" >> "${AudioPlaylists}/`echo \"$1\"| sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`.m3u"
+  else
+    echo "$(pwd)${line}" >> "${subdir}/`pwd| sed -e \"s,$1,,\"|sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`".m3u
+  fi
+  done <${MediaList}
+  rm ${MediaList}
+fi
+}
+
+# write the video files into the playlist
+writevideo() {
+if [[ `scanvideomedia` != "" ]]; then
+  scanvideomedia| sed -e 's\.\\' > ${MediaList}
+  # Create the playlist, overwrite the file if it exist
+  if [[ "$1" == `pwd` ]]; then
+    echo -n "" >> "${VideoPlaylists}/`echo \"$1\"| sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`.m3u"
+  else
+    echo -n "" >> "${VideoPlaylists}/`pwd| sed -e \"s,$1,,\"| sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`".m3u
+  fi
+  # Append the video files into the playlist
+  while read line; do
+  if [[ "$1" == `pwd` ]]; then
+    echo "$(pwd)${line}" >> "${VideoPlaylists}/`echo \"$1\"| sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`.m3u"
+  else
+    echo "$(pwd)${line}" >> "${VideoPlaylists}/`pwd| sed -e \"s,$1,,\"| sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`".m3u
+  fi
+  done <${MediaList}
+  rm ${MediaList}
+fi
+}
+
+# write the m3u files
+writem3u() {
+echo -n "Writing the $1 playlists for $2  "
+p=0
+while read line; do
+  if [[ "$p" == 4 ]]; then
+    p=0
+  fi
+  if [[ "$p" == 0 ]]; then
+    echo -en "\b|"
+  fi
+  if [[ "$p" == 1 ]]; then
+    echo -en "\b/"
+  fi
+  if [[ "$p" == 2 ]]; then
+    echo -en "\b-"
+  fi
+  if [[ "$p" == 3 ]]; then
+    echo -en "\b\\"
+  fi
+  let "p += 1"
+  basedir=$(pwd)
+#  echo "${line}"
+  cd "${basedir}${line}"
+  case "$1" in
+    audio)
+      writeaudio "$2"
+      ;;
+    video)
+      writevideo "$2"
+      ;;
+    *)
+      echo "something wrong"
+      exit 67
+      ;;
+  esac
+  cd "${basedir}"
+done <${DirList}
+rm ${DirList}
+echo -en "\b\b...\n"
+echo "Done."
+}
+
+usage() {
+echo ""
+echo "Usage:"
+echo "	`basename $0` <>audio_playlist_path> <video_playlists_path>"
+echo ""
+echo "Copyright: This software, `basename $0`, is copyrighted software that is licensed under the GPLv3 or later."
+exit 65
+}
+
+# Do something now
+make_playlist() {
+mediatype "$3"
+if [[ -d "$4" ]]; then
+cd "$4"
+case "$3" in
+	audio)
+		scandir "$4"
+		writem3u "$3" "$4"
+		;;
+	video)
+		scandir "$4"
+		writem3u "$3" "$4"
+		;;
+	cdrom)
+      		echo "Nothing to do."
+      		;;
+    	dvd)
+      		echo "Nothing to do."
+      		;;
+    	*)
+      		echo "$1 is not a valid media type for ${FVWM_USERDIR}/preferences/MediaDirectories."
+		echo "Please adjust your setting."
+		;;
+esac
+else
+	echo "$4 is not a directory"
+fi
+}
+
+# The main program
+if [[ $# -ne 4 ]]
+then
+	usage
+else
+	echo "Deleting the old audio play-lists in $1"
+	rm -fr "$1"/*
+	echo "Deleting the old video play-lists in $2"
+	rm -f "$2"/*
+	echo "Making the user playlist directories when needed."
+	mkdir -p "$3"
+	mkdir -p "$4"
+	echo "Done."
+
+	AudioPlaylists="$1"
+	VideoPlaylists="$2"
+	while read line; do
+		make_playlist "$1" "$2" ${line}
+	done <"${FVWM_USERDIR}"/preferences/MediaDirectories
+fi

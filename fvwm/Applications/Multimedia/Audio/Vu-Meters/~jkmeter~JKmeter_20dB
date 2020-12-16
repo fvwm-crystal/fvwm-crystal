@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec jkmeter -C -type k20 -name "20 dB" $@ 2>/dev/null

@@ -1,0 +1,56 @@
+# /Fvwm-Crystal menu FVWM-Crystal
+#
+# Version:	2.0.1
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	<03/06/2013>
+# Changed:	<04/06/2013>
+#
+# Description:	provide the FVWM-Crystal system menu common to a all recipes.
+# It can be redefined into the recipes
+
+# Replace I by H to close and app menu and open crystall app menu, don't work with current xorg
+DestroyFunc DekstopMenu
+AddToFunc DesktopMenu
++ I Test (EnvMatch DesktopMenu /FVWM-Crystal) Menu /FVWM-Crystal $[MenuPosition_BelowLeft]
++ I Test (EnvMatch DesktopMenu /StartMenu) Menu /StartMenu $[MenuPosition_BelowLeft]
++ I Test (EnvMatch DesktopMenu /Applications) Menu /Applications $[MenuPosition_BelowLeft]
++ I Test (EnvMatch DesktopMenu /ApplicationsAndRootMenu) Menu /ApplicationsAndRootMenu $[MenuPosition_BelowLeft]
+
+DestroyFunc ScreenResolution
+AddToFunc ScreenResolution
++ I DestroyMenu /ScreenResolution
++ I PipeRead '$[FVWM_SYSTEMDIR]/scripts/ScreenResolution'
+
+Test (x xrandr) ScreenResolution
+
+# Use DynamicPopUpAction; the menu can be redifined into the recipe
+DestroyMenu /FVWM-Crystal
+AddToMenu /FVWM-Crystal
++ '%22x22/fvwm-crystal/fvwm-crystal.png%$[gt.FVWM-Crystal documentation]' Popup /Developer/FVWM-Crystal-Documentation
++ "" Nop
++ '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Music]' Popup /Music
++ "" Nop
+Test (x xrandr) + '%22x22/fvwm-crystal/handles.png%$[gt.Screen resolution]'	Popup /ScreenResolution
++ '%22x22/fvwm-crystal/preferences-desktop-screensaver.png%$[gt.Screensaver]' Popup /Screensaver
++ '%22x22/fvwm-crystal/camera-photo.png%$[gt.Screenshot]' Popup /Screenshot
++ "" Nop
++ '%22x22/fvwm-crystal/preferences-desktop-theme.png%$[gt.Window decorations]' Popup /Window-Decorations
++ '%22x22/fvwm-crystal/colorsets.png%$[gt.Colorsets]' Popup /Colorsets
++ '%22x22/fvwm-crystal/preferences-desktop-wallpaper.png%$[gt.Wallpaper]' Popup /Wallpaper
+#+ '%22x22/fvwm-crystal/preferences-desktop-wallpaper.png%$[gt.All pages wallpaper]' Popup /Wallpaper-All
+#+ '%22x22/fvwm-crystal/preferences-desktop-wallpaper.png%$[gt.This page wallpaper]' Popup /Wallpaper-Current
++ '%22x22/fvwm-crystal/preferences-desktop.png%$[gt.Preferences]' Popup /Preferences
++ "" Nop
++ '%22x22/fvwm-crystal/applications-development.png%$[gt.Developer menu]' Popup /Developer
++ '%22x22/fvwm-crystal/fvwm-crystal.png%$[gt.About FVWM-Crystal]' Include components/functions/About
++ MissingSubmenuFunction FuncFvwmMenuXephyrDirectory
++ '%22x22/fvwm-crystal/gdm-xnest.png%$[gt.Nested sessions]' Popup /usr/share/xsessions
++ '%22x22/fvwm-crystal/system-log-out.png%$[gt.Exit]' Popup /Exit
+# }}}2
+
+# ViM modeline {{{1
+# vim:foldmethod=marker:foldenable:foldlevel=0:ft=fvwm
+

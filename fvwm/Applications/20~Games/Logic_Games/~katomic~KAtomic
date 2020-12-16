@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec katomic $@ 2>/dev/null
+

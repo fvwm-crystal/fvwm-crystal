@@ -1,0 +1,7 @@
+#!/bin/sh
+# wrapper script for fvwm-crysatl.infoline for the Amiga recipe.
+# If you know how to put this into the recipe, please drop me an email.
+# <dominique_free@sourceforge.net>
+
+infoline=`fvwm-crystal.infoline | cut -d \| -f 3`
+echo "SetEnv FVWM_INFOLINE \"$infoline\""

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kicad $@ 2>/dev/null
+

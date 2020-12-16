@@ -1,0 +1,63 @@
+# Styles for supported media players
+# The prefered player styles is changed later when it is loaded
+
+Style alsaplayer	NoActiveIconOverride, !WindowListSkip, !Sticky, !StaysOnTop, \
+			MiniIcon 22x22/apps/alsaplayer.png, Icon 32x32/apps/alsaplayer.png
+Style Alsaplayer	UseStyle alsaplayer
+
+Style Audacious		!StartIconic, NoActiveIconOverride, !WindowListSkip, !Sticky, !StaysOnTop, Title, \
+			MiniIcon 22x22/apps/audacious.png, Icon 32x32/apps/audacious.png
+
+Style beep-media-player	!Title
+
+Style cdcd		NoActiveIconOverride, !Sticky, !WindowListSkip, !StaysOnTop, \
+			MiniIcon 22x22/apps/cdcd.png, Icon 32x32/apps/cdcd.png
+
+Style cmus		NoActiveIconOverride, !Sticky, !WindowListSkip, !StaysOnTop, \
+			MiniIcon 22x22/apps/cmus.png, Icon 32x32/apps/cmus.png
+Style cmus*		UseStyle cmus
+
+Style mocp		NoActiveIconOverride, !Sticky, !WindowListSkip, !StaysOnTop, \
+			MiniIcon 22x22/apps/mocp.png, Icon 32x32/apps/mocp.png
+Style MOC*		UseStyle mocp
+
+Style FvwmApplet-MpdAddSong MiniIcon 22x22/apps/gmpc.png, Icon 32x32/apps/gmpc.png
+Style FvwmApplet-MpdPlEd MiniIcon 22x22/apps/gmpc.png, Icon 32x32/apps/gmpc.png
+Style pympd		NoActiveIconOverride, !Sticky, !WindowListSkip, !StaysOnTop, \
+			MiniIcon 22x22/apps/pympd.png, Icon 32x32/apps/pympd.png
+Style gmpc		NoActiveIconOverride, !Sticky, !WindowListSkip, !StaysOnTop, \
+			MiniIcon 22x22/apps/gmpc.png, Icon 32x32/apps/gmpc.png
+Style Gmpc		UseStyle gmpc
+
+Style MPlayer		!Title, !Borders, EWMHIgnoreStackingOrderHints, \
+			MiniIcon 22x22/apps/mplayer.png, Icon 32x32/apps/mplayer.png
+Style "MPlayer - Video"	Title, Borders, EWMHIgnoreStackingOrderHints, \
+			MiniIcon 22x22/apps/mplayer.png, Icon 32x32/apps/mplayer.png
+Style XDRadio		NoActiveIconOverride, !Sticky, !WindowListSkip, !StaysOnTop, \
+			MiniIcon 22x22/apps/mplayer.png, Icon 32x32/apps/mplayer.png
+
+#mplayer2 as mplayer
+
+Style quodlibet		NoActiveIconOverride, !Sticky, !WindowListSkip, !StaysOnTop, \
+			MiniIcon 22x22/apps/quodlibet.png, Icon 32x32/apps/quodlibet.png
+Style Quodlibet		UseStyle quodlibet
+
+#Style xmms		!StaysOnTop
+#Style XMMS_Player	!StartIconic, Title, !Sticky, !WindowListSkip, !StaysOnTop, \
+#			MiniIcon 22x22/apps/quodlibet.png, Icon 32x32/apps/quodlibet.png
+#Style XMMS_Playlist	UseStyle XMMS_Player
+#Style XMMS_Equalizer	UseStyle XMMS_Player
+Style XMMS2		StartNormal, NoActiveIconOverride, !Sticky, !WindowListSkip, !StaysOnTop, \
+			MiniIcon 22x22/apps/xmms2.png, Icon 32x32/apps/xmms2.png
+
+# helpers
+Style qjackctl		NoactiveIconOverride, NoIcon, Sticky, WindowListSkip
+Style start_jack	UseStyle qjackctl
+Style start_cadence	UseStyle qjackctl
+Style Cadence		UseStyle qjackctl
+Style Cadence-*		UseStyle qjackctl
+Style cadence.py	UseStyle qjackctl
+Style Catia		UseStyle qjackctl
+Style Claudia		UseStyle qjackctl
+Style Logs		UseStyle qjackctl
+Style Render		UseStyle qjackctl

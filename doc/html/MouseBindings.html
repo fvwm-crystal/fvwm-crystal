@@ -1,0 +1,1789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.10" />
+<title>MouseBindings(1)</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overridden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="manpage">
+<div id="header">
+<h1>
+MouseBindings(1) Manual Page
+</h1>
+<h2>NAME</h2>
+<div class="sectionbody">
+<p>MouseBindings -
+   FVWM-Crystal Mouse Bindings Reference
+</p>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>None</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>In this file you can find all mouse bindings used in FVWM-Crystal desktop.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_legend">Legend:</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre><code>Alt - Meta (Alt)
+Win_L - Windows Left
+Win_R - Windows Right
+Menu - a "menu" key
+KP_ - means that following key is on the numeric keyboard
+LMB - Left Mouse Button
+RMB - Right Mouse Button
+MMB - Middle Mouse Button
+Wheel - The mouse wheel</code></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_desktop">The Desktop:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB (+ hold)</strong>
+</dt>
+<dd>
+<p>
+        IF ENABLED IN THE PREFERENCES, OPEN APPLICATIONS OR SYSTEM MENU
+        DEPENDING ON THE RECIPE IN USE.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        OPEN A TERMINAL WINDOW.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        TOGGLE THE ABILITY TO SWITCH DESKTOP PAGES USING SCREEN EDGE (OFF/ON,
+        DEFAULT OFF).
+        With some recipes, we get instead when numlock is off:
+        Amiga recipe: toggle the topbar on top.
+        LapLeft/Right, LapLeft/Right with ACPI: Show a global window list.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>ALT + MMB</strong>
+</dt>
+<dd>
+<p>
+        HIDE OR SHOW DESKTOP PANELS.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>ALT + SHIFT + MMB</strong>
+</dt>
+<dd>
+<p>
+        Toggle the desktop panels on top.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_window_thumbnails">Window thumbnails:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Doubleclick LMB</strong>
+</dt>
+<dd>
+<p>
+        Bring back minimized window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Open a terminal window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + DoubleClick MMB</strong>
+</dt>
+<dd>
+<p>
+        Close selected window.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_window">Window:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Alt + LMB</strong>
+</dt>
+<dd>
+<p>
+        Raise selected window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + LMB + drag</strong>
+</dt>
+<dd>
+<p>
+        Raise window and move it on the screen.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + RMB</strong>
+</dt>
+<dd>
+<p>
+        Lower selected window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + RMB + drag</strong>
+</dt>
+<dd>
+<p>
+        Move window on the screen without raising.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + MMB</strong>
+</dt>
+<dd>
+<p>
+        Resize selected window (move bottom-right corner).
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_window_8217_s_titlebar">Window&#8217;s titlebar:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Raise selected window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>LMB + drag</strong>
+</dt>
+<dd>
+<p>
+        Raise window and move it on the screen.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Lower selected window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB + drag</strong>
+</dt>
+<dd>
+<p>
+        Move window on the screen without raising.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Shade or unshade window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB + drag</strong>
+</dt>
+<dd>
+<p>
+        Resize selected window (choose window edge(s) to move).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Wheel</strong>
+</dt>
+<dd>
+<p>
+        Increase or decrease the transparency of the selected window.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_titlebar_buttons">Titlebar buttons:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB, RMB, MMB + hold</strong>
+</dt>
+<dd>
+<p>
+        Show button menu(s).
+</p>
+</dd>
+</dl></div>
+<div class="sect2">
+<h3 id="_fvwm_crystal_button_model">FVWM-Crystal button model:</h3>
+<div class="paragraph"><p><code>| Close B. |----//-----| Arrows B.| Options B.| Maximize B.| Close B. |</code></p></div>
+<div class="paragraph"><p>This apply also to the Amiga button model, which is the same but with only
+one close button on the left.</p></div>
+<div class="sect3">
+<h4 id="_close_buttons">Close buttons:</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Close selected window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Iconify selected window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Identify selected window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + MMB</strong>
+</dt>
+<dd>
+<p>
+        Destroy (kill) selected window.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect3">
+<h4 id="_maximize_button_toggle_between_new_size_and_default_size">Maximize button (toggle between new size and default size):</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Maximize window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + LMB</strong>
+</dt>
+<dd>
+<p>
+        Take the free space (to the next windows).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Maximize window horizontally.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + RMB</strong>
+</dt>
+<dd>
+<p>
+        Take the free space horizontally.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Maximize window vertically.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + MMB</strong>
+</dt>
+<dd>
+<p>
+        Take the free space horizontally.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect3">
+<h4 id="_window_options_button">Window options button:</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Minimize the window (or toggle to the default size).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + LMB</strong>
+</dt>
+<dd>
+<p>
+        Toggle sticky window mode.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Set window in "normal" mode (clears stay on top/bottom).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Set window to stay on top.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + MMB</strong>
+</dt>
+<dd>
+<p>
+        Set window to stay on bottom.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect3">
+<h4 id="_arrows_button">Arrows button:</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Move selected window to the left (upper) desktop page.
+        <strong>Amiga model</strong>: Iconify the window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + LMB</strong>
+</dt>
+<dd>
+<p>
+        Go to the left (upper) page with selected window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Move selected window to the right (lower) desktop page.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + RMB</strong>
+</dt>
+<dd>
+<p>
+        Go to the right (lower) page with selected window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Move selected window to the previously active desktop page.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + MMB</strong>
+</dt>
+<dd>
+<p>
+        Go to the previously active desktop page with selected window.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_other_button_models">Other button models:</h3>
+<div class="sect3">
+<h4 id="_close_button">Close button:</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Close window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong> (in OS/2 and NeXTStep button model)
+</dt>
+<dd>
+<p>
+        Iconify window.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect3">
+<h4 id="_maximize_button">Maximize button:</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Maximize window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + LMB</strong>
+</dt>
+<dd>
+<p>
+        Take the free space (to the next windows).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Maximize window horizontally.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + RMB</strong>
+</dt>
+<dd>
+<p>
+        Take the free space horizontally.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Maximize window vertically.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Alt + MMB</strong>
+</dt>
+<dd>
+<p>
+        Take the free space horizontally.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect3">
+<h4 id="_iconify_button">Iconify button:</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Iconify window.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_applications_panel">Applications panel:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Open the menu of selected application group.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Launch application which is shown on the app panel.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_desktop_pager">Desktop pager:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Switch to selected desktop/page.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Switch to selected region.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Move selected miniature window to a different desktop page, or move
+        outside the pager window to the current desktop.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_window_panel_shows_currently_opened_windows">Window panel (shows currently opened windows):</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Go to the window&#8217;s desktop page, raise and focus it.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Bring selected window to the current page, raise and focus it.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Iconify/deiconify selected window.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_icon_panel_shows_currently_iconified_windows">Icon panel (shows currently iconified windows):</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Bring back iconified window on the current page, raise and focus it.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Go to the window&#8217;s desktop page, bring window back, raise and focus
+        it.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clock">Clock:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>, <strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Toggle between date and time display.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Toggle between 12h and 24h time format.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fvwm_crystal_button">"FVWM-Crystal" button:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Open the system menu.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Change wallpaper randomly.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Mouse wheel</strong>
+</dt>
+<dd>
+<p>
+        Change the resolution using xrandr (only when the button is at the top
+        left corner)
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fvwm_crystal_button_amiga_recipe_top_desktop_bar">"FVWM-Crystal" button, Amiga Recipe - Top Desktop bar:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Toggle the top bar between dekstop bar and menu bar.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Change wallpaper randomly
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Open the system menu
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Mouse wheel</strong>
+</dt>
+<dd>
+<p>
+        Change the resolution using xrandr.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_amiga_recipe_top_menu_bar">Amiga Recipe - Top Menu bar:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        <strong>Workbench button</strong> - Toggle the top bar between dekstop bar and menu bar.
+        <strong>Application buttons</strong> - Launch preferred application #1
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        <strong>Workbench button</strong> - Toggle the top bar between dekstop bar and menu bar.
+        <strong>Application buttons</strong> - Launch preferred application #2
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        <strong>Workbench button</strong> - Open the system menu.
+        <strong>Application buttons</strong> - Open the category application menu
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_switch_left_button_amiga_recipe">"Switch left" button, Amiga recipe:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Show/Hyde the player buttons, the notification area and the
+        application panel.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Show pount-gui to mount removable medias (for *kit free systems).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Show pmount-gui to un-mount removables medias.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_switch_middle_button_amiga_recipe">"Switch middle" button, Amiga recipe:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Show/Hyde applications panel.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_player_button_not_all_the_players_implement_all_the_functions">"Player" button (not all the players implement all the functions):</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Open the players system menu.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Toggle player GUI.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Toggle visibility of QJackCtl.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Mouse wheel</strong>
+</dt>
+<dd>
+<p>
+        Change volume up and down.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_eject_button">"Eject" button:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Open the playlist menu.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Open the player mixer menu.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Open the system volume menu.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Mouse wheel</strong>
+</dt>
+<dd>
+<p>
+        Play next or previous media.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_play_button">"Play" button:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Play.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Pause or toggle playback/pause.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Show the playback menu.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Mouse wheel</strong>
+</dt>
+<dd>
+<p>
+        Change the speed up and down.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_forward_button">"Forward" button:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Open the speed menu.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Mouse wheel</strong>
+</dt>
+<dd>
+<p>
+        Seek reverse or forward.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_windows_button">"Windows" button:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong>
+</dt>
+<dd>
+<p>
+        Show list of currently opened windows.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Show list of currently iconified windows.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Place again all windows on the current desktop page.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_desktop_button">"Desktop" button:</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>LMB</strong> or <strong>RMB</strong>
+</dt>
+<dd>
+<p>
+        Show/hide desktop pager window.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>MMB</strong>
+</dt>
+<dd>
+<p>
+        Go to previously active desktop page.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Mouse wheel</strong>
+</dt>
+<dd>
+<p>
+        Go to next/previous desktop page.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authors">AUTHORS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Documentation written by Maciej Delmanowski &lt;<a href="mailto:harnir@berlios.de">harnir@berlios.de</a>&gt;
+Augmented, maintained and ported to asciidoc by Dominique Michel
+&lt;<a href="mailto:dominique_libre@users.sourceforge.net">dominique_libre@users.sourceforge.net</a>&gt;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_copyright">COPYRIGHT</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>FVWM-Crystal</strong> and all the scripts and other files coming with
+the distribution are subject to the GNU General Public License (GPL).
+Please refer to the COPYING file that came with <strong>FVWM-Crystal</strong> for details.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bugs">BUGS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Bug reports can be sent to the fvwm-crystal-users mailing list at
+<a href="https://mail.gna.org/listinfo/fvwm-crystal-users/">https://mail.gna.org/listinfo/fvwm-crystal-users/</a>.</p></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2019-09-06 20:56:59 CEST
+</div>
+</div>
+</body>
+</html>

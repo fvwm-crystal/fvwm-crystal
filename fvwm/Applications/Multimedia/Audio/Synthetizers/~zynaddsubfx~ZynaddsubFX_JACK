@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec zynaddsubfx -I jack -O jack $@ 2>/dev/null
+

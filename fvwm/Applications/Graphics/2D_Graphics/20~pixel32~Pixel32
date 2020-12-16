@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec pixel32 $@ 2>/dev/null
+

@@ -1,0 +1,30 @@
+# Remember active window on each desktop
+# Functions for Style * SloppyFocus
+#----------------------------------------
+
+DestroyFunc Window-RememberFocused
+AddToFunc Window-RememberFocused
++ I None (CurrentPage, AcceptsFocus) Break
++ I Current (!Iconified, !Sticky) All (CurrentPage) WindowStyle !State 2
++ I Current (!Iconified, !Sticky) WindowStyle State 2
+
+DestroyFunc Window-FocusRemembered
+AddToFunc Window-FocusRemembered
++ I All (FvwmMiniConsoleNeedsUniqueName, Visible) Break
++ I All (QuakeConsoleNeedsUniqueName, Visible) Break
++ I None (CurrentPage, AcceptsFocus) Break
++ I Current (Focused, Visible, Sticky) Break
++ I Next (CurrentPage, HasPointer) Focus
++ I TestRc (Match) Break
++ I Next (CurrentPage, State 2) Focus
++ I None (CurrentPage, Focused) Prev (CurrentPage, !Iconified) Focus
+
+
+DestroyModuleConfig FvwmEvent-Window-Remember: *
+*FvwmEvent-Window-Remember: new_page Window-FocusRemembered
+*FvwmEvent-Window-Remember: focus_change Window-RememberFocused
+*FvwmEvent-Window-Remember: destroy_window Window-FocusRemembered
+
+Module FvwmEvent FvwmEvent-Window-Remember
+
+# vim:ft=fvwm

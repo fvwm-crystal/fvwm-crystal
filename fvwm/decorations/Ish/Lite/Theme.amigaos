@@ -1,0 +1,53 @@
+# FVWM-Crystal version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle Active AdjustedPixmap $./title.png
++ TitleStyle Inactive AdjustedPixmap $./title.png
+PipeRead 'echo "+ TitleStyle Centered Height $(($[title_font_size]+$(($[title_font_size]/3)))) -- flat"'
+
++ BorderStyle -- HiddenHandles
++ BorderStyle -- Flat
+
++ ButtonStyle 1 \
+	ActiveUp (AdjustedPixmap $./button-active.png) \
+	ActiveDown (AdjustedPixmap $./button-active-down.png) \
+	Inactive (AdjustedPixmap $./button-inactive.png)
+
++ ButtonStyle 2 \
+	ActiveUp (AdjustedPixmap $./button-active.png) \
+	ActiveDown (AdjustedPixmap $./button-active-down.png) \
+	Inactive (AdjustedPixmap $./button-inactive.png)
+
++ ButtonStyle 3 MiniIcon
+
++ ButtonStyle 4 \
+	ActiveUp (AdjustedPixmap $./button-active.png) \
+	ActiveDown (AdjustedPixmap $./button-active-down.png) \
+	Inactive (AdjustedPixmap $./button-inactive.png)
+
++ ButtonStyle 6 \
+	ActiveUp (AdjustedPixmap $./button-active.png) \
+	ActiveDown (AdjustedPixmap $./button-active-down.png) \
+	Inactive (AdjustedPixmap $./button-inactive.png)
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- flat
+
+Style * HandleWidth 1, BorderWidth 1
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactiveborder], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_activeborder]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-amigaos-MiniIcon
+

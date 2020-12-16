@@ -1,0 +1,14 @@
+#!/bin/bash
+
+LC_ALL=C
+
+ORIGINAL_MODE=( $( xrandr | grep -E "^ *[0-9]" | grep + | sed -e 's:\(^ *\)\([0-9]*x[0-9]*\).*:\2:' ) )
+echo AddToMenu /ScreenResolution ${ORIGINAL_MODE} "X xrandr -s ${ORIGINAL_MODE}"
+echo AddToMenu /ScreenResolution \"\" Nop
+
+ALL_MODES=( $( xrandr | grep -E "^ *[0-9]" | sed -e 's:\(^ *\)\([0-9]*x[0-9]*\).*:\2:' | sort -grs ) )
+
+for i in ${ALL_MODES[*]}
+	do echo AddToMenu /ScreenResolution $i "X xrandr -s $i"
+done
+

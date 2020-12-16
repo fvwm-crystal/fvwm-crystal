@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec x42-meter 10 $@ 2>/dev/null
+

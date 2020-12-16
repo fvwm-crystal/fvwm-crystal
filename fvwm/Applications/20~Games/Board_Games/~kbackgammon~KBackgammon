@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kbackgammon $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec solo $@ 2>/dev/null
+

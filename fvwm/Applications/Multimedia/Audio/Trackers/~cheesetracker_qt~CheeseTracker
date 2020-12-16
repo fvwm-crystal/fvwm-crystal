@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec cheesetracker_qt $@ 2>/dev/null
+

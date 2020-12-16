@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec monkey-bubble $@ 2>/dev/null

@@ -1,0 +1,13 @@
+#!/bin/bash
+# Support for MPlayer(2) media players into Fvwm-Crystal
+# Written by: Dominique Michel <dominique_libre@users.sourceforge.net> 2013
+
+# We need a helper script in order to know mplayer process id.
+# This is used kill the instance(s) started by Crystal.
+
+# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/startmplayer mplayer|mplayer2 $[infostore.USERDIR] $[infostore.SILENT]
+
+$1 -ao jack, -fs -fixed-vo -slave -idle -capture -input file=/home/$2/.mplayer/pipe $3 &
+
+FvwmCommand "InfoStoreAdd MplayerPid $!"
+touch /tmp/crystal_mplayer_$!

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec idjc $@ 2>/dev/null
+

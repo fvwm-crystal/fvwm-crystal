@@ -1,0 +1,74 @@
+Tips(1)
+=======
+:doctype: manpage
+:man source:   Tips
+:man version:  3.2.5
+:man manual:   FVWM-Crystal
+
+NAME
+----
+Tips - FVWM-Crystal: Tips and tricks
+
+SYNOPSIS
+--------
+
+None
+
+
+DESCRIPTION
+-----------
+Here you can find some random tips for the first run of FVWM-Crystal.
+
+I assume, that you already installed the package (if not, look in INSTALL file
+instead), and you are now inside your brand new desktop environment.
+
+
+* Right click on the desktop opens new terminal window.
+
+* Right click on the Close button will minimize a window. To bring it back,
+  click on the icon of the program in the icons panel, or double-click on the
+  thumbnail placed on the desktop (if you have a layout with thumbnails
+  enabled).
+
+* When you start FVWM-Crystal for the first time, there will be an
+  automatically generated panel with applications installed on your system.
+  Clicking on an icon of selected application with your RMB will
+  launch this application; clicking with LMB will open a menu with other
+  similar apps.
+
+* Clicking and holding a mouse button on the titlebar buttons will result in
+  opening of a small menu, which contains available commands for this button.
+  Letter in brackets indicates, which function will be ececuted when you
+  click on the certain button using your left (L), right (R) or middle (M)
+  mouse button.
+
+* If a wallpaper was not set at startup, make sure that you have 'hsetroot',
+  'Esetroot' or 'feh' installed and available on your system. Try to set a wallpaper
+  using main menu (it may by a little slow at the first time, because
+  miniatures have to be generated).
+
+* You can change a wallpaper, window decorations and panel/menu colorsets
+  using the main menu (a desk-like icon). Your changes will be automatically
+  remembered for the next startup.
+
+* Some recipes provides no button. In the preferences, you can set if you want
+  or not a menu with a Left click on the desktop. It is On by default.
+  In any cases, Alt + Menu will popup the main menu.
+  
+* In the preferences, the first time you will click on 'Generate application
+  menu', a popup will ask you to edit $HOME/.fvwm-crystal/preferences/IconDirs
+  and $HOME/.fvwm-crystal/preferences/DesktopDirs. 
+
+AUTHORS
+-------
+Documentation written by Maciej Delmanowski <harnir@berlios.de>
+Maintained and ported to asciidoc by Dominique Michel
+<dominique_libre@users.sourceforge.net>
+
+
+COPYRIGHT
+---------
+*FVWM-Crystal* and all the scripts and other files coming with 
+the distribution are subject to the GNU General Public License (GPL). 
+Please refer to the COPYING file that came with *FVWM-Crystal* for details.
+

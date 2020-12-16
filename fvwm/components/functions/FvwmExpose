@@ -1,0 +1,52 @@
+# Expose clone for FVWM-Crystal
+#
+# Version 2.1
+#
+# Original idea from Taviso http://zensites.net/fvwm/guide/advanced_functions.html
+# Modified by Harnir
+# Changed by Dominique Michel <dominique_libre@users.sourceforge.net> 2013
+# 
+# See ChangeLog
+# TODO: Make FlipFocus to work
+
+# Raise the wanted window and kill FvwmExpose
+DestroyFunc FvwmExpose-Action
+AddToFunc FvwmExpose-Action
++ I KillModule FvwmButtons FvwmExpose
++ I Raise
++ I FlipFocus
+
+# Create 1 picture and 1 FvwmExpose button at a time
+# To use w.name instead of w.class need something like \\\\\"$[w.name]\\\\\"
+# and to filter out the possible () (they confuse Fvwm-Buttons even with quoting)
+# The sleep value determine the delay between raise and the screenshot. I get it to work
+# with a value as low than 0.005 seconde. It is set to 0.05 which is 10 time bigger.
+# This delay is not influenced by the system load, but the overall function will.
+# Howeber, it work for me at 0.005 even with a 100% load of all the processor cores.
+# If you get black screenshots, you can increase this value.
+# The Raise before the PipeRead make the delay shorter than a Raise inside it.
+DestroyFunc FvwmExpose-Thumbnail
+AddToFunc FvwmExpose-Thumbnail
++ I Raise
++ I PipeRead \
+    "sleep 0.05; xwd -silent -id $[w.id] > /tmp/icon.exp.$[w.id].xwd ; convert -scale 300 -quality 0 xwd:/tmp/icon.exp.$[w.id].xwd png:/tmp/icon.exp.$[w.id].png ; \
+     echo '*FvwmExpose: (1x1, Title (Center) $[w.class], Icon /tmp/icon.exp.$[w.id].png, Action WindowId $[w.id] FvwmExpose-Action)'"
+
+# Bind this
+DestroyFunc FvwmExpose
+AddToFunc FvwmExpose
++ I DestroyModuleConfig FvwmExpose: *
++ I PipeRead 'echo "*FvwmExpose: Geometry $(($[vp.width]-50))x$(($[vp.height]-300))+25+150"'
++ I *FvwmExpose: BoxSize Fixed
++ I *FvwmExpose: Colorset $[infostore.cs_panel_inactive]
++ I *FvwmExpose: Padding 4 4
++ I *FvwmExpose: Frame 0
++ I *FvwmExpose: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
++ I All (!FvwmButtons*, !Iconic, !FvwmMiniConsoleNeedsUniqueName, !trayer, !FvwmIconMan, !Shaded, CurrentPage, AcceptsFocus) FvwmExpose-Thumbnail
++ I Module FvwmButtons FvwmExpose
++ I None (FvwmExpose) Wait
++ I All (FvwmExpose) Layer 0 6
++ I All (FvwmExpose) Raise
++ I Exec exec rm -f /tmp/icon.exp.*
+
+# vim:ft=fvwm

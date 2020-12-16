@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec straw $@ 2>/dev/null
+

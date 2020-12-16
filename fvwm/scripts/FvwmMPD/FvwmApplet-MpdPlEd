@@ -1,0 +1,257 @@
+# FvwmApplet-MpdPlEd v1.0
+# An MPD playlist editor for FVWM using FvwmScript
+# 
+# Written by Bert 'theBlackDragon' Geens <bert@lair.be>
+# and from 0.1.2 by Dominique Michel <dominique_libre@sourceforge.net>
+#
+# Requires:
+#  - fvwm (doh!)
+#  - running mpd
+#  - mpc
+#  - bash
+#  - python3
+#  - python-mpd (python-mpd2 on github)
+#
+# Things you might want to do:
+#  - change the WindowPosition to match your screensize (or just remove it)
+#  - see TODO
+#
+# Changes:
+#  0.1
+#	Initial release
+#  0.1.1
+#	Incorporated Hun's patch to add a clear playlist menu item.
+#  0.1.2
+#	Make the font and the window bigger.
+#  0.1.3
+#	Make the font use the Panel font preferences;
+#	add Gettext support.
+# 0.1.4
+#	Support for more song formats;
+#	Re-enter last directory should work
+#	The display of files and directories should work
+# 0.2
+#	New helper scripts and general cleanup and fixing of FvwmApplet-MpdAddSong
+#	and of the other helper scripts.
+#	Depend on python-mpd: It's slow but support the functions we need in order
+#	to fix these f. scripts, and support all the song formats of your mpd installation
+#	in a transparent way.
+#
+# BUGs: -quoting characters into filenames will generate errors. Not sure if special non UTF-8
+#	 characters will still crash the fvwm script or only generate errors.
+# TODO: -Support for FvwmScript fifo based communication in order to improve performances.
+#	-Porting of the sh scrpts to python can maybe help to solves the characters issues.
+
+UseGettext {$FVWM_USERDIR/locale;fvwm-crystal-script:$FVWM_SYSTEMDIR/locale;fvwm-crystal-script:+}
+WindowLocaleTitle {MPD Playlist Editor}
+WindowSize 630 700
+#WindowPosition 300 300
+Colorset	1
+#Font	"xft:Verdana:size=16"
+Font	"xft:$[panel_font]:pixelsize:$[panel_font_size]:style:$[panel_font_style]"
+
+Init
+ Begin
+  #load the current playlist
+  ChangeTitle 1 (GetOutput { $FVWM_SYSTEMDIR/scripts/FvwmMPD/parseplaylist.sh| tr '\n' '|' } 1 -1 )
+End
+
+PeriodicTasks
+Begin 
+  #the flickering is just too heavy when updating every second...:(
+  If (RemainderOfDiv (GetTime) 1)==0 Then
+  Begin
+    #update the list when the currently playing song changes
+    Set $currtitle = (GetOutput {mpc} 1 -1)
+    
+    # Update when the contents of the playlist change
+    If (GetOutput {$FVWM_SYSTEMDIR/scripts/FvwmMPD/parseplaylist.sh| tr '\n' '|'} 1 -1 ) == (GetTitle 1) Then
+       Do Nop
+    Else
+    Begin
+	ChangeTitle 1 (GetOutput {$FVWM_SYSTEMDIR/scripts/FvwmMPD/parseplaylist.sh| tr '\n' '|'} 1 -1 )
+      	Set $oldtitle = $currtitle
+    End
+
+    # Update when the currently playing song changes
+    If $currtitle == $oldtitle Then
+      Do Nop
+    Else
+    Begin
+      ChangeTitle 1 (GetOutput {$FVWM_SYSTEMDIR/scripts/FvwmMPD/parseplaylist.sh| tr '\n' '|'} 1 -1 )
+      Set $oldtitle = $currtitle
+    End
+  End
+End
+
+Widget 1
+Property
+ Flags NoReliefString
+# Position 0 24
+ Position 0 40
+# Size 450 450
+ Size 630 620
+ Type List
+ Title { }
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $item = (GetValue 1)
+    Set $clicks = (Add $clicks 1)
+    If $olditem == $item Then
+    Begin
+      If $clicks==1 Then
+    	Do {Exec mpc play } (GetValue 1) { >/dev/null}
+    End
+    Else
+    Begin
+      Set $olditem = $item
+      Set $clicks=0
+    End
+  End
+End
+
+Widget 2
+Property
+ Flags NoReliefString
+# Position 0 474
+# Size 90 26
+ Position 0 658
+ Size 140 40
+ Type ItemDraw
+ LocaleTitle {Move song:}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do Nop
+  End
+End
+
+Widget 3
+Property
+ Flags NoReliefString
+# Position 90 474
+# Size 60 26
+ Position 140 660
+ Size 80 40
+ Type PushButton
+ LocaleTitle { Up }
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do {Exec mpc move } (GetValue 1) { } (Add (GetValue 1) -1) { >/dev/null}
+  End
+End
+
+Widget 4
+Property
+ Flags NoReliefString
+# Position 150 474
+# Size 60 26
+ Position 220 660
+ Size 90 40
+ Type PushButton
+ LocaleTitle { Down }
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do {Exec mpc move } (GetValue 1) { } (Add (GetValue 1) 1) { >/dev/null}
+  End
+End
+
+Widget 5
+Property
+ Flags NoReliefString
+# Position 230 474
+# Size 110 26
+ Position 310 660
+ Size 154 40
+ Type PushButton
+ LocaleTitle { Add song }
+Main
+ Case message of
+  SingleClic :
+  Begin
+	If $MainColorset <> {} Then
+		Do {FvwmScript $[FVWM_SYSTEMDIR]/scripts/FvwmMPD/FvwmApplet-MpdAddSong } $MainColorset
+	Else
+	Begin
+		Do {FvwmScript $[FVWM_SYSTEMDIR]/scripts/FvwmMPD/FvwmApplet-MpdAddSong }	
+	End
+  End
+End
+
+Widget 6
+Property
+ Flags NoReliefString
+# Position 340 474
+ Position 464 660
+# Size 110 26
+ Size 166 40
+ Type PushButton
+ LocaleTitle { Remove song }
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do {Exec mpc del } (GetValue 1) { >/dev/null}
+  End
+End
+
+Widget 100
+Property
+ Flags NoReliefString
+ Position 0 0
+ Type Menu
+ LocaleTitle { File|Quit }
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $clickeditem = (GetValue 100)
+    If $clickeditem==1 Then
+     Quit
+  End
+End
+
+Widget 101
+Property
+ Flags NoReliefString
+ Position 0 0
+ Type Menu
+ LocaleTitle { Options|Toggle repeat|Toggle random|Crop|Clear }
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $clickeditem = (GetValue 101)
+    If $clickeditem==1 Then
+     Do {Exec mpc repeat>/dev/null}
+    If $clickeditem==2 Then
+     Do {Exec mpc random >/dev/null}
+    If $clickeditem==3 Then
+     Do {Exec mpc crop >/dev/null}
+    If $clickeditem==4 Then
+     Do {Exec mpc clear >/dev/null}
+  End
+End
+
+Widget 102
+Property
+ Flags NoReliefString
+ Position 0 0
+ Type Menu
+ LocaleTitle { Database|Update }
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $clickeditem = (GetValue 102)
+    If $clickeditem==1 Then
+     Do {Exec mpc update >/dev/null}
+  End
+End

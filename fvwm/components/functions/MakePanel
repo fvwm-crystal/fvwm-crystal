@@ -1,0 +1,43 @@
+# Make a panel
+# make a panel in fvwm-crystal
+# Written by: Dominique Michel <dominique_free@sourceforge.net>
+
+
+# <Name> is unique and the same for all the functions in this file.
+
+## Make the panel ##
+####################
+
+# MakePanel <Name> <geometry[pixel]> <boxsize> <rows> <columns> <padding_x> <padding_y> \
+#	<frame>
+DestroyFunc MakePanel
+AddToFunc  MakePanel
++ I All (FvwmButtons-$0) Close
++ I DestroyModuleConfig FvwmButtons-$0: *
++ I *FvwmButtons-$0: Geometry $1
++ I *FvwmButtons-$0: BoxSize $2
++ I *FvwmButtons-$0: ActiveColorset $[infostore.cs_panel_active]
++ I *FvwmButtons-$0: Colorset $[infostore.cs_panel_inactive]
++ I *FvwmButtons-$0: Rows $3
++ I *FvwmButtons-$0: Columns $4
++ I *FvwmButtons-$0: Padding $5 $6
++ I *FvwmButtons-$0: Frame $7
++ I *FvwmButtons-$0: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+
+## Make a button ##
+###################
+# MakePanelButton <Name> <geometry[button]> <size> <icon> \
+# "<action>" "<action>" "<action>" "<action>" "<action>
+DestroyFunc  MakePanelButton
+AddToFunc MakePanelButton
++ I *FvwmButtons-$0: ($1, Size $2, Icon "$3", \
+	Action (Mouse 1) "$4", \
+	Action (Mouse 2) "$5", \
+	Action (Mouse 3) "$6", \
+	Action (Mouse 4) "$7", \
+	Action (Mouse 5) "$8")
+
+## Launch the panel ##
+######################
+# Module FvwmButtons FvwmButtons-<Name>
+

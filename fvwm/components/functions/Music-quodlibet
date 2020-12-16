@@ -1,0 +1,127 @@
+# Support for QuodLibet music player
+# Written by: Maciej Delmanowski <harnir@post.pl>
+# sed commands by: Grzegorz Niewęgłowski <hoppke@dobremiasto.net>
+# Modifications, debugging and improvments by Dominique Michel 2008-2019
+# <dominique_libre@users.sourceforge.net>
+
+# Initialisations, shared functions {{{1
+Include components/functions/Music
+Style quodlibet		NoActiveIconOverride, Sticky, WindowListSkip, StaysOnTop, NoIcon
+Style Quodlibet		UseStyle quodlibet
+
+DestroyFunc StyleMediaPlayer
+AddToFunc StyleMediaPlayer
++ I Style start_cadence NoIcon
++ I Style start_jack NoIcon
++ I UpdateStyles
+# Schedule needed at Start and after Restart for start_[jack|cadence] and the console players
+Schedule 1 StyleMediaPlayer
+
+# First button {{{1
+# Player controls and prefs
+# mouse 1 Menu /Player {{{2
+AddToFunc Music-GUI
++ I All (Quodlibet) Iconify toggle
+
+AddToFunc Player-generator
++ I DestroyMenu recreate /Player
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Music player]' Popup /Preferences/MusicPlayer
++ I AddToMenu /Player "" Nop
++ I Test (X qjackctl) AddToMenu /Player '$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Player '$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjackctl) AddToMenu /Player "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
++ I AddToMenu /Player '$[gt.Start Quod Libet]' Exec exec quodlibet > /dev/null
++ I AddToMenu /Player '$[gt.Stop player]' Exec exec quodlibet --quit
+
+# mouse 2 Music-GUI : allready here {{{2
+## mouse 3 Music-QJackGUI : in Music
+# mouse 2 Menu /Playback
+AddToFunc Music-Next
++ I Exec quodlibet --next > /dev/null
+
+AddToFunc Music-Prev
++ I Exec quodlibet --previous > /dev/null
+
+AddToFunc Music-Stop
++ I Exec quodlibet --pause > /dev/null
+
+AddToFunc Music-Play
++ I Exec quodlibet --play > /dev/null
+
+AddToFunc Music-Pause
++ I Exec quodlibet --pause > /dev/null
+
+AddToFunc Music-PlayPause
++ I Exec quodlibet --play-pause > /dev/null
+
+AddToFunc Music-Forward
++ I Exec quodlibet --shuffle t > /dev/null; quodlibet --next > /dev/null; quodlibet --shuffle t > /dev/null
+
+AddToFunc Music-Backward
++ I Exec quodlibet --shuffle t > /dev/null; quodlibet --previous > /dev/null; quodlibet --shuffle t > /dev/null
+
+AddToFunc Music-ToggleRandom
++ I Exec quodlibet --shuffle t
+
+AddToFunc Playback-generator
++ I DestroyMenu recreate /Playback
++ I AddToMenu /Playback '$[gt.Next]' Music-Next
++ I AddToMenu /Playback '$[gt.Prev]' Music-Prev
++ I AddToMenu /Playback '$[gt.Toggle random]' Music-ToggleRandom
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Stop playback]' Music-Stop
++ I AddToMenu /Playback '$[gt.Play]' Music-Play
++ I AddToMenu /Playback '$[gt.Pause]' Music-Pause
++ I AddToMenu /Playback '$[gt.Play/Pause]' Music-PlayPause
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Forward]' Music-Forward
++ I AddToMenu /Playback '$[gt.Backward]' Music-Backward
+
+## mouse 3 Menu /Mixer : in components/Mixer {{{1
+## mouse 4 Music-Next : allready here
+## mouse 4 Music-Prev : allready here
+
+# Main menu {{{1
+AddToFunc Music-generator
++ I DestroyMenu recreate /Music
++ I PipeRead 'quodlibet --print-playing | sed -e "s:^.*$:AddToMenu /Music \'&\' :"'
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Volume]' 		Popup /Mixer
++ I AddToMenu /Music '$[gt.Toggle random]' 	Music-ToggleRandom
++ I AddToMenu /Music '$[gt.Toggle repeat]' 	Exec quodlibet --repeat t
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Play/Pause]'		Music-PlayPause
++ I AddToMenu /Music "" Nop
++ I Test (X qjackctl) AddToMenu /Music '$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Music '$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I AddToMenu /Music '$[gt.Show/Hide player]'	Music-GUI
++ I AddToMenu /Music '$[gt.Show/Hide Audio controls]'	Music-QJackGUI
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Start Quod Libet]' Exec exec quodlibet > /dev/null
++ I AddToMenu /Music '$[gt.Stop player]' Exec exec quodlibet --quit
++ I AddToMenu /Music '$[gt.Music player]'	Popup /Preferences/MusicPlayer
+
+# Fake button functions {{{1
+# /Playlist-button
+AddToMenu /Playlist-button
++ "" Nop
+# Menu /Music/Volume (TODO)
+AddToMenu /Music/Volume
++ "" Nop
+# Music-Speed-Up
+AddToFunc Music-Speed-Up
++ I Nop
+# Music-Speed-Down
+AddToFunc Music-Speed-Down
++ I Nop
+# Menu /Speed
+AddToMenu /Speed
++ "" Nop
+# Music-Seek-+
+# Music-Seek--
+AddToFunc Music-Seek
++ I Nop
+
+# vim:ft=fvwm

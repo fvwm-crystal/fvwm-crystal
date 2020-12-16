@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec aterm $@ 2>/dev/null
+

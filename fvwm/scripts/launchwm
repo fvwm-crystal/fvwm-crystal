@@ -1,0 +1,41 @@
+#!/bin/sh
+# Launch a nested session inside FVWM-Crystal using Xephyr
+# Syntax: launchwm $[vp.width] $[vp.height] <wm>
+
+# next free $DISPLAY, needed for nested wm in nested wm :)
+XephyrDisplay=$((`echo $DISPLAY|cut -d: -f2|cut -d. -f1`+1))
+# nested session dimension; you can change it
+#XephyrWidth=$((`echo $(($1-200))`))
+#XephyrHeight=$((`echo $(($2-100))`))
+XephyrWidth=$1
+XephyrHeight=$2
+
+EXECWM=`grep Exec $3 | grep -v Try | sed -e 's:Exec=::'`
+
+# launch Xephyr
+Xephyr -ac -reset -nolisten tcp -title `basename $EXECWM` -screen "$XephyrWidth"x"$XephyrHeight" :$XephyrDisplay &
+XEPHYR_PID=`echo $!`
+
+# launch the wm
+# We dont want the fvwm* and fvwm-themes files to be mixed with fvwm-crystal
+ENVWM=`basename $EXECWM`
+case "${ENVWM}" in
+	fvwm-themes-start)
+		FVWM_USERDIR="${HOME}/.fvwm-themes" DISPLAY=:$XephyrDisplay $EXECWM 2>/dev/null
+		;;
+	fvwm)
+		FVWM_USERDIR="/${HOME}/.fvwm" DISPLAY=:$XephyrDisplay $EXECWM 2>/dev/null
+		;;
+	fvwm2)
+		FVWM_USERDIR="/${HOME}/.fvwm2" DISPLAY=:$XephyrDisplay $EXECWM 2>/dev/null
+		;;
+	fvwm3)
+		FVWM_USERDIR="/${HOME}/.fvwm3" DISPLAY=:$XephyrDisplay $EXECWM 2>/dev/null
+		;;
+	*)
+		DISPLAY=:$XephyrDisplay $EXECWM 2>/dev/null
+		;;
+esac
+
+# stop Xephyr
+kill $!

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ksmiletris $@ 2>/dev/null
+

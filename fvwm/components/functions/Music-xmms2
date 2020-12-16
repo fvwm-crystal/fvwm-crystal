@@ -1,0 +1,225 @@
+# Support for XMMS2
+# Author: Michal Gorny <peres.fvxm@mailnull.com>
+# Based on xmms2 command-line client, version 0.2 DrBombay
+# Modifications, debugging and improvments by Dominique Michel 2008-2019
+# <dominique_libre@users.sourceforge.net>
+
+# Initialisations, shared functions {{{1
+Include components/functions/Music
+
+DestroyFunc StyleMediaPlayer
+AddToFunc StyleMediaPlayer
++ I Style XMMS2 		StartIconic, NoActiveIconOverride, NoIcon, WindowListSkip, Sticky, StaysOnTop
++ I Style start_cadence NoIcon
++ I Style start_jack NoIcon
++ I UpdateStyles
+# Schedule needed at Start and after Restart for start_[jack|cadence]
+Schedule 1 StyleMediaPlayer
+
+InfoStoreAdd fvwm_audio_exec "xmms2 add -P"
+
+# at startup, we cannot de sure of the window's name
+PipeRead 'if pkill -0 xmms2d; \
+				then echo "" 1>/dev/null; \
+				else echo AT XMMS2 xmms2d; fi'
+
+AddToFunc StartFunction
++ I Test (ReStart) StartMediaPlayer
+
+# If no XMMS2 window, start one
+DestroyFunc StartMediaPlayer
+AddToFunc StartMediaPlayer
++ I None (XMMS2) PipeRead 'if pkill -0 xmms2d; \
+				then killall -9 xmms2d; echo AT XMMS2 xmms2d; \
+				else echo AT XMMS2 xmms2d; fi'
+
+# First button {{{1
+# Player controls and prefs
+# mouse 1 Menu /Player {{{2
+AddToFunc Music-GUI
++ I All (XMMS2) Iconify toggle
++ I TestRc (NoMatch) None (XMMS2) StartMediaPlayer
+
+# Player-generator (All)
+AddToFunc Player-generator
++ I DestroyMenu recreate /Player
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Music player]' Popup /Preferences/MusicPlayer
++ I AddToMenu /Player "" Nop
++ I Test (X qjackctl) AddToMenu /Player '$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Player '$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjackctl) AddToMenu /Player "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
++ I AddToMenu /Player '$[gt.Stop XMMS2]' Exec exec xmms2 server shutdown
++ I AddToMenu /Player '$[gt.Show/Hide GXMMS2]' Music-GUI
+
+# Second button {{{1
+# Player controls and main vol
+# mouse 1 Menu /Playlist-button {{{2
+AddToFunc Music-CurrentPlaylist-generator
++ I DestroyMenu recreate /Music/CurrentPlaylist
++ I PipeRead 'xmms2 list | head -n -2 | sed -e "s:^.*\\[\\(.*\\)/.*\\] \\(.*\\)$:AddToMenu /Music/CurrentPlaylist \\\'\\2\\\' Exec xmms2 jump \'\\1\':"'
+
+AddToMenu /Music/CurrentPlaylist
++ DynamicPopupAction Function Music-CurrentPlaylist-generator
+
+AddToFunc Music-LoadPlaylist-generator
++ I DestroyMenu recreate /Music/AddPlaylist
++ I AddToMenu /Music/AddPlaylist '$[gt.Choose a playlist to load]' Nop
++ I PipeRead 'xmms2 playlist list | sed -e "s:^\\( *\\)\\(.*\\):\\2:" | sed -e "s:^.*$:AddToMenu /Music/AddPlaylist \'&\' Exec xmms2 playlist switch \'&\':"'
++ I AddToMenu /Music/AddPlaylist "" Nop
++ I AddToMenu /Music/AddPlaylist '$[gt.Everything]' Music-LoadAll
+
+DestroyMenu /Music/AddPlaylist
+AddToMenu /Music/AddPlaylist
++ DynamicPopupAction Function Music-LoadPlaylist-generator
+
+*Music-SavePlaylist-Dialog: Title "$[gt.Save playlist]"
+*Music-SavePlaylist-Dialog: Text "$[gt.Name of the playlist]"
+*Music-SavePlaylist-Dialog: Line center
+*Music-SavePlaylist-Dialog: Input PlaylistName 40 ""
+*Music-SavePlaylist-Dialog: Line center
+*Music-SavePlaylist-Dialog: Line center
+*Music-SavePlaylist-Dialog: Button quit " $[gt.Cancel] " ^[
+*Music-SavePlaylist-Dialog: Command Nop
+*Music-SavePlaylist-Dialog: Button quit " $[gt.Save] " ^M
+*Music-SavePlaylist-Dialog: Command Exec xmms2 playlist create -p _active "$(PlaylistName)"
+*Music-SavePlaylist-Dialog: Line center
+
+AddToFunc Music-SavePlaylist
++ I Module FvwmForm Music-SavePlaylist-Dialog
+
+AddToFunc Music-ClearPlaylist
++ I Exec nyxmms2 playlist clear
+
+DestroyFunc Music-RemovePlaylist-generator
+AddToFunc Music-RemovePlaylist-generator
++ I DestroyMenu recreate /Music/RemovePlaylist
++ I AddToMenu /Music/RemovePlaylist '$[gt.Choose a playlist to remove]' Nop
++ I PipeRead 'xmms2 playlist list | sed -e "s:^\\(* *\\)\\(.*\\):\\2:" | sed -e "s:^\\( *\\)\\(.*\\):\\2:" | sed -e "s:^.*$:AddToMenu /Music/RemovePlaylist \'&\' Exec xmms2 playlist remove \'&\':"'
+
+# From Taviso's configuration
+# 22x22/categories/Audio-Video.png will be used for all the files that doesn't have a .media.png inside their directory
+# 22x22/categories/directory.png will be used for all the directories that doesn't have a .icontitle.png file
+
+# /Music/LoadPlaylist
+AddToFunc FuncFvwmMenuAudioDirectory
++ I PipeRead 'case \"$0\" in \
+	"$[infostore.AudioPlaylists]"*) myexec="$[infostore.fvwm_audio_exec]";; \
+	"$[infostore.UserManagedAudioPlaylists]"*) myexec="$[infostore.fvwm_audio_exec]";; \
+    esac; \
+    test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
+    test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
+    fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \
+    --icon-file "${mypng:-22x22/categories/Audio.png}" \
+    --dir \"$0\" --exec-title "-" --exec-file "^${myexec}" \
+    --func-name "FuncFvwmMenuAudioDirectory"'
+
+AddToFunc Music-RemoveSong
++ I Exec xmms2 next
++ I Exec xmms2 remove $((`xmms2 list | sed -e "s;^->\[;;" | sed -e "s;/.*;;" | sed -e "s;  .*;;" | sed -e "s;To.*;;"`-1))
+
+AddToFunc Playlist-generator-button
++ I DestroyMenu recreate /Playlist-button
++ I AddToMenu /Playlist-button '$[gt.Current playlist]' Popup /Music/CurrentPlaylist
++ I AddToMenu /Playlist-button '$[gt.Load playlist]' 	Popup /Music/LoadPlaylist
++ I AddToMenu /Playlist-button '$[gt.Add playlist]'	Popup /Music/AddPlaylist
++ I AddToMenu /Playlist-button '$[gt.Save playlist]' 	Music-SavePlaylist
++ I AddToMenu /Playlist-button '$[gt.Clear playlist]'	Music-ClearPlaylist
++ I AddToMenu /Playlist-button '$[gt.Remove playlist]' 	Popup /Music/RemovePlaylist
++ I AddToMenu /Playlist-button "" Mop
++ I AddToMenu /Playlist-button '$[gt.Add a playlist]' 	Popup /Music/AddPlaylist
++ I AddToMenu /Playlist-button '$[gt.Remove current song]' Music-RemoveSong
+
+AddToMenu /Playlist-button
++ DynamicPopupAction Function Playlist-generator-button
+
+# mouse 2 Menu /Playback {{{1
+AddToFunc Music-Next
++ I Exec xmms2 next
+
+AddToFunc Music-Prev
++ I Exec xmms2 prev
+
+AddToFunc Music-Stop
++ I Exec xmms2 stop
+
+AddToFunc Music-Play
++ I Exec xmms2 play
+
+AddToFunc Music-Pause
++ I Exec xmms2 pause
+
+AddToFunc Music-Shuffle
++ I Exec xmms2 playlist shuffle
+
+AddToFunc Playback-generator
++ I DestroyMenu recreate /Playback
++ I AddToMenu /Playback '$[gt.Next]' Music-Next
++ I AddToMenu /Playback '$[gt.Prev]' Music-Prev
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Stop playback]' Music-Stop
++ I AddToMenu /Playback '$[gt.Play]' Music-Play
++ I AddToMenu /Playback '$[gt.Pause]' Music-Pause
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Shuffle playlist]' Music-Shuffle
+
+# values determined with a 0dB 1kHz wave tone on the jack output
+# tested with the alsa output
+AddToMenu /Music/Volume
++ '$[gt.Player volume]' Nop
++ "" Nop
++ " 0 dB" Exec xmms2 server volume 100
++ "-3 dB" Exec xmms2 server volume 84
++ "-6 dB" Exec xmms2 server volume 71
++ "-12 dB" Exec xmms2 server volume 50
++ "-18 dB" Exec xmms2 server volume 35
++ "-24 dB" Exec xmms2 server volume 25
++ "-30 dB" Exec xmms2 server volume 18
++ "-36 dB" Exec xmms2 server volume 12
++ " 0" Exec xmms2 server volume 0
+
+# menus {{{1
+AddToFunc Music-generator
++ I DestroyMenu recreate /Music
++ I PipeRead 'xmms2 current | sed -e "s:^ERROR.*$:$[gt.Player is stopped]:" | sed -e "s:^.*$:AddToMenu /Music \'\&\':"'
++ I AddToMenu /Music "" Nop
+#+ I AddToMenu /Music '$[gt.Current playlist]'		Popup /Music/CurrentPlaylist
++ I AddToMenu /Music '$[gt.Load playlist]'		Popup /Music/LoadPlaylist
++ I AddToMenu /Music '$[gt.Add playlist]'		Popup /Music/AddPlaylist
++ I AddToMenu /Music '$[gt.Save playlist...]'		Music-SavePlaylist
++ I AddToMenu /Music '$[gt.Shuffle playlist]'		Music-Shuffle
++ I AddToMenu /Music '$[gt.Clear playlist]'		Music-ClearPlaylist
++ I AddToMenu /Music '$[gt.Remove current song]'	Music-RemoveSong
++ I AddToMenu /Music '$[gt.Remove playlist]'		Popup /Music/RemovePlaylist
++ I AddToMenu /Music "" Nop
++ I PipeRead 'xmms2 server config | sed -n "/\\.volume/{s/.*= \\([0-9]\\+\\)$/AddToMenu \\/Music \'$[gt.Volume]: \\1\' Popup \\/Music\\/volume/p;q}"'
++ I AddToMenu /Music '$[gt.Volume]'			Popup /Mixer
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Stop playback]'		Music-Stop
++ I AddToMenu /Music '$[gt.Show/Hide player]'           Music-GUI
++ I AddToMenu /Music '$[gt.Show/Hide Audio controls]'   Music-QJackGUI
++ I AddToMenu /Music '$[gt.Play]'			Music-Play
++ I AddToMenu /Music '$[gt.Pause]'			Music-Pause
++ I AddToMenu /Music "" Nop
++ I Test (X qjackctl) AddToMenu /Music '$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Music '$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjackctl) AddToMenu /Music "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Music player]'		Popup /Preferences/MusicPlayer
+
+# Music-Speed-Up
+AddToFunc Music-Speed-Up
++ I Nop
+# Music-Speed-Down
+AddToFunc Music-Speed-Down
++ I Nop
+# Menu /Speed
+AddToMenu /Speed
++ "" Nop
+# Music-Seek-+
+# Music-Seek--
+AddToFunc Music-Seek
++ I Nop
+
+# vim:ft=fvwm

@@ -1,0 +1,58 @@
+# FVWM-Crystal version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle InActive Colorset $[infostore.cs_window_inactive]
++ TitleStyle Active Colorset $[infostore.cs_window_active]
++ TitleStyle LeftJustified
++ TitleStyle -- flat
+PipeRead 'echo "+ TitleStyle Height $(($[title_font_size]+$(($[title_font_size]/3))))"'
+
++ BorderStyle -- HiddenHandles
++ BorderStyle -- Flat
+
+# Close
++ ButtonStyle 1 Vector 17 23x23@4 28x23@1 48x43@1 65x23@1 70x23@1 \
+                        70x28@1 52x48@1 70x65@1 70x70@1 65x70@1 \
+                        48x52@1 28x70@1 23x70@1 23x65@1 43x48@1 \
+                        23x28@1 23x23@1
+
+# Close
++ ButtonStyle 2 Vector 17 23x23@4 28x23@1 48x43@1 65x23@1 70x23@1 \
+                        70x28@1 52x48@1 70x65@1 70x70@1 65x70@1 \
+                        48x52@1 28x70@1 23x70@1 23x65@1 43x48@1 \
+                        23x28@1 23x23@1
+
+# Maximize
++ ButtonStyle 4 Vector 13 43x23@4 50x23@1 50x43@1 70x43@1 70x50@1 \
+                        50x50@1 50x70@1 43x70@1 43x50@1 23x50@1 \
+                        23x43@1 43x43@1 43x23@1
+
+# Options
++ ButtonStyle 6 Vector 6 23x27@4 70x27@1 \
+                        48x40@4 70x66@1 23x66@1 48x40@1
+
+# Arrows
++ ButtonStyle 8 Vector 8 20x35@4 40x18@1 40x58@1 20x35@1 52x35@4 \
+                        72x55@1 52x75@1 52x35@1
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- flat
+
+Style * HandleWidth 1, BorderWidth 1
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactive], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_active]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-fvwm-crystal
+

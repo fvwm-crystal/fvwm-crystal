@@ -1,0 +1,56 @@
+# Default FVWM-Crystal functions and loading frequently used FVWM-Crystal preferences
+# You will use most of them in almost all cases
+
+# We need to load the colorset and WindowDecoration preferences first,
+# otherwise the styles of FvwmForm and FvwmIdent need a restart to not be scruved.
+# In order to be safe, we load here all the preferences they doesn't need
+# some of the fvwm-crystal functions.
+
+# Load the "well know" user directories (locale aware)
+Include components/functions/Xdg-User-Dirs
+
+## Load the prefs with only a SetEnv initialisation
+LoadPreferences DefaultMixer
+LoadPreferences DefaultMusicPlayer
+LoadPreferences NotificationArea-Width
+# Default fonts
+LoadPreferences PanelFont
+LoadPreferences TitleFont
+LoadPreferences MenuFont
+LoadPreferences PanelFontSize
+LoadPreferences TitleFontSize
+LoadPreferences MenuFontSize
+LoadPreferences PanelFontStyle
+LoadPreferences TitleFontStyle
+LoadPreferences MenuFontStyle
+
+## Load the prefs with only Styles initialisation
+LoadPreferences PrivilegedTerminals
+
+Include components/functions/Colorsets
+LoadPreferences LastChoosenColorset
+Include components/functions/Window-Basic
+Include components/functions/Window-Focus
+Include components/functions/Window-SetPlacementPolicy
+Include components/functions/Window-Decorations
+LoadPreferences LastChoosenWindowDecoration
+Include components/functions/Window-Buttons
+Include components/functions/Window-Rearrange
+Include components/functions/Window-List
+Include components/functions/Window-Ring
+Include components/functions/Numpad
+Include components/functions/Menu-Position
+Include components/functions/EWMH-BaseStruts
+Include components/functions/Desktop-Pager
+Include components/functions/EdgeScroll-Toggle
+#Include components/functions/Fullscreen # moved into the recipes
+Include components/functions/Wallpaper
+Include components/functions/Exit
+Include components/functions/Preferences-Menu
+Include components/functions/Developer-Menu
+Include components/functions/Urgency-Hint
+Include components/functions/FvwmFormDefault
+Include components/functions/FvwmIdent
+Include preferences/LastChoosenWallpaper
+
+# vim:ft=fvwm

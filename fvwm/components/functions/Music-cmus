@@ -1,0 +1,161 @@
+# Support for C* Music Player
+# Written by: Maciej Delmanowski <harnir@post.pl>
+# Modifications, debugging and improvments by Dominique Michel
+# <dominique_libre@users.sourceforge.net> 2008-2019
+# See ChangeLog for details
+
+# Overview:
+# This is a set of function for controlling the C* Music Player
+# (http://onion.dynserv.net/~timo/cmus.html). It is done using the
+# 'cmus-remote' command-line frontend.
+
+# Initialisations, shared functions
+Include components/functions/Music
+Style cmus 		NoActiveIconOverride, Sticky, WindowListSkip, StaysOnTop, NoIcon
+Style cmus*		UseStyle cmus
+
+DestroyFunc StyleMediaPlayer
+AddToFunc StyleMediaPlayer
++ I Style cmus NoIcon
++ I Style start_cadence NoIcon
++ I Style start_jack NoIcon
++ I UpdateStyles
+# Schedule needed at Start and after Restart for start_[jack|cadence] and the console players
+Schedule 1 StyleMediaPlayer
+
+# First button
+# Player controls and prefs {{{1
+# mouse 1 Menu /Player {{{2
+AddToFunc Music-GUI
++ I All (cmus) Iconify toggle
+
+# Player-generator (All)
+AddToFunc Player-generator
++ I DestroyMenu recreate /Player
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Music player]' Popup /Preferences/MusicPlayer
++ I AddToMenu /Player "" Nop
++ I Test (X qjackctl) AddToMenu /Player '$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Player '$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjackctl) AddToMenu /Player "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
++ I AddToMenu /Player '$[gt.Start C* Music Player]' AT cmus cmus
++ I AddToMenu /Player '$[gt.Stop player]' Exec exec killall -9 cmus
+
+# mouse 2 Music-GUI : allready here {{{2
+# mouse 3 Music-QJackGUI : in Music
+# mouse 4 Mixer-Volume-Up
+# mouse 5 Mixer-Volume-Down
+# are in components/Mixer
+
+# Second button
+# Player controls and main vol
+# mouse 1 Menu /Playlist-button {{{2
+
+# /Music/LoadPlaylist
+AddToFunc FuncFvwmMenuAudioDirectory
++ I PipeRead 'case \"$0\" in \
+	"$[infostore.AudioPlaylists]"*) myexec="cmus-remote -l";; \
+	"$[infostore.UserManagedAudioPlaylists]"*) myexec="cmus-remote -l";; \
+    esac; \
+    test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
+    test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
+    fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \
+    --icon-file "${mypng:-22x22/categories/Audio.png}" \
+    --dir \"$0\" --exec-title "-" --exec-file "^${myexec}" \
+    --func-name "FuncFvwmMenuAudioDirectory"'
+
+AddToFunc Playlist-generator-button
++ I DestroyMenu recreate /Playlist-button
++ I AddToMenu /Playlist-button '$[gt.Remove playlist]' Popup /Music/RemovePlaylist
++ I AddToMenu /Playlist-button '$[gt.Playlist copy]' Popup /Music/CopyPlaylist
++ I AddToMenu /Playlist-button '$[gt.Load playlist]' Popup /Music/LoadPlaylist
+
+AddToMenu /Playlist-button
++ DynamicPopupAction Function Playlist-generator-button
+
+# mouse 2 Menu /Playback
+AddToFunc Music-Next
++ I Exec cmus-remote --next > /dev/null
+
+AddToFunc Music-Prev
++ I Exec cmus-remote --prev > /dev/null
+
+AddToFunc Music-ToggleRandom
++ I Exec cmus-remote --shuffle > /dev/null
+
+AddToFunc Music-ToggleRepeat
++ I Exec cmus-remote --repeat > /dev/null
+
+AddToFunc Music-Stop
++ I Exec cmus-remote --stop > /dev/null
+
+AddToFunc Music-Play
++ I Exec cmus-remote --play > /dev/null
+
+AddToFunc Music-Pause
++ I Exec cmus-remote --pause > /dev/null
+
+AddToFunc Music-PlayPause
++ I Exec cmus-remote --pause > /dev/null
+
+AddToFunc Music-Forward
++ I Exec cmus-remote --shuffle > /dev/null; cmus-remote --next > /dev/null; cmus-remote --shuffle > /dev/null
+
+AddToFunc Music-Backward
++ I Exec cmus-remote --shuffle > /dev/null; cmus-remote --prev > /dev/null; cmus-remote --shuffle > /dev/null
+
+AddToFunc Playback-generator
++ I DestroyMenu recreate /Playback
++ I AddToMenu /Playback '$[gt.Next]' Music-Next
++ I AddToMenu /Playback '$[gt.Prev]' Music-Prev
++ I AddToMenu /Playback '$[gt.Toggle random]' Music-ToggleRandom
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Stop playback]' Music-Stop
++ I AddToMenu /Playback '$[gt.Play]' Music-Play
++ I AddToMenu /Playback '$[gt.Pause]' Music-Pause
++ I AddToMenu /Playback '$[gt.Play/Pause]' Music-PlayPause
++ I AddToMenu /Playback '$[gt.Forward]' Music-Forward
++ I AddToMenu /Playback '$[gt.Backward]' Music-Backward
+
+# Main menu {{{1
+AddToFunc Music-generator
++ I DestroyMenu recreate /Music
++ I AddToMenu /Music '$[gt.Volume]'		Popup /Mixer
++ I AddToMenu /Music '$[gt.Toggle random]' 	Music-ToggleRandom
++ I AddToMenu /Music '$[gt.Toggle repeat]' 	Music-ToggleRepeat
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Stop playback]'	Music-Stop
++ I AddToMenu /Music '$[gt.Play/Pause]'		Music-PlayPause
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Load playlist]'	Popup /Music/LoadPlaylist
++ I AddToMenu /Music '$[gt.Music player]'	Popup /Preferences/MusicPlayer
++ I AddToMenu /Music "" Nop
++ I Test (X qjackctl) AddToMenu /Music '$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Music '$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjackctl) AddToMenu /Music "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Start C* Music Player]' AT cmus cmus
++ I AddToMenu /Music '$[gt.Stop player]' Exec exec killall -9 cmus
++ I AddToMenu /Music '$[gt.Show/Hide Audio controls]' Music-QJackGUI
+
+# Fake button functions see Music-cdcd {{{1
+
+# Menu /Music/Volume (TODO)
+AddToMenu /Music/Volume
++ "" Nop
+# Music-Speed-Up
+AddToFunc Music-Speed-Up
++ I Nop
+# Music-Speed-Down
+AddToFunc Music-Speed-Down
++ I Nop
+# Menu /Speed
+AddToMenu /Speed
++ "" Nop
+# Music-Seek-+
+# Music-Seek--
+AddToFunc Music-Seek
++ I Nop
+
+# vim:ft=fvwm

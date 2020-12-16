@@ -1,0 +1,53 @@
+#!/bin/bash
+# Update the infoline.
+#
+# Usage:
+# Exec exec $[FVWM_SYSTEMDIR]/scripts(UpdateInfoline delay_in_sec \
+#    $[infostore.Fvwm_Crystal_Recipe] $[infostore.Your_Id]
+
+# the PID to kill if fvwm is interupted
+TMPFILE="/tmp/crystal_update_infoline_$$"
+touch ${TMPFILE}
+
+cleanup() {
+	rm ${TMPFILE}
+	exit 1
+}
+
+trap cleanup INT QUIT TERM
+
+# 1 function per recipe with infoline
+Amiga() {
+    while :
+    do
+	sleep "$1"
+	# fvwm is started with exec; be sure it is running
+	pidof fvwm 1>/dev/null || cleanup
+
+	INFOLINE=$(${FVWM_SYSTEMDIR}/scripts/infoline_amiga|sed -e "s:SetEnv FVWM_INFOLINE ::" -e 's:"::g')
+	STRING="SendToModule FvwmButtons-TopLogo ChangeButton InfoLine Title \"${2}'s Workbench: ${INFOLINE}\""
+	FvwmCommand "${STRING}"
+    done
+}
+
+SilentHacker() {
+    while :
+    do
+	sleep "$1"
+	pidof fvwm 1>/dev/null || cleanup
+	INFOLINE=$(fvwm-crystal.infoline|sed -e "s:SetEnv FVWM_INFOLINE ::")
+	STRING="SendToModule FvwmButtons-InfoLine ChangeButton InfoLine Title ${INFOLINE}"
+	FvwmCommand "${STRING}"
+    done
+}
+
+# the main loop
+RECIPE=$(basename "$2")
+case "$RECIPE" in
+    Amiga)
+	Amiga "$1" "$3";;
+    SilentHacker)
+	SilentHacker "$1";;
+    *)
+	FvwmCommand Echo "$RECIPE"
+esac

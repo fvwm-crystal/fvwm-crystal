@@ -1,0 +1,1143 @@
+'\" t
+.\"     Title: fvwm-crystal
+.\"    Author: [see the "AUTHORS" section]
+.\" Generator: DocBook XSL Stylesheets v1.79.1 <http://docbook.sf.net/>
+.\"      Date: 12/03/2020
+.\"    Manual: FVWM-Crystal
+.\"    Source: fvwm-crystal 3.7.0
+.\"  Language: English
+.\"
+.TH "FVWM\-CRYSTAL" "1" "12/03/2020" "fvwm\-crystal 3\&.7\&.0" "FVWM\-Crystal"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+fvwm-crystal \- an easy to use, eye\-candy but also powerful desktop environment for GNU/Linux or other Unix\-like operating systems\&.
+.SH "SYNOPSIS"
+.sp
+[variables] \fBstartx /usr/bin/fvwm\-crystal\fR
+.SH "DESCRIPTION"
+.sp
+\fBFVWM\-Crystal\fR aims to be an easy to use, eye\-candy but also powerful desktop environment based on the F? Virtual Window Manager (FVWM)\&. It uses following programs: FVWM as a window manager and "main core", icons on the desktop with support for more than 10 different file managers and custom commands (with optional Nautilus or ROX\-Filer support), different terminal emulators inclusive xterm, aterm, mrxvt or urxvt, different music and medias players inclusive MPD, XMMS2 or MPlayer (there\(cqs built\-in support for controlling these programs, and several other tools for different functions, like setting a wallpaper or making screen shots\&. Fvwm\-Crystal provide some unique features like the ability to bring in full screen virtually any application, and to flow through the full\-screened applications and the desktop\&. In this document you will find a general description of \fBFVWM\-Crystal\fR, how to begin with it and how to customize it\&.
+.SH "USAGE"
+.sp
+FVWM\-Crystal use some built\-in environmental variables\&. You can redifine them at the command line:
+.sp
+\fBFVWM_USERDIR\fR set where is the user\-wide configuration (default: \fB$HOME/\&.fvwm\-crystal\fR)\&.
+.sp
+\fBFVWM_CONFIGDIR\fR set where is the system\-wide configuration (default: \fB/etc/X11/fvwm/fvwm\-crystal\fR)\&.
+.sp
+\fBFVWM_DISTROMENUDIR\fR set where the distribution specific menu is located (default: \fB/var/lib/fvwm\-crystal\fR)\&.
+.sp
+\fBFVWM_DISTROMENUNAME\fR set the name of the distribution menu (default: \fBdebian\fR)\&.
+.sp
+\fBNote:\fR FVWM_DISTROMENUDIR and FVWM_DISTROMENUNAME are used by fvwm\-crystal to create menus specific to a distribution\&. As example, with debian as distro menu name, \fBFVWM_*DIR/Applications/debian\fR will be searched for menu entries\&. Take a look into the recipes for examples of use\&.
+.sp
+You can define these variables in your \fB~/\&.xinitrc\fR file, or use something like:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+FVWM_USERDIR="/home/user/\&.my\-dir" startx /usr/bin/fvwm\-crystal
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+or with \fB~/\&.xinitrc\fR:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+xrdb ~/\&.Xdefaults
+exec /usr/bin/fvwm\-crystal 2>\&.errors\&.fvwm\-crystal 1>\&.errors\&.xorg
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+and run it with
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+startx
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Another example:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+FVWM_USERDIR="/home/user/\&.my_dir" startx
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Alternative to the last command, in \fB~/\&.xinitrc\fR:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+xrdb ~/\&.Xdefaults
+FVWM_USERDIR="~/\&.my_dir"
+export FVWM_USERDIR
+exec /usr/bin/fvwm\-crystal 2>\&.errors\&.fvwm\-crystal 1>\&.errors\&.xorg
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+and run
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+startx
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+When fvwm3 is in use, the following variables can be used:
+.sp
+\fBFVWMCRYSTAL_DEBUG\fR set fvwm3 in debug mode when set to a non empty value (default: not set)\&. You don\(cqt need to redirect the errors into a file, fvwm3 will do it for you\&.
+.sp
+\fBFVWM_LOGFILE\fR set fvwm3 log file when in debug mode (default: ~/\&.fvwm\-crystal\&.log)\&.
+.SS "First Start"
+.sp
+\fBFVWM\-Crystal\fR checks while your first login if ~/\&.fvwm\-crystal exist and if old preferences must be converted to the new Fvwm InfoStore variables\&. In all cases, it should just start\&.
+.sp
+\fBFVWM\-Crystal\fR will also check your locale and create the XDG localized user directories if they don\(cqt exist\&. Those directories are common to most modern OS and are used to store dedicated files\&. As example $HOME/Music, $HOME/Documents and $HOME/Pictures\&.
+.SS "Initial Media Player Setup"
+.sp
+MPlayer is the default media player\&. A help screen can pop\-up and show you how to setup the Media directories preferences, which tell FVWM\-Crystal where your music and movie files are\&. You can do it now or later, but it must be done before to use the play\-lists features found in the Music menu (or button)\&.
+.sp
+For that, edit the file ~/\&.fvwm\-crystal/preferences/MediaDirectories:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+audio $HOME/Music
+video $HOME/Video
+cdrom /dev/cdrom0
+dvd /dev/cdrom1
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+You can put as many lines you need\&. Each line have the following format:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+type path
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+where \fBtype\fR is one of [audio video cdrom dvd] and \fBpath\fR is the full path to a directory or a device\&. Devices are used only for cd and dvd\&. Note that all players doesn\(cqt support all the provided features\&. Their respective menus will be adjusted accordingly\&.
+.sp
+As example, you can have:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+audio /home/name/Music
+video /home/name/Video
+audio /mnt/work/Music
+video /mnt/usb/Video
+dvd /dev/cdrom
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+When you are done, save the file\&. To edit that file, you can launch a very simple editor from the preferences menu:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Crystal \-> Preferences \-> Preferences editor
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Now, You can load the control for your preferred player from the preferences menu:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Crystal \-> Music \-> Player \-> Music player
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+or from the menu on the first music button\&.
+.sp
+In the same menu, you will find Recreate the playlists\&. This script will scan the paths pointed by the MediaDirectories preference file, and create the play\-lists into $HOME/\&.fvwm\-crystal/Playlists\&. They will be separated into an Audio and a Video part\&. We can call them the Crystal play\-lists\&. Don\(cqt edit those files, all your changes will be lost the next time you run Recreate the playlists\&. Instead, 2 other directories will be created: $HOME/Playlists/Audio and $HOME/Playlists/Video\&. They are the User play\-lists\&.
+.sp
+In the same Music menu, the play\-lists operation are grouped\&. You can of course load them into the selected player\&. Copy playlist will copy the selected play\-list from the Crystal play\-lists to the User play\-lists\&. Remove playlist will remove the selected play\-lists from the User play\-lists\&. Some players provide they own play\-lists management system, FVWM\-Crystal try to support them as well\&.
+.sp
+Some supported players must be setup before FVWM\-Crystal can use them\&. For that, please refer to their respective documentation\&. If you have a DVB card, please refer also to the linuxtv\&.org V4L\-DVB Wiki at http://linuxtv\&.org/wiki/index\&.php/Main_Page\&.
+.SS "Mixer Setup"
+.sp
+\fBFVWM\-Crystal\fR default mixer is \fBAlsaMixer\fR (via amixer)\&. It must have dB support for most, if not all, sound cards, which is a must\&. It is no default setup because the ALSA control names vary from card to card\&. To setup the mixer, just go into the preferences of the Music menu or via a right click on the second music button\&.
+.sp
+The amixer control was fully rewritten, and it use the native steps of the ALSA driver for the card in use\&.
+.sp
+For the other mixers, the dB scale is approximated\&.
+.SS "Desktop Organisation"
+.sp
+20 different desktop layouts, named recipes, are available\&.
+.sp
+Some are very simple and provide very few decorations\&. Others provide many buttons and decorations\&. A few of them mimic existing OS, like Nebulae which loosely mimic Windows, or Amiga which mimic the Amiga OS\&. The Custom recipe provide a modern look and feel via a magic button with its own preference menu\&.
+.sp
+You can change them via Fvwm\-Crystal system menu:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Preferences \-> Recipes \-> System
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The other preferences apply to all recipes and are independent from each others\&. By example, you can choose to have desktop icons showing the XDG user directories and the mounted partitions, and to not show applications icons\&.
+.sp
+It is 2 menus, the system menu available with \fBAlt + Win_R\fR (Meta + Windows Right) and the application menu available with \fBAlt + Menu\fR (Meta + a "menu" key)\&. A menu can also be available by holding a \fBLeft click\fR on the root window (the desktop) if selected in System → Preferences → Desktop menu (On by default)\&. The content of that menu depend on the recipe in use\&.
+.sp
+With FVWM > 2\&.6\&.5, a supplementary XDG application menu is available with *Alt + A" if selected in the preferences menu\&.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBDecorations common to all recipes\fR
+.RS 4
+.sp
+Not all recipes use all followings decorations called buttons, but they can be used in any recipe, inclusive your own ones\&.
+.PP
+\fIThe "Crystal" Button\fR
+.RS 4
+or "FvwmButtons\-MainMenu" is the little button with a diamond\&.
+.sp
+There are some mouse bindings available:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+left clicking open the system menu
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+middle clicking open the wallpaper menu
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+right clicking on some recipes open the applications menu
+.RE
+.sp
+The Amiga recipe is different:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+left clicking shift the top bar to a menu bar and back
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+middle clicking open the wallpaper menu
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+right clicking open the system menu
+.RE
+.sp
+When the button is located at the top left corner:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+mouse wheeling will change the screen resolution
+.RE
+.RE
+.PP
+\fIThe Media Buttons\fR
+.RS 4
+They are 4 grouped media buttons \- FvwmButtons\-Music \- providing controls and menus for the supported media players and mixers\&. For a description of their bindings, consult
+\fBman MouseBindings\fR
+and
+\fBman KeyboardBindings\fR, or the html documentation\&.
+.sp
+The same functionalities are provided by the Music menu, which is located in the System menu\&.
+.sp
+The supported media players are
+alsaplayer,
+audacious,
+cdcd,
+cmus,
+mocp,
+mpd,
+mplayer,
+mplayer2,
+quodlibet
+and
+xmms2\&.
+.sp
+The supported audio mixers are
+alsamixer
+and
+aumix, plus the mixers of the players\&.
+QJackCTL
+is also supported\&.
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+left clicking on the first media button will open a menu\&.
+.RE
+.sp
+In it,
+Music player
+is where you choose the player and can start it\&.
+Recreate the playlists
+will scan your music and video files and create the play\-lists for you\&. For that, it will use the preferences file you edited in the section "First Start"\&. It is also a mixer preferences menu where you can choose the mixer and the sound card\&.
+.sp
+Each player have its own features set, and the Music menu and functions will change accordingly\&.
+.sp
+As example, with
+\fBcdcd\fR
+you have a cd player and you will be able to control it, when with
+\fBmplayer\fR, you have an universal media player, and FVWM\-Crystal will even recognize if you have a DVB card and use it\&. Basic stream capture is enabled and use the standard
+\fIC\fR
+MPlayer key binding\&. See
+\fBman mplayer\fR\&. This will create a stream dump in $HOME\&. That file will be usable only with MPEG sources, and it can be edited with applications like
+Kino\&.
+.RE
+.PP
+\fIThe Application Panel\fR
+.RS 4
+It is an auto generated panel which provide one button for each
+\fBFreeDesktop\fR
+menu main category\&. The icon of each button is the icon of the preferred application of that category\&. The mouse bindings available are:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+left clicking open the application menu of the category
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+middle clicking on some recipes launch the second preferred application
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+right clicking launch the preferred application
+.RE
+.sp
+These menus have full support for the additional FreeDesktop categories, which mean much less modifications will be needed in comparison with many other desktops\&. And last but not least, your modifications will never been lost\&. It is why at the first place I begun with Crystal and I will keep it that way\&. See
+\fBman ApplicationDatabase\fR
+for how to customize the application menu (the examples are at the end)\&.
+.sp
+More: the files in the applications database are scripts\&. You can put anything you want into them\&. You will find them into
+$prefix/share/fvwm\-crystal/fvwm/Applications
+and
+$HOME/\&.fvwm\-crystal/Applications, and can copy them from this first location to the second one\&. The files in the second path will take the precedence\&. The same apply for the icons directory\&.
+.sp
+The same database is used to generate the application menu available with the system menu on some recipes, and with the Alt+Menu key binding\&.
+.sp
+The application database provided by
+FVWM_Crystal
+contain a large set of menu entries and application icons\&. You can generate extra database menu entries and icons from the preferences menu:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Diamond \-> Preferences \-> Generate application menu+
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+This will populate
+$HOME/\&.fvwm\-crystal/Applications
+and
+$HOME/\&.fvwm\-crystal/icons\&.
+.sp
+The 2 first time you run this script, it will copy 2 preferences files and show help messages\&.
+.sp
+Those files are
+$HOME/\&.fvwm\-crystal/preferences/IconDirs
+and
+$HOME/\&.fvwm\-crystal/preferences/DesktopDirs\&. They must contain the full path to where the icon and desktop files provided by the applications are stored, typically something like
+/usr/share/icons
+and
+/usr/share/pixmaps
+for the icons, and
+/usr/share/applications
+and
+/usr/share/applications/kde4
+for the desktop files\&. The 2 preference files are self explained\&.
+.RE
+.PP
+\fIThe Clock\fR
+.RS 4
+As its name describe it, a clock\&.
+.RE
+.PP
+\fIThe Pager\fR
+.RS 4
+It is a miniature illustration of the virtual desktop pages with mini windows\&. By clicking on each of the segments you can change the page\&.
+.sp
+For a description of the bindings, see "man MouseBindings"\&. * Some recipes provide only a small button\&. Clicking on it will show or hide the pager\&.
+.sp
+The number of desktop pages can be changed on the fly from the preferences menu, option
+Desktop geometry\&. If necessary, windows will be moved on the last available desktop page\&.
+.RE
+.PP
+\fINotification area\fR
+.RS 4
+Both stalonetray and trayer are supported\&. For best support will all recipes, use stalonetray\&.
+.RE
+.PP
+\fIIcon Manager\fR
+.RS 4
+A recipe can provide several icon managers, or only one, or not at all\&. They can show the icons from the running applications on the whole desktop or on the current desktop page\&. They can be grouped by applications type like terminals or other application types\&. The application name can be shown in the icon manager or as a tool\-tip when the mouse is over the icon\&. And different actions are bound to these icons\&.
+.sp
+Some recipes provide an icon manager for the iconic applications\&. With these recipes, no application icons will be on the desktop, independently of what choice was made in the preferences\&.
+.RE
+.PP
+\fIDesktop Icons\fR
+.RS 4
+It is 2 types of icons: application icons and desktop icons\&.
+.sp
+Desktop icons are typically used to launch a file browser at a given path\&. You can choose in
+Preferences → Desktop manager
+how FVWM\-Crystal will manage them:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+None
+will remove the desktop icons
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+FVWM\-Crystal
+will let FVWM\-Crystal manage these icons
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+ROX_Filer
+will manage these icons
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Nautilus
+will manage these icons\&.
+.RE
+.sp
+You can change on the fly between
+None
+and
+FVWM\-Crystal\&. The other changes need to logout and restart Xorg and FVWM\-Crystal\&. At that time of writing, the FVWM\-Crystal\-3\&.4\&.0 desktop icon managing is mature enough to considerer that ROX\-Filer and Nautilus are provided only as a commodity or for backward compatibility or convenience\&. (See
+\fBman CrystalRoxHOWTO\fR
+for rox\&.)
+.sp
+When
+FVWM\-Crystal
+is selected, it will show all its icons by default\&. Right clicking on the
+Home
+icon will open the
+Desktop icons preference menu\&. the
+Home
+icon is mandatory, both the
+XDG user directories
+icons, the
+partitions
+icons are optionals and the
+User managed directories
+are optionals\&.
+.sp
+In the same menu, you can select the actions for the left and middle clicks\&. Several file managers have built\-in support:
+Thunar,
+Worker
+(a very good Directory Opus clone),
+Midnight Commander
+(mc in short),
+ROX\-Filer,
+Nautilus,
+Krusader,
+Xfm,
+4Pane,
+Ranger
+(a Vim like file manager),
+PCMan FM,
+gentoo
+(another dopus clone),
+Konqueror,
+emelFM2
+(which, like mc, support extfs),
+Dolphin
+and
+SpaceFM\&.
+.sp
+A custom command can also be set where both console commands and X commands can be used\&. A self documented form will be launched, which let you update and save the configuration\&.
+.sp
+If
+pmount\-gui
+is installed, the contextual menu of the Home icon will show 2 options for mounting and unmounting the removable devices\&. The contextual menu of the partition\(cqs icons will show the mount points of the patitions and an item for umounting the partitions\&. This options will use
+pumount
+if the partition is mounted in /media,
+umount
+otherwise\&. You will also get menu items to mount the unmounted partitions, if they are present in /etc/fstab with the option user(s)\&.
+.RE
+.PP
+\fIMagic Button Bar\fR
+.RS 4
+The Magic button bar is provided by the Custom recipe\&. This is a button bar with its own preference menu\&. You can choose to show the applets like the clock, and different menu or application launchers\&.
+.sp
+A right click on a menu or application launcher will show its dedicated preferences menu\&. In that menu, you can choose:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+To show the magic button on the top, bottom, right or left of the screen\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+The size of the buttons
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+To toggle the bar on top of the applications with the mouse on the border\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+To edit the magic button bar preferences file\&. Usefull to reorder the launchers\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+To generate its preferences menu\&. Needed when new applications are added or removed from the system\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+To generate the button bar\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+To choose an applet to add or remove\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+To choose a menu to add\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+To choose an application launcher to add\&.
+.sp
+An application and menu launcher will be added to the right of the launcher from where the preference menu was called\&. To remove a menu or application launcher from the magic button bar, just make a middle click on it\&. The pager will be the last button, the other applets will be first\&.
+.RE
+.RE
+.PP
+\fIApplication Icons\fR
+.RS 4
+They are the icons of the iconic applications\&. This will work only with the recipe with no icon manager\&. In
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Preferences \-> Type of icons
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+you can choose between:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+None
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Thumbnails
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Amiga
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Mwm
+.RE
+.sp
+Amiga
+and
+Mwm
+will show the application icons\&. Simple clicking on the
+Amiga
+style icons will restore the application window\&. Double clicking on the
+Mwm
+style icons will do the same\&.
+.RE
+.RE
+.SH "FULL SCREEN NAVIGATION"
+.sp
+For what I know, FVWM\-Crystal is the only GNU/Linux desktop that provide that feature\&.
+.sp
+In short, \fBFull Screen Navigation\fR is the ability to bring in full screen virtually any application, and to navigate between these full\-screened applications, as well than between them and the desktop\&.
+.sp
+It can be many useful use cases for it\&. As example, if you have several browser windows open and want to zap quickly\&. Or with a file manager like mc which is limited to 2 panels\&. It is one limitation: the full screened windows must be on the same desktop page\&. This limitation is a force at the same time, because you can zap the desktop pages too, and you can have full\-screened and "normal" windows in any desktop page at the same time\&.
+.sp
+Try it\&. Launch a few applications on the current desktop pages ans put them in full screen with \fBAlt + KP_\fR*\&. When this is done, use \fBAlt + Shift + KP_\fR* to zap between the full screened windows and the desktop\&. With \fBAlt + F<n>\fR, you can zap the desktop pages\&.
+.sp
+In fact, this functionality is not new\&. It was already available with the first Amiga computer in 1985, when Windows was not born and the Mac was boring in black and white\&. It was called the window stack\&. With the Amiga recipe, simple clicking on the button at the top right corner provide that function too\&.
+.SH "PREFERENCES"
+.sp
+Most preferences are applied on the fly\&. To change from or to the ROX\-Filer or Nautilus desktop manager need a restart\&.
+.PP
+\fBSelect recipe\fR
+.RS 4
+Select a recipe\&.
+.RE
+.PP
+\fBDesktop geometry\fR
+.RS 4
+Select the number of desktop pages from 1 to 9\&.
+.RE
+.PP
+\fBCharacters fonts\fR
+.RS 4
+Launch FVWM\-Crystal font selector dialog\&.
+\fBPanel font\fR
+is used by the buttons,
+\fBTittle font\fR
+by the window title bars, and
+\fBMenu font\fR
+by menus\&. FVWM\-Crystal support xft fonts and this dialog let you visualize the fonts, save and apply the fonts, as well than edit, save and restore the example string\&. Restore will restore the example string to its original value\&. To restore it to its saved value, you have to quit and launch again the font selector\&.
+.RE
+.PP
+\fBHandle width\fR
+.RS 4
+Set the handle width between 1 to 7 pixels\&. Handles are used to resize the windows with the mouse\&. See also *man KeyboardBindings"\&.
+.RE
+.PP
+\fBTranslucency\fR
+.RS 4
+Start and stop translucency\&. Off by default, this setting will not survive a restart\&. When On, you can use the mouse wheel on the window title bars to set their translucency\&.
+.RE
+.PP
+\fBBling bling\fR
+.RS 4
+Start and stop the bling bling\&. It is an effect that will shift the translucency with the focus\&. This setting is Off by default and will not survive a restart\&. Translucency can have a negative impact with some softwares like MPlayer\&. In the worst case, shift to a primary console with
+\fBCtrl + Alt + F<n>\fR, login, run
+\fBkillall mplayer\fR
+or
+\fBkillall \-9 mplayer\fR, and get back to FVWM\-Crystal with
+\fBAlt + F7\fR\&.
+.RE
+.PP
+\fBDefault terminal\fR
+.RS 4
+Set the terminal available with
+\fBRight click\fR
+on the root window\&. Possible choices:
+GNOME\-Terminal,
+Multi\-GNOME\-Terminal,
+XFCE4\-Terminal,
+Terminator,
+MRxvt, URxvt+,
+ATerm,
+ETerm
+and
+XTerm\&.
+.RE
+.PP
+\fBFvwm console terminal\fR
+.RS 4
+Set FVWM console terminal,
+\fBAlt + ;\fR
+will show/hide it, and it will be present on all desktop pages\&. It will only send commands to FVWM\&. Very useful to try any FVWM command\&.
+.RE
+.PP
+\fBQuakeConsole termianl\fR
+.RS 4
+Set terminal for the QuakeConsole\&.
+\fBAlt + \*(Aq (grave)\fR
+will show/hide it, and it will be present on all desktop pages\&. You can use it for whatever console you want, by example htop\&. Supported by these 2 last terminal are
+MRxvt,
+URxvt,
+ATerm
+and
+XTerm\&.
+.RE
+.PP
+\fBDesktop manager\fR
+.RS 4
+Select the manager for the desktop icons\&. See above\&.
+.RE
+.PP
+\fBIcon type\fR
+.RS 4
+Select the icon type for iconic applications\&. See above\&.
+.RE
+.PP
+\fBDesktop menu\fR
+.RS 4
+Set On or Off the menu available with left clicking\&. You can also set On or Off the XDG menu available wia
+\fBAlt + A\fR
+.RE
+.PP
+\fBNotification area manager\fR
+.RS 4
+Select stalonetray or trayer, and let you choose the size of the area between 0 to 20 icons\&.
+.RE
+.PP
+\fBFocus policy\fR
+.RS 4
+Select the focus policy between
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Amiga
+\- click to focus without raise
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+FVWM\-Crystal
+\-enter to focus without raise
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+FVWM\-Crystal with raise
+\- enter to focus with raise
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+MS Windows
+\- click to focus with raise\&.
+.RE
+.RE
+.sp
+With the without raise policies, a click on a title bar will raise the window\&.
+.PP
+\fBMouse velocity\fR
+.RS 4
+Set if you want than Fvwm\-Crystal manage the velocity of the mouse\&.
+.RE
+.PP
+\fBPrivileged terminals\fR
+.RS 4
+With URxvt and ETerm, set the FPOverrideGrabFocus style\&. Such terminals will never loose the focus\&.
+.RE
+.PP
+\fBGenerate application menu\fR
+.RS 4
+Generate the databse entries and icons for the applications menu\&. It will also set the Icon and MiniIcon related styles\&.
+.RE
+.PP
+\fBSilent operations\fR
+.RS 4
+Add "2>/dev/null" at the end of most commands launched by FVWM\-Crystal\&. Usefull if you don\(cqt want to pollute your log file with messages from external applications\&.
+.RE
+.PP
+\fBPreferences editor\fR
+.RS 4
+Launch the Preferences editor which let you set several preference files and variables:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Startup
+\- launch applications at startup
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+ShowDirectories
+\- custom directories shown by FVWM_Crystal Desktop Manager
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Browser
+\- The default browser (BROWSER environmental variable)
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Editor
+\- The default editor (EDITOR environmental variable)
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+DesktopDirs
+\- The paths for the application type desktop files
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+IconsDirs
+\- The paths for the application icons
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+MediaDirectories
+\- The paths for your media files
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+FullscreenApps
+\- Set the applications you want in full screen by default
+.RE
+.RE
+.PP
+\fBKey binding modifiers editor\fR
+.RS 4
+Let you set which key are used as modifiers with the key bindings\&. This is useful if the key bindings of FVWM\-Crystal collide with the key bindings of your prefered application (ardour, emas, whatever\&...)\&. In most cases, to change
+\fBMod1 Meta\fR
+is sufficient\&. I use
+\fB4\fR
+for the left windows key for it\&.
+.RE
+.SH "CUSTOMIZATION"
+.SS "Structure of Fvwm\-Crystal"
+.sp
+\fBFVWM\-Crystal\fR is split into system\-wide files, a system\-wide configuration, and an user\-wide configuration\&.
+.sp
+The system part is located in /usr/local/share/fvwm\-crystal/fvwm (default) or /usr/share/fvwm\-crystal/fvwm (distribution related)\&. We can call it <system>
+.sp
+The system configuration part is located in /etc/X11/fvwm/fvwm\-crystal\&. Call it <config>
+.sp
+The user part is located in ~/\&.fvwm\-crystal\&. <user>
+.sp
+You can copy any file from the system part (without the /fvwm/) to the 2 other parts\&. For each file, files in the user part will be used first if they exist\&. If they don\(cqt exist, FVWM\-Crystal will use the files in the system configuration part (empty be default), and if they don\(cqt exist, it will use the files in the system part\&. This is true for all files loaded with the \fBInclude\fR command, which is the case for allmost all FVWM\-Crystal files\&.
+.SS "Location of some Files and their Function"
+.sp
+\fB<system>/config\fR will be the first file loaded by FVWM\&. It initialize some variables and load the whole FVWM\-Crystal configuration, inclusive the recipe in use\&.
+.sp
+\fB<system>/components/Standard\fR is the second file loaded by FVWM\&. It contain the functions used to load the other files with respect to their priorities part order\&. After, it load other files with functions used in many places\&.
+.sp
+The other files in <system> are grouped in directories\&. Each directory correspond to a group of functions\&. For example, \fB<system>/preferences\fR are for the default preferences, \fB<system>/apps\fR are functions to control some main features of FVWM\-Crstal like the Desktop Icons, the Screen Saver, or the Fvwm Console\&.
+.sp
+As a rule, make small modification at a time\&. And RTFM\&. FVWM is not so difficult, but it is very complex\&. This complexity make things harder\&. So, try to keep focused on one thing at a time\&.
+.sp
+FVWM documentation is huge, The best place to read it is on the FVWM website where you will find an html version, which ease the navigation\&. Use the stable 2\&.6 branch, the unstable 2\&.7 is outdated and will not work well with FVWM\-Crystal\&.
+.SS "Autostart of Applications"
+.sp
+Copy \fB<system>/preferences/Startup\fR to \fB<user>/preferences/Startup\fR and put your commands here\&.
+.SS "Custom FVWM Commands"
+.sp
+Create the file \fB<user>/userconfig\fR and put your FVWM commands here\&. It will be the last loaded file\&.
+.SH "AUTHORS"
+.sp
+This man page was written by Dominique Michel <dominique_libre@users\&.sourceforge\&.net> \(co 2013\-2019\&. I am not here to live up to your expectations and will not apologize for my bad English\&. If you don\(cqt like it or can improve it, please considere to contribute\&.
+.SH "COPYRIGHT"
+.sp
+\fBFVWM\-Crystal\fR and all the scripts and other files coming with the distribution are subject to the GNU General Public License (GPL) version 3 or later\&. Please refer to the COPYING file that came with \fBFVWM\-Crystal\fR for details\&.
+.SH "BUGS"
+.sp
+Bug reports can be sent to the fvwm\-crystal\-users mailing list at https://mail\&.gna\&.org/listinfo/fvwm\-crystal\-users/\&.
+.SH "SEE ALSO"
+.sp
+\fBKeyboardBindings\fR(1), \fBMouseBindings\fR(1), \fBFVWMCrystalFAQ\fR(1), \fBTIPS\fR(1), \fBCrystalRoxHOWTO\fR(1), \fBApplicationDatabase\fR(1) http://fvwm\-crystal\&.sourceforge\&.net/

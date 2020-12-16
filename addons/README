@@ -1,0 +1,93 @@
+README for addons folder of FVWM_Crystal
+
+See COPYING in main FVWM-Crystal folder
+
+This addons folder contain the following files:
+
+10-local.rules: udev rules for multituners DVB cards.
+    The driver for some of those cards create different frontends
+    for different tuners of the same card. mplayer understand only
+    the first frontend of such cards. Those udev rules will
+    symlink a second adapter to the first one, that with reverse
+    tuner order. Please read the comments in the file before to
+    copy it in /etc/udev/rules.d/.
+
+alsamixerguis: simple wrapper script for alsamixer
+    and multiple sound card
+
+convert_colorsets: will show you how to convert colorsets
+    for fvwm-crystal<3.0.7
+
+crystal_diff: make a diff between files in $FVWM_USERDIR and a copy of
+    the svn repository.
+
+fvwm.vim: fvwm syntax file for vim
+
+fvwm-crystal.pot; fvwm-crystal-script.pot: complete locale files for translation.
+    Note: the ' into a translation must be double escaped when possible: \\ to
+    not interfere with the code.
+
+make_jalv_menu: will create some jalv entries into fvwm-crystal Applications menu.
+    Must be easy to modify in order to use oter LV2 hosts.
+
+make_mo: copy the locales and make_mo in $[FVWM_USERDIR]/locale/$LANG/LC_MESSAGES,
+    edit fvwm-crystal.po, run make_mo and restart FVWM-Crystal.
+    The most complete translation is the one in fr_FR.UTF-8.
+    Please, considere to contribute with your translation.
+
+make.pot: make the pot files or update already translated files.
+    It must be run into the fvwm-crystal sources from that addons directory.
+    If no po file is found, the pot files will be updated.
+    To update the po files of your prefered language, copy them into that
+    addons directory and run make.pot, they will be updated with the new strings.
+
+makecrystalicon: make fvwm-crystal icons from arbitrary image file.
+
+oo4.tar.bz2: files to get oofice4 into the application menu.
+
+README: this file
+
+searchstring: a script I use when I search in which file is (are) a given
+    Fvwm-Crystal function. It search recursively in all the file from the
+    current directory and its subdirectory, and is very basic, so be carefull.
+    It will not write in any file.
+    Usage:	searchstring "string"
+
+searchvartofix: when updating from fvwm-crystal<=3.0.5
+    you need to run this script.
+varfix.sh: used by searchvartofix
+
+sort_po: sort the po files; normally not needed any more.
+
+start_jack, stop_jack: scripts to start and stop JACK via the console.
+    Usefull when using jackdbus. You need to adjust them to your need and
+    to put them in $PATH, as example in ~/bin. They will show up into the
+    applications menu after restarting fvwm-crystal (or recreate the
+    applications menu via the preferences).
+
+sudo: a sudo example file
+
+translatechars: pre alpha quality scripts. It is run by
+    translatefilenames
+translatefilenames: pre alpha quality script. It will remove
+    some special characters from your files and directories names.
+    Adapt translatechars to suit your need and run translatefilenames.
+    Run it in some directory and it will change all the names
+    recursively. Please, don't run it as root and make some backup
+    before to run it.
+
+Xdefaults: Xressources example file to use with FVWM-Crystal-
+    Remove a strange urxwt binding that print garbage at stdout
+    And more
+
+Xdefaults.no_transparency: same than Xdefault, but with setup
+    for non transparent virtual terminals.
+
+Xresources: Xressources example file to use with FVWM-Crystal.
+    Read INSTALL in main Crystal folder.
+
+Xresources.no_transparency: same than Xressources, but with setup
+    for non transparent virtual terminals.
+
+Xsession: Xsession example file to use with FVWM-Crystal.
+    Read INSTALL in main Crystal folder.

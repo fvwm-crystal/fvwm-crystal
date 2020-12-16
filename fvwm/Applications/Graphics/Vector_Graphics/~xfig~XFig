@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xfig $@ 2>/dev/null
+

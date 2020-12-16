@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec jackmix $@ 2>/dev/null
+

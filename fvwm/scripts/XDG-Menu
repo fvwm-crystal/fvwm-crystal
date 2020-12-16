@@ -1,0 +1,42 @@
+#!/bin/sh
+# XDG applicaions menu FVWM-Crystal
+#
+# Version:	1.0
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	<05/13/2014>
+# Changed:	<12/29/2015>
+#
+# Description:	This provide a XDG application menu using fvwm-menu-desktop.
+
+echo "I make the XDG application menu available via Alt + A."
+echo "Wait until this terminal will close."
+echo "Errors with that script can be ignored by fvwm-crystal, but can be reported upstream (to the application providing buggy desktop or icon file.)"
+echo ""
+echo "This script use fvwm-menu-desktop, and some icon files can get converted, and work but generate errors in the logs. Please report them to the application providing the original icon files,"
+echo "or to libpng (old libpng versions do not generate these error messages)."
+echo "If you want to get ride of these errors, please select No XDG Menu with Alt+A in the preferences."
+echo ""
+echo "For best results, install a XDG menu with full support for the additional categories like fvwm-xdg-menu at htpps://github.com/domichel/fvwm-xdg-menu"
+echo ""
+
+mkdir -p ${FVWM_USERDIR}/tmp
+MENU_FILE='.menu'
+
+fvwm-menu-desktop \
+	--menu-type applications \
+	--enable-mini-icons \
+	--theme FVWM_Xdg \
+	--size 32 \
+	--title FvwmMenu \
+	--mini-icon-dir ${FVWM_USERDIR}/icons/fvwm-desktop > ${FVWM_USERDIR}/${MENU_FILE}
+
+# adapt the XDG config menu to our needs
+sed -i -e 's:Module FvwmPerl -l fvwm-menu-desktop-config.fpl:A $[FVWM_SYSTEMDIR]/scripts/XDG-Menu:' ${FVWM_USERDIR}/${MENU_FILE}
+# if changing these gt.strings, adapt addons/make.pot accordingly
+sed -i -e 's:gt.Regenerate:gt.Configure:' ${FVWM_USERDIR}/${MENU_FILE}
+sed -i -e '$s:gt.Configure:gt.Regenerate:' ${FVWM_USERDIR}/${MENU_FILE}
+
+FvwmCommand 'Include .menu'

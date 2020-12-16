@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec tomboy $@ 2>/dev/null
+

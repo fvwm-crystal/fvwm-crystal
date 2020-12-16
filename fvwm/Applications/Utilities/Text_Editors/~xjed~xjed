@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xjed $@ 2>/dev/null
+

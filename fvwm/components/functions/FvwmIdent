@@ -1,0 +1,6 @@
+# Settings for FvwmIdent
+*FvwmIdent: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmIdent: Colorset $[infostore.cs_panel_active]
+
+# ViM modeline {{{1
+# vim:foldmethod=marker:foldenable:foldlevel=0:filetype=fvwm

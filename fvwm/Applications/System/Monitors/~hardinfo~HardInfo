@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec hardinfo $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec nautilus --no-desktop --browser $@ 2>/dev/null
+

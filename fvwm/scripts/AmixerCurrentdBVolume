@@ -1,0 +1,17 @@
+#!/bin/bash
+# Support for amixer controls
+# Written by: Dominique Michel <dominique_libre@sourceforge.net>
+#
+# Usage:
+# PipeRead "AmixerControl $[infostore.SoundCard] $[infostore.SoundDevice]
+
+# The hardware current volume step:
+CurrentVol=`amixer -c $1 cget numid="$2"|grep ": values"|sed -e "s:.*values=::" -e "s:,.*::"`
+# The minimum level of the volume:
+CVolMin=`amixer -c $1 cget numid="$2"|grep dBscale|sed -e "s:.*dBscale-min=::" -e "s:dB.*::"`
+# The hardware step level:
+CStepLevel=`amixer -c $1 cget numid="$2"|grep dBscale|sed -e "s:.*step=::" -e "s:dB.*::"`
+#				  14		13		7
+
+ndB=`echo "${CVolMin} + ( ${CurrentVol} * ${CStepLevel} )"|bc -l|awk '{printf "%.2f\n", $0}'`
+echo "InfoStoreAdd CurrentdBVolume ${ndB}"

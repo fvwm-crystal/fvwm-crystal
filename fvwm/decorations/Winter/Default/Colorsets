@@ -1,0 +1,16 @@
+# Colorset setup
+
+# What colorset numbers do we use?
+InfoStoreAdd cs_window_inactive "9"
+InfoStoreAdd cs_window_active "10"
+InfoStoreAdd cs_window_inactiveborder "11"
+InfoStoreAdd cs_window_activeborder "12"
+
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Colorsets
+
+Colorset $[infostore.cs_window_activeborder] bg "black"
+Colorset $[infostore.cs_window_inactiveborder] bg "black"
+Colorset $[infostore.cs_window_active] fg "#222222"
+Colorset $[infostore.cs_window_inactive] fg "#a0a0a0"
+

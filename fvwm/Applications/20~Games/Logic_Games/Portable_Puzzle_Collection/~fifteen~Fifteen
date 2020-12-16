@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec fifteen $@ 2>/dev/null
+

@@ -1,0 +1,319 @@
+# Wing-Commander desktop
+# Desktop arrangment by Peter McConnell
+# from code Written by: Maciej Delmanowski <harnir@post.pl>
+#
+# 2007-2013 - Dominique Michel <dominique_libre@users.sourceforge.net>
+# See ChangeLog for details
+#
+# You can use folding to navigate this file
+
+Echo Wing-Commander recipe loading from $.
+InfoStoreAdd Recipe "WingCommander"
+
+# No magic button, we nedd to reset its ewmh values after a recipe change.
+InfoStoreAdd EWMH_CBB_Left 3
+InfoStoreAdd EWMH_CBB_Right 3
+InfoStoreAdd EWMH_CBB_Top 3
+InfoStoreAdd EWMH_CBB_Bottom 3
+
+# Includes and FVWM modules {{{1
+# Media player {{{2
+Include components/functions/Music-$[infostore.MusicPlayer]
+
+# Desktop settings {{{1
+EdgeScroll	0	0
+EdgeResistance			0
+Style * EdgeMoveDelay		0
+Style * EdgeMoveResistance	100
+
+HideGeometryWindow	Move, Resize
+OpaqueMoveSize	100
+EdgeThickness	1
+
+EWMH-Desktop 3 3 3 3
+EWMH-Panel-Top 30
+EWMH-Panel-Bottom 30
+InfoStoreAdd EWMH_Recipe_Left $[EWMH_BS_Panel_Left]
+InfoStoreAdd EWMH_Recipe_Right $[EWMH_BS_Panel_Right]
+InfoStoreAdd EWMH_Recipe_Top $[EWMH_BS_Panel_Top]
+InfoStoreAdd EWMH_Recipe_Bottom $[EWMH_BS_Panel_Bottom]
+PipeRead '$[FVWM_SYSTEMDIR]/scripts/set_DesktopIconsGeom $[vp.height]'
+
+# Desktop manager {{{2
+DestroyFunc RedrawIconBox
+AddToFunc RedrawIconBox
++ I Nop
+LoadPreferences DefaultDesktopManager
+
+# Panel height
+PipeRead 'echo SetEnv panel_height $(($[panel_font_size]+(($[panel_font_size]/2))))'
+
+PipeRead 'echo InfoStoreAdd FvwmPager_Width $((28*$[infostore.Desk_Pages_X])); \
+	echo InfoStoreAdd FvwmPager_Height $(($[panel_height]*$[infostore.Desk_Pages_Y]))'
+
+# Main "/ApplicationsAndRootMenu" menu {{{1
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/apps --default-file-icon=22x22/apps/default.png --default-dir-icon=22x22/categories/directory.png --min-submenu-length=5 --menuname-suffix=AndRootMenu --sort=prio --no-panel --check-execs'
+AddToMenu /ApplicationsAndRootMenu
++ "" Nop
++ '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Music]' Popup /Music
++ "" Nop
++ '%22x22/fvwm-crystal/fvwm-crystal.png%$[gt.FVWM-Crystal documentation]' Popup /Developer/FVWM-Crystal-Documentation
++ "" Nop
++ '%22x22/fvwm-crystal/handles.png%$[gt.Screen resolution]' Popup /ScreenResolution
++ '%22x22/fvwm-crystal/preferences-desktop-screensaver.png%$[gt.Screensaver]' Popup /Screensaver
++ '%22x22/fvwm-crystal/camera-photo.png%$[gt.Screenshot]' Popup /Screenshot
++ "" Nop
++ '%22x22/fvwm-crystal/preferences-desktop-theme.png%$[gt.Window decorations]' Popup /Window-Decorations
++ '%22x22/fvwm-crystal/colorsets.png%$[gt.Colorsets]' Popup /Colorsets
++ '%22x22/fvwm-crystal/preferences-desktop-wallpaper.png%$[gt.Wallpaper]' Popup /Wallpaper
+#+ '%22x22/fvwm-crystal/preferences-desktop-wallpaper.png%$[gt.All pages wallpaper]' Popup /Wallpaper-All
+#+ '%22x22/fvwm-crystal/preferences-desktop-wallpaper.png%$[gt.This page wallpaper]' Popup /Wallpaper-Current
++ '%22x22/fvwm-crystal/preferences-desktop.png%$[gt.Preferences]' Popup /Preferences
++ "" Nop
++ '%22x22/fvwm-crystal/applications-development.png%$[gt.Developer menu]' Popup /Developer
++ MissingSubmenuFunction FuncFvwmMenuXephyrDirectory
++ '%22x22/fvwm-crystal/gdm-xnest.png%$[gt.Nested sessions]' Popup /etc/X11/Sessions
++ '%22x22/fvwm-crystal/fvwm-crystal.png%$[gt.About FVWM-Crystal]' Include components/functions/About
++ '%22x22/fvwm-crystal/system-log-out.png%$[gt.Exit]' Popup /Exit
+
+# Desktop menu with left click
+#SetEnv DesktopMenu /FVWM-Crystal
+SetEnv DesktopMenu /ApplicationsAndRootMenu
+
+# Pager {{{1
+DestroyFunc FvwmPagerWindow
+AddToFunc FvwmPagerWindow
++ I All (FvwmPager) Close
++ I DestroyModuleConfig FvwmPager: *
++ I PipeRead 'echo \*FvwmPager: Geometry $[infostore.FvwmPager_Width]x$[infostore.FvwmPager_Height]+$(((($[vp.width]-$[infostore.FvwmPager_Width]))/2))+3'
++ I *FvwmPager: MiniIcons
++ I *FvwmPager: Font none
++ I *FvwmPager: WindowBorderWidth 1
++ I *FvwmPager: Window3DBorders
+#+ I *FvwmPager: NoSeparators
++ I *FvwmPager: UseSkipList
++ I *FvwmPager: Colorset * $[infostore.cs_panel_inactive]
++ I *FvwmPager: HilightColorset * $[infostore.cs_panel_active]
++ I *FvwmPager: WindowColorsets $[infostore.cs_panel_wininactive] $[infostore.cs_panel_winactive]
++ I Module FvwmPager
+
+FvwmPagerWindow
+
+# Icons panel {{{1
+All (FvwmIconMan-Icons) Close
+DestroyModuleConfig FvwmIconMan-Icons: *
+
+*FvwmIconMan-Icons: Resolution Global
+*FvwmIconMan-Icons: UseWinList True
+*FvwmIconMan-Icons: DontShow Class=xmms,FvwmButtons,FvwmIconMan,FvwmPager,FvwmIdent,FvwmForm
+*FvwmIconMan-Icons: ShowOnlyIcons True
+*FvwmIconMan-Icons: DrawIcons True
+*FvwmIconMan-Icons: Sort Id
+*FvwmIconMan-Icons: FollowFocus True
+*FvwmIconMan-Icons: Format ""
+*FvwmIconMan-Icons: Title ""
+*FvwmIconMan-Icons: ButtonGeometry 24x$[panel_height]
+*FvwmIconMan-Icons: ManagerGeometry 6x0-88+3
+*FvwmIconMan-Icons: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+# Tips settings {{{2
+*FvwmIconMan-Icons: Tips always
+*FvwmIconMan-Icons: TipsDelays 200 100
+*FvwmIconMan-Icons: TipsFormat "%t"
+*FvwmIconMan-Icons: TipsFont "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmIconMan-Icons: TipsBorderWidth 0
+*FvwmIconMan-Icons: TipsColorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Icons: TipsJustification leftup
+# Button look {{{2
+*FvwmIconMan-Icons: PlainButton flat
+*FvwmIconMan-Icons: FocusButton flat
+*FvwmIconMan-Icons: SelectButton flat
+*FvwmIconMan-Icons: FocusAndSelectButton flat
+*FvwmIconMan-Icons: IconButton flat
+# Colorsets {{{2
+*FvwmIconMan-Icons: Colorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Icons: PlainColorset $[infostore.cs_panel_wininactive]
+*FvwmIconMan-Icons: FocusColorset $[infostore.cs_panel_winactive]
+*FvwmIconMan-Icons: SelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Icons: FocusAndSelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Icons: IconColorset $[infostore.cs_panel_inactive]
+# Actions {{{2
+*FvwmIconMan-Icons: Action Mouse 1 $[Mod] SendCommand "Function Window-Focus-CurrentDesk-Raised"
+*FvwmIconMan-Icons: Action Mouse 2 $[Mod2] SendCommand "Close"
+*FvwmIconMan-Icons: Action Mouse 2 $[Mod0] SendCommand "Nop"
+*FvwmIconMan-Icons: Action Mouse 3 $[Mod] SendCommand "Function Window-Focus-DefaultDesk-Raised"
+# }}}2
+
+Module FvwmIconMan FvwmIconMan-Icons
+Style * NoIcon
+
+# Change desktop pages using mouse wheel on pager
+Mouse (FvwmPager) 4 W $[Mod] GotoPage-Right
+Mouse (FvwmPager) 5 W $[Mod] GotoPage-Left
+
+
+# Dock, applications panel and menu generator {{{1
+All (ApplicationPanel) Close
+DestroyModuleConfig ApplicationPanel: *
+*ApplicationPanel: BoxSize smart
+*ApplicationPanel: ActiveColorset $[infostore.cs_panel_active]
+*ApplicationPanel: Colorset $[infostore.cs_panel_inactive]
+*ApplicationPanel: Rows 1
+*ApplicationPanel: Padding 1 1
+*ApplicationPanel: Frame 0
+*ApplicationPanel: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+
+# fvwm-crystal.apps {{{2
+# This creates the distribution-based panel button - defaut distribution
+# icon, only menu is opened (no default app on the panel). Menus are not
+# generated
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --with=/Applications/$[FVWM_DISTROMENUNAME] --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/apps --default-file-icon=22x22/apps/default.png --default-dir-icon=22x22/categories/directory.png --min-submenu-length=5 --sort=prio --panel-icons=standard --panel-action1=menu --panel-action2=none --panel-action3=menu --panel-size=24 24 --menu-pos=N --menuname-suffix="Dock" --no-menus --check-execs'
+# This creates the main panel with applications - default app icon is
+# shown on the panel, and can be launched using RMB; LMB opens the app
+# category menu. Menus are not generated
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --without=/Applications/$[FVWM_DISTROMENUNAME] --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/apps --default-file-icon=22x22/apps/default.png --default-dir-icon=22x22/categories/directory.png --min-submenu-length=5 --sort=prio --panel-icons=topapp --panel-action1=menu --panel-action2=none --panel-action3=topapp --panel-size=$[panel_height] $[panel_height] --menu-pos=N --menuname-suffix="Dock" --no-menus --check-execs'
+# This generates menus for the panel buttons. They are created upside-down,
+# because panel is on the bottom of the screen
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/apps --default-file-icon=22x22/apps/default.png --default-dir-icon=22x22/categories/directory.png --min-submenu-length=5 --menuname-suffix="Dock" --submenu-suffix="Item 100 o100" --sort=rprio --no-panel --check-execs'
+# This creates the menu with applications available under Alt+Win_R
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/apps --default-file-icon=22x22/apps/default.png --default-dir-icon=22x22/categories/directory.png --min-submenu-length=5 --sort=prio --no-panel --check-execs'
+# }}}2
+
+# $[ApplicationPanelLength] is set by fvwm-crystal.apps, contains the number
+# of the buttons on the panel
+PipeRead 'echo \*ApplicationPanel: Geometry +$((($[vp.width]-(($[ApplicationPanelLength]*$[panel_height])))/2))-1'
+
+Module FvwmButtons ApplicationPanel
+
+# Clock {{{1
+All (FvwmButtons-Clock) Close
+DestroyModuleConfig FvwmButtons-Clock: *
+*FvwmButtons-Clock: Geometry -3+3
+*FvwmButtons-Clock: BoxSize smart
+*FvwmButtons-Clock: ActiveColorset $[infostore.cs_panel_active]
+*FvwmButtons-Clock: Colorset $[infostore.cs_panel_inactive]
+*FvwmButtons-Clock: Columns 2
+*FvwmButtons-Clock: Padding 2 2
+*FvwmButtons-Clock: Frame 0
+*FvwmButtons-Clock: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmButtons-Clock: (2x1, Size 80 $[panel_height], \
+Swallow (Close, Respawn, FvwmModule) "FvwmScript-Clock" 'Script components/scripts/FvwmScript-Clock', \
+Action (Mouse 3) SendToModule *FvwmScript-Clock SendString 1 1 str)
+
+Module FvwmButtons FvwmButtons-Clock
+
+# Notification area {{{1
+# Settings of stalonetray {{{2
+Test (!EnvMatch trayer_width 0) \
+PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "stalonetray" ]; then echo FvwmStalonePanel \
+    $[panel_height] $(($[trayer_width]/$[panel_height])) 1 "-237" "+3" W $[trayer_width] $[panel_height] "-237" "+3"; fi'
+
+# Settings of trayer {{{2
+Test (!EnvMatch trayer_width 0) \
+PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "trayer" ]; then echo FvwmTrayerPanel \
+    request pixel "24" top right "238" "3"; fi'
+
+# Left window list {{{1
+All (FvwmIconMan-Windows-Left) Close
+DestroyModuleConfig FvwmIconMan-Windows-Left: *
+
+*FvwmIconMan-Windows-Left: Resolution Page
+#*FvwmIconMan-Windows-Left: Resolution Global
+*FvwmIconMan-Windows-Left: UseWinList True
+*FvwmIconMan-Windows-Left: DontShow Class=xmms,XTerm,Eterm,xfce4-terminal,konsole,gnome-terminal,Multi-gnome-terminal,urxvt,FvwmButtons,FvwmIconMan,FvwmPager,FvwmIdent,FvwmForm
+*FvwmIconMan-Windows-Left: ShowNoIcons True
+*FvwmIconMan-Windows-Left: DrawIcons Always
+*FvwmIconMan-Windows-Left: Sort Id
+*FvwmIconMan-Windows-Left: FollowFocus True
+*FvwmIconMan-Windows-Left: Format "%t"
+*FvwmIconMan-Windows-Left: Title ""
+PipeRead "echo \*FvwmIconMan-Windows-Left: ButtonGeometry $((($[vp.width]-12)/3))x$[panel_height]"
+*FvwmIconMan-Windows-Left: ManagerGeometry 1x1+3-3
+*FvwmIconMan-Windows-Left: MaxButtonWidthByColumns 4
+# Tips {{{2
+*FvwmIconMan-Windows-Left: TipsFormat "%t"
+*FvwmIconMan-Windows-Left: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmIconMan-Windows-Left: Tips needed
+*FvwmIconMan-Windows-Left: TipsDelays 500 200
+*FvwmIconMan-Windows-Left: TipsFont "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmIconMan-Windows-Left: TipsBorderWidth 0
+*FvwmIconMan-Windows-Left: TipsColorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Windows-Left: TipsJustification leftup
+# Button look {{{2
+*FvwmIconMan-Windows-Left: PlainButton flat
+*FvwmIconMan-Windows-Left: FocusButton flat
+*FvwmIconMan-Windows-Left: SelectButton flat
+*FvwmIconMan-Windows-Left: FocusAndSelectButton flat
+*FvwmIconMan-Windows-Left: IconButton flat
+# Colorsets {{{2
+*FvwmIconMan-Windows-Left: Colorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Windows-Left: PlainColorset $[infostore.cs_panel_wininactive]
+*FvwmIconMan-Windows-Left: FocusColorset $[infostore.cs_panel_winactive]
+*FvwmIconMan-Windows-Left: SelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Windows-Left: FocusAndSelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Windows-Left: IconColorset $[infostore.cs_panel_inactive]
+# Actions {{{2
+*FvwmIconMan-Windows-Left: Action Mouse 1 A SendCommand "Function Window-Focus-DefaultDesk-Raised"
+*FvwmIconMan-Windows-Left: Action Mouse 2 $[Mod2] SendCommand "Close"
+*FvwmIconMan-Windows-Left: Action Mouse 2 $[Mod0] SendCommand "Window-Iconify"
+*FvwmIconMan-Windows-Left: Action Mouse 3 $[Mod] SendCommand "Function Window-Focus-CurrentDesk-Raised"
+# }}}2
+
+Module FvwmIconMan FvwmIconMan-Windows-Left
+
+# Right window list {{{1
+All (FvwmIconMan-Windows-Right) Close
+DestroyModuleConfig FvwmIconMan-Windows-Right: *
+
+*FvwmIconMan-Windows-Right: Resolution Page
+#*FvwmIconMan-Windows-Right: Resolution Global
+*FvwmIconMan-Windows-Right: UseWinList True
+*FvwmIconMan-Windows-Right: DontShow Class=xmms,FvwmButtons,FvwmIconMan,FvwmPager,FvwmIdent,FvwmForm
+*FvwmIconMan-Windows-Right: Show Class=XTerm,Eterm,xfce4-terminal,konsole,gnome-terminal,Multi-gnome-terminal,urxvt
+*FvwmIconMan-Windows-Right: ShowNoIcons True
+*FvwmIconMan-Windows-Right: DrawIcons Always
+*FvwmIconMan-Windows-Right: Sort Id
+*FvwmIconMan-Windows-Right: FollowFocus True
+*FvwmIconMan-Windows-Right: Format "%t"
+*FvwmIconMan-Windows-Right: Title ""
+PipeRead "echo \*FvwmIconMan-Windows-Right: ButtonGeometry $((($[vp.width]-12)/3))x$[panel_height]"
+*FvwmIconMan-Windows-Right: ManagerGeometry 1x1-3-3
+*FvwmIconMan-Windows-Right: MaxButtonWidthByColumns 4
+*FvwmIconMan-Windows-Right: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+# Tips {{{2
+*FvwmIconMan-Windows-Right: Tips needed
+*FvwmIconMan-Windows-Right: TipsDelays 500 200
+*FvwmIconMan-Windows-Right: TipsFormat "%t"
+*FvwmIconMan-Windows-Right: TipsFont "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmIconMan-Windows-Right: TipsBorderWidth 0
+*FvwmIconMan-Windows-Right: TipsColorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Windows-Right: TipsJustification leftup
+# Button look {{{2
+*FvwmIconMan-Windows-Right: PlainButton flat
+*FvwmIconMan-Windows-Right: FocusButton flat
+*FvwmIconMan-Windows-Right: SelectButton flat
+*FvwmIconMan-Windows-Right: FocusAndSelectButton flat
+*FvwmIconMan-Windows-Right: IconButton flat
+# Colorsets {{{2
+*FvwmIconMan-Windows-Right: Colorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Windows-Right: PlainColorset $[infostore.cs_panel_wininactive]
+*FvwmIconMan-Windows-Right: FocusColorset $[infostore.cs_panel_winactive]
+*FvwmIconMan-Windows-Right: SelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Windows-Right: FocusAndSelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Windows-Right: IconColorset $[infostore.cs_panel_inactive]
+# Actions {{{2
+*FvwmIconMan-Windows-Right: Action Mouse 1 A SendCommand "Function Window-Focus-DefaultDesk-Raised"
+*FvwmIconMan-Windows-Right: Action Mouse 2 $[Mod2] SendCommand "Close"
+*FvwmIconMan-Windows-Right: Action Mouse 2 $[Mod0] SendCommand "Window-Iconify"
+*FvwmIconMan-Windows-Right: Action Mouse 3 $[Mod] SendCommand "Function Window-Focus-CurrentDesk-Raised"
+# }}}2
+
+Module FvwmIconMan FvwmIconMan-Windows-Right
+
+# Styles {{{1
+Style FvwmButtons-Clock Layer 2
+
+Echo /--------- Fvwm-Crystal: Recipe loaded ---------/
+#PrintInfo infostore
+
+# ViM modeline {{{1
+# vim:foldmethod=marker:foldenable:foldlevel=0:ft=fvwm

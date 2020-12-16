@@ -1,0 +1,23 @@
+# Support for MPlayer media player into Fvwm-Crystal
+# Written by: Dominique Michel <dominique_libre@users.sourceforge.net> 2008-2013
+
+# Load shared functions and initialisations 
+Include components/functions/Media
+Style MPlayer			!Title, !Borders, EWMHIgnoreStackingOrderHints, NoIcon
+Style "MPlayer - Video"		Title, !Borders, EWMHIgnoreStackingOrderHints, NoIcon
+Style XDRadio			NoActiveIconOverride, Sticky, WindowListSkip, StaysOnTop, NoIcon
+
+DestroyFunc StyleMediaPlayer
+AddToFunc StyleMediaPlayer
++ I Style start_cadence NoIcon
++ I Style start_jack NoIcon
++ I UpdateStyles
+# Schedule needed at Start and after Restart for start_[jack|cadence] and the console players
+Schedule 1 StyleMediaPlayer
+
+# specific function
+AddToMenu /Music/Start
++ '$[gt.Start MPlayer]' Music-Start $[FVWM_SYSTEMDIR]/scripts/startmplayer mplayer $[infostore.USERDIR] $[infostore.SILENT]
+Test (x xdradio) + '$[gt.Start XDRadio]' Music-Start "xdradio"
+
+# vim:ft=fvwm

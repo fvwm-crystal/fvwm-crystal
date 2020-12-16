@@ -1,0 +1,36 @@
+# helpful text, when no picture is found
+# See scripts/random-wallpaper
+
+All (AutoWallpaper-Error) Close
+DestroyModuleConfig AutoWallpaper-Error: *
+*AutoWallpaper-Error: Title "$[gt.Auto wallpaper]"
+*AutoWallpaper-Error: Text "$[gt.No pictures found.]"
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Text "$[gt.You should save wallpapers in]"
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Text "$[FVWM_USERDIR]/wallpapers"
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Text "$[gt.Auto wallpapers must be in subdirectories.]"
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Text "$[gt.Symlinks to directories are allowed.]"
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Text "$[gt.The thumbnails generation is CPU intensive,]"
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Text "$[gt.it is better to have a few subdirectories than]"
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Text "$[gt.a lot of files in one subdirectory.]"
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Line center
+*AutoWallpaper-Error: Button quit " $[gt.OK] " ^[
+*AutoWallpaper-Error: Command Nop
+*AutoWallpaper-Error: Line center
+Module FvwmForm AutoWallpaper-Error
+
+# vim:ft=fvwm

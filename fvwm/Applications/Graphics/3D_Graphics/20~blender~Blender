@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec blender $@ 2>/dev/null
+

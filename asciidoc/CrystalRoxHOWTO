@@ -1,0 +1,97 @@
+CrystalRoxHOWTO(1)
+==================
+:doctype: manpage
+:man source:   CrystalROXHOWTO
+:man version:  3.2.5
+:man manual:   FVWM-Crystal
+
+NAME
+----
+
+CrystalRoxHOWTO - Crystal ROX! HOWTO - (Read as "Crystal rocks!" ;)
+
+SYNOPSIS
+--------
+
+None
+
+
+DESCRIPTION
+-----------
+
+In this HOWTO I will show you how to setup FVWM-Crystal desktop with ROX-Filer
+file manager, so they are working smoothly.
+
+
+What is ROX-Filer?
+------------------
+
+(From the ROX-Filer manual)
+ROX-Filer is a graphical file manger for the X Window System. Its user
+interface is based on the RISC OS filer and it supports similar features such
+as application directories and drag-and-drop loading and saving of files. The
+filer can also act as a pinboard, allowing you to pin frequently used files
+onto the desktop background.
+
+Homepage: http://rox.sourceforge.net
+
+In Crystal, while you can utilize an application-based work system (open an
+application and from it's menu open a document), ROX-Filer will let you use
+also document-based work style (open a document file in selected application),
+of course after a little customization of Filer's settings.
+
+
+How to make ROX-Filer work with FVWM-Crystal?
+---------------------------------------------
+
+Install ROX-Filer. I assume that executable is called *rox*. If name is
+different, change it accordingly or make a symlink to */usr/local/bin/rox*.
+
+In FVWM-Crystal you can select a *desktop manager* to use. This option is
+located in: Diamond => Preferences => Desktop manager. Select ROX-Filer.
+Crystal will ask you to logout and start again your X session - you can do it
+right away or later, if you wish.
+
+If everything was correctly installed, FVWM-Crystal should run with gray
+background and *Home* icon in the upper-left corner of the screen (that's
+ROX's pinboard). Now click on the background and from the menu select
+*ROX-Filer* => *Options*. Go to *Iconified windows* and turn off *Show iconified
+windows* option. Now go to *Compatibility* section and turn on *Pass all
+backdrop mouse clicks to window manager* option. This way you will be able to
+open terminal windows using RMB on the desktop. ROX-Filer menu can be still
+accessed by clicling with RMB on the icons. You can now change ROX's options
+at will.
+
+You can change desktop wallpaper using the Crystal's menu system.
+
+
+Known issues:
+-------------
+- window thumbnails aren't transparent, probably because FVWM doesn't use
+  ROX's pinboard as the source of transparency for it's icons?
+- Icon selected on the desktop stays selected; that's because ROX-Filer sends
+  all mouse button clicks to the window manager. If you don't want a selected
+  icon on the desktop all the time, open a directory or launch a file from
+  your desktop.
+
+
+AUTHORS
+-------
+Documentation written by Maciej Delmanowski <harnir@berlios.de>
+and ported to asciidoc by Dominique Michel
+<dominique_libre@users.sourceforge.net>
+
+
+COPYRIGHT
+---------
+*FVWM-Crystal* and all the scripts and other files coming with 
+the distribution are subject to the GNU General Public License (GPL). 
+Please refer to the COPYING file that came with *FVWM-Crystal* for details.
+
+
+BUGS
+----
+Bug reports can be sent to the fvwm-crystal-users mailing list at 
+<https://mail.gna.org/listinfo/fvwm-crystal-users/>.
+
+

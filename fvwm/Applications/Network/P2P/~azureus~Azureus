@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec azureus $@ 2>/dev/null
+

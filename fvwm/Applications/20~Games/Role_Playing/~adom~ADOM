@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'Exec $[DefaultTerminal] -g 80x25 -e adom $@ 2>/dev/null'
+

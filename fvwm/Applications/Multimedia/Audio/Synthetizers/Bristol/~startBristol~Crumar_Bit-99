@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec startBristol -bit99 -jack $@ 2>/dev/null
+

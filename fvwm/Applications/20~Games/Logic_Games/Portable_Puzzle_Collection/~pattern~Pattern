@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec pattern $@ 2>/dev/null
+

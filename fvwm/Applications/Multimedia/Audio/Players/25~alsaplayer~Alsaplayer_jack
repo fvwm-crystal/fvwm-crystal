@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec alsaplayer -o jack -F 48000 $@ 2>/dev/null
+

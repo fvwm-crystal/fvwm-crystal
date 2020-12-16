@@ -1,0 +1,63 @@
+# These functions are used to find out what commands or files from specified
+# list are available and set up a variable containing first found command or
+# file name.
+#
+# Usage:
+# FindCommand <variable name> <command1> <command2> ... <command9>
+# 
+# <variable name> - a name of a variable to set up; you need to give a name
+# without $[] part, for example "TerminalName" (without the quotes)
+#
+# <command#> - a list of commands to search for. You can give up to 9 commands
+# due to limitations of FVWM function variables system, which let you give
+# only 10 variables to a function (first variable is used)
+
+DestroyFunc FindCommand
+AddToFunc FindCommand
++ I Test (x $1) InfoStoreAdd $0 $1
++ I TestRc (NoMatch) Test (x $2) InfoStoreAdd $0 $2
++ I TestRc (NoMatch) Test (x $3) InfoStoreAdd $0 $3
++ I TestRc (NoMatch) Test (x $4) InfoStoreAdd $0 $4
++ I TestRc (NoMatch) Test (x $5) InfoStoreAdd $0 $5
++ I TestRc (NoMatch) Test (x $6) InfoStoreAdd $0 $6
++ I TestRc (NoMatch) Test (x $7) InfoStoreAdd $0 $7
++ I TestRc (NoMatch) Test (x $8) InfoStoreAdd $0 $8
++ I TestRc (NoMatch) Test (x $9) InfoStoreAdd $0 $9
+
+# FindCommandAX is similar to FindCommand function, but as the second argument
+# you must give a letter which is used to start an application directly (X) or
+# in a terminal (A). These letters indicate functions which will be used to
+# start selected applications. Examples:
+# FindCommandAX DefaultMailClient A mutt pine elmo
+# FindCommandAX DefaultMailClient X balsa evolution kmail thunderbird
+
+DestroyFunc FindCommandAX
+AddToFunc FindCommandAX
++ I Test (x $2) InfoStoreAdd $0 "$1 $2"
++ I TestRc (NoMatch) Test (x $3) InfoStoreAdd $0 "$1 $3"
++ I TestRc (NoMatch) Test (x $4) InfoStoreAdd $0 "$1 $4"
++ I TestRc (NoMatch) Test (x $5) InfoStoreAdd $0 "$1 $5"
++ I TestRc (NoMatch) Test (x $6) InfoStoreAdd $0 "$1 $6"
++ I TestRc (NoMatch) Test (x $7) InfoStoreAdd $0 "$1 $7"
++ I TestRc (NoMatch) Test (x $8) InfoStoreAdd $0 "$1 $8"
++ I TestRc (NoMatch) Test (x $9) InfoStoreAdd $0 "$1 $9"
+
+# FindFile is similar to previous functions, but instead looking for a command
+# in $PATH you can look for a file in a directory. First argument is a name of
+# the variable, second one is the directory to look inside, other arguments
+# are names of the files inside the directory. Name of the first found file
+# will be put in the variable. Examples:
+# FindFile SpecialFile $[FVWM_USERDIR]/files file1 file2 file3 file4 file5
+
+DestroyFunc FindFile
+AddToFunc FindFile
++ I Test (f $1/$2) InfoStoreAdd $0 $2
++ I TestRc (NoMatch) Test (f $1/$3) InfoStoreAdd $0 $3
++ I TestRc (NoMatch) Test (f $1/$4) InfoStoreAdd $0 $4
++ I TestRc (NoMatch) Test (f $1/$5) InfoStoreAdd $0 $5
++ I TestRc (NoMatch) Test (f $1/$6) InfoStoreAdd $0 $6
++ I TestRc (NoMatch) Test (f $1/$7) InfoStoreAdd $0 $7
++ I TestRc (NoMatch) Test (f $1/$8) InfoStoreAdd $0 $8
++ I TestRc (NoMatch) Test (f $1/$9) InfoStoreAdd $0 $9
+
+# vim:ft=fvwm

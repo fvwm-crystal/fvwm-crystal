@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec cinepaint $@ 2>/dev/null
+

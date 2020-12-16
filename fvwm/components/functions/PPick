@@ -1,0 +1,11 @@
+# Idea from: http://fvwm.lair.be/viewtopic.php?t=386
+
+# You can use "Pick" command until you click on a desktop
+# Used primarly in FvwmConsole
+# Example: PPick Close (close multiple windows in one "shot"
+DestroyFunc PPick
+AddToFunc PPick
++ I Pick $*
++ I Schedule 0 PPick $*
+
+# vim:ft=fvwm

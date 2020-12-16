@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec foo-yc20 $@ 2>/dev/null

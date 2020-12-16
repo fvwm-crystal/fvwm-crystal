@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec glurp $@ 2>/dev/null
+

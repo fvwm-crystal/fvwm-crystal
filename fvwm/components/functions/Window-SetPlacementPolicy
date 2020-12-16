@@ -1,0 +1,12 @@
+# This function is used by the "Exec-Accelerator" functions. If there is no
+# "normal" window (any window except Fvwm*, gkrellm, trayer or iconified),
+# next spawned window will be placed at the center of the visible screen. If
+# there is one, it will be spawned using the MinOverlapPercentPlacement
+# penalities.
+
+DestroyFunc Window-SetPlacementPolicy
+AddToFunc Window-SetPlacementPolicy
+# + I Style * CenterPlacement
++ I Any (CurrentPage, !Fvwm*, !Gkrellm, !trayer, !stalonetray, !gdeskcal, !gdesklets, !Iconic) Style * MinOverlapPercentPlacement
+
+# vim:ft=fvwm

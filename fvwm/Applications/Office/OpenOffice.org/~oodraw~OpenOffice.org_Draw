@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec oodraw $@ 2>/dev/null
+

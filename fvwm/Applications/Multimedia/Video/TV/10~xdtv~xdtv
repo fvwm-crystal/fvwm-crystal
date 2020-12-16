@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xdtv $@ 2>/dev/null
+

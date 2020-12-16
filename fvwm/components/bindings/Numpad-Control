@@ -1,0 +1,15 @@
+# Window control using numpad keys
+Key KP_Insert		A $[Mod0] Raise
+Key KP_Delete		A $[Mod0] Lower
+Key KP_Divide		A $[Mod0] Window-Shade toggle
+Key KP_Divide		A $[Mod1] Stick toggle
+Key KP_Multiply		A $[Mod0] Maximize
+Key KP_Multiply		A $[Mod1] Fullscreen
+Key KP_Multiply		A $[Mod2] Disappear
+Key KP_Subtract		A $[Mod1] Window-Iconify
+Key KP_Subtract		A $[Mod2] Close
+Key KP_Add		A $[Mod0] Layer 0 4
+Key KP_Add		A $[Mod1] Layer 0 5
+Key KP_Add		A $[Mod2] Layer 0 3
+
+# vim:ft=fvwm

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec creox $@ 2>/dev/null
+

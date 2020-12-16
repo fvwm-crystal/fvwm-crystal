@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec atlantik $@ 2>/dev/null
+

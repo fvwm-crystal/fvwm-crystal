@@ -1,0 +1,6 @@
+# Default desktop bindings
+
+# Open new terminal on RMB
+Mouse 3 RI $[Mod] AA
+
+# vim:ft=fvwm

@@ -1,0 +1,46 @@
+# Support for Tooltip
+# Written by: Dominique Michel <dominique_libre@sourceforge.net>
+#
+# Usage : Fvwm-Tooltip <name> <title> <"string to display"> <geometry> <layer> <delay>
+#
+# where <name> is the name of the button such as FvwmButtons-Tooltip-<Name>
+#	<title> is the titile to draw on the button. It support gettext.
+#	<"string to display"> can be anything, i.e. $[My_Var_Env]
+#       <geometry> is in standard X11 notation (+x+y are enough)
+#	<layer> is the layer in wich the tooltip will be draw
+#	<delay> is the time in msec during wich the tolltip will be visible 
+# An argument with a space must be quoted.
+#
+# Example :
+# + I PointerWindow (FvwmButtons-Music) Fvwm-Tooltip Volume "Main volume" "$[infostore.CurrentVolume]" "+4-40" 20 1000
+# will show a tooltip when the pointer is entering on FvwmButtons-Music.
+
+DestroyFunc Fvwm-Tooltip
+AddToFunc Fvwm-Tooltip
++ I KillModule FvwmButtons-Tooltip-$0
++ I DestroyModuleConfig FvwmButtons-Tooltip-$0: *
++ I *FvwmButtons-Tooltip-$0: Geometry $3
++ I *FvwmButtons-Tooltip-$0: BoxSize smart
++ I *FvwmButtons-Tooltip-$0: ActiveColorset $[infostore.cs_menu_inactive]
++ I *FvwmButtons-Tooltip-$0: Colorset $[infostore.cs_menu_inactive]
++ I *FvwmButtons-Tooltip-$0: Rows 1
++ I *FvwmButtons-Tooltip-$0: Padding 1 1
++ I *FvwmButtons-Tooltip-$0: Frame 0
++ I *FvwmButtons-Tooltip-$0: Font "xft:$[panel_font]:pixelsize=$[menu_font_size]:$[panel_font_style]"
++ I *FvwmButtons-Tooltip-$0: (1x1, Id "Tooltip-$0", Title (Side) "$[gt.$1]  $2")
++ I Style FvwmButtons-Tooltip-$0 Layer $4
++ I Module FvwmButtons FvwmButtons-Tooltip-$0
+
+# It doesn't work well when Schedule is in the same function
+# Usage: Kill-FvwmTooltip <name>
+# 
+# where <name> is the same than in Fvwm-Tooltip
+# Example:
+# + I Schedule 2500 Kill-FvwmTooltip Volume
+
+DestroyFunc Kill-FvwmTooltip
+AddToFunc Kill-FvwmTooltip
++ I KillModule FvwmButtons FvwmButtons-Tooltip-$0
+#+ I All (FvwmButtons-Tooltip-$0) Schedule $5 KillModule FvwmButtons FvwmButtons-Tooltip-$0
+
+# vim:ft=fvwm

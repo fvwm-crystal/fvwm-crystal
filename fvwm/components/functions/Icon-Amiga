@@ -1,0 +1,21 @@
+# Icons - Amiga style
+
+Style * !NoIcon
+Style * IconTitle
+Style * IconTitleColorset $[infostore.cs_menu_active]
+Style * HilightIconTitleColorset $[infostore.cs_menu_active]
+#Style * HilightIconTitleColorset
+Style * IconBackgroundColorset $[infostore.cs_icon_inactive]
+Style * IconTitleRelief 0
+Style * IconBackgroundRelief 0
+Style * IconBackgroundPadding 0
+Style * IconFont "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+Style * IconTitleFormat %n (%t)
+Style * StickyIcon
+Style * IconSize 68 68
+Style * !StickyStippledIconTitle
+
+# Icons can be moved around
+AddToFunc Icon-Restore-CurrentDesk M Move
+
+# vim:ft=fvwm

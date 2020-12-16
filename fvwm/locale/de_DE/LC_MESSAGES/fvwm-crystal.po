@@ -1,0 +1,318 @@
+# German translation for FVWM-Crystal
+# Copyright (C) 2005 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Nicolas Vilz 'niv' <niv@iaglans.de>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal\n"
+"POT-Creation-Date: 2005-07-04 14:23+0100\n"
+"PO-Revision-Date: 2005-08-31 08:30+0200\n"
+"Last-Translator: Nicolas Vilz 'niv' <niv@iaglans.de>\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "About FVWM-Crystal"
+msgstr "Über FVWM-Crystal"
+
+msgid "Activate"
+msgstr "Aktivieren"
+
+#
+# Applications menu
+#
+msgid "Applications"
+msgstr "Anwendungen"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Button model"
+msgstr "Knopf Modell"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Clear playlist"
+msgstr "Abspielliste leeren"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Colorsets"
+msgstr "Farbpalette"
+
+msgid "Crossfade"
+msgstr "Überblenden"
+
+msgid "Default terminal"
+msgstr "Standard Terminal-Programm"
+
+msgid "Delayed fullscreen"
+msgstr "Verzögert Vollbild"
+
+msgid "Desktop manager"
+msgstr "Schreibtisch Manager"
+
+msgid "Destroy"
+msgstr "Zerstören"
+
+msgid "Developer menu"
+msgstr "Entwickler Menu"
+
+msgid "Everything"
+msgstr "Alles"
+
+msgid "Exit"
+msgstr "Beenden"
+
+msgid "FVWM version"
+msgstr "FVWM Version"
+
+#
+# Screensaver menu
+#
+msgid "Force suspend"
+msgstr "Ruhezustand erzwingen"
+
+msgid "Frame"
+msgstr "Fenster / Rahmen"
+
+#
+# Screenshot menu
+#
+msgid "Fullscreen"
+msgstr "Vollbild"
+
+#
+# Window menus
+#
+msgid "Iconify"
+msgstr "Minimieren"
+
+msgid "Identify"
+msgstr "Identifizieren"
+
+#
+# Developer menu
+#
+msgid "Identify window"
+msgstr "Fenster identifizieren"
+
+msgid "Jump to left page"
+msgstr "zur linken Seite springen"
+
+msgid "Jump to previous page"
+msgstr "zur vorherigen Seite springen"
+
+msgid "Jump to right page"
+msgstr "zur rechten Seite springen"
+
+msgid "Load playlist"
+msgstr "Abspielliste laden"
+
+msgid "Lock screen"
+msgstr "Bildschirm sperren"
+
+#
+# Exit menu
+#
+msgid "Logout"
+msgstr "Abmelden"
+
+msgid "Maximize"
+msgstr "Maximieren"
+
+msgid "Maximize horizontally"
+msgstr "Horizontal maximieren"
+
+msgid "Maximize vertically"
+msgstr "Vertikal maximieren"
+
+msgid "Move to left page"
+msgstr "auf die inke Seite verschieben"
+
+msgid "Move to page"
+msgstr "Verschiebe auf Seite"
+
+msgid "Move to previous page"
+msgstr "auf die vorherige Seite verschieben"
+
+msgid "Move to right page"
+msgstr "auf die rechte Seite verschieben"
+
+#
+# Music menu
+#
+msgid "Music"
+msgstr "Musik"
+
+msgid "Music player"
+msgstr "Musik-Abspielprogramm"
+
+msgid "Name of the playlist"
+msgstr "Name der Abspielliste"
+
+msgid "New recipe will be used after next startup"
+msgstr "Das neue Aussehen wird nach dem nächsten Start benutzt"
+
+msgid "None"
+msgstr "Keiner"
+
+msgid "Normal mode"
+msgstr "Normaler Modus"
+
+msgid "Not now"
+msgstr "Nicht jetzt"
+
+msgid "Off"
+msgstr "Aus"
+
+msgid "On"
+msgstr "An"
+
+msgid "Play/Pause"
+msgstr "Abspielen/Pause"
+
+msgid "Player is stopped"
+msgstr "Abspielprogramm gestoppt"
+
+msgid "Playlist editor"
+msgstr "Abspiel-Listen Bearbeitungs-Programm"
+
+msgid "Preferences"
+msgstr "Voreinstellungen"
+
+msgid "Privileged terminals"
+msgstr "Terminal-Programme bevorzugen"
+
+msgid "QuakeConsole terminal"
+msgstr "Quake Konsole Terminal-Programm"
+
+#
+# Wallpaper menu
+#
+msgid "Random"
+msgstr "Zufällig"
+
+msgid "Reboot computer"
+msgstr "Computer neustarten"
+
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+msgid "Remove current song"
+msgstr "das aktuelle Lied entfernen"
+
+msgid "Remove playlist"
+msgstr "Abspielliste entfernen"
+
+msgid "Restart"
+msgstr "Neustart"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Save playlist"
+msgstr "Abspielliste speichern"
+
+msgid "Save playlist..."
+msgstr "Abspielliste speichern..."
+
+msgid "Screensaver"
+msgstr "Bildschirmschoner"
+
+msgid "Screenshot"
+msgstr "Bildschirmphoto"
+
+msgid "Selected desktop manager will be used"
+msgstr "der ausgewählte Schreibtisch-Manager wird"
+
+msgid "Show/hide player"
+msgstr "Abspielprogramm zeigen/verbergen"
+
+msgid "Shuffle playlist"
+msgstr "zufällige Abspielliste"
+
+msgid "Start screensaver"
+msgstr "Bildschirmschoner starten"
+
+msgid "Stay lowered"
+msgstr "Im Hintergrund bleiben"
+
+msgid "Stay raised"
+msgstr "Im Vordergrund bleiben"
+
+msgid "Stick"
+msgstr "Festhalten"
+
+msgid "Stop playback"
+msgstr "Abspielen stoppen"
+
+msgid "Stop screensaver"
+msgstr "Bildschirmschoner stoppen"
+
+#
+# String used in submenus (window decorations and colorsets)
+#
+msgid "System"
+msgstr "System"
+
+msgid "Take all free space"
+msgstr "den gesamten freien Platz nehmen"
+
+msgid "Take all horizontal space"
+msgstr "den gesamten horizontalen Platz nehmen"
+
+msgid "Take all vertical space"
+msgstr "den gesamten vertikalen Platz nehmen"
+
+msgid "Toggle FvwmConsole"
+msgstr "FVWMConsole ein/ausschalten"
+
+msgid "Toggle random"
+msgstr "Zufall ein-/ausschalten"
+
+msgid "Toggle repeat"
+msgstr "Wiederholung ein-/ausschalten"
+
+msgid "Turn off computer"
+msgstr "Computer ausschalten"
+
+msgid "Update database"
+msgstr "Datenbank erneuern"
+
+#
+# Preferences menu
+#
+msgid "Used recipe"
+msgstr "Benutztes Aussehen"
+
+msgid "User"
+msgstr "Benutzer"
+
+#
+# About dialog
+#
+msgid "Version"
+msgstr "Version"
+
+msgid "Volume"
+msgstr "Lautstärke"
+
+msgid "Wallpaper"
+msgstr "Hintergrundbilder"
+
+#
+# Main menu - usually found in recipes/*
+#
+msgid "Window decorations"
+msgstr "Fenster Dekoration"
+
+msgid "Window focus policy"
+msgstr "Fenster Fokus Richtlinie"
+
+msgid "at the next start of your X session"
+msgstr "beim nächsten Start der X-Sitzung benutzt"

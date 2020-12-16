@@ -1,0 +1,229 @@
+#!/bin/bash
+
+# Generation of the FVWM-Crystal Desktop Manager (icons on the desktop)
+# Written by Dominique Michel <dominique_libre@users.sourceforge.net>, 2015
+# Generate the desktop manager in $[FVWM_USERDIR]/tmp/DesktopIcons.
+
+# Syntax:
+# ($1 $2 $3)	PipeRead '$[FVWM_SYSTEMDIR]/scripts/desktop_manager $[infostore.DeskIconsSign] $[infostore.cs_transparent] $[infostore.SILENT] \
+# ($4 $5 $6 $7)		$[infostore.FileBrowser1] $[infostore.FileBrowser2] $[vp.height] $[infostore.tmpdrivefile] \
+# ($8 $9 $10 $11)	$[infostore.EWMH_CBB_Left] $[infostore.EWMH_CBB_Right] $[infostore.EWMH_CBB_Top] $[infostore.EWMH_CBB_Bottom] \
+# ($12 13 14 15 16)	$[vp.width] $[infostore.EWMH_Recipe_Left] $[infostore.EWMH_Recipe_Right] $[infostore.EWMH_Recipe_Top] $[infostore.EWMH_Recipe_Bottom]'
+# 		Include tmp/DesktopIcons
+
+deskmanfile="${FVWM_USERDIR}/tmp/DesktopIcons"
+echo "" > "${deskmanfile}"
+
+# We must calculate the size of the button box {{{1
+# Home: 1 icon, XDG user dirs: 8 icons, partitions: variable, directories: variable
+# Number of icons to show: {{{2
+IconNumber=1
+if [[ "${ShowXDG}" == "yes" ]]; then IconNumber=9; fi
+if [[ "${ShowPartitions}" == "yes" ]]
+	then	mount | gawk -v sq="'" '/^\/.*|^simple-mtpfs.*\// { print "" sq "" $3 "" sq ""; }' |sort > ${7} #| sed -e 's:\\:\\\\:g' 
+		IconNumber="$((${IconNumber}+`wc -l < ${7}`))"
+		IconNumber="$((${IconNumber}+`wc -l < ${HOME}/.fvwm-crystal/preferences/ShowDirectories`))"
+fi
+# Available number of icons on the EWMH screen height: {{{2
+if [ "${10}" -gt "${15}" ]
+	then EWMHTop="${10}"
+	else EWMHTop="${15}"
+fi
+if [ "${11}" -gt "${16}" ]
+	then EWMHBottom="${11}"
+	else EWMHBottom="${16}"
+fi
+ScreenIconRowsNumber="$((((${6}-((${EWMHTop}+${EWMHBottom}))))/48))"
+# Widget column and row sizes {{{2
+Rest="$((${IconNumber}%${ScreenIconRowsNumber}))"
+if [ "${Rest}" != "0" ]
+	then IconColumnsNumber="$((((${IconNumber}/${ScreenIconRowsNumber}))+1))"
+	else IconColumnsNumber="$((${IconNumber}/${ScreenIconRowsNumber}))"
+fi
+ButtonWidth=$((${IconColumnsNumber}*48))
+Rest="$((${IconNumber}%${IconColumnsNumber}))"
+if [ "${Rest}" != "0" ]
+	then IconRowsNumber="$((((${IconNumber}/${IconColumnsNumber}))+1))"
+	else IconRowsNumber="$((${IconNumber}/${IconColumnsNumber}))"
+fi
+
+# Preference menu
+echo "DestroyMenu /Preferences/IconLauncher" >> "${deskmanfile}"
+echo "AddToMenu /Preferences/IconLauncher" >> "${deskmanfile}"
+if [ -f pmount-gui ] || [ -f /usr/bin/pmount-gui ] || [ -f /usr/local/bin/pmount-gui ]
+	then echo "+ \"PMount\" Exec exec pmount-gui" >> "${deskmanfile}"
+	     echo "+ \"PUMount\" Exec exec pmount-gui -u" >> "${deskmanfile}"; fi
+if [[ "${ShowPartitions}" == "yes" ]]
+then cat /etc/fstab|grep user|grep -v \#| awk '{print $2}'|while read line
+do  	partition=${line}
+	exist=0
+	while read -r lines
+		do if [ ${partition} = ${lines} ]
+			then exist=1
+		   fi
+	done <${7}
+	if [ ${exist} = 0 ]
+		then echo "+ \"\$[gt.Mount] ${line}\" Exec exec mount ${line}" >> "${deskmanfile}"
+	fi
+    done
+fi
+echo "+ '\$[gt.XDG user directories]' PopUp /Preferences/XDG" >> "${deskmanfile}"
+echo "+ '\$[gt.Mounted partitions]' PopUp /Preferences/Partitions" >> "${deskmanfile}"
+echo "+ '\$[gt.Show directories]' LaunchFileWithHelp ShowDirectories" >> "${deskmanfile}"
+echo "+ '\$[gt.Actions]' PopUp /Preferences/FileBrowser" >> "${deskmanfile}"
+echo "+ '\$[gt.Emplacement]' Popup /Preferences/DeskIconsPlace" >> "${deskmanfile}"
+echo "+ '\$[gt.Show on top with panels]' Popup /Preferences/DeskIconsTop" >> "${deskmanfile}"
+echo "" >> "${deskmanfile}"
+
+# EWMH borders {{{1
+# For each direction, we need to use the biggest border
+# of the reccipe, that button, and the magic button if present.
+# We want this button to be loaded last.
+# The magic button must know the border sizes of that button.
+# ${8} to ${11} are the magic buttons borders,
+# ${13} to ${16} are the recipe borders,
+if [ "$1" = "-" ]
+# recipe border > recipe border without button
+then if [ ${14} -gt 3 ]
+    # magic button border > recipe border without button
+    then if [ ${9} -gt 3 ]; then
+	    echo "EWMH-Panel-Right $((${14}+${9}+${ButtonWidth}))" >> "${deskmanfile}"
+	    # x placement of the button 
+	    ButtonXPlace=$((((${14}-3))+${9}+${ButtonWidth}))
+	else echo "EWMH-Panel-Right $((${14}+${ButtonWidth}))" >> "${deskmanfile}"
+	    ButtonXPlace=$((((${14}-3))+${ButtonWidth}))
+	fi
+    else if [ ${9} -gt 3 ]; then
+	    echo "EWMH-Panel-Right $((${9}+${ButtonWidth}))" >> "${deskmanfile}"
+	    ButtonXPlace=$((${9}+${ButtonWidth}))
+	else echo "EWMH-Panel-Right ${ButtonWidth}" >> "${deskmanfile}"
+	    ButtonXPlace=${ButtonWidth}
+	fi
+    fi
+    # opposite border
+    if [ ${13} -gt 3 ]; then
+	if [ ${8} -gt 3 ]; then
+	    echo "EWMH-Panel-Left $((${13}+${8}))" >> "${deskmanfile}"
+	else echo "EWMH-Panel-Left $((${13}))" >> "${deskmanfile}"
+	fi
+    else if [ ${8} -gt 3 ]; then
+	    echo "EWMH-Panel-Left ${8}" >> "${deskmanfile}"
+	else echo "EWMH-Panel-Left 3" >> "${deskmanfile}"
+	fi
+    fi
+    # borders for this button
+    echo "InfoStoreAdd EWMH_DI_Right ${ButtonWidth}" >> "${deskmanfile}"
+    echo "InfoStoreAdd EWMH_DI_Left 3" >> "${deskmanfile}"
+else if [ ${13} -gt 3 ]
+    then if [ ${8} -gt 3 ]; then
+	    echo "EWMH-Panel-Left $((${13}+${8}+${ButtonWidth}))" >> "${deskmanfile}"
+	    ButtonXPlace=$((${13}+${8}))
+	else echo "EWMH-Panel-Left $((${13}+${ButtonWidth}))" >> "${deskmanfile}"
+	    ButtonXPlace=${13}
+	fi
+    else if [ ${8} -gt 3 ]; then
+	    echo "EWMH-Panel-Left $((${8}+${ButtonWidth}))" >> "${deskmanfile}"
+	    ButtonXPlace=${8}
+	else echo "EWMH-Panel-Left ${ButtonWidth}" >> "${deskmanfile}"
+	    ButtonXPlace=3
+	fi
+    fi
+    # opposite border
+    if [ ${14} -gt 3 ]; then
+	if [ ${9} -gt 3 ]; then
+	    echo "EWMH-Panel-Right $((${14}+${9}))" >> "${deskmanfile}"
+	else echo "EWMH-Panel-Right $((${14}))" >> "${deskmanfile}"
+	fi
+    else if [ ${9} -gt 3 ]; then
+	    echo "EWMH-Panel-Right ${9}" >> "${deskmanfile}"
+	else echo "EWMH-Panel-Right 3" >> "${deskmanfile}"
+	fi
+    fi
+    echo "InfoStoreAdd EWMH_DI_Left ${ButtonWidth}" >> "${deskmanfile}"
+    echo "InfoStoreAdd EWMH_DI_Right 3" >> "${deskmanfile}"
+fi
+echo "" >> "${deskmanfile}"
+
+# The button {{{1
+echo "DestroyFunc ShowDesktopIcons" >> "${deskmanfile}"
+echo "AddToFunc ShowDesktopIcons" >> "${deskmanfile}"
+#echo "+ I GetIconsNumber" >> "${deskmanfile}"
+echo "+ I KillModule FvwmButtons DesktopIcons" >> "${deskmanfile}"
+echo "+ I DestroyModuleConfig DesktopIcons: *" >> "${deskmanfile}"
+if [ "$1" = "-" ]
+# widget at y center => y = (EWMHTop + ((vp.height - (EWMHTop + EWMHBottom + (IconsRowsNumber * 48))) / 2))
+	then echo "+ I *DesktopIcons: Geometry ${ButtonWidth}x$((${IconRowsNumber}*48))+$((${12}-${ButtonXPlace}))+$((${EWMHTop}+((((${6}-((${EWMHTop}+${EWMHBottom}+((${IconRowsNumber}*48))))))/2))))" >> "${deskmanfile}"
+	else echo "+ I *DesktopIcons: Geometry ${ButtonWidth}x$((${IconRowsNumber}*48))+${ButtonXPlace}+$((${EWMHTop}+((((${6}-((${EWMHTop}+${EWMHBottom}+((${IconRowsNumber}*48))))))/2))))" >> "${deskmanfile}"
+fi
+echo "+ I *DesktopIcons: Padding 1 1" >> "${deskmanfile}"
+echo "+ I *DesktopIcons: BoxSize Fixed" >> "${deskmanfile}"
+echo "+ I *DesktopIcons: Rows ${IconRowsNumber}" >> "${deskmanfile}"
+echo "+ I *DesktopIcons: Columns ${IconColumnsNumber}" >> "${deskmanfile}"
+echo "+ I *DesktopIcons: Font \"xft:${panel_font}:pixelsize=${panel_font_size}:${panel_font_style}\""  >> "${deskmanfile}"
+echo "+ I *DesktopIcons: Colorset ${2}" >> "${deskmanfile}"
+# Home
+echo "+ I *DesktopIcons: (1x1+0+0, Padding 1 1, Frame 0, Icon 48x48/categories/Home.png, ActiveIcon 48x48/categories/Home.png.active.png, Action (Mouse 1) \"${4} ${HOME} ${3}\", Action (Mouse 2) \"${5} /home/`id -un` ${3}\", Action (Mouse 3) \"Menu /Preferences/IconLauncher\")" >> "${deskmanfile}"
+# XDG user dirs
+if [[ "${ShowXDG}" == "yes" ]]
+	then xdgicons=""
+		for name in DESKTOP DOWNLOAD TEMPLATES PUBLICSHARE DOCUMENTS MUSIC PICTURES VIDEOS
+		do eval dir=\$$(echo XDG_"${name}"_DIR)
+			echo "DestroyMenu /XDG${name}"
+			echo "AddToMenu /XDG${name}"
+			echo "+ ${dir} Nop"
+			echo "+ I *DesktopIcons: (1x1, Padding 1 1, Frame 0, Icon 48x48/categories/${name}.png, ActiveIcon 48x48/categories/${name}.png.active.png, PressIcon 48x48/categories/${name}.png.active.png, Action (Mouse 1) \"${4} ${dir} ${3}\", Action(Mouse 2) \"${5} ${dir} ${3}\", Action (Mouse 3) \"Menu /XDG${name}\")" >> "${deskmanfile}"
+			xdgicons="${xdgicons} ${dir}"
+			y=++y
+		done
+		echo "InfoStoreAdd XDGIcons \"${xdgicons}\""
+fi
+# partitions
+if [[ "${ShowPartitions}" == "yes" ]]
+then partitions=""
+	while read -r line
+	do	quotedline="$(echo ${line} | sed -e 's:\\:\\\\:g')"
+		# menu with button 3
+		echo "DestroyMenu /Partitions${line}"
+		echo "AddToMenu /Partitions${line}"
+		echo "+ ${quotedline} Nop"
+#		echo "DesktopUmount ${quotedline}" # fail with '\' in partition names, so we do it here:
+		if [ "$(echo ${line} | grep -e media)" != "" ]
+		then 	exem="pumount"
+		else	if [ "$(mount | grep \"${line}\" | grep simple-mtpfs)" != "" ]
+			then exem="fusermount -u"
+			else exem="umount"
+			fi
+		fi
+		echo "+ \"\$[gt.Umount] ${quotedline}\" Exec exec ${exem} ${line}"
+
+		# icon
+		if [[ "${line}" == "'/'" ]]
+		then 	icon="48x48/categories/Root.png"
+		else 	if [[ "$(echo ${line} | grep -e cdrom -e dvd)" != "" ]]
+			then 	icon="48x48/categories/CD.png"
+			else	icon="48x48/categories/Work_4.png"
+			fi
+		fi
+		echo "+ I *DesktopIcons: (1x1, Padding 1 1, Frame 0, Icon ${icon}, ActiveIcon ${icon}.active.png, PressIcon ${icon}.active.png, Action (Mouse 1) \"${4} ${line} ${3}\", Action (Mouse 2) \"${5} ${line} ${3}\", Action (Mouse 3) \"Menu /Partitions${line}\")" >> "${deskmanfile}"
+      		partitions="${partitions} ${line}"
+	done <${7}
+      	echo "InfoStoreAdd PartitionModules \"${partitions}\""
+# We don't want a PipeRead that will block FVWM every 5 seconds
+pidof -x DesktopCheckMounts 1>/dev/null || echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
+else pidof -x DesktopCheckMounts 1>/dev/null && killall DesktopCheckMounts
+fi
+# directories
+# To work with spaces into the directories names, you must quote them with single quotes in ${FVWM_USERDIR}/preferences/ShowDirectories
+directories=""
+while read -r line
+do	echo "DestroyMenu /Directories${line}"
+	echo "AddToMenu /Directories${line}"
+	echo "+ ${line} Nop"
+	icon="48x48/categories/Yellow_Drawer.png"
+	echo "+ I *DesktopIcons: (1x1, Padding 1 1, Frame 0, ActiveTitle \"${line}\", Icon ${icon}, ActiveIcon ${icon}.active.png, PressIcon ${icon}.active.png, Action (Mouse 1) \"${4} ${line} ${3}\", Action (Mouse 2) \"${5} ${line} ${3}\", Action (Mouse 3) \"Menu /Directories${line}\")" >> "${deskmanfile}"
+	directories="${directories} ${line}" >> "${deskmanfile}"
+done <${FVWM_USERDIR}/preferences/ShowDirectories
+echo "+ I Style DesktopIcons !Borders" >> "${deskmanfile}"
+echo "+ I Module FvwmButtons DesktopIcons" >> "${deskmanfile}"
+
+echo "ShowDesktopIcons" >> "${deskmanfile}"

@@ -1,0 +1,312 @@
+# Russian translation for FVWM-Crystal
+# Copyright (C) 2008 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Maciej Delmanowski <harnir@post.pl>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal\n"
+"POT-Creation-Date: 2005-07-04 14:23+0100\n"
+"PO-Revision-Date: 2008-11-30 14:00+0300\n"
+"Last-Translator: Alexander Galanin <gaa.nnov@mail.ru>\n"
+"Language-Team: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=koi8-r\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "About FVWM-Crystal"
+msgstr "O FVWM-Crystal"
+
+msgid "Activate"
+msgstr "Сделать активным"
+
+#
+# Applications menu
+#
+msgid "Applications"
+msgstr "Программы"
+
+msgid "Button model"
+msgstr "Модель кнопок"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Clear playlist"
+msgstr "Очистить плейлист"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Colorsets"
+msgstr "Наборы цветов"
+
+msgid "Crossfade"
+msgstr "Наложение произведений"
+
+msgid "Default terminal"
+msgstr "Стандартный терминал"
+
+msgid "Delayed fullscreen"
+msgstr "Запоздалый полный экран"
+
+msgid "Desktop manager"
+msgstr "Менеджер десктопа"
+
+msgid "Destroy"
+msgstr "Уничтожить"
+
+msgid "Developer menu"
+msgstr "Меню разработчика"
+
+msgid "Everything"
+msgstr "Всё"
+
+msgid "Exit"
+msgstr "Выход"
+
+#
+# Screensaver menu
+#
+msgid "Force suspend"
+msgstr "Выключить скринсейвер"
+
+msgid "Frame"
+msgstr "Рамка"
+
+#
+# Screenshot menu
+#
+msgid "Fullscreen"
+msgstr "Полный экран"
+
+msgid "I am sure"
+msgstr "Я уверен"
+
+#
+# Window menus
+#
+msgid "Iconify"
+msgstr "Свернуть"
+
+msgid "Identify"
+msgstr "Идентифицировать"
+
+msgid "Jump to left page"
+msgstr "Переместиться на левую страницу"
+
+msgid "Jump to lower page"
+msgstr "Переместиться на страницу ниже"
+
+msgid "Jump to previous page"
+msgstr "Переместиться на предыдущую страницу"
+
+msgid "Jump to right page"
+msgstr "Переместиться на правую страницу"
+
+msgid "Jump to upper page"
+msgstr "Переместиться на страницу выше"
+
+msgid "Load playlist"
+msgstr "Загрузить плейлист"
+
+msgid "Lock screen"
+msgstr "Заблокировать экран"
+
+#
+# Exit menu
+#
+msgid "Logout"
+msgstr "Закончить сеанс"
+
+msgid "Maximize"
+msgstr "Растянуть"
+
+msgid "Maximize horizontally"
+msgstr "Растянуть по горизонтали"
+
+msgid "Maximize vertically"
+msgstr "Растянуть по вертикали"
+
+msgid "Move to left page"
+msgstr "Переместить влево"
+
+msgid "Move to lower page"
+msgstr "Переместить на страницу ниже"
+
+msgid "Move to page"
+msgstr "Переместить на страницу"
+
+msgid "Move to previous page"
+msgstr "Переместить на предыдущую страницу"
+
+msgid "Move to right page"
+msgstr "Переместить вправо"
+
+msgid "Move to upper page"
+msgstr "Переместить на страницу выше"
+
+#
+# Music menu
+#
+msgid "Music"
+msgstr "Музыка"
+
+msgid "Music player"
+msgstr "Аудиопроигрыватель"
+
+msgid "Name of the playlist"
+msgstr "Название плейлиста"
+
+msgid "New recipe will be used after next startup"
+msgstr "Новая схема будет использована при следующем запуске"
+
+msgid "None"
+msgstr "Пусто"
+
+msgid "Normal mode"
+msgstr "Обычный вид"
+
+msgid "Not now"
+msgstr "Не сейчас"
+
+msgid "Off"
+msgstr "Выключено"
+
+msgid "On"
+msgstr "Включено"
+
+msgid "Play/Pause"
+msgstr "Воспроизведение/Пауза"
+
+msgid "Player is stopped"
+msgstr "Проигрыватель остановлен"
+
+msgid "Playlist editor"
+msgstr "Редактор плейлиста"
+
+msgid "Preferences"
+msgstr "Настройки"
+
+msgid "Privileged terminals"
+msgstr "Привилегированные терминалы"
+
+msgid "QuakeConsole terminal"
+msgstr "Терминал для QuakeConsole"
+
+#
+# Wallpaper menu
+#
+msgid "Random"
+msgstr "Случайный порядок"
+
+msgid "Reboot computer"
+msgstr "Перезагрузить компьютер"
+
+msgid "Refresh"
+msgstr "Обновить"
+
+msgid "Remove current song"
+msgstr "Удалить текущее произведение"
+
+msgid "Remove playlist"
+msgstr "Удалить плейлист"
+
+msgid "Restart"
+msgstr "Перезагрузить"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Save playlist"
+msgstr "Сохранить плейлист"
+
+msgid "Save playlist..."
+msgstr "Сохранить плейлист"
+
+msgid "Screensaver"
+msgstr "Заставка"
+
+msgid "Screenshot"
+msgstr "Скриншот"
+
+msgid "Selected desktop manager will be used"
+msgstr "Выбрать используемый менеджер десктопа"
+
+msgid "Show/hide player"
+msgstr "Показать/Убрать плеер"
+
+msgid "Shuffle playlist"
+msgstr "Играть в случайном порядке"
+
+msgid "Start screensaver"
+msgstr "Запуск скринсейвера"
+
+msgid "Stay lowered"
+msgstr "Всегда внизу"
+
+msgid "Stay raised"
+msgstr "Всегда наверху"
+
+msgid "Stick"
+msgstr "Приклеить"
+
+msgid "Stop playback"
+msgstr "Стоп"
+
+msgid "Stop screensaver"
+msgstr "Пауза скринсейвера"
+
+#
+# String used in submenus (window decorations and colorsets)
+#
+msgid "System"
+msgstr "Системное меню"
+
+msgid "Take all free space"
+msgstr "Занять всё свободное пространство"
+
+msgid "Take all horizontal space"
+msgstr "Занять всё горизонтальное пространство"
+
+msgid "Take all vertical space"
+msgstr "Занять всё вертикальное пространство"
+
+msgid "Toggle random"
+msgstr "Включить случайный порядок воспроизведения"
+
+msgid "Toggle repeat"
+msgstr "Включить повтор"
+
+msgid "Turn off computer"
+msgstr "Выключить компьютер"
+
+msgid "Update database"
+msgstr "Обновить БД"
+
+#
+# Preferences menu
+#
+msgid "Used recipe"
+msgstr "Используемая схема"
+
+msgid "User"
+msgstr "Пользовательское меню"
+
+msgid "Volume"
+msgstr "Громкость"
+
+msgid "Wallpaper"
+msgstr "Обои"
+
+#
+# Main menu - usually found in recipes/*
+#
+msgid "Window decorations"
+msgstr "Декорации окон"
+
+msgid "Window focus policy"
+msgstr "Политика фокуса"
+
+msgid "at the next start of your X session"
+msgstr "при следующем старте Х-сессии"

@@ -1,0 +1,10 @@
+# Default desktop bindings
+
+Mouse 2 RI $[Mod0] -
+Mouse 2 RI $[Mod0]2 -
+
+# Toggle panel visibility on Alt+MMB
+Mouse 2 RI $[Mod0] Toggle-TopBar-OnTop
+Mouse 2 RI $[Mod0]2 Toggle-TopBar-OnTop
+
+# vim:ft=fvwm

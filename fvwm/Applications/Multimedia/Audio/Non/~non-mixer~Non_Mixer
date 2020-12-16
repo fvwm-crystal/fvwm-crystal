@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec /usr/bin/non-mixer $@ 2>/dev/null

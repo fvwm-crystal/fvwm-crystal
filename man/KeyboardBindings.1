@@ -1,0 +1,483 @@
+'\" t
+.\"     Title: KeyboardBindings
+.\"    Author: [see the "AUTHORS" section]
+.\" Generator: DocBook XSL Stylesheets v1.79.1 <http://docbook.sf.net/>
+.\"      Date: 04/12/2020
+.\"    Manual: FVWM-Crystal
+.\"    Source: KeyboardBindings 3.4.0
+.\"  Language: English
+.\"
+.TH "KEYBOARDBINDINGS" "1" "04/12/2020" "KeyboardBindings 3\&.4\&.0" "FVWM\-Crystal"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+KeyboardBindings \- FVWM\-Crystal Keyboard Bindings Reference
+.SH "SYNOPSIS"
+.sp
+None
+.SH "DESCRIPTION"
+.sp
+In this file you can find all keyboard bindings used in FVWM\-Crystal desktop\&.
+.SH "LEGEND:"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Alt \- Meta (Alt)
+Win_L \- Windows Left
+Win_R \- Windows Right
+Menu \- a "menu" key
+KP_ \- means that following key is on the numeric keyboard
+LMB \- Left Mouse Button
+RMB \- Right Mouse Button
+MMB \- Middle Mouse Button
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Preference menu \-> Key binding modifiers editor
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+let you change the key modifiers\&. It is necessary to quit and restart X for the changes to take effect\&. As exemple, if a software have a lot of bindings with the Alt key, you can reassign all the Mod1 fvwm\-crystal bindings to use another modifier like Win_L\&.
+.SH "TERMINAL WINDOWS:"
+.PP
+\fBAlt + ` (grave)\fR
+.RS 4
+Opens "QuakeConsole", a terminal similar to console available in FPP games, like Quake series\&. It\(cqs a normal terminal where you can launch commands\&. It stays on top of other windows, is visible on all desktops\&. When you press Alt+` again, it will roll up and hide, waiting for your next press of Alt+`, when it will show up again, so you can launch a command in this terminal and hide it\&.
+.RE
+.PP
+\fBAlt + Shift + ` (grave)\fR
+.RS 4
+It will open new terminal window, Aterm by default\&.
+.RE
+.PP
+\fBAlt + ;\fR
+.RS 4
+Opens FvwmConsole in the lower\-left corner of the screen, where you can issue FVWM commands, and sometimes see error messages\&. The same combination will hide/unhide it\&.
+.RE
+.SH "SYSTEM AND APPLICATIONS MENU:"
+.PP
+\fBAlt + Menu\fR or \fBAlt + Shift + Win_R\fR
+.RS 4
+Opens a small menu with all the menus from ApplicationPanel and Docklet\&. You can navigate the menu using cursor keys, or h, j, k, l, Escape cancels the selection, Enter selects a menu position\&.
+.RE
+.PP
+\fBAlt + Win_R\fR or \fBAlt + Shift + Menu\fR
+.RS 4
+Opens an /Applications menu which contains a list of available applications\&. You can use arrow keys or hjkl to move between menu entries, Enter to select an entry and Escape to close the menu\&.
+.RE
+.PP
+\fBAlt + A\fR
+.RS 4
+FVWM>2\&.6\&.5: Opens a XDG applications menu which contains a list of avaible applications\&. You can use the same keys than with the 2 other menus\&.
+.RE
+.SH "DESKTOP SWITCHING & MOVING WINDOWS BETWEEN DESKTOPS:"
+.PP
+\fBAlt + Escape\fR
+.RS 4
+Swiches between two last used pages of the desktop\&.
+.RE
+.PP
+\fBAlt + F1, F2, F3, F4, F5, F6, F7, F8\&. F9\fR
+.RS 4
+Switches to the selected page of the desktop, from 1 to 9 as selected in the preferences\&.
+.RE
+.PP
+\fBAlt + Shift + F1, F2, F3, F4, F5, F6, F7, F8, F9\fR
+.RS 4
+Moves active window to selected page, from 1 to 9\&.
+.RE
+.PP
+\fBAlt + [\fR
+.RS 4
+Go to the page on the left side of the current one\&.
+.RE
+.PP
+\fBAlt + ]\fR
+.RS 4
+Go to the page on the right side of the current one\&.
+.RE
+.PP
+\fBAlt + Shift + [\fR
+.RS 4
+Move the focused window to the page on the left side of the current one and go there\&.
+.RE
+.PP
+\fBAlt + Shift + ]\fR
+.RS 4
+Move the focused window to the page on the right side of the current one and go there\&.
+.RE
+.SH "WINDOW MOVEMENT ON A SINGLE DESKTOP:"
+.PP
+\fBAlt + h, j, k, l\fR
+.RS 4
+Move windows to selected screen edge, centered: j h k l
+.RE
+.PP
+\fBAlt + Shift + h, j, k, l\fR
+.RS 4
+Move windows to selected screen corner: h k j l
+.RE
+.PP
+\fBAlt + E\fR
+.RS 4
+Launch the Expose clone
+.RE
+.SH "WINDOW AND ICON LIST:"
+.PP
+\fBAlt + Tab\fR
+.RS 4
+Shows a list of opened windows on the current page, allows you to switch between them\&. Last active window will be at the end of the list, previously active window will be at the top \- that way quickly pressed and released Alt+Tab will switch between two last used windows\&.
+.RE
+.PP
+\fBAlt + Shift + Tab\fR
+.RS 4
+Shows a list of iconified windows, with thumbnails\&. After releasing Alt selected window will show up on the current page\&. Escape cancels this operation\&.
+.RE
+.SH "WINDOW RESIZER:"
+.PP
+\fBAlt + Shift + 1, 2, 3, 4, 5, 6, 7, 8, 9, 0\fR
+.RS 4
+Resizes currently focused window in different ways\&. Try it to see what happens :)
+.RE
+.PP
+\fBAlt + Shift + D\fR
+.RS 4
+Restore the original size and place again the windows\&.
+.RE
+.PP
+\fBAlt + Shift + F\fR
+.RS 4
+Toggle all non iconic windows on the current desktop page between full screen and non fullscreen\&.
+.RE
+.SH "MUSIC PLAYER AND AUDIO MIXER:"
+.PP
+\fBAlt + Z\fR
+.RS 4
+Selects prevouse track in music player\&.
+.RE
+.PP
+\fBAlt + X\fR
+.RS 4
+Starts playback in music player\&.
+.RE
+.PP
+\fBAlt + C\fR
+.RS 4
+Pauses playback in music player\&.
+.RE
+.PP
+\fBAlt + V\fR
+.RS 4
+Stops playback in music player\&.
+.RE
+.PP
+\fBAlt + B\fR
+.RS 4
+Selects next track in music player\&.
+.RE
+.PP
+\fBAlt + P\fR
+.RS 4
+Selects previous track ignoring "Shuffle" setting in music player\&.
+.RE
+.PP
+\fBAlt + N\fR
+.RS 4
+Selects next track ignoring "Shuffle" setting in music player\&.
+.RE
+.PP
+\fBAlt + ,\fR
+.RS 4
+Lowers the volume by 1\&.5 dB (with amixer by 1 hardware step)\&.
+.RE
+.PP
+\fBAlt + \&.\fR
+.RS 4
+Raises the volume by 1\&.5 dB (with amixer by 1 hardware step)\&.
+.RE
+.PP
+\fBAlt + Shift + ,\fR
+.RS 4
+Lowers the volume by 10 % (with amixer by 2 hardware steps)\&.
+.RE
+.PP
+\fBAlt + Shift + \&.\fR
+.RS 4
+Raises the volume by 10 % (with amixer by 2 hardware steps)\&.
+.RE
+.PP
+\fBAlt + / (slash)\fR
+.RS 4
+Activates the search function of the music player (currently only XMMS with XMMS\-Find)
+.RE
+.PP
+\fBAlt + Shift + / (slash)\fR
+.RS 4
+Toggles sequential/random playback
+.RE
+.PP
+\fBAlt + G\fR
+.RS 4
+Toggle the display of the media player\&. With mplayer, it will display the file name\&.
+.RE
+.PP
+\fBAlt + S\fR
+.RS 4
+Toggle the display of the audio mixer and QJackCtl\&.
+.RE
+.SH "MULTIMEDIA KEYS:"
+.sp
+Not all the media players/mixers support all the following bindings\&.
+.PP
+\fBXF86AudioRaiseVolume\fR
+.RS 4
+Volume up by 1\&.5 dB steps The 1\&.5 dB steps are true for a 24 bits sound card and alsamixer\&. It is an aproximation otherwise\&.
+.RE
+.PP
+\fBXF86AudioLowerVolume\fR
+.RS 4
+Volume down by 1\&.5 dB steps
+.RE
+.PP
+\fBCtrl + XF86AudioRaiseVolume\fR
+.RS 4
+Player speed up
+.RE
+.PP
+\fBCtrl + XF86AudioLowerVolume\fR
+.RS 4
+Player speed down
+.RE
+.PP
+\fBXF86AudioMute\fR
+.RS 4
+Toggle mute\&. When alsamixer or aumix is selected in the mixer preferences, the Master control, with fallback to PCM, will be (un)muted, and the prefered media player will be (un)paused\&. When another mixer is selected, only the prefered media player will be (un)paused\&.
+.RE
+.PP
+\fBCtrl + XF86AudioMute\fR
+.RS 4
+Toggle mute only alsamixer or aumix\&.
+.RE
+.PP
+\fBXF86AudioPlay\fR
+.RS 4
+Player frame step\&. Advance one frame or resume the pause\&.
+.RE
+.PP
+\fBAlt + XF86AudioPlay\fR
+.RS 4
+Use normal speed\&.
+.RE
+.PP
+\fBCtrl + XF86AudioPlay\fR
+.RS 4
+Pause\&.
+.RE
+.PP
+\fBAlt + XF86AudioStop\fR
+.RS 4
+Use normal speed
+.RE
+.PP
+\fBCtrl + XF86AudioStop\fR
+.RS 4
+Pause
+.RE
+.PP
+\fBXF86AudioNext\fR
+.RS 4
+Play next song\&.
+.RE
+.PP
+\fBXF86AudioPrev\fR
+.RS 4
+Play previous song\&.
+.RE
+.PP
+\fBXF86AudioMedia\fR
+.RS 4
+Show/hide the player\&.
+.RE
+.SH "NUMERIC KEYBOARD \- WINDOW FOCUS:"
+.PP
+\fBKP_1, KP_2, KP_3, KP_4, KP_6, KP_7, KP_8, KP_9\fR
+.RS 4
+Change focus in the selected direction from the currently focused window\&.
+.RE
+.PP
+\fBKP_5\fR
+.RS 4
+Switch focus between two closest windows on the current page\&.
+.RE
+.SH "NUMERIC KEYBOARD \- WINDOW MOVEMENT:"
+.PP
+\fBAlt + KP_1, KP_2, KP_3, KP_4, KP_5, KP_6, KP_7, KP_8, KP_9\fR
+.RS 4
+Move currently focused window to the selected part of the screen, corresponding to the numbers on the numeric keyboard\&. Pressing it twice very fast moves a window instantly\&.
+.RE
+.SH "NUMERIC KEYBOARD \- WINDOW CONTROLS:"
+.PP
+\fBKP_0\fR or \fBAlt + \- (substract)\fR
+.RS 4
+Raise currently focused window\&.
+.RE
+.PP
+\fBKP_\&.\fR or \fBAlt + \- (substract)\fR
+.RS 4
+Lower currently focused window\&.
+.RE
+.PP
+\fBKP_/\fR
+.RS 4
+Shade or unshade currently focused window\&.
+.RE
+.PP
+\fBAlt + KP_/\fR
+.RS 4
+Stick or unstick currently focused window\&.
+.RE
+.PP
+\fBKP_*\fR or \fBAlt + = (equal)\fR
+.RS 4
+Maximize currently focused window\&.
+.RE
+.PP
+\fBAlt + KP_*\fR or \fBAlt + Shift + = (equal)\fR
+.RS 4
+Make currently focused window a full\-screened window\&. It looses the titlebar and border and is maximized to the entire screen\&. Full\-screened window cannot be lowered but can be iconified\&. Pressing Alt+KP_* on the full\-screened window brings back the titlebar and border and resizes a window to it\(cqs previous size and position\&.
+.RE
+.PP
+\fBAlt + Shift + KP_*\fR
+.RS 4
+Switch focus between the different full\-screened windows of the current desktop page and the desktop\&.
+.RE
+.PP
+\fBAlt + KP_\-\fR or \fBAlt + Backspace\fR
+.RS 4
+Iconifies currently focused window (or makes a thumbnail)\&.
+.RE
+.PP
+\fBAlt + Shift + KP_\-\fR or \fBAlt + Shift + Backspace\fR
+.RS 4
+Closes currently focused window\&.
+.RE
+.PP
+\fBKP_+\fR
+.RS 4
+Moves window to the default layer, where are "normal" windows\&.
+.RE
+.PP
+\fBAlt + KP_+\fR
+.RS 4
+Moves window to the upper layer, where are "always on top" windows\&.
+.RE
+.PP
+\fBAlt + Shift + KP_+\fR
+.RS 4
+Moves window to the lower layer, where are "always at botton" windows\&.
+.RE
+.SH "OTHER FUNCTIONS:"
+.PP
+\fBPrint Screen\fR
+.RS 4
+Makes a screenshot of the entire desktop in \&.jpg format and puts it in
+\fI~/\&.fvwm/screenshots/\fR
+directory (by default)\&.
+.RE
+.PP
+\fBAlt + Home\fR
+.RS 4
+Move mouse cursor to "home position" \- top left corner of the screen\&.
+.RE
+.PP
+\fBAlt + O\fR
+.RS 4
+Shut down the screen\&.
+.RE
+.SH "NOTE:"
+.sp
+If you want to modify some bindings, the best place is to put them into ~/\&.fvwm\-crystal/userconfig
+.sp
+That file will be read at the very end of Fvwm\-Crystal startup and restart\&. That way, your changes will not be lost after an update, and they will be read after all the other configuration settings\&.
+.sp
+In case you want to reassign an existing binding to another key, the best practice is to unassign the old key and assign the new one\&. As example:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Key grave A $[Mod1] \-
+Key grave A $[Mod1]2 \-
+Key Q A $[Mod1] QuakeConsole
+Key Q A $[Mod1]2 QuakeConsole
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+will unassign Fvwm\-Crystal binding (Alt + `) that launch the QuakeConsole and assign it to (Alt + Q)\&.
+.sp
+To reassign another function to an existing binding, it is just to reassign the binding\&. As example:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Key grave A $[Mod1] MyFunction
+Key grave A $[Mod1]2 MyFunction
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+will reassign the QuakeConsole binding (Alt + `) to MyFunction\&. The first binding is for use without NumLock, the second one is for use with NumLock (The 2 after $[Mod1])\&.
+.sp
+For the signification of the modifiers, read the key and mouse commands description into man fvwm, as well than the output of
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+less "${FVWM_SYSTEMDIR}"/components/functions/Keyboard\-Modifiers
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+while FVWM\-Crystal is running\&.
+.SH "AUTHORS"
+.sp
+Documentation written by Maciej Delmanowski <harnir@berlios\&.de>, updated and ported to asciidoc by Dominique Michel <dominique_libre@users\&.sourceforge\&.net>
+.SH "COPYRIGHT"
+.sp
+\fBFVWM\-Crystal\fR and all the scripts and other files coming with the distribution are subject to the GNU General Public License (GPL)\&. Please refer to the COPYING file that came with \fBFVWM\-Crystal\fR for details\&.
+.SH "BUGS"
+.sp
+Bug reports can be sent to the fvwm\-crystal\-users mailing list at https://mail\&.gna\&.org/listinfo/fvwm\-crystal\-users/\&.

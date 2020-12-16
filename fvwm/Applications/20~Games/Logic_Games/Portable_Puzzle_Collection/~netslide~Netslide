@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec netslide $@ 2>/dev/null
+

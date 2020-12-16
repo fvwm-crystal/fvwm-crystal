@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gnome-system-monitor $@ 2>/dev/null
+

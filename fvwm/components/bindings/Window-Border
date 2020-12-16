@@ -1,0 +1,13 @@
+# Window border - can be used for resizing (if you are bored enough to try and
+# catch 1 pixel border... ;)
+
+Mouse 0 _ $[Mod] Window-Resize-Opaque S
+Mouse 0 - $[Mod] Window-Resize-Opaque N
+Mouse 0 [ $[Mod] Window-Resize-Opaque W
+Mouse 0 ] $[Mod] Window-Resize-Opaque E
+Mouse 0 < $[Mod] Window-Resize-Opaque NW
+Mouse 0 ^ $[Mod] Window-Resize-Opaque NE
+Mouse 0 > $[Mod] Window-Resize-Opaque SE
+Mouse 0 V $[Mod] Window-Resize-Opaque SW
+
+# vim:ft=fvwm

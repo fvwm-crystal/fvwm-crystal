@@ -1,0 +1,317 @@
+# Custom button bar préférences menu for FVWM-Crystal
+#
+# Version:	1.0.2
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	<04/19/2016>
+# Changed:	<09/05/2019>
+#
+# Description:	provide the preferences menu for the custom button bar in
+# FVWM-Crystal.
+
+# To include the magic button menu into a recipe:
+#	Include components/functions/CustomButtonBar-Menu
+# Load the magic button:
+#	Include tmp/CustomButtonBar
+# Generate the button, normaly not needed, but if a previously screwed up button
+# is in tmp/CustomButtonBar, to generate a new one and load it:
+#	GenerateCustomButtonBar
+
+# TODO:
+#	(- add support to change the icons order and to remove them, for now with $EDITOR)
+#	(- handles to move it)
+#	(- pref to integrate it into the recipes)
+#	(- tears off pref menu confuses the button, fix it.
+#	(- when a launcher is present 2 times, a click to remove one of them removes the 2. Fix it.
+
+LoadPreferences CustomButtonBarLocation
+LoadPreferences CustomButtonSize
+LoadPreferences CustomButtonBarToggle
+LoadPreferences CustomButtonClock
+LoadPreferences CustomButtonCpuTemp
+LoadPreferences CustomButtonAcpiBatt
+LoadPreferences CustomButtonCpuFreq
+LoadPreferences CustomButtonPager
+
+#Generate the temporary files
+PipeRead "if [ ! -e $[FVWM_USERDIR]/tmp/CustomBarApplications ]; \
+	then $[FVWM_SYSTEMDIR]/scripts/CustomButtonBar/CustomButtonBarMenu; fi; \
+	if [ ! -e $[FVWM_USERDIR]/tmp/CustomButtonBar ]; \
+	then $[FVWM_SYSTEMDIR]/scripts/CustomButtonBar/CustomButtonBar $[vp.width] $[vp.height] $[infostore.CustomBarLocation] $[infostore.CustomButtonSize] \
+	    $[infostore.CustomButtonClock] $[infostore.CustomButtonCpuTemp] $[infostore.CustomButtonAcpiBatt] $[infostore.CustomButtonCpuFreq] \
+	    $[infostore.CustomButtonPager] $[infostore.Desk_Pages_X] $[infostore.NotificationAreaManager] \
+	    $[infostore.EWMH_DI_Left] $[infostore.EWMH_DI_Right] $[infostore.EWMH_DI_Top] $[infostore.EWMH_DI_Bottom]; fi"
+
+# Load the menu
+Include tmp/CustomBarApplications
+
+# Preferences
+DestroyFunc ButtonClockPref
+AddToFunc ButtonClockPref
++ I InfoStoreAdd CustomButtonClock $0
++ I SavePreferences CustomButtonClock "InfoStoreAdd CustomButtonClock $0"
++ I GenerateCustomButtonBar
+
+DestroyMenu /CustomButtonClock
+AddToMenu /CustomButtonClock
++ '$[gt.Normal]' ButtonClockPref Clock
++ '$[gt.24 hours]' ButtonClockPref Clock-24h
++ '$[gt.Small]' ButtonClockPref Clock-small
++ '$[gt.Small + date]' ButtonClockPref Clock-small_date
++ '$[gt.24 hours small + date]' ButtonClockPref Clock-24h-small_date
++ '$[gt.Off]' ButtonClockPref no
+
+DestroyFunc ButtonAcpiBattPref
+AddToFunc ButtonAcpiBattPref
++ I InfoStoreAdd CustomButtonAcpiBatt $0
++ I SavePreferences CustomButtonAcpiBatt "InfoStoreAdd CustomButtonAcpiBatt $0"
++ I GenerateCustomButtonBar
+
+DestroyMenu /CustomButtonAcpiBatt
+AddToMenu /CustomButtonAcpiBatt
++ '$[gt.On]' ButtonAcpiBattPref AcpiBatt
++ '$[gt.Off]' ButtonAcpiBattPref off
+
+DestroyFunc ButtonCpuTempPref
+AddToFunc ButtonCpuTempPref
++ I InfoStoreAdd CustomButtonCpuTemp $0
++ I SavePreferences CustomButtonCpuTemp "InfoStoreAdd CustomButtonCpuTemp $0"
++ I GenerateCustomButtonBar
+
+DestroyMenu /CustomButtonCpuTemp
+AddToMenu /CustomButtonCpuTemp
++ '$[gt.On]' ButtonCpuTempPref CpuTemp
++ '$[gt.Off]' ButtonCpuTempPref off
+
+DestroyFunc ButtonCpuFreqPref
+AddToFunc ButtonCpuFreqPref
++ I InfoStoreAdd CustomButtonCpuFreq $0
++ I SavePreferences CustomButtonCpuFreq "InfoStoreAdd CustomButtonCpuFreq $0"
++ I GenerateCustomButtonBar
+
+DestroyMenu /CustomButtonCpuFreq
+AddToMenu /CustomButtonCpuFreq
++ '$[gt.Normal]' ButtonCpuFreqPref CpuFreq
++ '$[gt.Small]' ButtonCpuFreqPref CpuFreq-small
++ '$[gt.Off]' ButtonCpuFreqPref off
+
+DestroyFunc ButtonPagerPref
+AddToFunc ButtonPagerPref
++ I InfoStoreAdd CustomButtonPager $0
++ I SavePreferences CustomButtonPager "InfoStoreAdd CustomButtonPager $0"
++ I GenerateCustomButtonBar
+
+DestroyMenu /CustomButtonPager
+AddToMenu /CustomButtonPager
++ '$[gt.On]' ButtonPagerPref Pager
++ '$[gt.Off]' ButtonPagerPref off
+
+# Save 1 preference; it is simpler to have the preferences function here;
+# modified version of AppendPreferences.
+DestroyFunc AddCustomButton
+AddToFunc AddCustomButton
++ I PipeRead 'PrefFile="$[FVWM_USERDIR]/preferences/CustomButtonBar"; \
+	touch ${PrefFile}; sed \'$[infostore.CurrentCustomButton]a\\$*\' -i ${PrefFile}; \
+	sed -i s:48x48:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}; \
+	sed -i s:32x32:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}; \
+	sed -i s:22x22:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}'
++ I GenerateCustomButtonBar
+
+DestroyFunc DeleteThatButton
+AddToFunc DeleteThatButton
++ I PipeRead 'sed "\\:^$0:d" -i $[FVWM_USERDIR]/preferences/CustomButtonBar'
++ I GenerateCustomButtonBar
+
+# The button size
+DestroyFunc ButtonSmallSize
+AddToFunc ButtonSmallSize
++ I InfoStoreAdd CustomButtonSize 22
++ I SavePreferences CustomButtonSize "InfoStoreAdd CustomButtonSize 22
++ I PipeRead "sed -i s:48x48:22x22: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I PipeRead "sed -i s:32x32:22x22: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I GenerateCustomButtonBar
+
+DestroyFunc ButtonMediumSize
+AddToFunc ButtonMediumSize
++ I InfoStoreAdd CustomButtonSize 32
++ I SavePreferences CustomButtonSize "InfoStoreAdd CustomButtonSize 32
++ I PipeRead "sed -i s:48x48:32x32: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I PipeRead "sed -i s:22x22:32x32: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I GenerateCustomButtonBar
+
+DestroyFunc ButtonBigSize
+AddToFunc ButtonBigSize
++ I InfoStoreAdd CustomButtonSize 48
++ I SavePreferences CustomButtonSize "InfoStoreAdd CustomButtonSize 48
++ I PipeRead "sed -i s:32x32:48x48: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I PipeRead "sed -i s:22x22:48x48: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I GenerateCustomButtonBar
+
+DestroyMenu /CustomButtonSize
+AddToMenu /CustomButtonSize
++ '$[gt.Small]' ButtonSmallSize
++ '$[gt.Medium]' ButtonMediumSize
++ '$[gt.Big]' ButtonBigSize
+
+DestroyFunc ToggleButtonBarOn
+AddToFunc  ToggleButtonBarOn
++ I InfoStoreAdd CustomBarToggle On
++ I EdgeLeaveCommand
++ I EdgeLeaveCommand $[infostore.CustomBarLocation] Panel-Toggle-OnTop
++ I SavePreferences CustomButtonBarToggle "InfoStoreAdd CustomBarToggle On"
+
+DestroyFunc ToggleButtonBarOff
+AddToFunc  ToggleButtonBarOff
++ I InfoStoreAdd CustomBarToggle Off
++ I EdgeLeaveCommand
++ I SavePreferences CustomButtonBarToggle "InfoStoreAdd CustomBarToggle Off"
+
+DestroyMenu /ToggleButtonBar
+AddToMenu /ToggleButtonBar
++ '$[gt.On]' ToggleButtonBarOn
++ '$[gt.Off]' ToggleButtonBarOff
+
+DestroyFunc GenerateCustomButtonMenu
+AddToFunc GenerateCustomButtonMenu
++ I PipeRead "$[FVWM_SYSTEMDIR]/scripts/CustomButtonBar/CustomButtonBarMenu
++ I Include tmp/CustomBarApplications
+
+DestroyFunc ToggleButtonBarAuto
+AddToFunc ToggleButtonBarAuto
++ I EdgeLeaveCommand
++ I Test (EnvMatch infostore.CustomBarToggle On) EdgeLeaveCommand $[infostore.CustomBarLocation] Panel-Toggle-OnTop
+
+DestroyFunc GenerateCustomButtonBar
+AddToFunc GenerateCustomButtonBar
++ I ToggleButtonBarAuto
++ I PipeRead "$[FVWM_SYSTEMDIR]/scripts/CustomButtonBar/CustomButtonBar $[vp.width] $[vp.height] $[infostore.CustomBarLocation] $[infostore.CustomButtonSize] \
+	$[infostore.CustomButtonClock] $[infostore.CustomButtonCpuTemp] $[infostore.CustomButtonAcpiBatt] $[infostore.CustomButtonCpuFreq] \
+	$[infostore.CustomButtonPager] $[infostore.Desk_Pages_X] $[infostore.NotificationAreaManager] \
+	$[infostore.EWMH_DI_Left] $[infostore.EWMH_DI_Right] $[infostore.EWMH_DI_Top] $[infostore.EWMH_DI_Bottom]"
++ I Include tmp/CustomButtonBar
+
+All (CustomButtonBar-Dialog) Close
+DestroyModuleConfig CustomButtonBar-Dialog: *
+*CustomButtonBar-Dialog: Title "$[gt.Custom Button Bar]"
+*CustomButtonBar-Dialog: Text "$[gt.You are editing the file]"
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Text "$[FVWM_USERDIR]/Preferences/CustomButtonBar"
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Text "$[gt.Each line has the following format:]"
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Text "$[gt.icon name command]"
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Text "$[gt.where icon is the icon used for the button,]"
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Text "$[gt.name is the button name]"
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Text "$[gt.and command will be launched by the button.]"
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Text "$[gt.icon and name must have no space,]"
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Text "$[gt.command can have spaces.]"
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Line center
+*CustomButtonBar-Dialog: Button quit " $[gt.OK] " ^[
+*CustomButtonBar-Dialog: Command Nop
+*CustomButtonBar-Dialog: Line center
+
+DestroyFunc EditCustomPref
+AddToFunc EditCustomPref
++ I A $[EDITOR] $[FVWM_USERDIR]/preferences/CustomButtonBar
++ I Module FvwmForm CustomButtonBar-Dialog
+
+# Custom button bar location
+DestroyMenu /FVWM-CustomBarLocation
+AddToMenu /FVWM-CustomBarLocation
++ '$[gt.Left]' CustomBarLocationLeft
++ '$[gt.Right]' CustomBarLocationRight
++ '$[gt.Up]' CustomBarLocationUp
++ '$[gt.Down]' CustomBarLocationDown
+
+DestroyFunc CustomBarLocationLeft
+AddToFunc CustomBarLocationLeft
++ I InfoStoreAdd CustomBarLocation Left
++ I SavePreferences CustomButtonBarLocation "InfoStoreAdd CustomBarLocation Left"
++ I GenerateCustomButtonBar
+
+DestroyFunc CustomBarLocationRight
+AddToFunc CustomBarLocationRight
++ I InfoStoreAdd CustomBarLocation Right
++ I SavePreferences CustomButtonBarLocation "InfoStoreAdd CustomBarLocation Right"
++ I GenerateCustomButtonBar
+
+DestroyFunc CustomBarLocationUp
+AddToFunc CustomBarLocationUp
++ I InfoStoreAdd CustomBarLocation Top
++ I SavePreferences CustomButtonBarLocation "InfoStoreAdd CustomBarLocation Top"
++ I GenerateCustomButtonBar
+
+DestroyFunc CustomBarLocationDown
+AddToFunc CustomBarLocationDown
++ I InfoStoreAdd CustomBarLocation Bottom
++ I SavePreferences CustomButtonBarLocation "InfoStoreAdd CustomBarLocation Bottom"
++ I GenerateCustomButtonBar
+
+
+# Use DynamicPopUpAction; the menu can be redifined into the recipe
+DestroyMenu /FVWM-CustomButtonMenu
+AddToMenu /FVWM-CustomButtonMenu
++ '%32x32/categories/Settings.png%$[gt.Custom bar location]' Popup /FVWM-CustomBarLocation
++ '%32x32/categories/Settings.png%$[gt.Button size]' Popup /CustomButtonSize
++ '%32x32/categories/Settings.png%$[gt.Toggle bar with mouse on same border]' Popup /ToggleButtonBar
++ '%32x32/categories/Settings.png%$[gt.Preferences editor]' EditCustomPref
++ '%32x32/categories/Settings.png%$[gt.Generate this Menu]' GenerateCustomButtonMenu
++ '%32x32/categories/Settings.png%$[gt.Generate the custom buttons bar]' GenerateCustomButtonBar
++ "" Nop
++ "" Nop
++ '$[gt.Choose an applet to add:]
++ "" Nop
++ '%32x32/fvwm-crystal/applications.png%$[gt.Clock]' Popup /CustomButtonClock
++ '%32x32/fvwm-crystal/applications.png%$[gt.ACPI battery]' Popup /CustomButtonAcpiBatt
++ '%32x32/fvwm-crystal/applications.png%$[gt.CPU temperature]' Popup /CustomButtonCpuTemp
++ '%32x32/fvwm-crystal/applications.png%$[gt.CPU frequency]' Popup /CustomButtonCpuFreq
++ '%32x32/fvwm-crystal/applications.png%$[gt.Pager]' Popup /CustomButtonPager
++ "" Nop
++ "" Nop
++ '$[gt.Choose a menu entry to add it as a button:]
++ "" Nop
++ '%32x32/fvwm-crystal/audio-x-generic.png%$[gt.Music]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/audio-x-generic.png%$[gt.Music]%Popup /Music
++ "" Nop
++ '%32x32/categories/help.png%$[gt.FVWM-Crystal documentation]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/categories/help.png%$[gt.FVWM-Crystal documentation]%Popup /Developer/FVWM-Crystal-Documentation
++ "" Nop
++ '%32x32/fvwm-crystal/preferences-desktop-screensaver.png%$[gt.Screensaver]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/preferences-desktop-screensaver.png%$[gt.Screensaver]%Popup /Screensaver
++ '%32x32/fvwm-crystal/camera-photo.png%$[gt.Screenshot]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/camera-photo.png%$[gt.Screenshot]%Popup /Screenshot
++ "" Nop
++ '%32x32/fvwm-crystal/preferences-desktop-theme.png%$[gt.Window decorations]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/preferences-desktop-theme.png%$[gt.Window decorations]%Popup /Window-Decorations
++ '%32x32/fvwm-crystal/colorsets.png%$[gt.Colorsets]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/colorsets.png%$[gt.Colorsets]%Popup /Colorsets
++ '%32x32/fvwm-crystal/preferences-desktop-wallpaper.png%$[gt.Wallpaper]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/preferences-desktop-wallpaper.png%$[gt.Wallpaper]%Popup /Wallpaper
++ '%32x32/fvwm-crystal/preferences-desktop.png%$[gt.Preferences]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/preferences-desktop.png%$[gt.Preferences]%Popup /Preferences
++ "" Nop
++ '%32x32/fvwm-crystal/applications-development.png%$[gt.Developer menu]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/applications-development.png%$[gt.Developer menu]%Popup /Developer
++ '%32x32/fvwm-crystal/Jewel.png%$[gt.About FVWM-Crystal]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/Jewel.png%$[gt.About FVWM-Crystal]%Include components/functions/About
+#+ MissingSubmenuFunction FuncFvwmMenuXephyrDirectory
+#+ '%32x32/fvwm-crystal/gdm-xnest.png%$[gt.Nested sessions]' Popup /usr/share/xsessions
++ '%32x32/fvwm-crystal/system-log-out.png%$[gt.Exit]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/system-log-out.png%$[gt.Exit]%Popup /Exit
++ '%32x32/fvwm-crystal/applications.png%$[gt.Applications]' Popup /CustomBarMenu
+
+# Fuctions to call /FVWM-CustomButtonMenu from the buttons
+# To add a button after the current one, we need to know the button number,
+# which correspond to the line number into the preference file.
+DestroyFunc ShowCustomButtonMenu
+AddToFunc ShowCustomButtonMenu
++ I InfoStoreAdd CurrentCustomButton $0
++ I Menu /FVWM-CustomButtonMenu $[1-]
+
+# }}}2 modeline {{{1
+# vim:foldmethod=marker:foldenable:foldlevel=0:ft=fvwm

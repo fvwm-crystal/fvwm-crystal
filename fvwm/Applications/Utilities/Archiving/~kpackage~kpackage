@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kpackage $@ 2>/dev/null
+

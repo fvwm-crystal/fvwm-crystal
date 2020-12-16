@@ -1,0 +1,42 @@
+#!/bin/bash
+
+if [[ "$(echo $FVWM_USERDIR)" == "" ]]
+then
+    echo "Please, run this script when fvwm-crystal is running."
+    echo "As an alternative, you may define \$FWVM_USERDIR and re-run this script:"
+    exit 1
+fi
+
+usage() {
+echo "Welcome! this is the little help of $0."
+echo ""
+echo "usage: $0 <file> <name>"
+echo ""
+echo "where <file> is the icon file you want to make application icons from. It must be into the current directory, or its full path must be provided,"
+echo "and <name> is the application name (icon name without its extension)."
+echo "The application icons will be created in ${FVWM_USERDIR}/icons/Default/*/apps."
+echo "The directories ${FVWM_USERDIR}/icons/Default/*/apps will be created if they don't exist, that for the 3 supported icons sizes, 22x22, 32x32 and 48x48."
+}
+
+ICNAME=$(echo "$2").png
+#echo $ICNAME
+
+makeicon() {
+    for ICPATH in 22x22 32x32 48x48
+    do
+	mkdir -p "${FVWM_USERDIR}/icons/Default/${ICPATH}/apps"
+	echo "Creating ${ICNAME}"
+	convert -resize ${ICPATH} "$1" "${FVWM_USERDIR}/icons/Default/${ICPATH}/apps/${ICNAME}"
+        convert "${FVWM_USERDIR}/icons/Default/${ICPATH}/apps/${ICNAME}" -strip -resize ${ICPATH} "${FVWM_USERDIR}/icons/Default/${ICPATH}/apps/${ICNAME}"
+        convert "${FVWM_USERDIR}/icons/Default/${ICPATH}/apps/${ICNAME}" -strip -resize ${ICPATH} "${FVWM_USERDIR}/icons/Default/${ICPATH}/apps/${ICNAME}"
+        convert "${FVWM_USERDIR}/icons/Default/${ICPATH}/apps/${ICNAME}" -strip -resize ${ICPATH} "${FVWM_USERDIR}/icons/Default/${ICPATH}/apps/${ICNAME}"
+    done
+}
+
+if [ -z "$2" ]
+then
+    usage
+else
+    makeicon "$1" "$2"
+fi
+exit 0

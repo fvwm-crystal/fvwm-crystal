@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec dillo $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'A wavemon $@ 2>/dev/null'
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ${BROWSER} http://localhost:631/ $@ 2>/dev/null
+

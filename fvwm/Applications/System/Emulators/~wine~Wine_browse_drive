@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec xdg-open "$HOME/.wine/dosdevices/c:" $@ 2>/dev/null

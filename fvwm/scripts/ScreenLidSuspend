@@ -1,0 +1,19 @@
+#!/bin/bash
+
+lidsleeppm() {
+	while :
+	do
+	    sleep 5
+	    grep -q closed /proc/acpi/button/lid/*/state
+	    if [ $? = 0 ]; then
+		if [[ $1 == pm ]]; then
+		    sudo /usr/sbin/pm-suspend-hybrid
+		fi
+		if [[ $1 == sys ]]; then
+		    systemctl hybrid-sleep -i
+		fi
+	    fi
+	done
+}
+
+lidsleeppm $1

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kdenlive $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gspeakers $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec hydrogen $@ 2>/dev/null
+

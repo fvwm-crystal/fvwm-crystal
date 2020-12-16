@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kpresenter $@ 2>/dev/null
+

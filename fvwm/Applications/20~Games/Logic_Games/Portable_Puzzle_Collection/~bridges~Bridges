@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec bridges $@ 2>/dev/null
+

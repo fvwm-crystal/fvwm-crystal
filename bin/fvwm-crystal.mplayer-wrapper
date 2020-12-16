@@ -1,0 +1,34 @@
+#!/bin/bash
+# 
+# mplayer wrapper for FVWM-Crystal
+# Written by Dominique Michel <dominique_libre@users.sourceforge.net>
+#
+# This file is used by Music-mplayer to control this player.
+#
+# syntax: 
+# fvwm-crystal.mplayer-wrapper <type> <user id> <file>
+# where 
+# type is one of "list", "file" or "dvd"
+# user id is the ouput of "id -un"
+# file is the file to send to mplayer (don't apply with "dvd")
+#
+# The 1 in the loadfile command is to append the playlist/file.
+# If you want to replace it, replace the 1 by 0.
+
+if [[ "$1" == "list" ]]; then
+    echo "loadlist \"$3\" 1" > /home/"$2"/.mplayer/pipe
+else
+    if [[ "$1" == "file" ]]; then
+	echo "loadfile \"$3\" 1" > /home/"$2"/.mplayer/pipe
+    else
+	if [[ "$1" == "dvd" ]]; then
+	dvdtitles=`midentify dvd:// | grep ID_DVD_TITLES | sed -ne "s:ID_DVD_TITLES=::p"`
+	count=1
+	dvdpath="dvd://"
+	while [[ "$count" -le "$dvdtitles" ]]; do
+	    echo "loadfile "$dvdpath""$count" 1" > /home/"$2"/.mplayer/pipe
+	    count=$(($count+1))
+	done
+	fi
+    fi
+fi

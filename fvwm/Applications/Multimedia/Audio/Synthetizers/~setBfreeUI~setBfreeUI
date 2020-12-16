@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec setBfreeUI $@ 2>/dev/null

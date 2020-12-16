@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# the new way ro start and control jack
+cadence-session-start --maybe-system-start
+
+cadence

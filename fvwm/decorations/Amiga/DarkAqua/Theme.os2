@@ -1,0 +1,44 @@
+# OS/2 version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle InActive Colorset $[infostore.cs_window_inactive]
++ TitleStyle Active Colorset $[infostore.cs_window_active]
++ TitleStyle LeftJustified
++ TitleStyle -- flat
+PipeRead 'echo "+ TitleStyle Height $(($[title_font_size]+$(($[title_font_size]/3))))"'
+
++ BorderStyle -- Raised
+
++ ButtonStyle 1 Vector 4 98x98@0 99x2@0 2x2@1 2x98@1 98x98@0
++ AddButtonStyle 1 Vector 5 40x24@1 60x24@1 60x76@0 40x76@0 40x24@1
+
++ ButtonStyle 2 Vector 4 98x98@0 99x2@0 2x2@1 2x98@1 98x98@0
++ AddButtonStyle 2 Vector 5 87x87@0 27x87@0 27x27@1 87x27@1 87x87@0
++ AddButtonStyle 2 Vector 5 70x27@1 70x11@1 11x11@0 11x72@0 27x72@1
+
++ ButtonStyle 3 MiniIcon
+
++ ButtonStyle 4 Vector 4 98x98@0 99x2@0 2x2@1 2x98@1 98x98@0
++ AddButtonStyle 4 Vector 5 87x87@1 87x11@1 11x11@0 11x87@0 87x87@1
++ AddButtonStyle 4 Vector 5 33x55@0 33x11@0 11x11@1 11x55@1 33x55@0
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- flat
+
+Style * HandleWidth 1, BorderWidth 1
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactive], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_active]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-os2-MiniIcon

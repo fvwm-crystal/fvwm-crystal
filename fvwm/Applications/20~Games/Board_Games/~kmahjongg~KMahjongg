@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kmahjongg $@ 2>/dev/null
+

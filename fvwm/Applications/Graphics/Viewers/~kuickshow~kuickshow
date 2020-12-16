@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kuickshow $@ 2>/dev/null
+

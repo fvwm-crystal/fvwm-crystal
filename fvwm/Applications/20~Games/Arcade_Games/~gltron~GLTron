@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gltron $@ 2>/dev/null
+

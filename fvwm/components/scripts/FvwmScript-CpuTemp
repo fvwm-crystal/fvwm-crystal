@@ -1,0 +1,83 @@
+#
+# LiNiO <linio@wonder.pl> - 2005.01.15
+# 2005.08.12 - jeśli wartość się nie zmieniła, nie wyświetla jej ponownie - usunięcie efektu "migotania"
+#
+# o 2015.10.02 - Use same colorset than the AcpiBatt applet
+#   Dominique Michel <dominique.c.michel@gmail.com>
+
+UseGettext {$FVWM_USERDIR/locale;fvwm-crystal-script:$FVWM_SYSTEMDIR/locale;fvwm-crystal-script:+}
+WindowTitle {FvwmScript-CpuTemp}
+WindowSize 48 24
+WindowPosition 10000 10000
+Font "xft:Tahoma:pixelsize=12:Bold"
+Colorset 12
+
+Init
+Begin
+  Set $temp_prev = 1
+  Set $temp = (GetOutput {for i in /sys/class/hwmon/hwmon*/temp1_input; do sed 's:...$::' <$i; break; done} 1 1)
+  Set $degree = (Gettext {°C})
+  Set $tmp = $temp $degree
+  ChangeTitle 1 $tmp
+End
+
+PeriodicTasks
+Begin 
+ If (RemainderOfDiv (GetTime) 2)==0 Then
+ Begin
+  Set $temp = (GetOutput {for i in /sys/class/hwmon/hwmon*/temp1_input; do sed 's:...$::' <$i; break; done} 1 1) 
+  Set $degree = (Gettext {°C})
+  Set $tmp = $temp $degree
+
+  If $temp==$temp_prev Then
+  Begin
+    # do nothing
+  End
+  Else
+  Begin
+
+    If $temp>89 Then
+      ChangeColorset 1 17
+    Else
+      Begin
+      If $temp>79 Then
+        ChangeColorset 1 16
+      Else
+        Begin
+        If $temp>69 Then
+          ChangeColorset 1 15
+        Else
+          Begin
+          If $temp>59 Then
+            ChangeColorset 1 14
+          Else
+  	  Begin
+            If $temp>49 Then
+              ChangeColorset 1 13
+            Else
+              ChangeColorset 1 12
+            End
+          End
+        End
+      End
+      
+      ChangeTitle 1 $tmp
+    End
+  Set $temp_prev = $temp
+  End
+End
+
+Widget 1
+Property
+Position 0 -2
+Size 48 24
+Type ItemDraw
+Flags NoReliefString
+Title {}
+Colorset 12
+Main
+Case message of
+ SingleClic :
+ Begin
+ End
+End

@@ -1,0 +1,2819 @@
+# Western Frisian translation for FVWM-Crystal
+# Copyright (C) 2015 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Original by Alwin <translations@ziggo.nl>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal 3.4.0 (rev. 797)\n"
+"POT-Creation-Date: 2015-11-24 16:26+0100\n"
+"PO-Revision-Date: 2015-11-24 00:00+0000\n"
+"Last-Translator: Alwin <translations@ziggo.nl>\n"
+"Language-Team: Western Frisian\n"
+"Language: fy\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../../bin/fvwm-crystal.generate-menu:314
+#: ../fvwm/Applications/Multimedia/
+msgid "Audio"
+msgstr "Audio"
+
+#: ../../../bin/fvwm-crystal.generate-menu:318
+#: ../fvwm/Applications/Multimedia/
+msgid "Audio-Video"
+msgstr "Audio-fideo"
+
+#: ../../../bin/fvwm-crystal.generate-menu:322 ../fvwm/Applications/
+msgid "Development"
+msgstr "Untwikkelje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:326 ../fvwm/Applications/
+msgid "Knowledge"
+msgstr "Kennis"
+
+#: ../../../bin/fvwm-crystal.generate-menu:330 ../fvwm/Applications/
+msgid "Games"
+msgstr "Spullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:334 ../fvwm/Applications/
+msgid "Graphics"
+msgstr "Grafysk"
+
+#: ../../../bin/fvwm-crystal.generate-menu:338 ../fvwm/Applications/
+msgid "Network"
+msgstr "Netwurk"
+
+#: ../../../bin/fvwm-crystal.generate-menu:342 ../fvwm/Applications/
+msgid "Office"
+msgstr "Kantoar"
+
+#: ../../../bin/fvwm-crystal.generate-menu:346 ../fvwm/Applications/
+msgid "Settings"
+msgstr "Ynstellingen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:350 ../fvwm/Applications/
+#: ../fvwm/components/functions/Colorsets:24
+#: ../fvwm/components/functions/Preferences-Menu:54
+#: ../fvwm/components/functions/Window-Decorations:27
+msgid "System"
+msgstr "Systeem"
+
+#: ../../../bin/fvwm-crystal.generate-menu:354 ../fvwm/Applications/
+msgid "Utilities"
+msgstr "Helpmiddels"
+
+#: ../../../bin/fvwm-crystal.generate-menu:358
+#: ../fvwm/Applications/Multimedia/
+msgid "Video"
+msgstr "Fideo"
+
+#: ../../../bin/fvwm-crystal.generate-menu:373 ../fvwm/Applications/Graphics/
+msgid "2D Graphics"
+msgstr "2D-grafysk"
+
+#: ../../../bin/fvwm-crystal.generate-menu:377 ../fvwm/Applications/Graphics/
+msgid "3D Graphics"
+msgstr "3D-grafysk"
+
+#: ../../../bin/fvwm-crystal.generate-menu:381
+msgid "Accessibility"
+msgstr "Tagonklikens"
+
+#: ../../../bin/fvwm-crystal.generate-menu:385 ../fvwm/Applications/20~Games/
+msgid "Action Games"
+msgstr "Aksjespullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:389
+msgid "Adventure Games"
+msgstr "Aventoerespullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:393
+msgid "Adult"
+msgstr "18+"
+
+#: ../../../bin/fvwm-crystal.generate-menu:397 ../fvwm/Applications/20~Games/
+msgid "Arcade Games"
+msgstr "Arkadespullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:401
+msgid "Amusement"
+msgstr "Ferdivedaasje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:405 ../fvwm/Applications/Utilities/
+msgid "Archiving"
+msgstr "Argivearje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:409
+msgid "Art"
+msgstr "Keunst"
+
+#: ../../../bin/fvwm-crystal.generate-menu:413
+msgid "Artificial Intelligence"
+msgstr "Keunstmjittige yntelliginsje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:417 ../fvwm/Applications/Knowledge/
+msgid "Astronomy"
+msgstr "Stjerrekunde"
+
+#: ../../../bin/fvwm-crystal.generate-menu:421
+#: ../fvwm/Applications/Multimedia/Audio/
+#: ../fvwm/Applications/Multimedia/Audio-Video/
+#: ../fvwm/Applications/Multimedia/Video/
+msgid "Audio-Video Editing"
+msgstr "Audio-fideo bewurkje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:425
+msgid "Biology"
+msgstr "Biology"
+
+#: ../../../bin/fvwm-crystal.generate-menu:429
+msgid "Blocks Games"
+msgstr "Blokkespullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:433 ../fvwm/Applications/20~Games/
+msgid "Board Games"
+msgstr "Boerdspullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:437
+msgid "Building"
+msgstr "Kompilearje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:441 ../fvwm/Applications/Utilities/
+msgid "Calculators"
+msgstr "Rekkenmasinen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:445 ../fvwm/Applications/Office/
+msgid "Calendars"
+msgstr "Kalinders"
+
+#: ../../../bin/fvwm-crystal.generate-menu:449 ../fvwm/Applications/20~Games/
+msgid "Card Games"
+msgstr "Kaartspullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:453
+msgid "Charts"
+msgstr "Grafiken"
+
+#: ../../../bin/fvwm-crystal.generate-menu:457
+msgid "Chat"
+msgstr "Chatte"
+
+#: ../../../bin/fvwm-crystal.generate-menu:461
+msgid "Chemistry"
+msgstr "Skiekunde"
+
+#: ../../../bin/fvwm-crystal.generate-menu:465
+msgid "Clocks"
+msgstr "Klokken"
+
+#: ../../../bin/fvwm-crystal.generate-menu:469
+msgid "Compression"
+msgstr "Komprimearje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:473
+msgid "Computer Science"
+msgstr "Kompjûterwittenskippen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:477
+msgid "Console Only"
+msgstr "Allinnich console"
+
+#: ../../../bin/fvwm-crystal.generate-menu:481
+msgid "Construction"
+msgstr "Boukundich"
+
+#: ../../../bin/fvwm-crystal.generate-menu:485 ../fvwm/Applications/Office/
+msgid "Contact Management"
+msgstr "Relaasjebehear"
+
+#: ../../../bin/fvwm-crystal.generate-menu:489
+msgid "Core"
+msgstr "Haadsaken"
+
+#: ../../../bin/fvwm-crystal.generate-menu:493
+msgid "Data Visualization"
+msgstr "Datafisualisaasje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:497
+#: ../fvwm/Applications/Multimedia/Audio-Video/
+msgid "Databases"
+msgstr "Databanken"
+
+#: ../../../bin/fvwm-crystal.generate-menu:501 ../fvwm/Applications/Network/
+msgid "Dial-up"
+msgstr "Ynbelje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:505
+#: ../fvwm/Applications/Development/
+msgid "Debuggers"
+msgstr "Flateropspoaring"
+
+#: ../../../bin/fvwm-crystal.generate-menu:509 ../fvwm/Applications/Settings/
+msgid "Desktop Settings"
+msgstr "Buroblêdynstellingen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:513
+msgid "Dialup"
+msgstr "Ynbelje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:517 ../fvwm/Applications/Office/
+msgid "Dictionaries"
+msgstr "Wurdboeken"
+
+#: ../../../bin/fvwm-crystal.generate-menu:521
+#: ../fvwm/Applications/Multimedia/Audio-Video/
+msgid "Disc Burning"
+msgstr "Skiif brâne"
+
+#: ../../../bin/fvwm-crystal.generate-menu:525
+#: ../fvwm/Applications/Development/ ../fvwm/Applications/System/
+msgid "Documentation"
+msgstr "Dokumintaasje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:529
+msgid "Economy"
+msgstr "Ekonomy"
+
+#: ../../../bin/fvwm-crystal.generate-menu:533
+msgid "Electricity"
+msgstr "Elektrisiteit"
+
+#: ../../../bin/fvwm-crystal.generate-menu:537
+#: ../fvwm/Applications/Development/
+msgid "Electronics"
+msgstr "Elektroanika"
+
+#: ../../../bin/fvwm-crystal.generate-menu:541 ../fvwm/Applications/Network/
+msgid "Email"
+msgstr "E-mail"
+
+#: ../../../bin/fvwm-crystal.generate-menu:545 ../fvwm/Applications/20~Games/
+#: ../fvwm/Applications/System/
+msgid "Emulators"
+msgstr "Emulatoaren"
+
+#: ../../../bin/fvwm-crystal.generate-menu:549 ../fvwm/Applications/Graphics/
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Engineering"
+msgstr "Technysk"
+
+#: ../../../bin/fvwm-crystal.generate-menu:553
+msgid "Feed"
+msgstr "Feeds"
+
+#: ../../../bin/fvwm-crystal.generate-menu:557 ../fvwm/Applications/System/
+msgid "File Managers"
+msgstr "Bestânsbehearders"
+
+#: ../../../bin/fvwm-crystal.generate-menu:561
+msgid "File Systems"
+msgstr "Bestânssysteem"
+
+#: ../../../bin/fvwm-crystal.generate-menu:565 ../fvwm/Applications/Utilities/
+msgid "File Tools"
+msgstr "Bestânshelpmiddels"
+
+#: ../../../bin/fvwm-crystal.generate-menu:569 ../fvwm/Applications/Network/
+msgid "File Transfer"
+msgstr "Bestânsoerdracht"
+
+#: ../../../bin/fvwm-crystal.generate-menu:573 ../fvwm/Applications/Office/
+msgid "Finance"
+msgstr "Finansjeel"
+
+#: ../../../bin/fvwm-crystal.generate-menu:577
+msgid "Flow Charts"
+msgstr "Streamskema’s"
+
+#: ../../../bin/fvwm-crystal.generate-menu:581
+msgid "Geography"
+msgstr "Ierdrykskunde"
+
+#: ../../../bin/fvwm-crystal.generate-menu:585
+msgid "Geology"
+msgstr "Geology"
+
+#: ../../../bin/fvwm-crystal.generate-menu:589
+msgid "Geoscience"
+msgstr "Ierdwittenskippen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:601
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "GUI Designers"
+msgstr "GUI-ûntwerp"
+
+#: ../../../bin/fvwm-crystal.generate-menu:605
+msgid "Ham Radio"
+msgstr "Amateurradio"
+
+#: ../../../bin/fvwm-crystal.generate-menu:609 ../fvwm/Applications/Settings/
+msgid "Hardware Settings"
+msgstr "Hardwareynstellingen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:613
+msgid "History"
+msgstr "Skiednis"
+
+#: ../../../bin/fvwm-crystal.generate-menu:617
+msgid "Humanities"
+msgstr "Geastwittenskippen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:621
+#: ../fvwm/Applications/Development/
+msgid "IDE"
+msgstr "IDE"
+
+#: ../../../bin/fvwm-crystal.generate-menu:625
+msgid "Image Processing"
+msgstr "Ofbyldingen ferwurkje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:629 ../fvwm/Applications/Network/
+msgid "IRC Clients"
+msgstr "IRC-kliïnten"
+
+#: ../../../bin/fvwm-crystal.generate-menu:633 ../fvwm/Applications/Network/
+msgid "Instant Messaging"
+msgstr "Instant messaging"
+
+#: ../../../bin/fvwm-crystal.generate-menu:637
+#: ../fvwm/Applications/Development/
+msgid "Java"
+msgstr "Java"
+
+#: ../../../bin/fvwm-crystal.generate-menu:649 ../fvwm/Applications/20~Games/
+msgid "Kids Games"
+msgstr "Bernespullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:653 ../fvwm/Applications/Knowledge/
+msgid "Languages"
+msgstr "Talen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:657
+msgid "Literature"
+msgstr "Literatuer"
+
+#: ../../../bin/fvwm-crystal.generate-menu:661 ../fvwm/Applications/20~Games/
+msgid "Logic Games"
+msgstr "Tinkspullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:665
+msgid "Maps"
+msgstr "Kaarten"
+
+#: ../../../bin/fvwm-crystal.generate-menu:669 ../fvwm/Applications/Knowledge/
+msgid "Math"
+msgstr "Wiskunde"
+
+#: ../../../bin/fvwm-crystal.generate-menu:673
+msgid "Medical Softwares"
+msgstr "Medyske programmatuer"
+
+#: ../../../bin/fvwm-crystal.generate-menu:677
+#: ../fvwm/Applications/Multimedia/Audio/Engineering/
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "MIDI"
+msgstr "MIDI"
+
+#: ../../../bin/fvwm-crystal.generate-menu:681
+#: ../fvwm/Applications/Multimedia/Audio/
+#: ../fvwm/components/functions/Media:652
+msgid "Mixers"
+msgstr "Miksers"
+
+#: ../../../bin/fvwm-crystal.generate-menu:685 ../fvwm/Applications/System/
+msgid "Monitors"
+msgstr "Tafersjoch"
+
+#: ../../../bin/fvwm-crystal.generate-menu:689
+msgid "Motif"
+msgstr "Motif"
+
+#: ../../../bin/fvwm-crystal.generate-menu:693
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:32 ../fvwm/recipes/Amiga:410
+#: ../fvwm/recipes/Corner:150 ../fvwm/recipes/LapLeft:89
+#: ../fvwm/recipes/LapLeft with ACPI:94 ../fvwm/recipes/LapRight:87
+#: ../fvwm/recipes/LapRight ACPI:88 ../fvwm/recipes/Light:42
+#: ../fvwm/recipes/TopDown:53 ../fvwm/recipes/Wing-Commander:47
+msgid "Music"
+msgstr "Muzyk"
+
+#: ../../../bin/fvwm-crystal.generate-menu:697 ../fvwm/Applications/Network/
+msgid "News"
+msgstr "Nijs"
+
+#: ../../../bin/fvwm-crystal.generate-menu:701
+msgid "Numerical Analysis"
+msgstr "Numerike analyze"
+
+#: ../../../bin/fvwm-crystal.generate-menu:705
+msgid "OCR"
+msgstr "Optyske tekenwerkenning"
+
+#: ../../../bin/fvwm-crystal.generate-menu:709 ../fvwm/Applications/Network/
+msgid "P2P"
+msgstr "P2P"
+
+#: ../../../bin/fvwm-crystal.generate-menu:713 ../fvwm/Applications/Settings/
+msgid "Package Managers"
+msgstr "Pakketbehearders"
+
+#: ../../../bin/fvwm-crystal.generate-menu:717
+msgid "Parallel Computing"
+msgstr "Parallel rekkenje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:721 ../fvwm/Applications/Office/
+msgid "PDA"
+msgstr "PDA"
+
+#: ../../../bin/fvwm-crystal.generate-menu:725 ../fvwm/Applications/Graphics/
+msgid "Photography"
+msgstr "Fotografy"
+
+#: ../../../bin/fvwm-crystal.generate-menu:729 ../fvwm/Applications/Knowledge/
+msgid "Physics"
+msgstr "Natuerkunde"
+
+#: ../../../bin/fvwm-crystal.generate-menu:733
+#: ../fvwm/Applications/Multimedia/Audio/
+#: ../fvwm/Applications/Multimedia/Video/
+msgid "Players"
+msgstr "Spilers"
+
+#: ../../../bin/fvwm-crystal.generate-menu:737
+msgid "Presentations"
+msgstr "Presintaasjes"
+
+#: ../../../bin/fvwm-crystal.generate-menu:741 ../fvwm/Applications/Settings/
+#: ../fvwm/Applications/Utilities/
+msgid "Printing"
+msgstr "Ofdrukke"
+
+#: ../../../bin/fvwm-crystal.generate-menu:745
+msgid "Profiling"
+msgstr "Profilearje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:749
+msgid "Project Management"
+msgstr "Projektmanagement"
+
+#: ../../../bin/fvwm-crystal.generate-menu:753 ../fvwm/Applications/Office/
+msgid "Publishing"
+msgstr "Publisearje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:761
+msgid "Raster Graphics"
+msgstr "Rastergrafysk"
+
+#: ../../../bin/fvwm-crystal.generate-menu:765
+msgid "Recorders"
+msgstr "Opnimme"
+
+#: ../../../bin/fvwm-crystal.generate-menu:769 ../fvwm/Applications/Network/
+msgid "Remote Access"
+msgstr "Tagang op ôfstân"
+
+#: ../../../bin/fvwm-crystal.generate-menu:773
+#: ../fvwm/Applications/Development/
+msgid "Revision Control"
+msgstr "Ferzjebehear"
+
+#: ../../../bin/fvwm-crystal.generate-menu:777
+msgid "Robotics"
+msgstr "Robotsystemen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:781 ../fvwm/Applications/20~Games/
+msgid "Role Playing"
+msgstr "Rollespul"
+
+#: ../../../bin/fvwm-crystal.generate-menu:785 ../fvwm/Applications/Graphics/
+msgid "Scanning"
+msgstr "Scanne"
+
+#: ../../../bin/fvwm-crystal.generate-menu:789
+msgid "Science"
+msgstr "Wittenskiplik"
+
+#: ../../../bin/fvwm-crystal.generate-menu:793 ../fvwm/Applications/System/
+msgid "Security"
+msgstr "Befeiliging"
+
+#: ../../../bin/fvwm-crystal.generate-menu:797
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Sequencers"
+msgstr "Sequencers"
+
+#: ../../../bin/fvwm-crystal.generate-menu:801
+msgid "Shooter"
+msgstr "Sjitspullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:805 ../fvwm/Applications/20~Games/
+msgid "Simulation"
+msgstr "Simulaasje"
+
+#: ../../../bin/fvwm-crystal.generate-menu:809
+msgid "Spirituality"
+msgstr "Spiritualiteit"
+
+#: ../../../bin/fvwm-crystal.generate-menu:813
+msgid "Sports"
+msgstr "Sport"
+
+#: ../../../bin/fvwm-crystal.generate-menu:817
+msgid "Sports Games"
+msgstr "Sportspullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:821 ../fvwm/Applications/Office/
+msgid "Spreadsheets"
+msgstr "Rekkenblêden"
+
+#: ../../../bin/fvwm-crystal.generate-menu:825 ../fvwm/Applications/20~Games/
+msgid "Strategy Games"
+msgstr "Strategyspullen"
+
+#: ../../../bin/fvwm-crystal.generate-menu:833 ../fvwm/Applications/Network/
+msgid "Telephony"
+msgstr "Telefony"
+
+#: ../../../bin/fvwm-crystal.generate-menu:837
+msgid "Telephony Tools"
+msgstr "Telefonyhelpmiddels"
+
+#: ../../../bin/fvwm-crystal.generate-menu:841 ../fvwm/Applications/System/
+msgid "Terminals"
+msgstr "Terminals"
+
+#: ../../../bin/fvwm-crystal.generate-menu:845 ../fvwm/Applications/Utilities/
+msgid "Text Editors"
+msgstr "Tekstbewurkers"
+
+#: ../../../bin/fvwm-crystal.generate-menu:849 ../fvwm/Applications/Utilities/
+msgid "Text Tools"
+msgstr "Teksthelpmiddels"
+
+#: ../../../bin/fvwm-crystal.generate-menu:853
+msgid "Translation"
+msgstr "Oersette"
+
+#: ../../../bin/fvwm-crystal.generate-menu:857
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Tuners"
+msgstr "Tuners"
+
+#: ../../../bin/fvwm-crystal.generate-menu:861
+#: ../fvwm/Applications/Multimedia/Video/
+msgid "TV"
+msgstr "Tv"
+
+#: ../../../bin/fvwm-crystal.generate-menu:865 ../fvwm/Applications/Graphics/
+msgid "Vector Graphics"
+msgstr "Fektorgrafysk"
+
+#: ../../../bin/fvwm-crystal.generate-menu:869 ../fvwm/Applications/Network/
+msgid "Webcam"
+msgstr "Webcam"
+
+#: ../../../bin/fvwm-crystal.generate-menu:873 ../fvwm/Applications/Graphics/
+#: ../fvwm/Applications/Office/
+msgid "Viewers"
+msgstr "Werjouwers"
+
+#: ../../../bin/fvwm-crystal.generate-menu:877 ../fvwm/Applications/Network/
+msgid "Web Browsers"
+msgstr "Webblêders"
+
+#: ../../../bin/fvwm-crystal.generate-menu:881
+#: ../fvwm/Applications/Development/
+msgid "Web Development"
+msgstr "Webûntwerp"
+
+#: ../../../bin/fvwm-crystal.generate-menu:885 ../fvwm/Applications/Office/
+msgid "Word Processors"
+msgstr "Tekstferwurkers"
+
+#: ../fvwm/
+msgid "Applications"
+msgstr "Programma’s"
+
+#: ../fvwm/Applications/20~Games/
+msgid "Block Games"
+msgstr "Blokkespullen"
+
+#: ../fvwm/Applications/20~Games/
+msgid "Adventures Games"
+msgstr "Aventoerespullen"
+
+#: ../fvwm/Applications/20~Games/Logic_Games/
+msgid "Portable Puzzle Collection"
+msgstr "Puzels foar ûnderweis"
+
+#: ../fvwm/Applications/20~Games/
+msgid "Shooters"
+msgstr "Sjitspullen"
+
+#: ../fvwm/Applications/Development/Electronics/
+msgid "Antennas"
+msgstr "Antennen"
+
+#: ../fvwm/Applications/Development/Electronics/
+msgid "Chipmunksystem"
+msgstr "Chipmunk System"
+
+#: ../fvwm/Applications/Development/Electronics/
+msgid "Geda"
+msgstr "gEDA"
+
+#: ../fvwm/Applications/
+msgid "Multimedia"
+msgstr "Multymedia"
+
+#: ../fvwm/Applications/Multimedia/Audio/10~Mixers/
+#: ../fvwm/Applications/Multimedia/Audio/Audio-Video_Editing/
+#: ../fvwm/Applications/Multimedia/Audio/Engineering/
+#: ../fvwm/Applications/Multimedia/Audio/Recording/
+#: ../fvwm/Applications/Multimedia/Audio/Rhythm/
+#: ../fvwm/Applications/Multimedia/Audio/Samplers/
+#: ../fvwm/Applications/Multimedia/Audio/Sequencers/
+#: ../fvwm/Applications/Multimedia/Audio/Sound_Effects/
+#: ../fvwm/Applications/Multimedia/Audio/Synthetizers/
+#: ../fvwm/Applications/Multimedia/Audio/Vu-Meters/
+msgid "Other"
+msgstr "Oar"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Composition"
+msgstr "Komposysje"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "DJ"
+msgstr "Dj"
+
+#: ../fvwm/Applications/Multimedia/Audio/Engineering/
+#: ../fvwm/Applications/Multimedia/Audio/Tuners/
+msgid "Jack"
+msgstr "JACK"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Mp3"
+msgstr "Mp3"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Non"
+msgstr "Non"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Notation"
+msgstr "Noateskrift"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Radios"
+msgstr "Radio’s"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Recording"
+msgstr "Opnimme"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Rhythm"
+msgstr "Ritme"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Rippers"
+msgstr "Rippers"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Samplers"
+msgstr "Samplers"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Sound Effects"
+msgstr "Lûdeffekten"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Sound Processing"
+msgstr "Audio ferwurkje"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Streaming"
+msgstr "Streame"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Synthetizers"
+msgstr "Synthesizers"
+
+#: ../fvwm/Applications/Multimedia/Audio/Synthetizers/
+msgid "Bristol"
+msgstr "Bristol"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Trackers"
+msgstr "Trackers"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Vu-Meters"
+msgstr "VU-meters"
+
+#: ../fvwm/Applications/Multimedia/Video/
+msgid "Video Effects"
+msgstr "Fideo-effekten"
+
+#: ../fvwm/Applications/Network/Instant_Messaging/
+msgid "Jabber"
+msgstr "Jabber"
+
+#: ../fvwm/Applications/Office/
+msgid "KOffice"
+msgstr "KOffice"
+
+#: ../fvwm/Applications/Office/
+msgid "LibreOffice"
+msgstr "LibreOffice"
+
+#: ../fvwm/Applications/Office/
+msgid "OpenOffice.org"
+msgstr "OpenOffice.org"
+
+#: ../fvwm/components/apps/DesktopIcons:50
+msgid "Umount"
+msgstr "Ofkeppelje"
+
+#: ../fvwm/components/apps/DesktopIcons:55
+#: ../fvwm/components/apps/DesktopIcons:72
+#: ../fvwm/components/apps/DesktopIcons:174
+#: ../fvwm/components/functions/Preferences-Menu:640
+#: ../fvwm/components/functions/Preferences-Menu:701
+msgid "On"
+msgstr "Oan"
+
+#: ../fvwm/components/apps/DesktopIcons:56
+#: ../fvwm/components/apps/DesktopIcons:73
+#: ../fvwm/components/apps/DesktopIcons:175
+#: ../fvwm/components/functions/Preferences-Menu:641
+#: ../fvwm/components/functions/Preferences-Menu:702
+msgid "Off"
+msgstr "Ut"
+
+#: ../fvwm/components/apps/DesktopIcons:90
+#: ../fvwm/components/apps/DesktopIcons:91
+msgid "Action "
+msgstr "Aksje "
+
+#: ../fvwm/components/apps/DesktopIcons:92
+#: ../fvwm/components/apps/DesktopIcons:93
+msgid "Custom action "
+msgstr "Oanpaste aksje "
+
+#: ../fvwm/components/apps/DesktopIcons:103
+#: ../fvwm/components/apps/DesktopIcons:124
+msgid "File browser action"
+msgstr "Bestânsbehearaksje"
+
+#: ../fvwm/components/apps/DesktopIcons:104
+msgid "Type a command to bind to the first mouse button."
+msgstr "Typ in kommando om oan de earste mûsknop te keppeljen."
+
+#: ../fvwm/components/apps/DesktopIcons:107
+#: ../fvwm/components/apps/DesktopIcons:128
+msgid "A console command must be prefixed by A and space,"
+msgstr "In terminalkommando moat foarôfgien wurde troch A en spaasje,"
+
+#: ../fvwm/components/apps/DesktopIcons:110
+#: ../fvwm/components/apps/DesktopIcons:131
+msgid "use X and space otherwise."
+msgstr "brûk oars X en spaasje."
+
+#: ../fvwm/components/apps/DesktopIcons:116
+#: ../fvwm/components/apps/DesktopIcons:137
+#: ../fvwm/components/functions/Feedback:75
+#: ../fvwm/components/functions/Music-audacious:47
+#: ../fvwm/components/functions/Music-mpd:65
+#: ../fvwm/components/functions/Music-xmms2:58
+#: ../fvwm/components/functions/Preferences-Menu:531
+msgid "Save"
+msgstr "Bewarje"
+
+#: ../fvwm/components/apps/DesktopIcons:118
+#: ../fvwm/components/apps/DesktopIcons:139
+#: ../fvwm/components/functions/Feedback:45
+#: ../fvwm/components/functions/Preferences-Menu:79
+#: ../fvwm/components/functions/Preferences-Menu:314
+#: ../fvwm/components/functions/Preferences-Menu:328
+#: ../fvwm/components/functions/Preferences-Menu:369
+#: ../fvwm/components/functions/Preferences-Menu:445
+#: ../fvwm/components/functions/Preferences-Menu:533
+#: ../fvwm/components/functions/Preferences-Menu:673
+msgid "Not now"
+msgstr "Net no"
+
+#: ../fvwm/components/apps/DesktopIcons:125
+msgid "Type a command to bind to the second mouse button."
+msgstr "Typ in kommando om oan de twadde mûsknop te keppeljen."
+
+#: ../fvwm/components/apps/DesktopIcons:157
+msgid "Left"
+msgstr "Lofts"
+
+#: ../fvwm/components/apps/DesktopIcons:158
+msgid "Right"
+msgstr "Rjochts"
+
+#: ../fvwm/components/apps/Nautilus:41 ../fvwm/components/apps/ROX-Filer:32
+#: ../fvwm/components/functions/Wallpaper:58
+msgid "Random"
+msgstr "Willekeurich"
+
+#: ../fvwm/components/apps/XScreenSaver:23
+msgid "Force suspend"
+msgstr "Sliepstân ôftwinge"
+
+#: ../fvwm/components/apps/XScreenSaver:24
+msgid "Activate"
+msgstr "Aktivearje"
+
+#: ../fvwm/components/apps/XScreenSaver:25
+#: ../fvwm/components/functions/Exit:35
+#: ../fvwm/components/functions/Exit-Safe:9
+msgid "Lock screen"
+msgstr "Skerm beskoattelje"
+
+#: ../fvwm/components/apps/XScreenSaver:26
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:45 ../fvwm/recipes/Light:53
+#: ../fvwm/recipes/TopDown:64 ../fvwm/recipes/Wing-Commander:60
+msgid "Preferences"
+msgstr "Foarkarren"
+
+#: ../fvwm/components/apps/XScreenSaver:28
+msgid "Stop screensaver"
+msgstr "Stopje skermbefeiliging"
+
+#: ../fvwm/components/apps/XScreenSaver:28
+msgid "Start screensaver"
+msgstr "Start skermbefeiliging"
+
+#: ../fvwm/components/functions/About:8 ../fvwm/scripts/convert_preferences:4
+msgid "Version"
+msgstr "Ferzje"
+
+#: ../fvwm/components/functions/About:11
+msgid "Authors"
+msgstr "Auteurs"
+
+#: ../fvwm/components/functions/About:15
+msgid "With contributions from:"
+msgstr "Mei bydragen fan:"
+
+#: ../fvwm/components/functions/About:29
+msgid "The majority of the icons are from the Tango project and from"
+msgstr "De measte piktogrammen binne fan it Tango-projekt en fan"
+
+#: ../fvwm/components/functions/About:36
+msgid "FVWM version"
+msgstr "FVWM-ferzje"
+
+#: ../fvwm/components/functions/About:42
+msgid "Feedback, support"
+msgstr "Weromkeppeling, stipe"
+
+#: ../fvwm/components/functions/About:44
+#: ../fvwm/components/functions/Debug-Functions:57
+#: ../fvwm/components/functions/Window-Buttons:133
+#: ../fvwm/components/functions/Window-Buttons:192
+#: ../fvwm/components/functions/Window-Buttons-Vertical:131
+#: ../fvwm/components/functions/Window-Buttons-Vertical:188
+msgid "Close"
+msgstr "Slute"
+
+#: ../fvwm/components/functions/AutoWallpaper-Error:6
+#: ../fvwm/components/functions/Wallpaper:39
+msgid "Auto wallpaper"
+msgstr "Automatyske eftergrûn"
+
+#: ../fvwm/components/functions/AutoWallpaper-Error:7
+msgid "No pictures found."
+msgstr "Gjin ôfbyldingen fûn."
+
+#: ../fvwm/components/functions/AutoWallpaper-Error:10
+msgid "You should save wallpapers in"
+msgstr "Jo moatte eftergrûnen bewarje yn:"
+
+#: ../fvwm/components/functions/AutoWallpaper-Error:16
+msgid "Auto wallpapers must be in subdirectories."
+msgstr "Automatyske eftergrûnen moatte yn submappen."
+
+#: ../fvwm/components/functions/AutoWallpaper-Error:19
+msgid "Symlinks to directories are allowed."
+msgstr "Symboalyske keppelingen nei mappen binne tastien."
+
+#: ../fvwm/components/functions/AutoWallpaper-Error:22
+msgid "The thumbnails generation is CPU intensive,"
+msgstr "Miniatueren oanmeitsjen is prosessoryntinsyf:"
+
+#: ../fvwm/components/functions/AutoWallpaper-Error:25
+msgid "it is better to have a few subdirectories than"
+msgstr "it is better in pear submappen te hawwen, dan"
+
+#: ../fvwm/components/functions/AutoWallpaper-Error:28
+msgid "a lot of files in one subdirectory."
+msgstr "in soad bestannen yn ien submap."
+
+#: ../fvwm/components/functions/AutoWallpaper-Error:31
+#: ../fvwm/components/functions/Preferences-Menu:189
+#: ../fvwm/components/functions/Preferences-Menu:567
+#: ../fvwm/components/functions/Preferences-Menu:691
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:40
+msgid "OK"
+msgstr "OK"
+
+#: ../fvwm/components/functions/Colorsets:25
+#: ../fvwm/components/functions/Preferences-Menu:55
+#: ../fvwm/components/functions/Window-Decorations:28
+msgid "User"
+msgstr "Brûker"
+
+#: ../fvwm/components/functions/Debug-Functions:52
+#: ../fvwm/components/functions/Developer-Menu:6
+msgid "Identify window"
+msgstr "Finster identifisearje"
+
+#: ../fvwm/components/functions/Debug-Functions:53
+#: ../fvwm/components/functions/Developer-Menu:29
+#: ../fvwm/components/functions/Developer-Menu:158
+msgid "WindowStyle"
+msgstr "Finsterstyl"
+
+#: ../fvwm/components/functions/Debug-Functions:55
+msgid "Move"
+msgstr "Ferpleatse"
+
+#: ../fvwm/components/functions/Debug-Functions:56
+msgid "Resize"
+msgstr "Grutte oanpasse"
+
+#: ../fvwm/components/functions/Debug-Functions:58
+#: ../fvwm/components/functions/Window-Buttons:134
+#: ../fvwm/components/functions/Window-Buttons-Vertical:132
+msgid "Destroy"
+msgstr "Ferneatigje"
+
+#: ../fvwm/components/functions/Developer-Menu:4
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:47 ../fvwm/recipes/Light:55
+#: ../fvwm/recipes/TopDown:66 ../fvwm/recipes/Wing-Commander:62
+msgid "Developer menu"
+msgstr "Untwikkeldersmenu"
+
+#: ../fvwm/components/functions/Developer-Menu:5
+msgid "Reload current recipe"
+msgstr "Hjoeddeisk resept werlade"
+
+#: ../fvwm/components/functions/Developer-Menu:7
+msgid "Toggle FvwmConsole"
+msgstr "FvwmConsole yn-/útskeakelje"
+
+#: ../fvwm/components/functions/Developer-Menu:8
+msgid "Open debug window"
+msgstr "Flateropspoaringsfinster iepenje"
+
+#: ../fvwm/components/functions/Developer-Menu:19
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:34 ../fvwm/recipes/Light:44
+#: ../fvwm/recipes/TopDown:55 ../fvwm/recipes/Wing-Commander:49
+msgid "FVWM-Crystal documentation"
+msgstr "FVWM-Crystal-dokumintaasje"
+
+#: ../fvwm/components/functions/Developer-Menu:20
+msgid "FVWM manpages"
+msgstr "FVWM-hânliedingen"
+
+#: ../fvwm/components/functions/Developer-Menu:21
+msgid "X.org documentation"
+msgstr "X.org-dokumintaasje"
+
+#: ../fvwm/components/functions/Developer-Menu:25
+msgid "Browse Info pages with EMacs"
+msgstr "Ynfosiden blêdzje mei Emacs"
+
+#: ../fvwm/components/functions/Developer-Menu:26
+msgid "Browse Info pages with pinfo"
+msgstr "Ynfosiden blêdzje mei Pinfo"
+
+#: ../fvwm/components/functions/Developer-Menu:27
+msgid "Browse Info pages with tkinfo"
+msgstr "Ynfosiden blêdzje mei tkInfo"
+
+#: ../fvwm/components/functions/Developer-Menu:34
+msgid "Keyboard bindings"
+msgstr "Fluchtoetsen"
+
+#: ../fvwm/components/functions/Developer-Menu:35
+msgid "Mouse bindings"
+msgstr "Mûsbiningen"
+
+#: ../fvwm/components/functions/Developer-Menu:36
+msgid "FAQ"
+msgstr "Faak stelde fragen"
+
+#: ../fvwm/components/functions/Developer-Menu:37
+msgid "Tips"
+msgstr "Tips"
+
+#: ../fvwm/components/functions/Developer-Menu:38
+msgid "Crystal Rox! HOWTO"
+msgstr "Crystal Rox! HOWTO"
+
+#: ../fvwm/components/functions/Developer-Menu:39
+msgid "Application database"
+msgstr "Programmadatabank"
+
+#: ../fvwm/components/functions/Developer-Menu:47
+msgid "Main documentation"
+msgstr "Haaddokumintaasje"
+
+#: ../fvwm/components/functions/Developer-Menu:48
+msgid "Decorations and colorsets"
+msgstr "Dekoraasjes en kleureskema’s"
+
+#: ../fvwm/components/functions/Developer-Menu:49
+msgid "Modules used in FVWM-Crystal"
+msgstr "Brûkte modulen yn FVWM-Crystal"
+
+#: ../fvwm/components/functions/Developer-Menu:51
+msgid "Interface look and feel"
+msgstr "Yntuïtive ynterfaasje"
+
+#: ../fvwm/components/functions/Developer-Menu:52
+msgid "Programming and debugging"
+msgstr "Programmearjen en flateropspoaring"
+
+#: ../fvwm/components/functions/Developer-Menu:53
+msgid "External scripts and applications"
+msgstr "Eksterne skripts en tapassingen"
+
+#: ../fvwm/components/functions/Developer-Menu:125
+msgid "X.Org documentation"
+msgstr "X.Org-dokumintaasje"
+
+#: ../fvwm/components/functions/Developer-Menu:127
+msgid "X.Org-Xserver documentation"
+msgstr "X.Org-Xserver-dokumintaasje"
+
+#: ../fvwm/components/functions/Exit:12
+msgid " 1 %"
+msgstr " 1 %"
+
+#: ../fvwm/components/functions/Exit:13
+msgid " 2 %"
+msgstr " 2 %"
+
+#: ../fvwm/components/functions/Exit:14
+msgid " 3 %"
+msgstr " 3 %"
+
+#: ../fvwm/components/functions/Exit:15
+msgid " 5 %"
+msgstr " 5 %"
+
+#: ../fvwm/components/functions/Exit:16
+msgid "10 %"
+msgstr "10 %"
+
+#: ../fvwm/components/functions/Exit:17
+msgid "25 %"
+msgstr "25 %"
+
+#: ../fvwm/components/functions/Exit:18
+msgid "50 %"
+msgstr "50 %"
+
+#: ../fvwm/components/functions/Exit:19
+msgid "75 %"
+msgstr "75 %"
+
+#: ../fvwm/components/functions/Exit:25
+msgid "Stop"
+msgstr "Stopje"
+
+#: ../fvwm/components/functions/Exit:26
+msgid "Start when battery is as low as"
+msgstr "Starte as batterij sakt nei"
+
+#: ../fvwm/components/functions/Exit:34
+#: ../fvwm/components/functions/Exit-Safe:8
+#: ../fvwm/components/functions/Preferences-Menu:77
+#: ../fvwm/components/functions/Preferences-Menu:367
+#: ../fvwm/components/functions/Preferences-Menu:443
+#: ../fvwm/components/functions/Preferences-Menu:671
+msgid "Restart"
+msgstr "Werstarte"
+
+#: ../fvwm/components/functions/Exit:36 ../fvwm/components/functions/Exit:37
+#: ../fvwm/components/functions/Exit-Safe:10
+#: ../fvwm/components/functions/Preferences-Menu:312
+#: ../fvwm/components/functions/Preferences-Menu:326
+msgid "Logout"
+msgstr "Ofmelde"
+
+#: ../fvwm/components/functions/Exit:39
+msgid "Automatic suspend to disk"
+msgstr "Automatysk sliepe op skiif"
+
+#: ../fvwm/components/functions/Exit:41
+msgid "Resume to RAM"
+msgstr "Skoftsje yn ûnthâld"
+
+#: ../fvwm/components/functions/Exit:42
+msgid "Resume hybride"
+msgstr "Skoftsje hybride"
+
+#: ../fvwm/components/functions/Exit:43
+msgid "Suspend to disk"
+msgstr "Sliepe op skiif"
+
+#: ../fvwm/components/functions/Exit:44
+msgid "Powersave"
+msgstr "Enerzjybesparring"
+
+#: ../fvwm/components/functions/Exit:46
+msgid "Save session"
+msgstr "Sesje bewarje"
+
+#: ../fvwm/components/functions/Exit:47
+msgid "Manage session"
+msgstr "Sesje beheare"
+
+#: ../fvwm/components/functions/Exit-Safe:19
+#: ../fvwm/components/functions/Exit-Safe:20
+#: ../fvwm/components/functions/Exit-Safe-gdm:21
+#: ../fvwm/components/functions/Exit-Safe-gdm:25
+#: ../fvwm/components/functions/Exit-Safe-gdm:29
+#: ../fvwm/components/functions/Exit-Safe-sudo:11
+#: ../fvwm/components/functions/Exit-Safe-sudo:15
+msgid "I am sure"
+msgstr "Ik bin wis"
+
+#: ../fvwm/components/functions/Exit-Safe-gdm:10
+#: ../fvwm/components/functions/Exit-gdm:10
+msgid "New login"
+msgstr "Nije oanmelding"
+
+#: ../fvwm/components/functions/Exit-Safe-gdm:11
+#: ../fvwm/components/functions/Exit-gdm:11
+msgid "New nested login"
+msgstr "Nije neske oanmelding"
+
+#: ../fvwm/components/functions/Exit-Safe-gdm:13
+#: ../fvwm/components/functions/Exit-Safe-sudo:6
+#: ../fvwm/components/functions/Exit-gdm:13
+#: ../fvwm/components/functions/Exit-sudo:6
+msgid "Reboot computer"
+msgstr "Kompjûter werstarte"
+
+#: ../fvwm/components/functions/Exit-Safe-gdm:15
+#: ../fvwm/components/functions/Exit-gdm:15
+msgid "Suspend"
+msgstr "Skoftsje"
+
+#: ../fvwm/components/functions/Exit-Safe-gdm:17
+#: ../fvwm/components/functions/Exit-Safe-sudo:7
+#: ../fvwm/components/functions/Exit-gdm:17
+#: ../fvwm/components/functions/Exit-sudo:7
+msgid "Turn off computer"
+msgstr "Kompjûter útskeakelje"
+
+#: ../fvwm/components/functions/Feedback:19
+msgid "User feedback"
+msgstr "Weromkeppeling fan brûker"
+
+#: ../fvwm/components/functions/Feedback:20
+msgid "You are welcomed to send feedback to the developer:"
+msgstr "Jo binne wolkom de ûntwikkelder weromkeppeling te jaan:"
+
+#: ../fvwm/components/functions/Feedback:22
+msgid "bug reports, suggestions, patches, ideas,"
+msgstr "flaterrapporten, foarstellen, patches, ideeën,"
+
+#: ../fvwm/components/functions/Feedback:24
+msgid "congratulations or complaints."
+msgstr "lokwinsken of klachten."
+
+#: ../fvwm/components/functions/Feedback:26
+msgid "This will help him make this software better."
+msgstr "Dit sil him helpe it programma te ferbetterjen."
+
+#: ../fvwm/components/functions/Feedback:28
+msgid "Send feedback (for support keep reading)"
+msgstr "Stjoer weromkeppeling (foar stipe lês fierder)"
+
+#: ../fvwm/components/functions/Feedback:32
+msgid "To get support, the best places are the"
+msgstr "Om stipe te krijen, binne de bêste plakken de"
+
+#: ../fvwm/components/functions/Feedback:34
+msgid "FVWM-Crystal users email list, or the"
+msgstr "FVWM-Crystal brûkers-e-maillist, of it"
+
+#: ../fvwm/components/functions/Feedback:36
+msgid "fvwm-crystal IRC channel on FreeNode:"
+msgstr "fvwm-crystal IRC-kanaal op FreeNode:"
+
+#: ../fvwm/components/functions/Feedback:38
+msgid "Go to the FVWM-Crystal users email list"
+msgstr "Gean nei de FVWM-Crystal e-maillist"
+
+#: ../fvwm/components/functions/Feedback:41
+msgid "Go to the fvwm-crystal IRC channel"
+msgstr "Gean nei it fvwm-crystal IRC-kanaal"
+
+#: ../fvwm/components/functions/Feedback:69
+msgid "Default browser"
+msgstr "Standertblêder"
+
+#: ../fvwm/components/functions/Feedback:70
+msgid "Enter the default browser"
+msgstr "Fier de standertblêder yn"
+
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:36 ../fvwm/recipes/Light:46
+#: ../fvwm/recipes/TopDown:57 ../fvwm/recipes/Wing-Commander:51
+msgid "Screen resolution"
+msgstr "Skermresolúsje"
+
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:37 ../fvwm/recipes/Light:47
+#: ../fvwm/recipes/TopDown:58 ../fvwm/recipes/Wing-Commander:52
+msgid "Screensaver"
+msgstr "Skermbefeiliging"
+
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:38 ../fvwm/recipes/Light:48
+#: ../fvwm/recipes/TopDown:59 ../fvwm/recipes/Wing-Commander:53
+msgid "Screenshot"
+msgstr "Skermôfdruk"
+
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:40 ../fvwm/recipes/Light:50
+#: ../fvwm/recipes/TopDown:61 ../fvwm/recipes/Wing-Commander:55
+msgid "Window decorations"
+msgstr "Finsterdekoraasjes"
+
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:41 ../fvwm/recipes/Light:51
+#: ../fvwm/recipes/TopDown:62 ../fvwm/recipes/Wing-Commander:56
+msgid "Colorsets"
+msgstr "Kleureskema’s"
+
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:42 ../fvwm/recipes/Light:52
+#: ../fvwm/recipes/TopDown:63 ../fvwm/recipes/Wing-Commander:57
+msgid "Wallpaper"
+msgstr "Eftergrûn"
+
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:48 ../fvwm/recipes/Light:56
+#: ../fvwm/recipes/TopDown:67 ../fvwm/recipes/Wing-Commander:65
+msgid "About FVWM-Crystal"
+msgstr "Oer FVWM-Crystal"
+
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:50
+#: ../fvwm/recipes/Wing-Commander:64
+msgid "Nested sessions"
+msgstr "Neske sesjes"
+
+#: ../fvwm/components/functions/Fvwm-Crystal-Menu:51 ../fvwm/recipes/Light:57
+#: ../fvwm/recipes/TopDown:68 ../fvwm/recipes/Wing-Commander:66
+msgid "Exit"
+msgstr "Ofslute"
+
+#: ../fvwm/components/functions/Media:159
+#: ../fvwm/components/functions/Music-alsaplayer:31
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:32
+#: ../fvwm/components/functions/Music-audacious:18
+#: ../fvwm/components/functions/Music-audacious:169
+#: ../fvwm/components/functions/Music-cdcd:28
+#: ../fvwm/components/functions/Music-cmus:24
+#: ../fvwm/components/functions/Music-mocp:22
+#: ../fvwm/components/functions/Music-mpd:27
+#: ../fvwm/components/functions/Music-quodlibet:18
+#: ../fvwm/components/functions/Music-xmms2:21
+msgid "Recreate the Playlists"
+msgstr "Ofspyllisten oanmeitsje"
+
+#: ../fvwm/components/functions/Media:160
+#: ../fvwm/components/functions/Music-alsaplayer:32
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:33
+#: ../fvwm/components/functions/Music-audacious:19
+#: ../fvwm/components/functions/Music-audacious:170
+#: ../fvwm/components/functions/Music-cdcd:29
+#: ../fvwm/components/functions/Music-cdcd:92
+#: ../fvwm/components/functions/Music-cmus:25
+#: ../fvwm/components/functions/Music-cmus:116
+#: ../fvwm/components/functions/Music-mocp:23
+#: ../fvwm/components/functions/Music-mocp:110
+#: ../fvwm/components/functions/Music-mpd:28
+#: ../fvwm/components/functions/Music-mpd:188
+#: ../fvwm/components/functions/Music-quodlibet:19
+#: ../fvwm/components/functions/Music-quodlibet:86
+#: ../fvwm/components/functions/Music-xmms2:22
+#: ../fvwm/components/functions/Music-xmms2:177
+msgid "Music player"
+msgstr "Muzykspiler"
+
+#: ../fvwm/components/functions/Media:161
+msgid "Icons in file browser"
+msgstr "Ikoanen yn bestânsblêder"
+
+#: ../fvwm/components/functions/Media:163
+#: ../fvwm/components/functions/Music-alsaplayer:34
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:35
+#: ../fvwm/components/functions/Music-audacious:21
+#: ../fvwm/components/functions/Music-cdcd:31
+#: ../fvwm/components/functions/Music-cmus:27
+#: ../fvwm/components/functions/Music-mocp:25
+#: ../fvwm/components/functions/Music-mpd:30
+#: ../fvwm/components/functions/Music-quodlibet:21
+#: ../fvwm/components/functions/Music-xmms2:24
+msgid "Start QJackCtl"
+msgstr "Start QJackCtl"
+
+#: ../fvwm/components/functions/Media:165
+msgid "Start player"
+msgstr "Start spiler"
+
+#: ../fvwm/components/functions/Media:166
+msgid "Stop MPlayer"
+msgstr "Stopje MPlayer"
+
+#: ../fvwm/components/functions/Media:167
+msgid "Destroy MPlayer"
+msgstr "Ferneatigje MPlayer"
+
+#: ../fvwm/components/functions/Media:168
+#: ../fvwm/components/functions/Media:649
+msgid "Show/Hide menu"
+msgstr "Toan/ferbergje menu"
+
+#: ../fvwm/components/functions/Media:236
+#: ../fvwm/components/functions/Music:193
+msgid "Audio playlists"
+msgstr "Audio-ôfspyllisten"
+
+#: ../fvwm/components/functions/Media:237
+msgid "Video playlists"
+msgstr "Fideo-ôfspyllisten"
+
+#: ../fvwm/components/functions/Media:238
+#: ../fvwm/components/functions/Music:194
+msgid "Personal audio playlists"
+msgstr "Persoanlike audio-ôfspyllisten"
+
+#: ../fvwm/components/functions/Media:239
+msgid "Personal video playlists"
+msgstr "Persoanlike fideo-ôfspyllisten"
+
+#: ../fvwm/components/functions/Media:265
+msgid "Choose playlist to remove"
+msgstr "Te ferwiderjen ôfspyllist kieze"
+
+#: ../fvwm/components/functions/Media:267
+#: ../fvwm/components/functions/Media:268
+#: ../fvwm/components/functions/Media:301
+#: ../fvwm/components/functions/Media:302
+#: ../fvwm/components/functions/Music:170 ../fvwm/scripts/media_directories:24
+msgid "Browse Medias"
+msgstr "Blêdzje troch media"
+
+#: ../fvwm/components/functions/Media:299
+msgid "Choose playlist to copy"
+msgstr "Te kopiearjen ôfspyllist kieze"
+
+#: ../fvwm/components/functions/Media:308
+#: ../fvwm/components/functions/Preferences-Menu:521
+msgid "Select channel list"
+msgstr "Kanalelist kieze"
+
+#: ../fvwm/components/functions/Media:309
+#: ../fvwm/components/functions/Media:354
+#: ../fvwm/components/functions/Music-alsaplayer:68
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:69
+#: ../fvwm/components/functions/Music-audacious:78
+#: ../fvwm/components/functions/Music-audacious:156
+#: ../fvwm/components/functions/Music-cmus:57
+#: ../fvwm/components/functions/Music-mocp:58
+#: ../fvwm/components/functions/Music-mocp:104
+#: ../fvwm/components/functions/Music-mpd:94
+#: ../fvwm/components/functions/Music-mpd:170
+#: ../fvwm/components/functions/Music-xmms2:102
+#: ../fvwm/components/functions/Music-xmms2:167
+msgid "Remove playlist"
+msgstr "Ofspyllist ferwiderje"
+
+#: ../fvwm/components/functions/Media:310
+#: ../fvwm/components/functions/Media:353
+msgid "Copy playlist"
+msgstr "Ofspyllist kopiearje"
+
+#: ../fvwm/components/functions/Media:311
+#: ../fvwm/components/functions/Media:313
+#: ../fvwm/components/functions/Media:315
+#: ../fvwm/components/functions/Media:317
+#: ../fvwm/components/functions/Media:345
+#: ../fvwm/components/functions/Media:346
+#: ../fvwm/components/functions/Media:347
+#: ../fvwm/components/functions/Media:348
+msgid "Watch DVB"
+msgstr "Besjoch DVB"
+
+#: ../fvwm/components/functions/Media:312
+#: ../fvwm/components/functions/Media:314
+#: ../fvwm/components/functions/Media:316
+#: ../fvwm/components/functions/Media:318
+#: ../fvwm/components/functions/Media:656
+#: ../fvwm/components/functions/Media:657
+#: ../fvwm/components/functions/Media:658
+#: ../fvwm/components/functions/Media:659
+msgid "Channels"
+msgstr "Kanalen"
+
+#: ../fvwm/components/functions/Media:319
+#: ../fvwm/components/functions/Media:350
+msgid "Load media file"
+msgstr "Mediabestân lade"
+
+#: ../fvwm/components/functions/Media:320
+#: ../fvwm/components/functions/Media:349
+msgid "Play DVD"
+msgstr "Dvd ôfspylje"
+
+#: ../fvwm/components/functions/Media:321
+#: ../fvwm/components/functions/Media:351
+#: ../fvwm/components/functions/Music-alsaplayer:71
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:72
+#: ../fvwm/components/functions/Music-audacious:82
+#: ../fvwm/components/functions/Music-audacious:152
+#: ../fvwm/components/functions/Music-cmus:59
+#: ../fvwm/components/functions/Music-cmus:115
+#: ../fvwm/components/functions/Music-mocp:61
+#: ../fvwm/components/functions/Music-mocp:102
+#: ../fvwm/components/functions/Music-mpd:89
+#: ../fvwm/components/functions/Music-mpd:164
+#: ../fvwm/components/functions/Music-xmms2:98
+#: ../fvwm/components/functions/Music-xmms2:161
+msgid "Load playlist"
+msgstr "Ofspyllist lade"
+
+#: ../fvwm/components/functions/Media:322
+#: ../fvwm/components/functions/Media:355
+msgid "Show file name"
+msgstr "Bestânsnamme toane"
+
+#: ../fvwm/components/functions/Media:488
+msgid "Start"
+msgstr "Begjin"
+
+#: ../fvwm/components/functions/Media:497
+#: ../fvwm/components/functions/Music-alsaplayer:138
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:137
+msgid "+ 10 min"
+msgstr "+ 10 min"
+
+#: ../fvwm/components/functions/Media:498
+#: ../fvwm/components/functions/Music-alsaplayer:139
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:138
+msgid "+  5 min"
+msgstr "+  5 min"
+
+#: ../fvwm/components/functions/Media:499
+#: ../fvwm/components/functions/Music-alsaplayer:140
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:139
+msgid "+  3 min"
+msgstr "+  3 min"
+
+#: ../fvwm/components/functions/Media:500
+#: ../fvwm/components/functions/Music-alsaplayer:141
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:140
+msgid "+  2 min"
+msgstr "+  2 min"
+
+#: ../fvwm/components/functions/Media:501
+#: ../fvwm/components/functions/Music-alsaplayer:142
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:141
+msgid "+  1 min 30"
+msgstr "+  1 min 30"
+
+#: ../fvwm/components/functions/Media:502
+#: ../fvwm/components/functions/Music-alsaplayer:143
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:142
+msgid "+  1 min"
+msgstr "+  1 min"
+
+#: ../fvwm/components/functions/Media:503
+msgid "+ 45 sec"
+msgstr "+ 45 sek"
+
+#: ../fvwm/components/functions/Media:504
+#: ../fvwm/components/functions/Music-alsaplayer:144
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:143
+msgid "+ 30 sec"
+msgstr "+ 30 sek"
+
+#: ../fvwm/components/functions/Media:505
+msgid "+ 20 sec"
+msgstr "+ 20 sek"
+
+#: ../fvwm/components/functions/Media:506
+#: ../fvwm/components/functions/Music-alsaplayer:145
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:144
+msgid "+ 10 sec"
+msgstr "+ 10 sek"
+
+#: ../fvwm/components/functions/Media:508
+#: ../fvwm/components/functions/Music-alsaplayer:147
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:146
+msgid "- 10 sec"
+msgstr "- 10 sek"
+
+#: ../fvwm/components/functions/Media:509
+msgid "- 20 sec"
+msgstr "- 20 sek"
+
+#: ../fvwm/components/functions/Media:510
+#: ../fvwm/components/functions/Music-alsaplayer:148
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:147
+msgid "- 30 sec"
+msgstr "- 30 sek"
+
+#: ../fvwm/components/functions/Media:511
+msgid "- 45 sec"
+msgstr "- 45 sek"
+
+#: ../fvwm/components/functions/Media:512
+#: ../fvwm/components/functions/Music-alsaplayer:149
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:148
+msgid "-  1 min"
+msgstr "-  1 min"
+
+#: ../fvwm/components/functions/Media:513
+#: ../fvwm/components/functions/Music-alsaplayer:150
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:149
+msgid "-  1 min 30"
+msgstr "-  1 min 30"
+
+#: ../fvwm/components/functions/Media:514
+#: ../fvwm/components/functions/Music-alsaplayer:151
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:150
+msgid "-  2 min"
+msgstr "-  2 min"
+
+#: ../fvwm/components/functions/Media:515
+#: ../fvwm/components/functions/Music-alsaplayer:152
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:151
+msgid "-  3 min"
+msgstr "-  3 min"
+
+#: ../fvwm/components/functions/Media:516
+#: ../fvwm/components/functions/Music-alsaplayer:153
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:152
+msgid "-  5 min"
+msgstr "-  5 min"
+
+#: ../fvwm/components/functions/Media:517
+#: ../fvwm/components/functions/Music-alsaplayer:154
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:153
+msgid "- 10 min"
+msgstr "- 10 min"
+
+#: ../fvwm/components/functions/Media:530
+#: ../fvwm/components/functions/Media:630
+#: ../fvwm/components/functions/Music-alsaplayer:164
+#: ../fvwm/components/functions/Music-alsaplayer:249
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:163
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:248
+#: ../fvwm/components/functions/Music-audacious:118
+#: ../fvwm/components/functions/Music-cdcd:78
+#: ../fvwm/components/functions/Music-cmus:100
+#: ../fvwm/components/functions/Music-mocp:92
+#: ../fvwm/components/functions/Music-mpd:149
+#: ../fvwm/components/functions/Music-quodlibet:65
+#: ../fvwm/components/functions/Music-xmms2:136
+#: ../fvwm/components/functions/Music-xmms2:175
+msgid "Pause"
+msgstr "Skoftsje"
+
+#: ../fvwm/components/functions/Media:531
+msgid "Frame step"
+msgstr "Framestap"
+
+#: ../fvwm/components/functions/Media:533
+#: ../fvwm/components/functions/Music-alsaplayer:158
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:157
+#: ../fvwm/components/functions/Music-audacious:113
+#: ../fvwm/components/functions/Music-cdcd:73
+#: ../fvwm/components/functions/Music-cmus:94
+#: ../fvwm/components/functions/Music-mocp:87
+#: ../fvwm/components/functions/Music-mpd:144
+#: ../fvwm/components/functions/Music-quodlibet:59
+#: ../fvwm/components/functions/Music-xmms2:131
+msgid "Next"
+msgstr "Folgjende"
+
+#: ../fvwm/components/functions/Media:534
+#: ../fvwm/components/functions/Music-alsaplayer:159
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:158
+#: ../fvwm/components/functions/Music-audacious:114
+#: ../fvwm/components/functions/Music-cdcd:74
+#: ../fvwm/components/functions/Music-cmus:95
+#: ../fvwm/components/functions/Music-mocp:88
+#: ../fvwm/components/functions/Music-mpd:145
+#: ../fvwm/components/functions/Music-quodlibet:60
+#: ../fvwm/components/functions/Music-xmms2:132
+msgid "Prev"
+msgstr "Foarige"
+
+#: ../fvwm/components/functions/Media:535
+#: ../fvwm/components/functions/Music-alsaplayer:166
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:165
+msgid "Jump"
+msgstr "Springe"
+
+#: ../fvwm/components/functions/Media:536
+#: ../fvwm/components/functions/Music-alsaplayer:167
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:166
+msgid "Seek"
+msgstr "Sykje"
+
+#: ../fvwm/components/functions/Media:572
+msgid "MPlayer volume"
+msgstr "MPlayer-folume"
+
+#: ../fvwm/components/functions/Media:606
+#: ../fvwm/components/functions/Music-alsaplayer:226
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:225
+msgid "Speed control"
+msgstr "Faasjeregeler"
+
+#: ../fvwm/components/functions/Media:608
+#: ../fvwm/components/functions/Music-alsaplayer:228
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:227
+msgid "Max"
+msgstr "Maks."
+
+#: ../fvwm/components/functions/Media:609
+#: ../fvwm/components/functions/Music-alsaplayer:229
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:228
+msgid "+ 1 &octave"
+msgstr "+ 1 &oktaaf"
+
+#: ../fvwm/components/functions/Media:610
+#: ../fvwm/components/functions/Music-alsaplayer:230
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:229
+msgid "+ 1 s&eventh"
+msgstr "+ 1 sând&e"
+
+#: ../fvwm/components/functions/Media:611
+#: ../fvwm/components/functions/Music-alsaplayer:231
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:230
+msgid "+ 1 &sixth"
+msgstr "+ 1 &sechde"
+
+#: ../fvwm/components/functions/Media:612
+#: ../fvwm/components/functions/Music-alsaplayer:232
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:231
+msgid "+ 1 &fifth"
+msgstr "+ 1 &fyfte"
+
+#: ../fvwm/components/functions/Media:613
+#: ../fvwm/components/functions/Music-alsaplayer:233
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:232
+msgid "+ 1 f&ourth"
+msgstr "+ 1 f&jirde"
+
+#: ../fvwm/components/functions/Media:614
+#: ../fvwm/components/functions/Music-alsaplayer:234
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:233
+msgid "+ 1 t&hird"
+msgstr "+ 1 t&redde"
+
+#: ../fvwm/components/functions/Media:615
+#: ../fvwm/components/functions/Music-alsaplayer:235
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:234
+msgid "+ &1 tone"
+msgstr "+ &1 toan"
+
+#: ../fvwm/components/functions/Media:616
+#: ../fvwm/components/functions/Music-alsaplayer:236
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:235
+msgid "+ ½ &tone"
+msgstr "+ ½ &toan"
+
+#: ../fvwm/components/functions/Media:618
+#: ../fvwm/components/functions/Music-alsaplayer:238
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:237
+msgid "- ½ &tone"
+msgstr "- ½ &toan"
+
+#: ../fvwm/components/functions/Media:619
+#: ../fvwm/components/functions/Music-alsaplayer:239
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:238
+msgid "- &1 tone"
+msgstr "- &1 toan"
+
+#: ../fvwm/components/functions/Media:620
+#: ../fvwm/components/functions/Music-alsaplayer:240
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:239
+msgid "- 1 t&hird"
+msgstr "- 1 t&redde"
+
+#: ../fvwm/components/functions/Media:621
+#: ../fvwm/components/functions/Music-alsaplayer:241
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:240
+msgid "- 1 f&ourth"
+msgstr "- 1 f&jirde"
+
+#: ../fvwm/components/functions/Media:622
+#: ../fvwm/components/functions/Music-alsaplayer:242
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:241
+msgid "- 1 &fifth"
+msgstr "- 1 &fyfte"
+
+#: ../fvwm/components/functions/Media:623
+#: ../fvwm/components/functions/Music-alsaplayer:243
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:242
+msgid "- 1 &sixth"
+msgstr "- 1 &sechde"
+
+#: ../fvwm/components/functions/Media:624
+#: ../fvwm/components/functions/Music-alsaplayer:244
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:243
+msgid "- 1 s&eventh"
+msgstr "- 1 sând&e"
+
+#: ../fvwm/components/functions/Media:625
+#: ../fvwm/components/functions/Music-alsaplayer:245
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:244
+msgid "- 1 &octave"
+msgstr "- 1 &oktaaf"
+
+#: ../fvwm/components/functions/Media:626
+msgid "Min"
+msgstr "Min."
+
+#: ../fvwm/components/functions/Media:628
+#: ../fvwm/components/functions/Music-alsaplayer:251
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:250
+msgid "Normal"
+msgstr "Normaal"
+
+#: ../fvwm/components/functions/Media:629
+#: ../fvwm/components/functions/Music-alsaplayer:250
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:249
+msgid "+ 1 &comma"
+msgstr "+ 1 &komma"
+
+#: ../fvwm/components/functions/Media:631
+#: ../fvwm/components/functions/Music-alsaplayer:252
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:251
+msgid "- 1 &comma"
+msgstr "- 1 &komma"
+
+#: ../fvwm/components/functions/Media:648
+#: ../fvwm/components/functions/Music-alsaplayer:267
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:266
+msgid "Player"
+msgstr "Spiler"
+
+#: ../fvwm/components/functions/Media:650
+#: ../fvwm/components/functions/Music-alsaplayer:269
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:269
+msgid "Playback"
+msgstr "Ofspyljen"
+
+#: ../fvwm/components/functions/Media:651
+#: ../fvwm/components/functions/Music-alsaplayer:272
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:272
+msgid "Playlists"
+msgstr "Ofspyllisten"
+
+#: ../fvwm/components/functions/Media:653
+#: ../fvwm/components/functions/Music-alsaplayer:271
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:271
+msgid "Speed"
+msgstr "Faasje"
+
+#: ../fvwm/components/functions/Media:654
+#: ../fvwm/components/functions/Music-alsaplayer:273
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:273
+msgid "Show/Hide QJackCtl"
+msgstr "Toan/ferbergje QJackCtl"
+
+#: ../fvwm/components/functions/Mixer:192
+msgid "Show main mixer"
+msgstr "Toan haadmikser"
+
+#: ../fvwm/components/functions/Mixer:193
+msgid "Audio mixer"
+msgstr "Audiomikser"
+
+#: ../fvwm/components/functions/Mixer:223
+msgid "Main volume"
+msgstr "Haadfolume"
+
+#: ../fvwm/components/functions/Music:191
+msgid "Choose playlist to load"
+msgstr "Te laden ôfspyllist kieze"
+
+#: ../fvwm/components/functions/Music-alsaplayer:36
+msgid "Start Alsaplayer"
+msgstr "Start Alsaplayer"
+
+#: ../fvwm/components/functions/Music-alsaplayer:37
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:38
+#: ../fvwm/components/functions/Music-cmus:30
+#: ../fvwm/components/functions/Music-mocp:28
+#: ../fvwm/components/functions/Music-mpd:33
+#: ../fvwm/components/functions/Music-quodlibet:24
+msgid "Stop player"
+msgstr "Stopje spiler"
+
+#: ../fvwm/components/functions/Music-alsaplayer:38
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:39
+#: ../fvwm/components/functions/Music-audacious:25
+#: ../fvwm/components/functions/Music-audacious:164
+#: ../fvwm/components/functions/Music-cdcd:35
+#: ../fvwm/components/functions/Music-cdcd:89
+#: ../fvwm/components/functions/Music-mocp:29
+#: ../fvwm/components/functions/Music-mpd:185
+#: ../fvwm/components/functions/Music-quodlibet:25
+#: ../fvwm/components/functions/Music-xmms2:173
+msgid "Show/Hide player"
+msgstr "Toan/ferbergje spiler"
+
+#: ../fvwm/components/functions/Music-alsaplayer:69
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:70
+#: ../fvwm/components/functions/Music-audacious:79
+#: ../fvwm/components/functions/Music-audacious:157
+#: ../fvwm/components/functions/Music-cmus:58
+#: ../fvwm/components/functions/Music-mocp:59
+#: ../fvwm/components/functions/Music-mocp:105
+msgid "Playlist copy"
+msgstr "Ofspyllist kopiearje"
+
+#: ../fvwm/components/functions/Music-alsaplayer:70
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:71
+#: ../fvwm/components/functions/Music-audacious:83
+#: ../fvwm/components/functions/Music-audacious:154
+#: ../fvwm/components/functions/Music-mocp:60
+#: ../fvwm/components/functions/Music-mocp:103
+#: ../fvwm/components/functions/Music-mpd:93
+#: ../fvwm/components/functions/Music-mpd:167
+#: ../fvwm/components/functions/Music-xmms2:101
+#: ../fvwm/components/functions/Music-xmms2:165
+msgid "Clear playlist"
+msgstr "Ofspyllist leegje"
+
+#: ../fvwm/components/functions/Music-alsaplayer:124
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:123
+msgid "15 min"
+msgstr "15 min"
+
+#: ../fvwm/components/functions/Music-alsaplayer:125
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:124
+msgid "10 min"
+msgstr "10 min"
+
+#: ../fvwm/components/functions/Music-alsaplayer:126
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:125
+msgid " 5 min"
+msgstr " 5 min"
+
+#: ../fvwm/components/functions/Music-alsaplayer:127
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:126
+msgid " 3 min"
+msgstr " 3 min"
+
+#: ../fvwm/components/functions/Music-alsaplayer:128
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:127
+msgid " 2 min"
+msgstr " 2 min"
+
+#: ../fvwm/components/functions/Music-alsaplayer:129
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:128
+msgid " 1 min 30"
+msgstr " 1 min 30"
+
+#: ../fvwm/components/functions/Music-alsaplayer:130
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:129
+msgid " 1 min"
+msgstr " 1 min"
+
+#: ../fvwm/components/functions/Music-alsaplayer:131
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:130
+msgid "30 sec"
+msgstr "30 sek"
+
+#: ../fvwm/components/functions/Music-alsaplayer:132
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:131
+msgid "10 sec"
+msgstr "10 sek"
+
+#: ../fvwm/components/functions/Music-alsaplayer:160
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:159
+msgid "Song change"
+msgstr "Liet wikselje"
+
+#: ../fvwm/components/functions/Music-alsaplayer:162
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:161
+#: ../fvwm/components/functions/Music-audacious:116
+#: ../fvwm/components/functions/Music-audacious:163
+#: ../fvwm/components/functions/Music-cdcd:33
+#: ../fvwm/components/functions/Music-cdcd:76
+#: ../fvwm/components/functions/Music-cdcd:88
+#: ../fvwm/components/functions/Music-cmus:98
+#: ../fvwm/components/functions/Music-cmus:112
+#: ../fvwm/components/functions/Music-mocp:90
+#: ../fvwm/components/functions/Music-mocp:107
+#: ../fvwm/components/functions/Music-mpd:147
+#: ../fvwm/components/functions/Music-mpd:184
+#: ../fvwm/components/functions/Music-quodlibet:63
+#: ../fvwm/components/functions/Music-xmms2:134
+#: ../fvwm/components/functions/Music-xmms2:172
+msgid "Stop playback"
+msgstr "Stopje ôfspyljen"
+
+#: ../fvwm/components/functions/Music-alsaplayer:163
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:162
+#: ../fvwm/components/functions/Music-audacious:117
+#: ../fvwm/components/functions/Music-cdcd:77
+#: ../fvwm/components/functions/Music-cmus:99
+#: ../fvwm/components/functions/Music-mocp:91
+#: ../fvwm/components/functions/Music-mpd:148
+#: ../fvwm/components/functions/Music-quodlibet:64
+#: ../fvwm/components/functions/Music-xmms2:135
+#: ../fvwm/components/functions/Music-xmms2:174
+msgid "Play"
+msgstr "Ofspylje"
+
+#: ../fvwm/components/functions/Music-alsaplayer:165
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:164
+#: ../fvwm/components/functions/Music-audacious:119
+#: ../fvwm/components/functions/Music-audacious:167
+#: ../fvwm/components/functions/Music-cdcd:34
+#: ../fvwm/components/functions/Music-cdcd:79
+#: ../fvwm/components/functions/Music-cdcd:90
+#: ../fvwm/components/functions/Music-cmus:101
+#: ../fvwm/components/functions/Music-cmus:113
+#: ../fvwm/components/functions/Music-mocp:93
+#: ../fvwm/components/functions/Music-mocp:108
+#: ../fvwm/components/functions/Music-mpd:150
+#: ../fvwm/components/functions/Music-mpd:186
+#: ../fvwm/components/functions/Music-quodlibet:66
+#: ../fvwm/components/functions/Music-quodlibet:84
+msgid "Play/Pause"
+msgstr "Ofspylje/skoftsje"
+
+#: ../fvwm/components/functions/Music-alsaplayer:187
+#: ../fvwm/components/functions/Music-alsaplayer:270
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:186
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:270
+#: ../fvwm/components/functions/Music-audacious:136
+#: ../fvwm/components/functions/Music-xmms2:143
+msgid "Player volume"
+msgstr "Spilerfolume"
+
+#: ../fvwm/components/functions/Music-alsaplayer:246
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:245
+msgid "Max back"
+msgstr "Maks. efterút"
+
+#: ../fvwm/components/functions/Music-alsaplayer:248
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:247
+msgid "Normal &backward"
+msgstr "Normaal &efterút"
+
+#: ../fvwm/components/functions/Music-alsaplayer:268
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:267
+msgid "Show/Hide Alsaplayer"
+msgstr "Toan/ferbergje Alsaplayer"
+
+#: ../fvwm/components/functions/Music-alsaplayer:278
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:278
+msgid "Current song:"
+msgstr "Hjoeddeisk liet:"
+
+#: ../fvwm/components/functions/Music-alsaplayerdaemon:37
+msgid "Start Alsaplayer daemon"
+msgstr "Start Alsaplayer daemon"
+
+#: ../fvwm/components/functions/Music-audacious:23
+#: ../fvwm/components/functions/Music-audacious:165
+msgid "Start Audacious"
+msgstr "Start Audacious"
+
+#: ../fvwm/components/functions/Music-audacious:24
+#: ../fvwm/components/functions/Music-audacious:166
+msgid "Stop Audacious"
+msgstr "Stopje Audacious"
+
+#: ../fvwm/components/functions/Music-audacious:39
+#: ../fvwm/components/functions/Music-mpd:57
+#: ../fvwm/components/functions/Music-mpd:90
+#: ../fvwm/components/functions/Music-xmms2:50
+#: ../fvwm/components/functions/Music-xmms2:100
+msgid "Save playlist"
+msgstr "Ofspyllist bewarje"
+
+#: ../fvwm/components/functions/Music-audacious:40
+#: ../fvwm/components/functions/Music-mpd:58
+#: ../fvwm/components/functions/Music-xmms2:51
+msgid "Name of the playlist"
+msgstr "Namme fan de ôfspyllist"
+
+#: ../fvwm/components/functions/Music-audacious:45
+#: ../fvwm/components/functions/Music-mpd:63
+#: ../fvwm/components/functions/Music-xmms2:56
+msgid "Cancel"
+msgstr "Annulearje"
+
+#: ../fvwm/components/functions/Music-audacious:77
+#: ../fvwm/components/functions/Music-audacious:155
+#: ../fvwm/components/functions/Music-mpd:95
+#: ../fvwm/components/functions/Music-mpd:169
+#: ../fvwm/components/functions/Music-xmms2:105
+#: ../fvwm/components/functions/Music-xmms2:166
+msgid "Remove current song"
+msgstr "Hjoeddeisk liet weilitte"
+
+#: ../fvwm/components/functions/Music-audacious:80
+#: ../fvwm/components/functions/Music-audacious:153
+#: ../fvwm/components/functions/Music-mpd:165
+#: ../fvwm/components/functions/Music-xmms2:163
+msgid "Save playlist..."
+msgstr "Ofspyllist bewarje..."
+
+#: ../fvwm/components/functions/Music-audacious:120
+#: ../fvwm/components/functions/Music-audacious:160
+#: ../fvwm/components/functions/Music-cmus:96
+#: ../fvwm/components/functions/Music-cmus:109
+#: ../fvwm/components/functions/Music-mpd:154
+#: ../fvwm/components/functions/Music-mpd:178
+#: ../fvwm/components/functions/Music-quodlibet:61
+#: ../fvwm/components/functions/Music-quodlibet:81
+msgid "Toggle random"
+msgstr "Willekeurich oan/út"
+
+#: ../fvwm/components/functions/Music-audacious:121
+#: ../fvwm/components/functions/Music-audacious:161
+#: ../fvwm/components/functions/Music-cmus:110
+#: ../fvwm/components/functions/Music-mpd:179
+#: ../fvwm/components/functions/Music-quodlibet:82
+msgid "Toggle repeat"
+msgstr "Werheljen oan/út"
+
+#: ../fvwm/components/functions/Music-audacious:159
+#: ../fvwm/components/functions/Music-cdcd:86
+#: ../fvwm/components/functions/Music-cmus:108
+#: ../fvwm/components/functions/Music-mpd:177
+#: ../fvwm/components/functions/Music-quodlibet:80
+#: ../fvwm/components/functions/Music-xmms2:169
+#: ../fvwm/components/functions/Music-xmms2:170
+msgid "Volume"
+msgstr "Folume"
+
+#: ../fvwm/components/functions/Music-cdcd:80
+#: ../fvwm/components/functions/Music-cmus:102
+#: ../fvwm/components/functions/Music-mpd:152
+#: ../fvwm/components/functions/Music-quodlibet:68
+msgid "Forward"
+msgstr "Foarút"
+
+#: ../fvwm/components/functions/Music-cdcd:81
+#: ../fvwm/components/functions/Music-cmus:103
+#: ../fvwm/components/functions/Music-mpd:153
+#: ../fvwm/components/functions/Music-quodlibet:69
+msgid "Backward"
+msgstr "Efterút"
+
+#: ../fvwm/components/functions/Music-cmus:29
+msgid "Start C* Music Player"
+msgstr "Start C* Music Player"
+
+#: ../fvwm/components/functions/Music-mocp:27
+msgid "Start Music On Console"
+msgstr "Start Music On Console"
+
+#: ../fvwm/components/functions/Music-mpd:32
+msgid "Start Music Player Daemon"
+msgstr "Start Music Player Daemon"
+
+#: ../fvwm/components/functions/Music-mpd:34
+msgid "Show/Hide GMPC"
+msgstr "Toan/ferbergje GMPC"
+
+#: ../fvwm/components/functions/Music-mpd:52
+#: ../fvwm/components/functions/Music-xmms2:44
+msgid "Everything"
+msgstr "Alles"
+
+#: ../fvwm/components/functions/Music-mpd:88
+#: ../fvwm/components/functions/Music-mpd:162
+#: ../fvwm/components/functions/Music-xmms2:158
+msgid "Player is stopped"
+msgstr "Spiler is stoppe."
+
+#: ../fvwm/components/functions/Music-mpd:91
+msgid "Load all"
+msgstr "Alles lade"
+
+#: ../fvwm/components/functions/Music-mpd:92
+#: ../fvwm/components/functions/Music-mpd:168
+msgid "Update database"
+msgstr "Databank bywurkje"
+
+#: ../fvwm/components/functions/Music-mpd:96
+#: ../fvwm/components/functions/Music-mpd:171
+msgid "Playlist editor"
+msgstr "Ofspyllistbewurker"
+
+#: ../fvwm/components/functions/Music-mpd:155
+#: ../fvwm/components/functions/Music-mpd:166
+#: ../fvwm/components/functions/Music-xmms2:138
+#: ../fvwm/components/functions/Music-xmms2:164
+msgid "Shuffle playlist"
+msgstr "Ofspyllist skodzje"
+
+#: ../fvwm/components/functions/Music-mpd:157
+#: ../fvwm/components/functions/Music-mpd:176
+msgid "Crossfade"
+msgstr "Oerrinne"
+
+#: ../fvwm/components/functions/Music-mpd:174
+#: ../fvwm/components/functions/Music-mpd:205
+msgid "Seek &forward"
+msgstr "Sykje &foarút"
+
+#: ../fvwm/components/functions/Music-mpd:175
+#: ../fvwm/components/functions/Music-mpd:206
+msgid "Seek &backward"
+msgstr "Sykje &efterút"
+
+#: ../fvwm/components/functions/Music-mplayer:9
+msgid "Start MPlayer"
+msgstr "Start MPlayer"
+
+#: ../fvwm/components/functions/Music-mplayer:10
+#: ../fvwm/components/functions/Music-mplayer2:10
+msgid "Start XDRadio"
+msgstr "Start XDRadio"
+
+#: ../fvwm/components/functions/Music-mplayer2:9
+msgid "Start MPlayer2"
+msgstr "Start MPlayer2"
+
+#: ../fvwm/components/functions/Music-quodlibet:23
+msgid "Start Quod Libet"
+msgstr "Start Quod Libet"
+
+#: ../fvwm/components/functions/Music-xmms2:26
+msgid "Stop XMMS2"
+msgstr "Stopje XMMS2"
+
+#: ../fvwm/components/functions/Music-xmms2:27
+msgid "Show/Hide GXMMS2"
+msgstr "Toan/ferbergje GXMMS2"
+
+#: ../fvwm/components/functions/Music-xmms2:41
+msgid "Choose a playlist to load"
+msgstr "Te laden ôfspyllist kieze"
+
+#: ../fvwm/components/functions/Music-xmms2:71
+msgid "Choose a playlist to remove"
+msgstr "Te ferwiderjen ôfspyllist kieze"
+
+#: ../fvwm/components/functions/Music-xmms2:97
+msgid "Current playlist"
+msgstr "Hjoeddeiske ôfspyllist"
+
+#: ../fvwm/components/functions/Music-xmms2:99
+#: ../fvwm/components/functions/Music-xmms2:162
+msgid "Add playlist"
+msgstr "Ofspyllist tafoegje"
+
+#: ../fvwm/components/functions/Music-xmms2:104
+msgid "Add a playlist"
+msgstr "Ofspyllist tafoegje"
+
+#: ../fvwm/components/functions/Pictures:33
+#: ../fvwm/components/functions/Pictures:34
+msgid "Browse Pictures"
+msgstr "Blêdzje troch ôfbyldingen"
+
+#: ../fvwm/components/functions/Pictures:42
+msgid "Load picture file"
+msgstr "Ofbyldingsbestân lade"
+
+#: ../fvwm/components/functions/Preferences-Menu:9
+msgid "Used recipe"
+msgstr "Brûkt resept"
+
+#: ../fvwm/components/functions/Preferences-Menu:10
+msgid "Desktop geometry"
+msgstr "Buroblêdferhâlding"
+
+#: ../fvwm/components/functions/Preferences-Menu:11
+msgid "Character fonts"
+msgstr "Lettertypen"
+
+#: ../fvwm/components/functions/Preferences-Menu:12
+msgid "Handle width"
+msgstr "Gryprânebreedte"
+
+#: ../fvwm/components/functions/Preferences-Menu:13
+#: ../fvwm/components/functions/Preferences-Menu:181
+msgid "Translucency"
+msgstr "Translusinsje"
+
+#: ../fvwm/components/functions/Preferences-Menu:14
+msgid "Bling bling"
+msgstr "Blingbling"
+
+#: ../fvwm/components/functions/Preferences-Menu:15
+msgid "Default terminal"
+msgstr "Standertterminal"
+
+#: ../fvwm/components/functions/Preferences-Menu:16
+msgid "FvwmConsole terminal"
+msgstr "FvwmConsole-terminal"
+
+#: ../fvwm/components/functions/Preferences-Menu:17
+msgid "QuakeConsole terminal"
+msgstr "QuakeConsole-terminal"
+
+#: ../fvwm/components/functions/Preferences-Menu:18
+msgid "Desktop manager"
+msgstr "Buroblêdbehearder"
+
+#: ../fvwm/components/functions/Preferences-Menu:19
+msgid "Type of icons"
+msgstr "Ikoantype"
+
+#: ../fvwm/components/functions/Preferences-Menu:20
+msgid "Desktop menu"
+msgstr "Buroblêdmenu"
+
+#: ../fvwm/components/functions/Preferences-Menu:21
+msgid "Notification area manager"
+msgstr "Systeemfekbehearder"
+
+#: ../fvwm/components/functions/Preferences-Menu:23
+msgid "Window focus policy"
+msgstr "Finsterfokusbelied"
+
+#: ../fvwm/components/functions/Preferences-Menu:24
+msgid "Privileged terminals"
+msgstr "Foarrang terminals"
+
+#: ../fvwm/components/functions/Preferences-Menu:26
+msgid "Generate application menu"
+msgstr "Programmamenu oanmeitsje"
+
+#: ../fvwm/components/functions/Preferences-Menu:27
+msgid "Silent operations"
+msgstr "Stil útfieren"
+
+#: ../fvwm/components/functions/Preferences-Menu:28
+msgid "Preferences editor"
+msgstr "Foarkarrebewurker"
+
+#: ../fvwm/components/functions/Preferences-Menu:29
+msgid "Key binding modifiers editor"
+msgstr "Modifikatortoetsebewurker"
+
+#: ../fvwm/components/functions/Preferences-Menu:73
+#: ../fvwm/components/functions/Preferences-Menu:363
+#: ../fvwm/components/functions/Preferences-Menu:439
+#: ../fvwm/components/functions/Preferences-Menu:667
+msgid "Restart FVWM-Crystal"
+msgstr "FVWM-Crystal werstarte"
+
+#: ../fvwm/components/functions/Preferences-Menu:74
+msgid "New recipe will be used after next startup"
+msgstr "Nij resept sil brûkt wurde nei folgjende opstart"
+
+#: ../fvwm/components/functions/Preferences-Menu:88
+msgid "page"
+msgstr "blêd"
+
+#: ../fvwm/components/functions/Preferences-Menu:89
+#: ../fvwm/components/functions/Preferences-Menu:90
+#: ../fvwm/components/functions/Preferences-Menu:91
+#: ../fvwm/components/functions/Preferences-Menu:92
+#: ../fvwm/components/functions/Preferences-Menu:93
+#: ../fvwm/components/functions/Preferences-Menu:94
+#: ../fvwm/components/functions/Preferences-Menu:95
+#: ../fvwm/components/functions/Preferences-Menu:96
+msgid "pages"
+msgstr "blêden"
+
+#: ../fvwm/components/functions/Preferences-Menu:129
+msgid "pixel"
+msgstr "pixel"
+
+#: ../fvwm/components/functions/Preferences-Menu:130
+#: ../fvwm/components/functions/Preferences-Menu:131
+#: ../fvwm/components/functions/Preferences-Menu:132
+#: ../fvwm/components/functions/Preferences-Menu:133
+#: ../fvwm/components/functions/Preferences-Menu:134
+#: ../fvwm/components/functions/Preferences-Menu:135
+msgid "pixels"
+msgstr "pixels"
+
+#: ../fvwm/components/functions/Preferences-Menu:148
+msgid "Start translucency"
+msgstr "Start translusinsje"
+
+#: ../fvwm/components/functions/Preferences-Menu:149
+msgid "Stop translucency"
+msgstr "Stopje translusinsje"
+
+#: ../fvwm/components/functions/Preferences-Menu:165
+msgid "Start bling bling"
+msgstr "Start blingbling"
+
+#: ../fvwm/components/functions/Preferences-Menu:166
+msgid "Stop bling bling"
+msgstr "Stopje blingbling"
+
+#: ../fvwm/components/functions/Preferences-Menu:182
+msgid "Translucency is not supported by FVWM."
+msgstr "Translusinsje wurdt net stipe troch FVWM."
+
+#: ../fvwm/components/functions/Preferences-Menu:184
+msgid "Unexpected results may occur."
+msgstr "Unferwachte gefolgen kinne har foardwaan."
+
+#: ../fvwm/components/functions/Preferences-Menu:186
+msgid "You have been warned!"
+msgstr "Jo binne warskôge!"
+
+#: ../fvwm/components/functions/Preferences-Menu:251
+msgid "None"
+msgstr "Gjin"
+
+#: ../fvwm/components/functions/Preferences-Menu:306
+#: ../fvwm/components/functions/Preferences-Menu:320
+msgid "Changed desktop manager"
+msgstr "Buroblêdbehearder wizige"
+
+#: ../fvwm/components/functions/Preferences-Menu:307
+#: ../fvwm/components/functions/Preferences-Menu:321
+msgid "Selected desktop manager will be used"
+msgstr "Keazen buroblêdbehearder sil brûkt wurde"
+
+#: ../fvwm/components/functions/Preferences-Menu:309
+#: ../fvwm/components/functions/Preferences-Menu:323
+msgid "at the next start of your X session"
+msgstr "nei de folgjende start fan jo X-sesje"
+
+#: ../fvwm/components/functions/Preferences-Menu:349
+#: ../fvwm/components/functions/Preferences-Menu:488
+msgid "No icon"
+msgstr "Gjin ikoanen"
+
+#: ../fvwm/components/functions/Preferences-Menu:351
+msgid "Thumbnails"
+msgstr "Miniatueren"
+
+#: ../fvwm/components/functions/Preferences-Menu:364
+msgid "New type of icons will be used after next startup"
+msgstr "Nij ikoantype sil brûkt wurde nei folgjende opstart"
+
+#: ../fvwm/components/functions/Preferences-Menu:378
+msgid "No menu with left click"
+msgstr "Gjin menu mei loftsklikken"
+
+#: ../fvwm/components/functions/Preferences-Menu:379
+msgid "Menu with left click"
+msgstr "Menu mei loftsklikken"
+
+#: ../fvwm/components/functions/Preferences-Menu:381
+msgid "No XDG menu with Alt+A"
+msgstr "Gjin XDG-menu mei Alt+A"
+
+#: ../fvwm/components/functions/Preferences-Menu:382
+msgid "XDG Menu with Alt+A"
+msgstr "XDG-menu mei Alt+A"
+
+#: ../fvwm/components/functions/Preferences-Menu:414
+msgid "No notification area"
+msgstr "Gjin systeemfek"
+
+#: ../fvwm/components/functions/Preferences-Menu:415
+msgid "1 icon width"
+msgstr "1 ikoan breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:416
+msgid "2 icons width"
+msgstr "2 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:417
+msgid "3 icons width"
+msgstr "3 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:418
+msgid "4 icons width"
+msgstr "4 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:419
+msgid "5 icons width"
+msgstr "5 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:420
+msgid "6 icons width"
+msgstr "6 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:421
+msgid "7 icons width"
+msgstr "7 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:422
+msgid "8 icons width"
+msgstr "8 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:423
+msgid "9 icons width"
+msgstr "9 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:424
+msgid "12 icons width"
+msgstr "12 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:425
+msgid "15 icons width"
+msgstr "15 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:426
+msgid "20 icons width"
+msgstr "20 ikoanen breed"
+
+#: ../fvwm/components/functions/Preferences-Menu:440
+msgid "New notification area setting will be used after next startup"
+msgstr "Nije systeemfekynstelling sil brûkt wurde nei folgjende opstart"
+
+#: ../fvwm/components/functions/Preferences-Menu:487
+msgid "Icons"
+msgstr "Ikoanen"
+
+#: ../fvwm/components/functions/Preferences-Menu:522
+msgid "Enter the name of the channel list for the DVB input"
+msgstr "Fier de namme yn fan de kanalelist foar DVB-ynfier"
+
+#: ../fvwm/components/functions/Preferences-Menu:539
+msgid "Media directories"
+msgstr "Mediamappen"
+
+#: ../fvwm/components/functions/Preferences-Menu:540
+msgid "You should edit the file"
+msgstr "Jo moatte dit bestân bewurkje:"
+
+#: ../fvwm/components/functions/Preferences-Menu:546
+msgid "and choose a player in the preferences."
+msgstr "en in spiler kieze yn de foarkarren."
+
+#: ../fvwm/components/functions/Preferences-Menu:549
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:10
+msgid "Each line has the following format:"
+msgstr "Elke rigel hat de folgjende opmaak:"
+
+#: ../fvwm/components/functions/Preferences-Menu:552
+msgid "type path"
+msgstr "type paad"
+
+#: ../fvwm/components/functions/Preferences-Menu:555
+msgid "where type is one of the following"
+msgstr "dêr’t \\'type\\' ien fan de folgjende is:"
+
+#: ../fvwm/components/functions/Preferences-Menu:561
+msgid "and path is the full path to the media directory."
+msgstr "en \\'paad\\' it folsleine paad nei de mediamap is."
+
+#: ../fvwm/components/functions/Preferences-Menu:564
+msgid "Nothing else is allowed in that file."
+msgstr "Neat oars is tastien yn dit bestân."
+
+#: ../fvwm/components/functions/Preferences-Menu:588
+msgid "Sound Card"
+msgstr "Lûdskaart"
+
+#: ../fvwm/components/functions/Preferences-Menu:612
+msgid "FVWM-Crystal with raise"
+msgstr "FVWM-Crystal mei ferheegjen"
+
+#: ../fvwm/components/functions/Preferences-Menu:668
+msgid "New menu entries will be used after next startup"
+msgstr "Nije menuyngongen sille brûkt wurde nei folgjende opstart"
+
+#: ../fvwm/components/functions/Preferences-Menu:681
+msgid "Preference Warning"
+msgstr "Foarkarwarskôging"
+
+#: ../fvwm/components/functions/Preferences-Menu:682
+msgid "Please edit the following file to suit your need"
+msgstr "Bewurkje a.j.w. it folgjende bestân nei jo ferlet"
+
+#: ../fvwm/components/functions/Preferences-Menu:685
+msgid "and restart this tool:"
+msgstr "en werstart dit helpmiddel:"
+
+#: ../fvwm/components/functions/Screenshot-import:22
+#: ../fvwm/components/functions/Window-Buttons:149
+#: ../fvwm/components/functions/Window-Buttons:186
+#: ../fvwm/components/functions/Window-Buttons-Vertical:146
+#: ../fvwm/components/functions/Window-Buttons-Vertical:182
+msgid "Fullscreen"
+msgstr "Folslein skerm"
+
+#: ../fvwm/components/functions/Screenshot-import:23
+msgid "Delayed fullscreen"
+msgstr "Utsteld folslein skerm"
+
+#: ../fvwm/components/functions/Screenshot-import:24
+msgid "Frame"
+msgstr "Omkaderje"
+
+#: ../fvwm/components/functions/Wallpaper:41
+msgid "Thumbnails size"
+msgstr "Miniatuergrutte"
+
+#: ../fvwm/components/functions/Wallpaper:67
+msgid "5 seconds"
+msgstr "5 sekonden"
+
+#: ../fvwm/components/functions/Wallpaper:68
+msgid "10 seconds"
+msgstr "10 sekonden"
+
+#: ../fvwm/components/functions/Wallpaper:69
+msgid "15 seconds"
+msgstr "15 sekonden"
+
+#: ../fvwm/components/functions/Wallpaper:70
+msgid "30 seconds"
+msgstr "30 sekonden"
+
+#: ../fvwm/components/functions/Wallpaper:71
+msgid "1 minute"
+msgstr "1 minút"
+
+#: ../fvwm/components/functions/Wallpaper:72
+msgid "5 minutes"
+msgstr "5 minuten"
+
+#: ../fvwm/components/functions/Wallpaper:73
+msgid "10 minutes"
+msgstr "10 minuten"
+
+#: ../fvwm/components/functions/Wallpaper:74
+msgid "15 minutes"
+msgstr "15 minuten"
+
+#: ../fvwm/components/functions/Wallpaper:75
+msgid "30 minutes"
+msgstr "30 minuten"
+
+#: ../fvwm/components/functions/Wallpaper:76
+msgid "1 hour"
+msgstr "1 oer"
+
+#: ../fvwm/components/functions/Wallpaper:77
+msgid "3 hours"
+msgstr "3 oeren"
+
+#: ../fvwm/components/functions/Wallpaper:78
+msgid "8 hours"
+msgstr "8 oeren"
+
+#: ../fvwm/components/functions/Wallpaper:79
+msgid "1 day"
+msgstr "1 dei"
+
+#: ../fvwm/components/functions/Wallpaper:84
+msgid "Random wallpaper"
+msgstr "Willekeurige eftergrûn"
+
+#: ../fvwm/components/functions/Wallpaper:85
+msgid "Toggle loop wallpaper"
+msgstr "Start wikseljende eftergrûn"
+
+#: ../fvwm/components/functions/Wallpaper:86
+msgid "Stop loop wallpaper"
+msgstr "Stopje wikseljende eftergrûn"
+
+#: ../fvwm/components/functions/Window-Buttons:132
+#: ../fvwm/components/functions/Window-Buttons:181
+#: ../fvwm/components/functions/Window-Buttons-Vertical:130
+#: ../fvwm/components/functions/Window-Buttons-Vertical:178
+msgid "Iconify"
+msgstr "Ikoanifisearje"
+
+#: ../fvwm/components/functions/Window-Buttons:136
+#: ../fvwm/components/functions/Window-Buttons:191
+#: ../fvwm/components/functions/Window-Buttons-Vertical:134
+#: ../fvwm/components/functions/Window-Buttons-Vertical:187
+msgid "Identify"
+msgstr "Identifisearje"
+
+#: ../fvwm/components/functions/Window-Buttons:140
+#: ../fvwm/components/functions/Window-Buttons:185
+#: ../fvwm/components/functions/Window-Buttons-Vertical:138
+msgid "Maximize"
+msgstr "Maksimalisearje"
+
+#: ../fvwm/components/functions/Window-Buttons:141
+msgid "Minimize"
+msgstr "Minimalisearje"
+
+#: ../fvwm/components/functions/Window-Buttons:142
+#: ../fvwm/components/functions/Window-Buttons-Vertical:139
+msgid "Maximize horizontally"
+msgstr "Horizontaal maksimalisearje"
+
+#: ../fvwm/components/functions/Window-Buttons:143
+#: ../fvwm/components/functions/Window-Buttons-Vertical:140
+msgid "Maximize vertically"
+msgstr "Fertikaal maksimalisearje"
+
+#: ../fvwm/components/functions/Window-Buttons:145
+#: ../fvwm/components/functions/Window-Buttons-Vertical:142
+msgid "Take all free space"
+msgstr "Nim alle frije romte"
+
+#: ../fvwm/components/functions/Window-Buttons:146
+#: ../fvwm/components/functions/Window-Buttons-Vertical:143
+msgid "Take all horizontal space"
+msgstr "Nim alle horizontale romte"
+
+#: ../fvwm/components/functions/Window-Buttons:147
+#: ../fvwm/components/functions/Window-Buttons-Vertical:144
+msgid "Take all vertical space"
+msgstr "Nim alle fertikale romte"
+
+#: ../fvwm/components/functions/Window-Buttons:153
+#: ../fvwm/components/functions/Window-Buttons:183
+#: ../fvwm/components/functions/Window-Buttons-Vertical:150
+#: ../fvwm/components/functions/Window-Buttons-Vertical:180
+msgid "Stay raised"
+msgstr "Boppe-op hâlde"
+
+#: ../fvwm/components/functions/Window-Buttons:154
+#: ../fvwm/components/functions/Window-Buttons:184
+#: ../fvwm/components/functions/Window-Buttons-Vertical:151
+#: ../fvwm/components/functions/Window-Buttons-Vertical:181
+msgid "Normal mode"
+msgstr "Normale modus"
+
+#: ../fvwm/components/functions/Window-Buttons:155
+#: ../fvwm/components/functions/Window-Buttons-Vertical:152
+msgid "Stay lowered"
+msgstr "Underop hâlde"
+
+#: ../fvwm/components/functions/Window-Buttons:156
+#: ../fvwm/components/functions/Window-Buttons:182
+#: ../fvwm/components/functions/Window-Buttons-Vertical:153
+#: ../fvwm/components/functions/Window-Buttons-Vertical:179
+msgid "Stick"
+msgstr "Fêstsette"
+
+#: ../fvwm/components/functions/Window-Buttons:158
+#: ../fvwm/components/functions/Window-Buttons-Vertical:155
+msgid "Refresh"
+msgstr "Fernije"
+
+#: ../fvwm/components/functions/Window-Buttons:167
+#: ../fvwm/components/functions/Window-Buttons:188
+msgid "Move to left page"
+msgstr "Ferpleats nei lofter blêd"
+
+#: ../fvwm/components/functions/Window-Buttons:168
+#: ../fvwm/components/functions/Window-Buttons-Vertical:165
+msgid "Move to previous page"
+msgstr "Ferpleats nei foarich blêd"
+
+#: ../fvwm/components/functions/Window-Buttons:169
+#: ../fvwm/components/functions/Window-Buttons:189
+msgid "Move to right page"
+msgstr "Ferpleats nei rjochter blêd"
+
+#: ../fvwm/components/functions/Window-Buttons:171
+msgid "Jump to left page"
+msgstr "Spring nei lofter blêd"
+
+#: ../fvwm/components/functions/Window-Buttons:172
+#: ../fvwm/components/functions/Window-Buttons-Vertical:169
+msgid "Jump to previous page"
+msgstr "Spring nei foarich blêd"
+
+#: ../fvwm/components/functions/Window-Buttons:173
+msgid "Jump to right page"
+msgstr "Spring nei rjochter blêd"
+
+#: ../fvwm/components/functions/Window-Buttons:175
+#: ../fvwm/components/functions/Window-Buttons-Vertical:172
+msgid "Move to page"
+msgstr "Ferpleats nei blêd"
+
+#: ../fvwm/components/functions/Window-Buttons-Vertical:164
+#: ../fvwm/components/functions/Window-Buttons-Vertical:184
+msgid "Move to upper page"
+msgstr "Ferpleats nei heger blêd"
+
+#: ../fvwm/components/functions/Window-Buttons-Vertical:166
+#: ../fvwm/components/functions/Window-Buttons-Vertical:185
+msgid "Move to lower page"
+msgstr "Ferpleats nei leger blêd"
+
+#: ../fvwm/components/functions/Window-Buttons-Vertical:168
+msgid "Jump to upper page"
+msgstr "Spring nei heger blêd"
+
+#: ../fvwm/components/functions/Window-Buttons-Vertical:170
+msgid "Jump to lower page"
+msgstr "Spring nei leger blêd"
+
+#: ../fvwm/components/functions/Window-Decorations:30
+msgid "Button model"
+msgstr "Knoppemodel"
+
+#: ../fvwm/scripts/desktop_manager:47
+msgid "Mount"
+msgstr "Oankeppelje"
+
+#: ../fvwm/scripts/desktop_manager:51
+msgid "XDG user directories"
+msgstr "XDG-brûkersmappen"
+
+#: ../fvwm/scripts/desktop_manager:52
+msgid "Mounted partitions"
+msgstr "Oankeppele partysjes"
+
+#: ../fvwm/scripts/desktop_manager:53
+msgid "Show directories"
+msgstr "Toande mappen"
+
+#: ../fvwm/scripts/desktop_manager:54
+msgid "Actions"
+msgstr "Aksjes"
+
+#: ../fvwm/scripts/desktop_manager:55
+msgid "Emplacement"
+msgstr "Pleatsing"
+
+#: ../fvwm/scripts/desktop_manager:56
+msgid "Show on top with panels"
+msgstr "Boppe-op finsters toanen"
+
+#: ../fvwm/scripts/media_directories:20
+msgid "Browse Music"
+msgstr "Blêdzje troch muzyk"
+
+#: ../fvwm/scripts/media_directories:28
+msgid "Browse CDROM"
+msgstr "Blêdzje troch cd-rom"
+
+#: ../fvwm/scripts/media_directories:32
+msgid "Browse DVD"
+msgstr "Blêdzje troch dvd"
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:3
+msgid "Show Directories"
+msgstr "Mappen toane"
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:4
+msgid "You are editing the file"
+msgstr "Jo bewurkje dit bestân:"
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:13
+msgid "path1 path2"
+msgstr "paad1 paad2"
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:16
+msgid "where path1 and path2 are directory paths"
+msgstr "dêr’t \\'paad1\\' en \\'paad2\\' mappaden binne"
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:19
+msgid "you want to have with the desktop icons."
+msgstr "dy’t jo by de buroblêdikoanen hawwe wolle."
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:22
+msgid "path2 is optional and will be shown in the second panel"
+msgstr "Paad2 is opsjoneel, en sil toand wurde yn in twadde finster"
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:25
+msgid "of your preferred file browser."
+msgstr "fan jo bestânsbehearder fan foarkar."
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:28
+msgid "Some file browsers can support more than 2 paths."
+msgstr "Sommige bestânsbehearders stypje mear as 2 paden."
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:31
+msgid "Path names with spaces must be quoted with single quotes."
+msgstr "Paadnammen mei spaasjes moatte tusken inkelde oanheltekens."
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:34
+msgid "If you don’t want any such icons,"
+msgstr "As jo sokke ikoanen net wolle:"
+
+#: ../fvwm/scripts/FileEditors/ShowDirectories-Help:37
+msgid "just blank this file but keep it."
+msgstr "leegje dit bestân, mar behâld it."

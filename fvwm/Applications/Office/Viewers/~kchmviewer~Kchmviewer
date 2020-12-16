@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kchmviewer $@ 2>/dev/null
+

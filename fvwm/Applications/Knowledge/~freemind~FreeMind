@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec freemind $@ 2>/dev/null
+

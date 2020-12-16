@@ -1,0 +1,786 @@
+# Menu with preferences
+#
+# Included in components/desktop/FVWM-Crystal_Functions
+# The Music player and Audio mixer prefs menu appears into the Music button menu.
+# apps/DesktopIcons have its own preferences.
+
+DestroyMenu /Preferences
+AddToMenu /Preferences
++ '%22x22/fvwm-crystal/user-desktop.png%$[gt.Used recipe]'		Popup /Preferences/Recipes
++ '%22x22/fvwm-crystal/geometry.png%$[gt.Desktop geometry]'	Popup /Preferences/Geometry
++ '%22x22/fvwm-crystal/font.png%$[gt.Character fonts]'	Script scripts/FontSelector/FontSelector
++ '%22x22/fvwm-crystal/handles.png%$[gt.Handle width]'	Popup /Preferences/HandleWidth
+Test (x xcompmgr) Test (x transset) + '%22x22/fvwm-crystal/BlingBling.png%$[gt.Translucency]'		Popup /Preferences/Translucency
+Test (x xcompmgr) Test (x transset) + '%22x22/fvwm-crystal/BlingBling2.png%$[gt.Bling bling]'		Popup /Preferences/BlingBling
++ '%22x22/fvwm-crystal/utilities-terminal.png%$[gt.Default terminal]'	Popup /Preferences/DefaultTerminal
++ '%22x22/fvwm-crystal/utilities-terminal.png%$[gt.FvwmConsole terminal]'	Popup /Preferences/FvwmConsoleTerminal
++ '%22x22/fvwm-crystal/utilities-terminal.png%$[gt.QuakeConsole terminal]'	Popup /Preferences/QuakeConsoleTerminal
++ '%22x22/fvwm-crystal/system-file-manager.png%$[gt.Desktop manager]'	Popup /Preferences/DesktopManager
++ '%22x22/fvwm-crystal/icon.png%$[gt.Type of icons]' Popup /Preferences/IconsType
++ '%22x22/fvwm-crystal/fvwm-crystal.png%$[gt.Desktop menu]' Popup /Preferences/DesktopMenu
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.Notification area manager]'		Popup /preferences/NotificationAreaManager
++ "" Nop
++ '%22x22/fvwm-crystal/focus.png%$[gt.Window focus policy]'	Popup /Preferences/FocusPolicy
+Test (x xset) + '%22x22/fvwm-crystal/BlingBling2.png%$[gt.Mouse velocity]'		Popup /Preferences/MouseVelocity
++ '%22x22/fvwm-crystal/utilities-terminal.png%$[gt.Privileged terminals]'	Popup /Preferences/PrivilegedTerminals
++ "" Nop
++ '%22x22/fvwm-crystal/applications.png%$[gt.Generate application menu]'	GenerateApplicationMenu
++ '%22x22/fvwm-crystal/silent.png%$[gt.Silent operations]'	Popup /Preferences/SilentOps
++ '%22x22/fvwm-crystal/fvwm-crystal.png%$[gt.Preferences editor]' LaunchPrefEditors
++ '%22x22/fvwm-crystal/fvwm-crystal.png%$[gt.Key binding modifiers editor]' Script scripts/KeyModifiersEditor/KeyModifiersEditor
+
+#
+# Reload the recipe instead of restart
+#
+DestroyFunc ReloadRecipe
+AddToFunc ReloadRecipe
++ I All (FvwmButtons-Pager) PutOnBottom
++ I All (FvwmPager) PutOnBottom
++ I All (FvwmButtons) Close
++ I All (FvwmIconMan) Close
++ I All (FvwmPager) Close
++ I Exec exec killall stalonetray $[infostore.SILENT]
++ I Exec exec killall trayer $[infostore.SILENT]
++ I Exec exec killall UpdateInfoline $[infostore.SILENT]
++ I PipeRead "if [ '$*' != '' ]; \
+		then echo Read \\'$*\\'; \
+		else echo Read \\'$[infostore.Fvwm_Crystal_Recipe]\\'; fi"
+
+#
+# Used recipe
+#
+DestroyMenu /Preferences/Recipes
+AddToMenu /Preferences/Recipes
++ MissingSubmenuFunction Recipes-generator
++ '%22x22/categories/directory.png%$[gt.System]' Popup $[FVWM_SYSTEMDIR]/recipes
+Test (f $[FVWM_USERDIR]/recipes) + '%22x22/categories/directory.png%$[gt.User]' Popup $[FVWM_USERDIR]/recipes
+
+DestroyFunc Recipes-generator
+AddToFunc Recipes-generator
++ I DestroyMenu recreate $0
++ I AddToMenu $0
++ I PipeRead 'for i in $0/*; do \
+  name=$(basename "${i}"); \
+  echo \"AddToMenu $0 \'${name}\' Recipe-Set \'${i}\'\"; done'
+
+DestroyFunc Recipe-Set
+AddToFunc Recipe-Set
++ I InfoStoreAdd Fvwm_Crystal_Recipe "$*"
++ I SavePreferences LastChoosenRecipe "InfoStoreAdd Fvwm_Crystal_Recipe $*"
++ I ReloadRecipe '$*'
+
+All (Recipe-Restart-Dialog) Close
+DestroyModuleConfig Recipe-Restart-Dialog: *
+*Recipe-Restart-Dialog: Title "$[gt.Restart FVWM-Crystal]"
+*Recipe-Restart-Dialog: Text "$[gt.New recipe will be used after next startup]"
+*Recipe-Restart-Dialog: Line center
+*Recipe-Restart-Dialog: Line center
+*Recipe-Restart-Dialog: Button quit " $[gt.Restart] " ^M
+*Recipe-Restart-Dialog: Command ReloadRecipe
+*Recipe-Restart-Dialog: Button quit " $[gt.Not now] " ^[
+*Recipe-Restart-Dialog: Command Nop
+*Recipe-Restart-Dialog: Line center
+
+#
+# Desktop geometry
+#
+DestroyMenu /Preferences/Geometry
+AddToMenu /Preferences/Geometry
++ '%22x22/fvwm-crystal/Jewel2.png%1 $[gt.page]' SetGeometry 1
++ '%22x22/fvwm-crystal/Jewel2.png%2 $[gt.pages]' SetGeometry 2
++ '%22x22/fvwm-crystal/Jewel2.png%3 $[gt.pages]' SetGeometry 3
++ '%22x22/fvwm-crystal/Jewel2.png%4 $[gt.pages]' SetGeometry 4
++ '%22x22/fvwm-crystal/Jewel2.png%5 $[gt.pages]' SetGeometry 5
++ '%22x22/fvwm-crystal/Jewel2.png%6 $[gt.pages]' SetGeometry 6
++ '%22x22/fvwm-crystal/Jewel2.png%7 $[gt.pages]' SetGeometry 7
++ '%22x22/fvwm-crystal/Jewel2.png%8 $[gt.pages]' SetGeometry 8
++ '%22x22/fvwm-crystal/Jewel2.png%9 $[gt.pages]' SetGeometry 9
+
+DestroyFunc SetGeometry
+AddToFunc SetGeometry
++ I InfoStoreAdd OldX $[infostore.Desk_Pages_X]
++ I InfoStoreAdd Desk_Pages_X $0
+# The page number in FVWM begin at 0
++ I PipeRead 'last=$(( $0-1)); old=$(( $[infostore.OldX]-1 )); if [ $last -lt $old ]; then for page in $(seq $0 $old); do echo "GotoPage $page 0"; echo \'All (CurrentPage) WindowStyle !FixedPosition\'; echo "UpdateStyles"; echo "All (CurrentPage) MoveToPage $last 0"; for file in $(ls /tmp/fullscreen.??.0x???????.$page.0.tmp 2>/dev/null); do new=$(echo $file | sed -e "s:$page.0:$last.0:"); mv $file $new 2>/dev/null; done; done; fi'
++ I InfoStoreRemove OldX
++ I SavePreferences DeskPageX "InfoStoreAdd Desk_Pages_X $[0]"
++ I DesktopSize $[infostore.Desk_Pages_X]x$[infostore.Desk_Pages_Y]
++ I FvwmPagerWindow
+
+# Characters fonts, sizes and styles
+# Deplaced in scripts/FontSelector/FontSelector
+#
+# Files that use them:
+# decorations/* (theme files: use title_font and title_font_size)
+# recipes/* (panel_font panel_font_size)
+# components/styles/Menu (menu_font menu_font_size)
+#
+# Some good UTF-8 fonts are aqua_pfont, aquafont, AR PL Ukai, AR PL Uming, Bitstream Cyberbit,
+# Dialog, Dialoginput, IPAGothic, IPAMincho, IPAPGothic, IPAPMincho, M+ 1c *, M+ 1m *, M+ 1mm *,
+# M+ 1p, M+ 2c, M+ 2m, M+ 2p, MigMix, Migu, Monospaced, Ricty, Ricty Discord, SansSerif,
+# Sazanami, Sazanami Gothic, Serif, TakaoExGothic, TakaoExMincho, TakaoGothic, TakaoMincho,
+# TakaoPGothic, TakaoPMincho, UmePlus, unifont, VL Gothic, VL PGothic, WenQuanYi Micro Hey,
+# WenQuanYi Micro Hey Mono.
+
+#
+# Handles width
+#
+DestroyMenu /Preferences/HandleWidth
+AddToMenu /Preferences/HandleWidth
++ '%22x22/fvwm-crystal/Jewel2.png%1 $[gt.pixel]' MenuHandleWidth 1
++ '%22x22/fvwm-crystal/Jewel2.png%2 $[gt.pixels]' MenuHandleWidth 2
++ '%22x22/fvwm-crystal/Jewel2.png%3 $[gt.pixels]' MenuHandleWidth 3
++ '%22x22/fvwm-crystal/Jewel2.png%4 $[gt.pixels]' MenuHandleWidth 4
++ '%22x22/fvwm-crystal/Jewel2.png%5 $[gt.pixels]' MenuHandleWidth 5
++ '%22x22/fvwm-crystal/Jewel2.png%6 $[gt.pixels]' MenuHandleWidth 6
++ '%22x22/fvwm-crystal/Jewel2.png%7 $[gt.pixels]' MenuHandleWidth 7
+
+DestroyFunc MenuHandleWidth
+AddToFunc MenuHandleWidth
++ I Piperead 'echo InfoStoreAdd handle_width $0'
++ I SavePreferences HandleWidth "InfoStoreAdd handle_width $[0]"
++ I Style * HandleWidth $[0]
+
+#
+# Transparency
+#
+DestroyMenu /Preferences/Translucency
+AddToMenu /Preferences/Translucency
++ '%22x22/fvwm-crystal/BlingBling.png%$[gt.Start translucency]' StartTranslucency
++ '%22x22/fvwm-crystal/Off.png%$[gt.Stop translucency]' StopTranslucency
+
+DestroyFunc StartTranslucency
+AddToFunc StartTranslucency
++ I Exec exec xcompmgr
+#+ I Module FvwmForm Translucency-Dialog
+
+DestroyFunc StopTranslucency
+AddToFunc StopTranslucency
++ I Exec exec killall xcompmgr
+
+#
+# Bling bling
+#
+DestroyMenu /Preferences/BlingBling
+AddToMenu /Preferences/BlingBling
++ '%22x22/fvwm-crystal/BlingBling2.png%$[gt.Start bling bling]' StartBlingBling
++ '%22x22/fvwm-crystal/Off.png%$[gt.Stop bling bling]' StopBlingBling
+
+DestroyFunc StartBlingBling
+AddToFunc StartBlingBling
++ I Exec exec xcompmgr
++ I Module FvwmEvent FvwmTranslucencyChangeEvent
+#+ I Module FvwmForm Translucency-Dialog
+
+DestroyFunc StopBlingBling
+AddToFunc StopBlingBling
++ I KillModule FvwmEvent FvwmTranslucencyChangeEvent
++ I Exec exec killall xcompmgr
+
+All (Translucency-Dialog) Close
+DestroyModuleConfig Translucency-Dialog: *
+*Translucency-Dialog: Title "$[gt.Translucency]"
+*Translucency-Dialog: Text "$[gt.Translucency is not supported by FVWM.]"
+*Translucency-Dialog: Line center
+*Translucency-Dialog: Text "$[gt.Unexpected results may occur.]"
+*Translucency-Dialog: Line center
+*Translucency-Dialog: Text "$[gt.You have been warned!]"
+*Translucency-Dialog: Line center
+*Translucency-Dialog: Line center
+*Translucency-Dialog: Button quit " $[gt.OK] " ^[
+*Translucency-Dialog: Command Nop
+*Translucency-Dialog: Line center
+
+#
+# Default terminal
+#
+DestroyMenu /Preferences/DefaultTerminal
+AddToMenu /Preferences/DefaultTerminal
+Test (x gnome-terminal) + '%22x22/apps/gnome-terminal.png%GNOME Terminal' SelectDefaultTerminal gnome-terminal
+Test (x multi-gnome-terminal) + '%22x22/apps/multi-gnome-terminal.png%Multi GNOME Terminal' SelectDefaultTerminal multi-gnome-terminal
+Test (x xfce4-terminal) + '%22x22/apps/xfce4-terminal.png%XFCE4 Terminal'	SelectDefaultTerminal xfce4-terminal
+Test (x terminator) + '%22x22/apps/terminator.png%Terminator'	SelectDefaultTerminal terminator
+Test (x mrxvt) + '%22x22/apps/mrxvt.png%MRxvt'	SelectDefaultTerminal mrxvt
+Test (x urxvtd) + '%22x22/apps/urxvt.png%URxvtD'	SelectDefaultTerminal urxvtc
+Test (x urxvt) + '%22x22/apps/urxvt.png%URxvt'	SelectDefaultTerminal urxvt
+Test (x aterm) + '%22x22/apps/aterm.png%Aterm'	SelectDefaultTerminal aterm
+Test (x Eterm) + '%22x22/apps/Eterm.png%Eterm'	SelectDefaultTerminal Eterm
+Test (x xterm) + '%22x22/apps/xterm.png%XTerm'	SelectDefaultTerminal xterm
+Test (x x-terminal-emulator) + '%22x22/apps/xterm.png%Debian Default Terminal' SelectDefaultTerminal x-terminal-emulator
+
+DestroyFunc SelectDefaultTerminal
+AddToFunc SelectDefaultTerminal
++ I FindCommand DefaultTerminal $0 terminator urxvtc urxvt Eterm aterm mrxvt xterm gnome-terminal konsole xfce4-terminal x-terminal-emulator
++ I SavePreferences DefaultTerminal "FindCommand DefaultTerminal $0 terminator urxvtc urxvt Eterm aterm mrxvt xterm gnome-terminal konsole xfce4-terminal x-terminal-emulator"
++ I Include Exec-Accelerator
+
+#
+# MiniConsole terminal
+#
+DestroyMenu /Preferences/FvwmConsoleTerminal
+AddToMenu /Preferences/FvwmConsoleTerminal
+Test (x mrxvt) + '%22x22/apps/mrxvt.png%MRxvt'	SelectFvwmConsoleTerminal mrxvt
+Test (x urxvt) + '%22x22/apps/urxvt.png%URxvt'	SelectFvwmConsoleTerminal urxvt
+Test (x aterm) + '%22x22/apps/aterm.png%Aterm'	SelectFvwmConsoleTerminal aterm
+Test (x xterm) + '%22x22/apps/xterm.png%XTerm'	SelectFvwmConsoleTerminal xterm
+
+DestroyFunc SelectFvwmConsoleTerminal
+AddToFunc SelectFvwmConsoleTerminal
++ I FindCommand FvwmConsoleTerminal $0 mrxvt urxvt aterm xterm
++ I SavePreferences FvwmConsoleTerminal "FindCommand FvwmConsoleTerminal $0 mrxvt urxvt aterm xterm"
+
+#
+# QuakeConsole terminal
+#
+DestroyMenu /Preferences/QuakeConsoleTerminal
+AddToMenu /Preferences/QuakeConsoleTerminal
+Test (x mrxvt) + '%22x22/apps/mrxvt.png%MRxvt'	SelectQuakeConsoleTerminal mrxvt
+Test (x urxvt) + '%22x22/apps/urxvt.png%URxvt'	SelectQuakeConsoleTerminal urxvt
+Test (x aterm) + '%22x22/apps/aterm.png%Aterm'	SelectQuakeConsoleTerminal aterm
+Test (x xterm) + '%22x22/apps/xterm.png%XTerm'	SelectQuakeConsoleTerminal xterm
+
+DestroyFunc SelectQuakeConsoleTerminal
+AddToFunc SelectQuakeConsoleTerminal
++ I FindCommand QuakeConsoleTerminal $0 mrxvt urxvt aterm xterm
++ I SavePreferences QuakeConsoleTerminal "FindCommand QuakeConsoleTerminal $0 mrxvt urxvt aterm xterm"
+
+#
+# Desktop manager
+#
+DestroyMenu /Preferences/DesktopManager
+AddToMenu /Preferences/DesktopManager
++ '%22x22/fvwm-crystal/Off.png%$[gt.None]' TestDesktopManager-None
++ '%22x22/fvwm-crystal/fvwm-crystal.png%FVWM-Crystal' TestDesktopManager-Crystal
+Test (x rox) + "" Nop
+Test (!x rox, x nautilus) + "" Nop
+Test (x rox) + '%22x22/apps/rox.png%ROX-Filer' ActivateDesktopManager-ROX
+Test (x nautilus) + '%22x22/apps/nautilus.png%Nautilus' ActivateDesktopManager-Nautilus
+
+DestroyFunc TestDesktopManager-None
+AddToFunc TestDesktopManager-None
++ I PipeRead 'pidof nautilus $[infostore.SILENT] || pidof rox $[infostore.SILENT] || echo LaunchDesktopManager-None'
++ I PipeRead 'pidof nautilus $[infostore.SILENT] || pidof rox $[infostore.SILENT] && echo ActivateDesktopManager-None'
+
+DestroyFunc TestDesktopManager-Crystal
+AddToFunc TestDesktopManager-Crystal
++ I PipeRead 'pidof nautilus $[infostore.SILENT] || pidof rox $[infostore.SILENT] || echo LaunchDesktopManager-Crystal'
++ I PipeRead 'pidof nautilus $[infostore.SILENT] || pidof rox $[infostore.SILENT] && echo ActivateDesktopManager-Crystal'
+
+DestroyFunc LaunchDesktopManager-None
+AddToFunc LaunchDesktopManager-None
++ I SavePreferences DefaultDesktopManager "LoadPreferences LastChoosenWallpaper"
++ I Exec exec killall DesktopCheckMounts $[infostore.SILENT]
++ I Exec exec rm $[infostore.tmpdrivefile] $[infostore.SILENT]
++ I KillModule FvwmButtons DesktopIcons
++ I DestroyModuleConfig DesktopIcons: *
+
+DestroyFunc LaunchDesktopManager-Crystal
+AddToFunc LaunchDesktopManager-Crystal
++ I SavePreferences DefaultDesktopManager "Include components/apps/DesktopIcons"
++ I Include components/apps/DesktopIcons
+
+DestroyFunc ActivateDesktopManager-None
+AddToFunc ActivateDesktopManager-None
++ I SavePreferences DefaultDesktopManager "LoadPreferences LastChoosenWallpaper"
+Test (!EnvIsSet SESSION_MANAGER) + I Module FvwmForm DesktopManager-Dialog
+Test (EnvIsSet SESSION_MANAGER) + I Module FvwmForm DesktopManager-SM-Dialog
+
+DestroyFunc ActivateDesktopManager-Crystal
+AddToFunc ActivateDesktopManager-Crystal
++ I SavePreferences DefaultDesktopManager "Include components/apps/DesktopIcons"
+Test (!EnvIsSet SESSION_MANAGER) + I Module FvwmForm DesktopManager-Dialog
+Test (EnvIsSet SESSION_MANAGER) + I Module FvwmForm DesktopManager-SM-Dialog
+
+DestroyFunc ActivateDesktopManager-ROX
+AddToFunc ActivateDesktopManager-ROX
++ I SavePreferences DefaultDesktopManager "Include components/apps/ROX-Filer"
+Test (!EnvIsSet SESSION_MANAGER) + I Module FvwmForm DesktopManager-Dialog
+Test (EnvIsSet SESSION_MANAGER) + I Module FvwmForm DesktopManager-SM-Dialog
+
+DestroyFunc ActivateDesktopManager-Nautilus
+AddToFunc ActivateDesktopManager-Nautilus
++ I SavePreferences DefaultDesktopManager "Include components/apps/Nautilus"
+Test (!EnvIsSet SESSION_MANAGER) + I Module FvwmForm DesktopManager-Dialog
+Test (EnvIsSet SESSION_MANAGER) + I Module FvwmForm DesktopManager-SM-Dialog
+
+All (DesktopManager-Dialog) Close
+DestroyModuleConfig DesktopManager-Dialog: *
+*DesktopManager-Dialog: Title "$[gt.Changed desktop manager]"
+*DesktopManager-Dialog: Text "$[gt.Selected desktop manager will be used]"
+*DesktopManager-Dialog: Line center
+*DesktopManager-Dialog: Text "$[gt.at the next start of your X session]"
+*DesktopManager-Dialog: Line center
+*DesktopManager-Dialog: Line center
+*DesktopManager-Dialog: Button quit " $[gt.Logout] " ^M
+*DesktopManager-Dialog: Command Quit
+*DesktopManager-Dialog: Button quit " $[gt.Not now] " ^[
+*DesktopManager-Dialog: Command Nop
+*DesktopManager-Dialog: Line center
+
+All (DesktopManager-SM-Dialog) Close
+DestroyModuleConfig DesktopManager-SM-Dialog: *
+*DesktopManager-SM-Dialog: Title "$[gt.Changed desktop manager]"
+*DesktopManager-SM-Dialog: Text "$[gt.Selected desktop manager will be used]"
+*DesktopManager-SM-Dialog: Line center
+*DesktopManager-SM-Dialog: Text "$[gt.at the next start of your X session]"
+*DesktopManager-SM-Dialog: Line center
+*DesktopManager-SM-Dialog: Line center
+*DesktopManager-SM-Dialog: Button quit " $[gt.Logout] " ^M
+*DesktopManager-SM-Dialog: Command QuitSession
+*DesktopManager-SM-Dialog: Button quit " $[gt.Not now] " ^[
+*DesktopManager-SM-Dialog: Command Nop
+*DesktopManager-SM-Dialog: Line center
+
+#
+# Type of icons
+#
+DestroyFunc ReloadIcons
+AddToFunc ReloadIcons
++ I All (Iconic) DestroyWindowStyle
++ I Style * !EWMHMiniIconOverride, !IconOverride, !NoIcon
++ I Include components/functions/Window-Basic
++ I Include components/desktop/FVWM-Crystal_styles
++ I Include components/desktop/Icon-$0
++ I LoadPreferences DefaultDesktopManager
++ I Include components/functions/Music-$[infostore.MusicPlayer]
++ I PipeRead 'if [ $[0] = Thumbnails ]; then echo "RecoverThumbnails"; fi'
+#+ I All (CurrentPage, Iconic) PlaceAgain Icon
+
+DestroyMenu /Preferences/IconsType
+AddToMenu /Preferences/IconsType
++ '%22x22/fvwm-crystal/Off.png%$[gt.No icon]' SelectIconsType None
++ '' Nop
++ '%22x22/fvwm-crystal/icon.png%$[gt.Thumbnails]' SelectIconsType Thumbnails
++ '%22x22/fvwm-crystal/icon2.png%Amiga' SelectIconsType Amiga
++ '%22x22/fvwm-crystal/icon3.png%Mwm' SelectIconsType Mwm
+
+DestroyFunc SelectIconsType
+AddToFunc SelectIconsType
++ I SavePreferences IconsType "Include components/desktop/Icon-$0"
+#+ I Module FvwmForm IconsType-Dialog
++ I ReloadIcons $0
+
+All (IconsType-Dialog) Close
+DestroyModuleConfig IconsType-Dialog: *
+*IconsType-Dialog: Title "$[gt.Restart FVWM-Crystal]"
+*IconsType-Dialog: Text "$[gt.New type of icons will be used after next startup]"
+*IconsType-Dialog: Line center
+*IconsType-Dialog: Line center
+*IconsType-Dialog: Button quit " $[gt.Restart] " ^M
+*IconsType-Dialog: Command Restart
+*IconsType-Dialog: Button quit " $[gt.Not now] " ^[
+*IconsType-Dialog: Command Nop
+*IconsType-Dialog: Line center
+
+#
+# Desktop menu
+#
+DestroyMenu /Preferences/DesktopMenu
+AddToMenu /Preferences/DesktopMenu
++ '%22x22/fvwm-crystal/Off.png%$[gt.No menu with left click]' SetNoDesktopMenu
++ '%22x22/fvwm-crystal/fvwm-crystal.png%$[gt.Menu with left click]' SetDesktopMenu
++ '' Nop
++ '%22x22/fvwm-crystal/Off.png%$[gt.No XDG menu with Alt+A]' SetNoXDGMenu
++ '%22x22/fvwm-crystal/On.png%$[gt.XDG Menu with Alt+A]' SetXDGMenu
+
+DestroyFunc SetNoDesktopMenu
+AddToFunc SetNoDesktopMenu
++ I SavePreferences DesktopMenu "Mouse 1 R $[Mod] -"
++ I Mouse 1 R $[Mod] -
+
+DestroyFunc SetDesktopMenu
+AddToFunc SetDesktopMenu
++ I SavePreferences DesktopMenu "Mouse 1 R $[Mod] DesktopMenu"
++ I Mouse 1 R $[Mod] DesktopMenu
+
+DestroyFunc NoXDGMenu
+AddToFunc NoXDGMenu
++ I Key A A $[Mod1] -
++ I Key A A $[Mod1]2 -
+
+DestroyFunc SetNoXDGMenu
+AddToFunc SetNoXDGMenu
++ I SavePreferences XDGMenu "SetEnv XDGMenu no"
++ I NoXDGMenu
+
+DestroyFunc LoadXDGMenu
+AddToFunc LoadXDGMenu
++ I Include .menu
++ I Key A A $[Mod1] Menu FvwmMenu
++ I Key A A $[Mod1]2 Menu FvwmMenu
+
+DestroyFunc SetXDGMenu
+AddToFunc SetXDGMenu
++ I SavePreferences XDGMenu "SetEnv XDGMenu yes"
++ I LoadXDGMenu
+
+#
+# Notification Area Application
+#
+DestroyMenu /Preferences/NotificationAreaManager
+AddToMenu /Preferences/NotificationAreaManager
+Test (x trayer)		+ '%22x22/apps/trayer.png%Trayer' SelectNotificationAreaManager trayer
+Test (x stalonetray)	+ '%22x22/apps/stalonetray.png%StaloneTray' SelectNotificationAreaManager stalonetray
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.No notification area]' NotificationAreaWidth 0
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.1 icon width]' NotificationAreaWidth 1
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.2 icons width]' NotificationAreaWidth 2
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.3 icons width]' NotificationAreaWidth 3
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.4 icons width]' NotificationAreaWidth 4
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.5 icons width]' NotificationAreaWidth 5
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.6 icons width]' NotificationAreaWidth 6
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.7 icons width]' NotificationAreaWidth 7
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.8 icons width]' NotificationAreaWidth 8
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.9 icons width]' NotificationAreaWidth 9
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.12 icons width]' NotificationAreaWidth 12
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.15 icons width]' NotificationAreaWidth 15
++ '%22x22/fvwm-crystal/trayer-app.png%$[gt.20 icons width]' NotificationAreaWidth 20
+
+
+DestroyFunc SelectNotificationAreaManager
+AddToFunc SelectNotificationAreaManager
++ I FindCommand NotificationAreaManager $0 trayer stalonetray
++ I SavePreferences NotificationAreaManager "FindCommand NotificationAreaManager $0 trayer stalonetray"
++ I Include components/functions/NotificationAreaManager-$[infostore.NotificationAreaManager]
++ I ReloadRecipe
+#+ I Module FvwmForm NotificationAreaManager-Dialog
+
+All (NotificationAreaManager-Dialog) Close
+DestroyModuleConfig NotificationAreaManager-Dialog: *
+*NotificationAreaManager-Dialog: Title "$[gt.Restart FVWM-Crystal]"
+*NotificationAreaManager-Dialog: Text "$[gt.New notification area setting will be used after next startup]"
+*NotificationAreaManager-Dialog: Line center
+*NotificationAreaManager-Dialog: Line center
+*NotificationAreaManager-Dialog: Button quit " $[gt.Restart] " ^M
+*NotificationAreaManager-Dialog: Command Restart
+*NotificationAreaManager-Dialog: Button quit " $[gt.Not now] " ^[
+*NotificationAreaManager-Dialog: Command Nop
+*NotificationAreaManager-Dialog: Line center
+
+DestroyFunc NotificationAreaWidth
+AddToFunc NotificationAreaWidth
++ I FindCommand NotificationArea-Width $0 2 3 4 5 6 7 8 9
++ I Piperead `echo SetEnv trayer_width $(($0*24))`
++ I SavePreferences NotificationArea-Width "SetEnv trayer_width $[trayer_width]"
++ I ReloadRecipe
+#+ I Module FvwmForm NotificationAreaManager-Dialog
+
+#
+# Music player
+#
+DestroyMenu /Preferences/MusicPlayer
+AddToMenu /Preferences/MusicPlayer
+Test (x alsaplayer)	+ '%22x22/apps/alsaplayer.png%Alsaplayer'	SelectMusicPlayer alsaplayer
+Test (x alsaplayer)	+ '%22x22/apps/alsaplayer.png%Alsaplayer daemon'	SelectMusicPlayer alsaplayerdaemon
+Test (x mpc)		+ '%22x22/apps/gmpc.png%MPD'		SelectMusicPlayer mpd
+Test (x quodlibet)	+ '%22x22/apps/quodlibet.png%Quod Libet'	SelectMusicPlayer quodlibet
+Test (x xmms-shell) 	+ '%22x22/apps/xmms.png%XMMS'	SelectMusicPlayer xmms
+Test (x xmms2) 		+ '%22x22/apps/xmms2.png%XMMS2'	SelectMusicPlayer xmms2
+Test (x cmus-remote)	+ '%22x22/apps/cmus.png%C* Music Player' SelectMusicPlayer cmus
+Test (x cdcd) 		+ '%22x22/apps/goobox.png%cdcd'	SelectMusicPlayer cdcd
+Test (x mocp) 		+ '%22x22/apps/mocp.png%Music On Console' SelectMusicPlayer mocp
+Test (x audacious) 	+ '%22x22/apps/audacious.png%Audacious' SelectMusicPlayer audacious
+Test (x mplayer) 	+ '%22x22/apps/mplayer.png%MPlayer' SelectMusicPlayer mplayer
+Test (x mplayer2) 	+ '%22x22/apps/mplayer.png%MPlayer2' SelectMusicPlayer mplayer2
+
+DestroyFunc SelectMusicPlayer
+AddToFunc SelectMusicPlayer
+#+ I FindCommand MusicPlayer $0 alsaplayer alsaplayerdaemon mpd quodlibet audacious xmms xmm2 cmus mocp cdcd mplayer mplayer2
++ I InfoStoreAdd MusicPlayer $0
++ I Include components/functions/Music-$[infostore.MusicPlayer]
++ I SavePreferences DefaultMusicPlayer "InfoStoreAdd MusicPlayer $[infostore.MusicPlayer]"
+
+#
+# Icons in fvwm-menu-directory generated browse media files menu
+#
+DestroyMenu /Preferences/MediaFileMenuIcons
+AddToMenu /Preferences/MediaFileMenuIcons
++ '%22x22/fvwm-crystal/audio-x-generic-2.png%$[gt.Icons]'	SelectMenuIcons
++ '%22x22/fvwm-crystal/audio-x-generic-1.png%$[gt.No icon]'	SelectNoMenuIcons
+
+DestroyFunc SelectMenuIcons
+AddToFunc SelectMenuIcons
++ I SetEnv MediaMenuIcons 1
++ I SavePreferences MediaMenuIcons "SetEnv MediaMenuIcons 1"
++ I PipeRead '$[FVWM_USERDIR]/scripts/media_directories $[infostore.USERDIR] 1'
++ I Include components/functions/Music-$[infostore.MusicPlayer]
+
+DestroyFunc SelectNoMenuIcons
+AddToFunc SelectNoMenuIcons
++ I SetEnv MediaMenuIcons 0
++ I SavePreferences MediaMenuIcons "SetEnv MediaMenuIcons 0"
++ I PipeRead '$[FVWM_USERDIR]/scripts/media_directories $[infostore.USERDIR] 0'
++ I Include components/functions/Music-$[infostore.MusicPlayer]
+
+#
+# Mplayer DBD channels list
+#
+DestroyMenu /Preferences/MplayerChannelList
+AddToMenu /Preferences/MplayerChannelList
+Test (F /dev/dvb/adapter0/frontend0) + '%22x22/apps/mplayer.png%DVB 1' Module FvwmForm SelectChannelList-Dialog CARD=1
+Test (F /dev/dvb/adapter1/frontend0) + '%22x22/apps/mplayer.png%DVB 2' Module FvwmForm SelectChannelList-Dialog CARD=2
+Test (F /dev/dvb/adapter2/frontend0) + '%22x22/apps/mplayer.png%DVB 3' Module FvwmForm SelectChannelList-Dialog CARD=3
+Test (F /dev/dvb/adapter3/frontend0) + '%22x22/apps/mplayer.png%DVB 4' Module FvwmForm SelectChannelList-Dialog CARD=4
+
+DestroyFunc SelectMplayerChannelList
+AddToFunc SelectMplayerChannelList
++ I SavePreferences MplayerChannelList$[0] "InfoStoreAdd MplayerChannelList$[0] '$[1]'"
++ I InfoStoreAdd MplayerChannelList$[0] '$[1]'
+
+All (SelectChannelList-Dialog) Close
+DestroyModuleConfig Module SelectChannelList-Dialog: *
+*SelectChannelList-Dialog: Title "$[gt.Select channel list]"
+*SelectChannelList-Dialog: Text "$[gt.Enter the name of the channel list for the DVB input] $CARD"
+#*SelectChannelList-Dialog: Line center
+#*SelectChannelList-Dialog: Line center
+#PipeRead 'echo "*SelectChannelList-Dialog: Text \\"$[gt.It must be in] /home/$(id -un)/.mplayer/\\""'
+*SelectChannelList-Dialog: Line center
+*SelectChannelList-Dialog: Line center
+PipeRead 'echo "*SelectChannelList-Dialog: Input file 40 \\"/home/$(id -un)/.mplayer/channels.conf\\""'
+*SelectChannelList-Dialog: Line center
+*SelectChannelList-Dialog: Line center
+*SelectChannelList-Dialog: Button quit " $[gt.Save] " ^M
+*SelectChannelList-Dialog: Command SelectMplayerChannelList $CARD "$(file)"
+*SelectChannelList-Dialog: Button quit " $[gt.Not now] " ^[
+*SelectChannelList-Dialog: Command Nop
+*SelectChannelList-Dialog: Line center
+
+All (MediaDirectories-Dialog) Close
+DestroyModuleConfig Module MediaDirectories-Dialog: *
+*MediaDirectories-Dialog: Title "$[gt.Media directories]"
+*MediaDirectories-Dialog: Text "$[gt.You should edit the file]"
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Text "$[FVWM_USERDIR]/Preferences/MediaDirectories"
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Text "$[gt.and choose a player in the preferences.]"
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Text "$[gt.Each line has the following format:]"
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Text "$[gt.type path]"
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Text "$[gt.where type is one of the following]"
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Text "audio video cdrom dvd"
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Text "$[gt.and path is the full path to the media directory.]"
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Text "$[gt.Nothing else is allowed in that file.]"
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Line center
+*MediaDirectories-Dialog: Button quit " $[gt.OK] " ^[
+*MediaDirectories-Dialog: Command Nop
+*MediaDirectories-Dialog: Line center
+
+#
+# Audio mixer
+#
+DestroyMenu /Preferences/Mixer
+AddToMenu /Preferences/Mixer
+Test (x amixer)		+ '%22x22/apps/alsamixer.png%ALSA Mixer' SelectMixer amixer
+Test (x aumix) 		+ '%22x22/apps/aumix.png%Aumix'	SelectMixer aumix
+			+ "" Nop
+Test (x mpc)		+ '%22x22/apps/gmpc.png%MPD'		SelectMixer mpd
+Test (x quodlibet)	+ '%22x22/apps/quodlibet.png%Quod Libet'	SelectMixer quodlibet
+Test (x xmms-shell) 	+ '%22x22/apps/xmms.png%XMMS'	SelectMixer xmms
+Test (x xmms2) 		+ '%22x22/apps/xmms2.png%XMMS2'	SelectMixer xmms2
+Test (x cmus-remote)	+ '%22x22/apps/cmus.png%C* Music Player' SelectMixer cmus
+Test (x cdcd) 		+ '%22x22/apps/goobox.png%cdcd'	SelectMixer cdcd
+Test (x audacious) 	+ '%22x22/apps/audacious.png%Audacious'	SelectMixer audacious
+Test (x amixer)		+ "" Nop
+Test (x amixer) PipeRead `for i in $(sed -e 's/\\([0-9]*\\).*/\\1/' -e 's/^0//' < /proc/asound/pcm | uniq); \
+     	do for j in $(amixer -c "$i" controls | grep Volume | sed -e 's:\\(numid=\\)\\(.*\\)\\(,iface.*\\):\\2:'); \
+	       do ControlT="$(amixer -c ${i} cget numid=${j})"; \
+	       Control="$(echo ${ControlT} | sed -e "s:\\(.*name='\\)\\(.*\\)\\('.*\\):\\2:")"; \
+	       echo "+ '%22x22/apps/alsamixer.png%$[gt.Sound Card] ${i} ${Control}' SelectSoundCard '${i}' '${j}'"; \
+	       done; \
+	 done`
+
+DestroyFunc SelectMixer
+AddToFunc SelectMixer
++ I FindCommand DefaultMixer $0 amixer aumix mpd quodlibet audacious xmms xmms2 cmus cdcd
++ I SavePreferences DefaultMixer "InfoStoreAdd Mixer $[infostore.DefaultMixer]"
++ I PipeRead `echo InfoStoreAdd Mixer $[infostore.DefaultMixer]`
++ I Schedule 500 Include components/functions/Mixer
+
+DestroyFunc SelectSoundCard
+AddToFunc SelectSoundCard
++ I SavePreferences DefaultSoundCard "InfoStoreAdd SoundCard '$0'"
++ I SavePreferences DefaultSoundDevice "InfoStoreAdd SoundDevice '$1'"
++ I PipeRead `echo InfoStoreAdd SoundCard $0`
++ I PipeRead `echo InfoStoreAdd SoundDevice \\'$1\\'`
++ I Schedule 1000 Include components/functions/Mixer
+
+#
+# Window focus policy
+#
+DestroyMenu /Preferences/FocusPolicy
+AddToMenu /Preferences/FocusPolicy
++ '%22x22/fvwm-crystal/amiga.png%Amiga'			ActivateFocusPolicy-Amiga
+#+ '%22x22/fvwm-crystal/Boing.png%Amiga'			ActivateFocusPolicy-Amiga
++ '%22x22/fvwm-crystal/fvwm-crystal.png%FVWM-Crystal'		ActivateFocusPolicy-FVWM-Crystal
++ '%22x22/fvwm-crystal/fvwm-crystal.png%$[gt.FVWM-Crystal with raise]'	ActivateFocusPolicy-FVWM-Crystal-Raise
++ '%22x22/fvwm-crystal/windows.png%MS Windows'			ActivateFocusPolicy-MSWindows
+
+DestroyFunc ActivateFocusPolicy-Amiga
+AddToFunc ActivateFocusPolicy-Amiga
++ I Include components/styles/FocusPolicy-Amiga
++ I SavePreferences DefaultFocusPolicy "Include components/styles/FocusPolicy-Amiga"
+
+DestroyFunc ActivateFocusPolicy-FVWM-Crystal
+AddToFunc ActivateFocusPolicy-FVWM-Crystal
++ I Include components/styles/FocusPolicy-FVWM-Crystal
++ I SavePreferences DefaultFocusPolicy "Include components/styles/FocusPolicy-FVWM-Crystal"
+
+DestroyFunc ActivateFocusPolicy-FVWM-Crystal-Raise
+AddToFunc ActivateFocusPolicy-FVWM-Crystal-Raise
++ I Include components/styles/FocusPolicy-FVWM-Crystal-Raise
++ I SavePreferences DefaultFocusPolicy "Include components/styles/FocusPolicy-FVWM-Crystal-Raise"
+
+DestroyFunc ActivateFocusPolicy-MSWindows
+AddToFunc ActivateFocusPolicy-MSWindows
++ I Include components/styles/FocusPolicy-MSWindows
++ I SavePreferences DefaultFocusPolicy "Include components/styles/FocusPolicy-MSWindows"
+
+#
+# Mouse Velocity
+#
+DestroyMenu /Preferences/MouseVelocity
+AddToMenu /Preferences/MouseVelocity
++ '%22x22/fvwm-crystal/amiga.png%$[gt.System default]' SetMouseVelocity Exec exec xset m default
++ '%22x22/fvwm-crystal/amiga.png%$[gt.Light speed]' SetMouseVelocity Exec exec xset m 3 0
++ '%22x22/fvwm-crystal/amiga.png%$[gt.Super fast]' SetMouseVelocity Exec exec xset m 2.5 0
++ '%22x22/fvwm-crystal/amiga.png%$[gt.Fast]' SetMouseVelocity Exec exec xset m 2 0
++ '%22x22/fvwm-crystal/amiga.png%$[gt.Easy]' SetMouseVelocity Exec exec xset m 3/2 0
++ '%22x22/fvwm-crystal/amiga.png%$[gt.Not so slow]' SetMouseVelocity Exec exec xset m 13/10 0
++ '%22x22/fvwm-crystal/amiga.png%$[gt.Piano]' SetMouseVelocity Exec exec xset m 1 0
++ "" Nop
++ '%22x22/fvwm-crystal/amiga.png%$[gt.Not set by Crystal]' SetMouseVelocity Nop
+
+DestroyFunc SetMouseVelocity
+AddToFunc SetMouseVelocity
++ I $*
++ I SavePreferences MouseVelocity "$*"
+
+#
+# Privileged terminals
+#
+DestroyMenu /Preferences/PrivilegedTerminals
+AddToMenu /Preferences/PrivilegedTerminals
++ '%22x22/fvwm-crystal/On.png%$[gt.On]'	SetPrivilegedTerminals
++ '%22x22/fvwm-crystal/Off.png%$[gt.Off]'	UnsetPrivilegedTerminals
+
+DestroyFunc SetPrivilegedTerminals
+AddToFunc SetPrivilegedTerminals
++ I SavePreferences PrivilegedTerminals "Style XTerm FPOverrideGrabFocus"
++ I Schedule 333 AppendPreferences PrivilegedTerminals "Style URxvt FPOverrideGrabFocus"
++ I Schedule 666 AppendPreferences PrivilegedTerminals "Style Eterm FPOverrideGrabFocus"
++ I Schedule 1000 LoadPreferences PrivilegedTerminals
+
+DestroyFunc UnsetPrivilegedTerminals
+AddToFunc UnsetPrivilegedTerminals
++ I SavePreferences PrivilegedTerminals "Style XTerm !FPOverrideGrabFocus"
++ I Schedule 333 AppendPreferences PrivilegedTerminals "Style URxvt !FPOverrideGrabFocus"
++ I Schedule 666 AppendPreferences PrivilegedTerminals "Style Eterm !FPOverrideGrabFocus"
++ I Schedule 1000 LoadPreferences PrivilegedTerminals
+
+#
+# Application menu
+#
+DestroyFunc GenerateApplicationMenu
+AddToFunc GenerateApplicationMenu
++ I A fvwm-crystal.generate-menu $[FVWM_SYSTEMDIR] $[FVWM_USERDIR]
++ I Test (Version > 2.6.5) Test (EnvMatch XDGMenu yes) A $[FVWM_SYSTEMDIR]/scripts/XDG-Menu
+
+All (Menu-Restart-Dialog) Close
+DestroyModuleConfig Menu-Restart-Dialog: *
+*Menu-Restart-Dialog: Title "$[gt.Restart FVWM-Crystal]"
+*Menu-Restart-Dialog: Text "$[gt.New menu entries will be used after next startup]"
+*Menu-Restart-Dialog: Line center
+*Menu-Restart-Dialog: Line center
+*Menu-Restart-Dialog: Button quit " $[gt.Restart] " ^M
+*Menu-Restart-Dialog: Command Restart
+*Menu-Restart-Dialog: Button quit " $[gt.Not now] " ^[
+*Menu-Restart-Dialog: Command Nop
+*Menu-Restart-Dialog: Line center
+
+DestroyFunc Pref-Warning
+AddToFunc Pref-Warning
++ I All (Pref-Warning-Dialog) Close
++ I DestroyModuleConfig Pref-Warning-Dialog: *
++ I *Pref-Warning-Dialog: Title "$[gt.Preference Warning]"
++ I *Pref-Warning-Dialog: Text "$[gt.Please edit the following file to suit your need]"
++ I *Pref-Warning-Dialog: Line center
++ I *Pref-Warning-Dialog: Line center
++ I *Pref-Warning-Dialog: Text "$[gt.and restart this tool:]"
++ I *Pref-Warning-Dialog: Line center
++ I *Pref-Warning-Dialog: Line center
++ I *Pref-Warning-Dialog: Text "$[*]"
++ I *Pref-Warning-Dialog: Line center
++ I *Pref-Warning-Dialog: Line center
++ I *Pref-Warning-Dialog: Button quit " $[gt.OK] " ^[
++ I *Pref-Warning-Dialog: Command Nop
++ I *Pref-Warning-Dialog: Line center
++ I Module FvwmForm Pref-Warning-Dialog
+
+#
+# Silent operations
+#
+DestroyMenu /Preferences/SilentOps
+AddToMenu /Preferences/SilentOps
++ '%22x22/fvwm-crystal/On.png%$[gt.On]'		SetSilentOps
++ '%22x22/fvwm-crystal/Off.png%$[gt.Off]'	UnsetSilentOps
+
+DestroyFunc SetSilentOps
+AddToFunc SetSilentOps
++ I InfoStoreAdd SILENT '2>/dev/null'
++ I SavePreferences SilentOps "InfoStoreAdd SILENT \'2>/dev/null\'"
++ I Include components/functions/Exec-Accelerator
+
+DestroyFunc UnsetSilentOps
+AddToFunc UnsetSilentOps
++ I InfoStoreAdd SILENT ' '
++ I SavePreferences SilentOps "InfoStoreAdd SILENT \' \'"
++ I Include components/functions/Exec-Accelerator
+
+#
+# Launch Preference Editors
+#
+
+# the file to edit must be in $[FVWM_USERDIR]/preferences
+# see apps/DesktopIcons and scripts/FileEditors/*
+DestroyFunc LaunchFileWithHelp
+AddToFunc LaunchFileWithHelp
++ I SetEnv FileEditWithHelp $0
++ I Include scripts/FileEditors/$0-Help
++ I Script scripts/FileEditors/FileEditWithHelp
+
+DestroyFunc LaunchPrefEditors
+AddToFunc LaunchPrefEditors
++ I Script scripts/PrefVars/PrefVars
++ I LaunchFileWithHelp ShowDirectories
+
+#
+# Wallpaper thumbnails size
+#
+# See Wallpaper
+DestroyMenu /WPThumbSize
+AddToMenu /WPThumbSize
++ "42" WPThumbSize 42
++ "96" WPThumbSize 96
++ "120" WPThumbSize 120
++ "180" WPThumbSize 180
+
+DestroyFunc WPThumbSize
+AddToFunc WPThumbSize
++ I InfoStoreAdd WallpaperThumbSize $0
++ I SavePreferences WallpaperThumbSize "InfoStoreAdd WallpaperThumbSize $0"
++ I Schedule 300 Include components/functions/Wallpaper
+
+# vim:ft=fvwm

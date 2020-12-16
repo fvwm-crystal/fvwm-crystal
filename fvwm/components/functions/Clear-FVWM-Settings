@@ -1,0 +1,12 @@
+# Clear previously set things at start/restart
+# Put it somewhere near the beginning of your "recepture"
+
+DestroyFunc StartFunction
+DestroyFunc InitFunction
+DestroyFunc RestartFunction
+DestroyFunc ExitFunction
+
+# Reset icon styles
+Style * EWMHMiniIconOverride, IconOverride
+
+# vim:ft=fvwm

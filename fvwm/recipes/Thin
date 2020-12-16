@@ -1,0 +1,240 @@
+# Thin desktop
+# Written by Dominique Michel <dominique_libre@users.sourceforge.net>, 2007-2013
+#
+# Simple but with many functions
+# Icons on the desktop
+# Menu on the mouse and on the dock
+# Look similar to the Nebulea recipe and is mainly a mix of the original
+# fvwm-crystal Clean, Dock and Nebulea recipes from 
+# Maciej Delmanowski <harnir@linux.net.pl>
+# with a few modifications and added functions.
+# The multimedia menu is from Tavis Ormandy <taviso@gentoo.org> configuration 
+# http://dev.gentoo.org/~taviso/fvwm2rc.html
+#
+# See ChangeLog for details
+#
+# You can use folding to navigate this file
+
+Echo Thin recipe loading from $.
+InfoStoreAdd Recipe "Thin"
+
+# No magic button, we nedd to reset its ewmh values after a recipe change.
+InfoStoreAdd EWMH_CBB_Left 3
+InfoStoreAdd EWMH_CBB_Right 3
+InfoStoreAdd EWMH_CBB_Top 3
+InfoStoreAdd EWMH_CBB_Bottom 3
+
+# Includes and FVWM modules {{{1
+# Default FVWM-Crystal functions, initialization {{{2
+Include components/functions/Window-Autohide
+
+# Type of icons on the desktop {{{2
+LoadPreferences IconsType
+
+# Media player {{{2
+Include components/functions/Music-$[infostore.MusicPlayer]
+
+# Desktop settings {{{1
+EdgeScroll	0	0
+EdgeResistance			0
+Style * EdgeMoveDelay		0
+Style * EdgeMoveResistance	100
+#EdgeResistance	0	100
+HideGeometryWindow	Move, Resize
+OpaqueMoveSize	100
+EdgeThickness	2
+
+EWMH-Desktop 3 3 3 3
+PipeRead 'echo "EWMH-Panel-Bottom $(((($[panel_font_size]*3))/2))"'
+InfoStoreAdd EWMH_Recipe_Left $[EWMH_BS_Panel_Left]
+InfoStoreAdd EWMH_Recipe_Right $[EWMH_BS_Panel_Right]
+InfoStoreAdd EWMH_Recipe_Top $[EWMH_BS_Panel_Top]
+InfoStoreAdd EWMH_Recipe_Bottom $[EWMH_BS_Panel_Bottom]
+PipeRead '$[FVWM_SYSTEMDIR]/scripts/set_DesktopIconsGeom $[vp.height]'
+
+# Desktop manager {{{2
+DestroyFunc RedrawIconBox
+AddToFunc RedrawIconBox
++ I PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+50))))x$(($[vp.height]-(((((((($[panel_font_size]*3))/2))))+6))))+$((((50*$[IconColumnsNumber]))+25))+3, IconFill left bottom, IconGrid 30 30"'
+LoadPreferences DefaultDesktopManager
+
+# Settings for icons on the desktop {{{1
+Style * StickyIcon
+Test (EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+50))))x$(($[vp.height]-(((((((($[panel_font_size]*3))/2))))+6))))+$((((50*$[IconColumnsNumber]))+25))+3, IconFill left bottom, IconGrid 30 30"'
+Test (!EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-6))x$(($[vp.height]-50))+3+3, IconFill left bottom, IconGrid 30 30"'
+
+# Change desktop with mouse wheel
+Include components/bindings/Desktop-PageSwitch-Horizontal
+
+# Main panel {{{1
+All (FvwmButtons-Panel) Close
+DestroyModuleConfig FvwmButtons-Panel: *
+PipeRead 'echo "*FvwmButtons-Panel: Geometry $[vp.width]x$(((($[panel_font_size]*3))/2))+-1--1"'
+*FvwmButtons-Panel: BoxSize smart
+*FvwmButtons-Panel: ActiveColorset $[infostore.cs_panel_active]
+*FvwmButtons-Panel: Colorset $[infostore.cs_panel_inactive]
+*FvwmButtons-Panel: Rows 1
+PipeRead 'echo "*FvwmButtons-Panel: Columns $(($[vp.width]/24))"'
+*FvwmButtons-Panel: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmButtons-Panel: Padding 1 1
+*FvwmButtons-Panel: Frame 0
+# Diamond with Menus {{{2
+*FvwmButtons-Panel: (4x1, Size 96 24, Title (Side) "Menu", Icon "22x22/fvwm-crystal/fvwm-crystal.png", \
+	Action (Mouse 1) Menu /StartMenu $[MenuPosition_NE], \
+	Action (Mouse 2) Menu /Random-Wallpaper $[MenuPosition_NE], \
+	Action (Mouse 3) Menu /FVWM-Crystal $[MenuPosition_NE])
+
+# Applications menu generator {{{2
+# This creates the main "Start Menu", upside down because it's located on the
+# bottom of the screen
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/32x32/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/32x32/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/32x32/apps --default-file-icon=32x32/apps/default.png --default-dir-icon=32x32/categories/directory.png --min-submenu-length=5 --root-cat-name="StartMenu" --submenu-suffix="Item 100 o100" --sort=rprio --no-panel --check-execs'
+AddToMenu /StartMenu "" Nop
+AddToMenu /StartMenu "%32x32/fvwm-crystal/fvwm-crystal.png%FVWM-Crystal" Popup /FVWM-Crystal
+
+# This creates app menu available under Alt+Win_R
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/22x22/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/22x22/apps --default-file-icon=22x22/apps/default.png --default-dir-icon=22x22/categories/directory.png --min-submenu-length=5 --sort=prio --no-panel --check-execs'
+
+# Desktop menu with left click
+SetEnv DesktopMenu /StartMenu
+#SetEnv DesktopMenu /FVWM-Crystal
+
+# Notification area {{{1
+# Settings of stalonetray {{{2
+Test (!EnvMatch trayer_width 0) \
+PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "stalonetray" ]; then echo FvwmStalonePanel \
+    24 $(($[trayer_width]/24)) 1 "+82" "--1" W $[trayer_width] $(((($[panel_font_size]*3))/2)) "+82" "--1"; fi'
+
+# Settings of trayer {{{2
+Test (!EnvMatch trayer_width 0) \
+PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "trayer" ]; then echo FvwmTrayerPanel \
+    pixel pixel $(((($[panel_font_size]*3))/2)) bottom left "82" "1" \\"--width $[trayer_width]\\"; fi'
+
+# The button
+Test (!EnvMatch trayer_width 0) \
+PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "stalonetray" ]; then echo "*FvwmButtons-Panel: ($(($[trayer_width]/24))x1, Size $[trayer_width] $(((($[panel_font_size]*3))/2)), \
+    Swallow (Close, Respawn, FvwmModule) FvwmStalonePanel Nop)"; \
+    else echo "*FvwmButtons-Panel: ($(($[trayer_width]/24))x1, Size $[trayer_width] $(((($[panel_font_size]*3))/2)), Swallow (UseOld. FvwmModule) trayer Nop)"; fi' 
+
+# Music panel {{{1
+# Main music button, with some menus {{{2
+PipeRead 'echo "*FvwmButtons-Panel: (1x1, Size 24 $(((($[panel_font_size]*3))/2)), Icon 22x22/categories/Multimedia.png, \
+	Action (Mouse 1) Menu /Player $[MenuPosition_NE], \
+	Action (Mouse 2) Music-GUI, \
+	Action (Mouse 3) Music-QJackGUI, \
+	Action (Mouse 4) Change-Volume-Up $[infostore.Vol_Step], \
+	Action (Mouse 5) Change-Volume-Down $[infostore.Vol_Step])"'
+# music controls button {{{2
+PipeRead 'echo "*FvwmButtons-Panel: (1x1, Size 24 $(((($[panel_font_size]*3))/2)), Icon 22x22/fvwm-crystal/media-eject.png, \
+	Action (Mouse 1) Menu /Playlist-button $[MenuPosition_NE], \
+	Action (Mouse 2) Menu /Music/Volume $[MenuPosition_NE], \
+	Action (Mouse 3) Menu /Mixer $[MenuPosition_NE], \
+	Action (Mouse 4) Music-Next, \
+	Action (Mouse 5) Music-Prev)"'
+# music controls button {{{2
+PipeRead 'echo "*FvwmButtons-Panel: (1x1, Size 24 $(((($[panel_font_size]*3))/2)), Icon 22x22/fvwm-crystal/media-playback-start.png, \
+        Action (Mouse 1) Music-Play, \
+        Action (Mouse 2) Music-Pause, \
+        Action (Mouse 3) Menu /Playback $[MenuPosition_NE], \
+	Action (Mouse 4) Music-Speed-Up, \
+	Action (Mouse 5) Music-Speed-Down)"'
+# music controls button 4 {{{2
+PipeRead 'echo "*FvwmButtons-Panel: (1x1, Size 24 $(((($[panel_font_size]*3))/2)), Icon 22x22/fvwm-crystal/media-skip-forward.png, \
+	Action (Mouse 1) Menu /Speed $[MenuPosition_NE], \
+	Action (Mouse 4) Button-Seek-+, \
+	Action (Mouse 5) Button-Seek--)"'
+# }}}2
+
+# Bottom panel {{{1
+PipeRead 'echo InfoStoreAdd FvwmPager_Height $(($(((($[panel_font_size]*3))/2))*$[infostore.Desk_Pages_Y]))'
+PipeRead 'echo InfoStoreAdd FvwmButtons_Columns $(($[vp.width]/28))'
+
+# Window list {{{2
+All (FvwmIconMan-Windows-2) Close
+DestroyModuleConfig FvwmIconMan-Windows-2: *
+
+*FvwmIconMan-Windows-2: Resolution Global
+*FvwmIconMan-Windows-2: UseWinList True
+*FvwmIconMan-Windows-2: DontShow Class=xmms,FvwmButtons,FvwmIconMan,FvwmPager,FvwmIdent,FvwmForm
+*FvwmIconMan-Windows-2: ShowNoIcons True
+*FvwmIconMan-Windows-2: DrawIcons Always
+*FvwmIconMan-Windows-2: Sort Id
+*FvwmIconMan-Windows-2: FollowFocus True
+*FvwmIconMan-Windows-2: Format "%t"
+*FvwmIconMan-Windows-2: Title ""
+PipeRead "echo \*FvwmIconMan-Windows-2: ButtonGeometry $(($[vp.width]))x24"
+PipeRead "echo \*FvwmIconMan-Windows-2: ManagerGeometry 1x1-$((28*$[infostore.Desk_Pages_X]))-1"
+#*FvwmIconMan-Windows-2: MaxButtonWidthByColumns 80
+*FvwmIconMan-Windows-2: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+# Tips {{{3
+*FvwmIconMan-Windows-2: Tips needed
+*FvwmIconMan-Windows-2: TipsDelays 500 200
+*FvwmIconMan-Windows-2: TipsFont "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmIconMan-Windows-2: TipsBorderWidth 0
+*FvwmIconMan-Windows-2: TipsColorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Windows-2: TipsJustification leftup
+# Button look {{{3
+*FvwmIconMan-Windows-2: PlainButton flat
+*FvwmIconMan-Windows-2: FocusButton flat
+*FvwmIconMan-Windows-2: SelectButton flat
+*FvwmIconMan-Windows-2: FocusAndSelectButton flat
+*FvwmIconMan-Windows-2: IconButton flat
+# Colorsets {{{3
+*FvwmIconMan-Windows-2: Colorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Windows-2: PlainColorset $[infostore.cs_panel_wininactive]
+*FvwmIconMan-Windows-2: FocusColorset $[infostore.cs_panel_winactive]
+*FvwmIconMan-Windows-2: SelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Windows-2: FocusAndSelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Windows-2: IconColorset $[infostore.cs_panel_inactive]
+# Actions {{{3
+*FvwmIconMan-Windows-2: Action Mouse 1 A SendCommand "Function Window-Focus-DefaultDesk-Raised"
+*FvwmIconMan-Windows-2: Action Mouse 2 $[Mod2] SendCommand "Close"
+*FvwmIconMan-Windows-2: Action Mouse 2 $[Mod0] SendCommand "Window-Iconify"
+*FvwmIconMan-Windows-2: Action Mouse 3 $[Mod] SendCommand "Function Window-Focus-CurrentDesk-Raised"
+# }}}3
+Module FvwmIconMan FvwmIconMan-Windows-2
+PipeRead 'echo "*FvwmButtons-Panel: ($(((($[vp.width]/24))-(((($[trayer_width]/24))+11+$[infostore.Desk_Pages_X]))))x1, \
+  Size $(($[vp.width]-(($[trayer_width]+264+(($[infostore.Desk_Pages_X]*24)))))) $(((($[panel_font_size]*3))/2)), Frame 0, Padding 0 0, \
+  Swallow(UseOld, Hints, Respawn) FvwmIconMan-Windows-2 Nop))"'
+
+# }}}2
+
+# Pager {{{2
+DestroyFunc FvwmPagerWindow
+AddToFunc FvwmPagerWindow
++ I All (FvwmPager) Close
++ I DestroyModuleConfig FvwmPager: *
++ I *FvwmPager: MiniIcons
++ I *FvwmPager: Font none
++ I *FvwmPager: WindowBorderWidth 1
++ I *FvwmPager: Window3DBorders
+#*FvwmPager: NoSeparators
++ I *FvwmPager: UseSkipList
++ I *FvwmPager: Colorset * $[infostore.cs_panel_inactive]
++ I *FvwmPager: HilightColorset * $[infostore.cs_panel_active]
++ I *FvwmPager: WindowColorsets $[infostore.cs_panel_wininactive] $[infostore.cs_panel_winactive]
+
+FvwmPagerWindow
+*FvwmButtons-Panel: ($[infostore.Desk_Pages_X]x1, Frame 0, Padding 0 0, \
+  Swallow(UseOld, Hints, Respawn) "FvwmPager" "Module FvwmPager FvwmPager"))
+
+# Change desktop pages using mouse wheel on pager
+Mouse (FvwmPager) 4 W $[Mod] GotoPage-Right
+Mouse (FvwmPager) 5 W $[Mod] GotoPage-Left
+# }}}2
+
+# Override FVWM style (it's applied later)
+Style FvwmButtons-Panel NoIcon
+
+######################################
+# Clock {{{1
+PipeRead 'echo "*FvwmButtons-Panel: (3x1, Size 72 $(((($[panel_font_size]*3))/2)), \
+Swallow (Close, Respawn, FvwmModule) FvwmScript-Clock \'Script components/scripts/FvwmScript-Clock\', \
+Action (Mouse 3) SendToModule *FvwmScript-Clock SendString 1 1 str)"'
+
+Module FvwmButtons FvwmButtons-Panel
+
+Echo /--------- Fvwm-Crystal: Recipe loaded ---------/
+#PrintInfo infostore
+
+# ViM modeline {{{1
+# vim:foldmethod=marker:foldenable:foldlevel=0:ft=fvwm

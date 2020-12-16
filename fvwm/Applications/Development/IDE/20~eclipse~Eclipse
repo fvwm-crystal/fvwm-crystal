@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec eclipse $@ 2>/dev/null
+

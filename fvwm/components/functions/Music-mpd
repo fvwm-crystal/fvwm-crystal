@@ -1,0 +1,234 @@
+# Support for MPD music player
+# Written by: Maciej Delmanowski <harnir@post.pl>
+# sed commands by: Grzegorz Niewęgłowski <hoppke@dobremiasto.net>
+# Modifications, debugging and improvments by Dominique Michel 2008-2019
+# <dominique_libre@users.sourceforge.net>
+
+# Overview:
+# This is a set of function for controlling the Music Player Daemon
+# (http://www.musicpd.org/). It is done using the 'mpc' command-line frontend.
+
+# Initialisations, shared functions
+Include components/functions/Music
+Style FvwmApplet-MpdAddSong 	MiniIcon 22x22/apps/gmpc.png, Icon 32x32/apps/gmpc.png
+Style FvwmApplet-MpdPlEd 	MiniIcon 22x22/apps/gmpc.png, Icon 32x32/apps/gmpc.png
+Style pympd 			NoActiveIconOverride, Sticky, WindowListSkip, StaysOnTop, NoIcon
+Style gmpc			UseStyle pympd
+Style Gmpc			UseStyle pympd
+
+DestroyFunc StyleMediaPlayer
+AddToFunc StyleMediaPlayer
++ I Style start_cadence NoIcon
++ I Style start_jack NoIcon
++ I UpdateStyles
+# Schedule needed at Start and after Restart for start_[jack|cadence] and the console players
+Schedule 1 StyleMediaPlayer
+
+# Variables {{{1
+# mpd know where the playlists are. See 'man mpd.conf'
+
+# First button {{{1
+# Player controls and prefs
+# mouse 1 Menu /Player {{{2
+# Show or hile a Gnome mpd frontend
+AddToFunc Music-GUI
++ I All (gmpc) Close
++ I TestRc (NoMatch) None (gmpc) X gmpc
+
+AddToFunc Player-generator
++ I DestroyMenu recreate /Player
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Music player]' Popup /Preferences/MusicPlayer
++ I AddToMenu /Player "" Nop
++ I Test (X qjackctl) AddToMenu /Player '$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Player '$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjacjctl) AddToMenu /Player "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
++ I AddToMenu /Player '$[gt.Start Music Player Daemon]' Exec exec mpd
++ I AddToMenu /Player '$[gt.Stop player]' Exec exec killall -9 mpd
+
+# mouse 2 Music-GUI : allready here {{{2
+# mouse 3 Music-QJackGUI : in Music
+# mouse 4 Mixer-Volume-Up
+# mouse 5 Mixer-Volume-Down
+# are in components/Mixer
+
+# Second button {{{1
+# Player controls and main vol
+# mouse 1 Menu /Playlist-button {{{2
+AddToFunc Music-LoadAll
++ I Exec mpc ls | mpc add > /dev/null
+
+AddToFunc Music-LoadPlaylist-generator
++ I DestroyMenu recreate /Music/LoadPlaylist
++ I PipeRead 'mpc lsplaylists | sed -e "s:^.*$:AddToMenu /Music/LoadPlaylist \'&\' Exec mpc load \'&\' \> /dev/null:"'
++ I AddToMenu /Music/LoadPlaylist "" Nop
++ I AddToMenu /Music/LoadPlaylist '$[gt.Everything]' Music-LoadAll
+
+AddToMenu /Music/LoadPlaylist
++ DynamicPopupAction Function Music-LoadPlaylist-generator
+
+*Music-SavePlaylist-Dialog: Title "$[gt.Save playlist]"
+*Music-SavePlaylist-Dialog: Text "$[gt.Name of the playlist]"
+*Music-SavePlaylist-Dialog: Line center
+*Music-SavePlaylist-Dialog: Input PlaylistName 40 ""
+*Music-SavePlaylist-Dialog: Line center
+*Music-SavePlaylist-Dialog: Line center
+*Music-SavePlaylist-Dialog: Button quit " $[gt.Cancel] " ^[
+*Music-SavePlaylist-Dialog: Command Nop
+*Music-SavePlaylist-Dialog: Button quit " $[gt.Save] " ^M
+*Music-SavePlaylist-Dialog: Command Exec mpc save "$(PlaylistName)"
+*Music-SavePlaylist-Dialog: Line center
+
+AddToFunc Music-SavePlaylist
++ I Module FvwmForm Music-SavePlaylist-Dialog
+
+AddToFunc Music-Update
++ I Exec mpc update > /dev/null
+
+AddToFunc Music-ClearPlaylist
++ I Exec mpc clear > /dev/null
+
+AddToFunc Music-RemovePlaylist-generator
++ I DestroyMenu recreate /Music/RemovePlaylist
++ I PipeRead 'mpc lsplaylists | sed -e "s:^.*$:AddToMenu /Music/RemovePlaylist \'&\' Exec mpc rm \'&\' \> /dev/null:"'
+
+# This function removes currently played song from the playlist
+AddToFunc Music-RemoveSong
++ I Exec mpc del `mpc | sed -n 's:.* #\([0-9]\+\)/[0-9]\+.*:\1:p'`
+
+AddToFunc Playlist-generator-button
++ I DestroyMenu recreate /Playlist-button
++ I PipeRead 'mpc | head -n 1 | sed -e "s;volume:\d*.*;$[gt.Player is stopped];" -e "s:[&*%@^]:&&:g" -e "s:\':\\\\\\\':g" -e "s:^.*$:AddToMenu /Playlist-button \'&\' :"'
++ I AddToMenu /Playlist-button '$[gt.Load playlist]' Popup /Music/LoadPlaylist
++ I AddToMenu /Playlist-button '$[gt.Save playlist]' Music-SavePlaylist
++ I AddToMenu /Playlist-button '$[gt.Load all]' Music-LoadAll
++ I AddToMenu /Playlist-button '$[gt.Update database]' Music-Update
++ I AddToMenu /Playlist-button '$[gt.Clear playlist]' Music-ClearPlaylist
++ I AddToMenu /Playlist-button '$[gt.Remove playlist]' Popup /Music/RemovePlaylist
++ I AddToMenu /Playlist-button '$[gt.Remove current song]' Music-RemoveSong
++ I AddToMenu /Playlist-button '$[gt.Playlist editor]' Script scripts/FvwmMPD/FvwmApplet-MpdPlEd
+
+AddToMenu /Playlist-button
++ DynamicPopupAction Function Playlist-generator-button
+
+# mouse 2 Menu /Playback {{{2
+AddToFunc Music-Next
++ I Exec mpc next > /dev/null
+
+AddToFunc Music-Prev
++ I Exec mpc prev > /dev/null
+
+AddToFunc Music-Stop
++ I Exec mpc stop > /dev/null
+
+AddToFunc Music-Play
++ I Exec mpc play > /dev/null
+
+AddToFunc Music-Pause
++ I Exec mpc pause > /dev/null
+
+AddToFunc Music-PlayPause
++ I Exec mpc toggle > /dev/null
+
+AddToFunc Music-Forward
++ I Exec mpc random > /dev/null; mpc next > /dev/null; mpc random > /dev/null
+
+AddToFunc Music-Backward
++ I Exec mpc random > /dev/null; mpc prev > /dev/null; mpc random > /dev/null
+
+AddToFunc Music-ToggleRandom
++ I Exec mpc random > /dev/null
+
+AddToMenu /Music/Crossfade
++ "0"	Exec mpc crossfade 0
++ ""	Nop
++ "1"	Exec mpc crossfade 1
++ "2"	Exec mpc crossfade 2
++ "4"	Exec mpc crossfade 4
++ "6"	Exec mpc crossfade 6
++ "8"	Exec mpc crossfade 8
++ "10"	Exec mpc crossfade 10
+
+AddToFunc Music-Shuffle
++ I Exec mpc shuffle > /dev/null
+
+AddToFunc Playback-generator
++ I DestroyMenu recreate /Playback
++ I AddToMenu /Playback '$[gt.Next]' Music-Next
++ I AddToMenu /Playback '$[gt.Prev]' Music-Prev
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Stop playback]' Music-Stop
++ I AddToMenu /Playback '$[gt.Play]' Music-Play
++ I AddToMenu /Playback '$[gt.Pause]' Music-Pause
++ I AddToMenu /Playback '$[gt.Play/Pause]' Music-PlayPause
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Forward]' Music-Forward
++ I AddToMenu /Playback '$[gt.Backward]' Music-Backward
++ I AddToMenu /Playback '$[gt.Toggle random]' Music-ToggleRandom
++ I AddToMenu /Playback '$[gt.Shuffle playlist]' Music-Shuffle
++ I AddToMenu /Playback "" Nop
++ I PipeRead 'mpc crossfade | sed -e "s/crossfade:\ //" | sed -e "s:^.\\+$:AddToMenu\ /Playback \'$[gt.Crossfade] \(&\)\' Popup /Music/Crossfade:"'
+
+# Main menu {{{1
+AddToFunc Music-generator
++ I DestroyMenu recreate /Music
++ I PipeRead 'mpc | head -n 1 | sed -e "s;volume:\d*.*;$[gt.Player is stopped];" -e "s:[&*%@^]:&&:g" -e "s:\':\\\\\\\':g" -e "s:^.*$:AddToMenu /Music \'&\' :"'
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Load playlist]'		Popup /Music/LoadPlaylist
++ I AddToMenu /Music '$[gt.Save playlist...]'		Music-SavePlaylist
++ I AddToMenu /Music '$[gt.Shuffle playlist]'		Music-Shuffle
++ I AddToMenu /Music '$[gt.Clear playlist]'		Music-ClearPlaylist
++ I AddToMenu /Music '$[gt.Update database]'		Music-Update
++ I AddToMenu /Music '$[gt.Remove current song]'	Music-RemoveSong
++ I AddToMenu /Music '$[gt.Remove playlist]'		Popup /Music/RemovePlaylist
++ I AddToMenu /Music '$[gt.Playlist editor]'		Script scripts/FvwmMPD/FvwmApplet-MpdPlEd
+
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Seek &forward]' Exec mpc seek +7% > /dev/null
++ I AddToMenu /Music '$[gt.Seek &backward]' Exec mpc seek -7% > /dev/null
++ I PipeRead 'mpc crossfade | sed -e "s/crossfade:\ //" | sed -e "s:^.\\+$:AddToMenu\ /Music \'$[gt.Crossfade] \(&\)\' Popup /Music/Crossfade:"'
++ I PipeRead 'mpc volume | sed -e "s/volume://" | sed -e "s:%:%%:" | sed -e "s:[ \t]::g" | sed -e "s:^.\\+$:AddToMenu\ /Music \'$[gt.Volume] \(&\)\' Popup /Mixer:"'
++ I AddToMenu /Music '$[gt.Toggle random]' 		Music-ToggleRandom
++ I AddToMenu /Music '$[gt.Toggle repeat]' 		Exec mpc repeat
+# Function below doesn't work for me (harnir), if it does for you, conatct me
+# (harnir@post.pl).
++ I PipeRead 'mpc | sed -ne "s=.*repeat: \(on\|off\).*random: \(on\|off\).*=AddToMenu\ \/Music \'Toggle repeat (\1)\' Exec mpc repeat\nAddToMenu \/Music \'Toggle random (\2)\' Exec mpc random=gp"'
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Stop playback]'		Music-Stop
++ I AddToMenu /Music '$[gt.Show/Hide player]'		Music-GUI
++ I AddToMenu /Music '$[gt.Show/Hide Audio controls]'		Music-QJackGUI
++ I AddToMenu /Music '$[gt.Play/Pause]'			Music-PlayPause
++ I AddToMenu /Music "" Nop
++ I Test (X qjackctl) AddToMenu /Music '$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Music '$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjacjctl) AddToMenu /Music "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
++ I AddToMenu /Music '$[gt.Music player]'		Popup /Preferences/MusicPlayer
+
+# Fake button functions {{{1
+# Menu /Player Music-GUI
+# Music-QJackGUI (in Music)
+# Mixer-Volume-Up (in Mixer)
+# Menu /Music/Volume
+AddToMenu /Music/Volume
++ "" Nop
+# Music-Speed-Up
+AddToFunc Music-Speed-Up
++ I Nop
+# Music-Speed-Down
+AddToFunc Music-Speed-Down
++ I Nop
+# Menu /Speed
+AddToMenu /Speed
++ '$[gt.Seek &forward]' Exec mpc seek +10% > /dev/null
++ '$[gt.Seek &backward]' Exec mpc seek -10% > /dev/null
+
+# Music-Seek-+
+# Music-Seek--
+AddToFunc Button-Seek-+
++ I Exec mpc seek +5% > /dev/null
+AddToFunc Button-Seek--
++ I Exec mpc seek -5% > /dev/null
+
+# vim:ft=fvwm

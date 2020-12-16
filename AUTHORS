@@ -1,0 +1,74 @@
+Authors of FVWM-Crystal project:
+
+Dominique Michel <dominique_libre@sourceforge.net>
+- current project administrator
+- thin and amiga recipes
+- AlsaPlayer and mplayer control
+- fvwm-crystal.generate-menu
+- in short, most of the new code, harnir doesn't have time for
+     this project anymore. Too bad!
+
+Maciej Delmanowski <harnir@gna.org>
+- idea
+- FVWM configuration files
+
+Rafał Bisingier <rafal@man.poznan.pl>
+- fvwm-crystal.apps script
+- some ideas
+
+Daniel da Silva <daniel@meltingwax.net>
+- Dawn Sky decoration
+- Some work with harnir on the ClearLooks decoration
+
+Dominik Tomasik <d.tomasik@gaming.pl>
+- FVWM-Crystal logo
+- wallpapers
+
+Alwin <translations@ziggo.nl>
+- Dutch and Western Frisian translations
+- Extensive testing
+- Various patches and ideas
+
+Lukasz Strzygowski <lucass@gentoo.pl>
+- scripts
+- some ideas
+- Gentoo ebuild
+
+Martin Vath
+- various sh syntax fixes
+- constructive remarks
+
+Michael Stilkerich <stilkerm@uci.edu>
+- Makefile script
+- Clock scripts
+- Debian package
+
+Myles Green <rmg57@telus.net>
+- documentation
+
+Parts of the FVWM code are created by:
+
+Ber 'theBlackDragon' Geens <bert@lair.be>
+- MPD playlist editor
+
+Gronono on the gentoo forum: original version of E17-Bling
+
+Kenneth E. Lester, Jr. <klesterjr@hotmail.com>
+- Some icons inclusive the 2 images Thunar icons.
+
+The Tango project
+- Many of the other icons
+
+Some of the code was derived from Taviso's configuration file
+Contact: Tavis Ormandy <taviso@gentoo.org>
+Homepage: http://dev.gentoo.org/~taviso/
+Dead links, too bad! If someone do have a copy of the fvwm part of Taviso's
+website, please drop me an email and I will put it back on the internet:
+<dominique_libre@sourceforge.net>
+
+Many thanks to the different folks that helped with suggestions on
+forums, including the gentoo and fvwm ones, and on the internet,
+especialy but not limited to Thomas Adam and Thomas Funk.
+
+If you will find any code which is similar to your own, please contact with
+me (harnir@gna.org) or best, with me <dominique.michel@users.sourceforge.net>

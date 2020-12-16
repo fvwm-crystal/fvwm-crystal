@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec tapiir_jack $@ 2>/dev/null
+

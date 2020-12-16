@@ -1,0 +1,27 @@
+#!/bin/bash
+# Custom buttons bar for FVWM-Crystal
+#
+# Version:	1.0.0
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	<04/19/2016>
+# Changed:	<09/05/2019>
+#
+# Description:	Generate the applications menu for the custom button bar's preferences menu.
+
+# Include components/functions/CustomButtonBar-Menu
+# Popup /FVWM-CustomButtonMenu
+
+# The applications
+fvwm-crystal.apps --database=${FVWM_DISTROMENUDIR}/Applications --database=${FVWM_SYSTEMDIR}/Applications --database=${FVWM_USERDIR}/Applications --search-icons-in=${FVWM_USERDIR}/icons/Default/32x32/categories:${FVWM_USERDIR}/icons/Default/32x32/apps:${FVWM_SYSTEMDIR}/icons/Default/32x32/categories:${FVWM_SYSTEMDIR}/icons/Default/32x32/apps:${FVWM_DISTROMENUDIR}/icons/Default/32x32/categories:${FVWM_DISTROMENUDIR}/icons/Default/32x32/apps --default-file-icon=32x32/apps/default.png --default-dir-icon=32x32/categories/directory.png --min-submenu-length=5 --root-cat-name="CusTomBarMenu" --sort=prio --no-panel --check-execs -o "${FVWM_USERDIR}"/tmp/TmpApplications
+
+echo -n "" > "${FVWM_USERDIR}"/tmp/CustomBarApplications
+while read myline ; do
+    if [[ "$(echo ${myline} | grep -e Exec)" != "" ]]
+    then echo ${myline} | sed -e 's:\(^.*%\)\(.*%\)\(.*\)\("\)\( Exec .*\):\1\2\3" AddCustomButton \2\3%\5:' >> "${FVWM_USERDIR}"/tmp/CustomBarApplications
+    else echo ${myline} >> "${FVWM_USERDIR}"/tmp/CustomBarApplications
+    fi
+done < "${FVWM_USERDIR}"/tmp/TmpApplications
+rm "${FVWM_USERDIR}"/tmp/TmpApplications

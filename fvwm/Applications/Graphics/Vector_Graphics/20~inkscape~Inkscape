@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec inkscape $@ 2>/dev/null
+

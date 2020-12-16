@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec lowriter $@ 2>/dev/null

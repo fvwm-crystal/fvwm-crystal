@@ -1,0 +1,120 @@
+#
+# o Support for temporary switch for display date/time after click on widget
+#   LiNiO <linio@wonder.pl> - 2005.01.16
+#
+# o With message 1 (configured for right click in recipe) switch between
+#   12h clock and 24h clock. Initially, the clock will be set according
+#   to the current locale
+#   Michael Stilkerich <ms@mike2k.de> - 2006.05.16
+#
+# o 2015.10.02 - Use same colorset than the AcpiBatt applet
+#   Dominique Michel <dominique.c.michel@gmail.com>
+
+
+WindowTitle {FvwmScript-Clock}
+WindowSize  60 22
+WindowPosition 10000 10000
+Font "xft:Verdana:pixelsize=15:Bold"
+Colorset 12
+
+Init
+Begin
+  Set $display= time
+
+  If (GetOutput {date "+%p"} 1 -1)=={} Then
+  Begin
+    Set $mode={24}
+    Set $timecmd={date "+%R"}
+    Set $timefont={xft:Verdana:pixelsize=15:Bold}
+    Set $datecmd={date "+%d/%m"}
+    Set $datefont={xft:Verdana:pixelsize=15:Bold}
+  End
+  Else
+  Begin
+    Set $mode={12}
+    Set $timecmd={LC_TIME=C date "+%I:%M %p"}
+    Set $timefont={xft:Verdana:pixelsize=11:Bold}
+    Set $datecmd={date "+%d/%m"}
+    Set $datefont={xft:Verdana:pixelsize=15:Bold}
+  End
+  Set $tmp = (GetOutput $timecmd 1 -1)
+  ChangeTitle 1 $tmp
+  ChangeFont 1 $timefont
+End
+
+PeriodicTasks
+Begin 
+  If (RemainderOfDiv (GetTime) 60)==0 Then
+  Begin
+    If $display=={time} Then
+    Begin
+      Set $tmp = (GetOutput $timecmd 1 -1)
+      ChangeFont 1 $timefont
+    End
+    Else
+    Begin
+      Set $tmp = (GetOutput $datecmd 1 -1)
+      ChangeFont 1 $datefont
+    End
+    ChangeTitle 1 $tmp
+  End
+End
+
+Widget 1
+Property
+ Position 0 -3
+ Size 60 22
+ Type ItemDraw
+ Flags NoReliefString
+ Title {}
+ Colorset 12
+Main
+ Case message of
+  SingleClic :
+  Begin
+    If $display=={time} Then
+    Begin
+      Set $display= date
+      ChangeFont 1 $datefont
+      Set $tmp = (GetOutput $datecmd 1 -1)
+    End
+    Else
+    Begin
+      Set $display= time
+      ChangeFont 1 $timefont
+      Set $tmp = (GetOutput $timecmd 1 -1)
+    End
+    ChangeTitle  1 $tmp
+  End
+  1 :
+  Begin
+    If $mode=={24} Then
+    Begin
+    Set $mode={12}
+    Set $timecmd={LC_TIME=C date "+%I:%M %p"}
+    Set $timefont={xft:Verdana:pixelsize=11:Bold}
+    Set $datecmd={date "+%m/%d"}
+    Set $datefont={xft:Verdana:pixelsize=15:Bold}
+    End
+    Else
+    Begin
+    Set $mode={24}
+    Set $timecmd={date "+%R"}
+    Set $timefont={xft:Verdana:pixelsize=15:Bold}
+    Set $datecmd={date "+%d/%m"}
+    Set $datefont={xft:Verdana:pixelsize=15:Bold}
+    End
+
+    If $display=={date} Then
+    Begin
+      Set $tmp = (GetOutput $datecmd 1 -1)
+      ChangeFont 1 $datefont
+    End
+    Else
+    Begin
+      Set $tmp = (GetOutput $timecmd 1 -1)
+      ChangeFont 1 $timefont
+    End
+    ChangeTitle  1 $tmp
+  End
+End

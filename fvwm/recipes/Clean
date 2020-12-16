@@ -1,0 +1,106 @@
+# Clean - make it simple!
+# Written by: Maciej Delmanowski <harnir@post.pl>
+# 2007-2013: Dominique Michel <dominique_libre@users.sourceforge.net>
+# See ChangeLog for details
+
+# You can use folding to navigate this file
+
+Echo Clean recipe loading from $.
+InfoStoreAdd Recipe "Clean"
+
+# No magic button, we nedd to reset its ewmh values after a recipe change.
+InfoStoreAdd EWMH_CBB_Left 3
+InfoStoreAdd EWMH_CBB_Right 3
+InfoStoreAdd EWMH_CBB_Top 3
+InfoStoreAdd EWMH_CBB_Bottom 3
+
+# Includes and FVWM modules {{{1
+Include components/bindings/Desktop-MMB-EdgeScroll
+# Type of icons on the desktop {{{2
+LoadPreferences IconsType
+
+# Media player {{{2
+Include components/functions/Music-$[infostore.MusicPlayer]
+
+# Desktop settings {{{1
+EdgeScroll	0	0
+EdgeResistance	0
+Style * EdgeMoveDelay 	0
+Style * EdgeMoveResistance 100
+HideGeometryWindow	Move, Resize
+OpaqueMoveSize	100
+EdgeThickness	1
+
+EWMH-Desktop 3 3 3 3
+PipeRead 'echo "EWMH-Panel-Bottom $((36*$[infostore.Desk_Pages_Y]))"'
+PipeRead 'echo "EWMH-Panel-Right 24"'
+
+# For the desktop manager and the magic buttons
+InfoStoreAdd EWMH_Recipe_Left $[EWMH_BS_Panel_Left]
+InfoStoreAdd EWMH_Recipe_Right $[EWMH_BS_Panel_Right]
+InfoStoreAdd EWMH_Recipe_Top $[EWMH_BS_Panel_Top]
+InfoStoreAdd EWMH_Recipe_Bottom $[EWMH_BS_Panel_Bottom]
+
+PipeRead '$[FVWM_SYSTEMDIR]/scripts/set_DesktopIconsGeom $[vp.height]'
+
+# Desktop manager {{{2
+DestroyFunc RedrawIconBox
+AddToFunc RedrawIconBox
++ I PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+46))))x$(($[vp.height]-42))+$((((50*$[IconColumnsNumber]))+18))-39, IconFill left bottom, IconGrid 30 30"'
+LoadPreferences DefaultDesktopManager
+
+# Settings for icons on the desktop {{{1
+Style * StickyIcon
+Test (EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+46))))x$(($[vp.height]-42))+$((((50*$[IconColumnsNumber]))+18))-39, IconFill left bottom, IconGrid 30 30"'
+Test (!EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-36))x$(($[vp.height]-42))+3-39, IconFill left bottom, IconGrid 30 30"'
+
+# Applications generator and main menu {{{1
+# fvwm-crystal.apps {{{2
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/32x32/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/32x32/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/32x32/apps --default-file-icon=32x32/apps/default.png --default-dir-icon=32x32/categories/directory.png --min-submenu-length=5 --sort=prio --no-panel --check-execs'
+AddToMenu /Applications "" Nop
+AddToMenu /Applications "%32x32/fvwm-crystal/fvwm-crystal.png%FVWM-Crystal" Popup /FVWM-Crystal
+
+# Desktop menu with left click {{{1
+#SetEnv DesktopMenu /FVWM-Crystal
+SetEnv DesktopMenu /Applications
+
+# Pager {{{1
+DestroyFunc FvwmPagerWindow
+AddToFunc FvwmPagerWindow
++ I All (FvwmPager) Close
++ I DestroyModuleConfig FvwmPager: *
++ I PipeRead 'echo \*FvwmPager: Geometry $((42*$[infostore.Desk_Pages_X]))x$((36*$[infostore.Desk_Pages_Y]))-1-1'
++ I *FvwmPager: MiniIcons
++ I *FvwmPager: Font none
++ I *FvwmPager: WindowBorderWidth 1
++ I *FvwmPager: Window3DBorders
+#+ I *FvwmPager: NoSeparators
++ I *FvwmPager: UseSkipList
++ I *FvwmPager: Colorset * $[infostore.cs_panel_inactive]
++ I *FvwmPager: HilightColorset * $[infostore.cs_panel_active]
++ I *FvwmPager: WindowColorsets $[infostore.cs_panel_wininactive] $[infostore.cs_panel_winactive]
++ I Module FvwmPager
+FvwmPagerWindow
+
+# Change desktop pages using mouse wheel on pager
+Mouse (FvwmPager) 4 W $[Mod] GotoPage-Right
+Mouse (FvwmPager) 5 W $[Mod] GotoPage-Left
+
+# Notification Area {{{1
+# Settings of stalonetray {{{2
+Test (!EnvMatch trayer_width 0) \
+PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "stalonetray" ]; then echo FvwmStalonePanel 24 1 $(($[trayer_width]/24)) "-3" "-43" "NE" 24 $[trayer_width] "-3" "-43"; fi'
+# Settings of trayer {{{2
+Test (!EnvMatch trayer_width 0) \
+PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "trayer" ]; then echo FvwmTrayerPanel request pixel 24 right right 43 3 ""; fi' 
+
+# Styles {{{1
+Style FvwmPager !Icon
+
+Echo /--------- Fvwm-Crystal: Recipe loaded ---------/
+
+#PrintInfo Locale 1 #2
+#PrintInfo infostore
+
+# ViM modeline {{{1
+# vim:foldmethod=marker:foldenable:foldlevel=0:ft=fvwm

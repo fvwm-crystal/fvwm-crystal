@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec guitar $@ 2>/dev/null
+

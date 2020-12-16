@@ -1,0 +1,1564 @@
+# German translation for FVWM-Crystal
+# Copyright (C) 2015 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Thomas Funk <t.funk@web.de>, 2015.
+
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal\n"
+"POT-Creation-Date: 2005-07-04 14:23+0100\n"
+"PO-Revision-Date: 2015-11-07 17:45+0200\n"
+"Last-Translator: Thomas Funk <t.funk@web.de>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " 1 min"
+msgstr " 1 Min"
+
+msgid " 1 min 30"
+msgstr " 1 Min 30"
+
+msgid " 2 min"
+msgstr " 2 Min"
+
+msgid " 3 min"
+msgstr " 3 Min"
+
+msgid " 5 min"
+msgstr " 5 Min"
+
+msgid "+  1 min"
+msgstr "+  1 Min"
+
+msgid "+  1 min 30"
+msgstr "+  1 Min 30"
+
+msgid "+  2 min"
+msgstr "+  2 Min"
+
+msgid "+  3 min"
+msgstr "+  3 Min"
+
+msgid "+  5 min"
+msgstr "+  5 Min"
+
+msgid "+ &1 tone"
+msgstr "+ &1 Ton"
+
+msgid "+ 1 &comma"
+msgstr "+ 1 &Komma"
+
+msgid "+ 1 &fifth"
+msgstr "+ 1 &Fünfte"
+
+msgid "+ 1 &octave"
+msgstr "+ 1 &Achte"
+
+msgid "+ 1 &sixth"
+msgstr "+ 1 &Sechste"
+
+msgid "+ 1 f&ourth"
+msgstr "+ 1 &Vierte"
+
+msgid "+ 1 s&eventh"
+msgstr "+ 1 S&iebte"
+
+msgid "+ 1 t&hird"
+msgstr "+ 1 &Dritte"
+
+msgid "+ ½ &tone"
+msgstr "+ ½ &Ton"
+
+msgid "+ 10 min"
+msgstr "+ 10 Min"
+
+msgid "+ 10 sec"
+msgstr "+ 10 Sek"
+
+msgid "+ 20 sec"
+msgstr "+ 20 Sek"
+
+msgid "+ 30 sec"
+msgstr "+ 30 Sek"
+
+msgid "+ 45 sec"
+msgstr "+ 45 Sek"
+
+msgid "-  1 min"
+msgstr "-  1 Min"
+
+msgid "-  1 min 30"
+msgstr "-  1 Min 30"
+
+msgid "-  2 min"
+msgstr "-  2 Min"
+
+msgid "-  3 min"
+msgstr "-  3 Min"
+
+msgid "-  5 min"
+msgstr "-  5 Min"
+
+msgid "- &1 tone"
+msgstr "- &1 Ton"
+
+msgid "- 1 &comma"
+msgstr "- 1 &Komma"
+
+msgid "- 1 &fifth"
+msgstr "- 1 &Fünfte"
+
+msgid "- 1 &octave"
+msgstr "- 1 &Octave"
+
+msgid "- 1 &sixth"
+msgstr "- 1 &Sechste"
+
+msgid "- 1 f&ourth"
+msgstr "- 1 &Vierte"
+
+msgid "- 1 s&eventh"
+msgstr "- 1 S&iebte"
+
+msgid "- 1 t&hird"
+msgstr "- 1 &Dritte"
+
+msgid "- ½ &tone"
+msgstr "- ½ &Ton"
+
+msgid "- 10 min"
+msgstr "- 10 Min"
+
+msgid "- 10 sec"
+msgstr "- 10 Sek"
+
+msgid "- 20 sec"
+msgstr "- 20 Sek"
+
+msgid "- 30 sec"
+msgstr "- 30 Sek"
+
+msgid "- 45 sec"
+msgstr "- 45 Sek"
+
+msgid "1 day"
+msgstr "1 Tag"
+
+msgid "1 hour"
+msgstr "1 Stunde"
+
+msgid "1 icon width"
+msgstr "Breite: 1 Icon"
+
+msgid "1 minute"
+msgstr "1 Minute"
+
+msgid "10 min"
+msgstr "10 Min"
+
+msgid "10 minutes"
+msgstr "10 Minuten"
+
+msgid "10 sec"
+msgstr "10 Sek"
+
+msgid "10 seconds"
+msgstr "10 Sekunden"
+
+msgid "15 min"
+msgstr "15 Min"
+
+msgid "15 minutes"
+msgstr "15 Minuten"
+
+msgid "15 secondes"
+msgstr "15 Sekunden"
+
+msgid "12 icons width"
+msgstr "Breite: 12 Icons"
+
+msgid "15 icons width"
+msgstr "Breite: 15 Icons"
+
+msgid "2 icons width"
+msgstr "Breite: 2 Icons"
+
+msgid "20 icons width"
+msgstr "Breite: 20 Icons"
+
+msgid "2D Graphics"
+msgstr "2D Grafiken"
+
+msgid "3 hours"
+msgstr "3 Stunden"
+
+msgid "3 icons width"
+msgstr "Breite: 3 Icons"
+
+msgid "30 minutes"
+msgstr "30 Minuten"
+
+msgid "30 sec"
+msgstr "30 Sek"
+
+msgid "30 secondes"
+msgstr "30 Sekunden"
+
+msgid "3D Graphics"
+msgstr "3D Grafiken"
+
+msgid "4 icons width"
+msgstr "Breite: 4 Icons"
+
+msgid "5 icons width"
+msgstr "Breite: 5 Icons"
+
+msgid "5 minutes"
+msgstr "5 Minuten"
+
+msgid "5 secondes"
+msgstr "5 Sekunden"
+
+msgid "6 icons width"
+msgstr "Breite: 6 Icons"
+
+msgid "7 icons width"
+msgstr "Breite: 7 Icons"
+
+msgid "8 hours"
+msgstr "8 Stunden"
+
+msgid "8 icons width"
+msgstr "Breite: 8 Icons"
+
+msgid "9 icons width"
+msgstr "Breite: 9 Icons"
+
+msgid "A console command must be prefixed by A and space,"
+msgstr "Einem Konsolenkommando muss A + Leerzeichen vorangestellt werden,"
+
+msgid "About FVWM-Crystal"
+msgstr "Über FVWM-Crystal"
+
+msgid "Accessibility"
+msgstr "Zubehör"
+
+msgid "Action "
+msgstr "Action "
+
+msgid "Action Games"
+msgstr "Actionspiele"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Activate"
+msgstr "Aktivieren"
+
+msgid "Add a playlist"
+msgstr "Playlist hinzufügen"
+
+msgid "Add playlist"
+msgstr "Playlist hinzufügen"
+
+msgid "Adventure Games"
+msgstr "Abenteuerspiele"
+
+msgid "All pages wallpaper"
+msgstr "Wallpaper für alle Seiten"
+
+msgid "Antennas"
+msgstr "Antennen"
+
+msgid "Applications"
+msgstr "Anwendungen"
+
+msgid "Arcade Games"
+msgstr "Spielhallenspiele"
+
+msgid "Archiving"
+msgstr "Archivierung"
+
+msgid "Artificial Intelligence"
+msgstr "Künstliche Intelligenz"
+
+msgid "Astronomy"
+msgstr "Astronomie"
+
+msgid "Audio mixer"
+msgstr "Audiomixer"
+
+msgid "Audio playlists"
+msgstr "Musik-Playlisten"
+
+msgid "Audio tools"
+msgstr "Audiowerkzeuge"
+
+msgid "Audio-Video Editing"
+msgstr "Audio-Video-Schnitt"
+
+msgid "Authors"
+msgstr "Autoren"
+
+msgid "Auto wallpaper"
+msgstr "Auto Wallpaper"
+
+msgid "Automatic suspend to disk"
+msgstr "Automatisch auf Bereitschaft"
+
+msgid "Backward"
+msgstr "Zurück"
+
+msgid "Biology"
+msgstr "Biologie"
+
+msgid "Bling bling"
+msgstr "Bling bling"
+
+msgid "Blocks Games"
+msgstr "Blockpiele"
+
+msgid "Board Games"
+msgstr "Brettspiele"
+
+msgid "Browse CDROM"
+msgstr "CDROM durchsuchen"
+
+msgid "Browse DVD"
+msgstr "DVD durchsuchen"
+
+msgid "Browse Info pages with EMacs"
+msgstr "Infoseiten mit EMacs durchsuchen"
+
+msgid "Browse Info pages with pinfo"
+msgstr "Infoseiten mit pinfo durchsuchen"
+
+msgid "Browse Info pages with tkinfo"
+msgstr "Infoseiten mit tkinfo durchsuchen"
+
+msgid "Browse Medias"
+msgstr "Medien durchsuchen"
+
+msgid "Browse Movies"
+msgstr "Filme durchsuchen"
+
+msgid "Browse Music"
+msgstr "Musik durchsuchen"
+
+msgid "Building"
+msgstr "Bauen"
+
+msgid "Button model"
+msgstr "Buttonmodel"
+
+msgid "CD Burning"
+msgstr "CD brennen"
+
+msgid "Calculators"
+msgstr "Rechner"
+
+msgid "Calendars"
+msgstr "Kalender"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Card Games"
+msgstr "Kartenspiele"
+
+msgid "Changed desktop manager"
+msgstr "Desktopmanager ändern"
+
+msgid "Changed notification area manager"
+msgstr "Notifikationsbereichs-Manager ändern"
+
+msgid "Channels"
+msgstr "Kanäle"
+
+msgid "Character fonts"
+msgstr "Character-Schriften"
+
+msgid "Charts"
+msgstr "Hitliste"
+
+msgid "Chemistry"
+msgstr "Chemie"
+
+msgid "Choose a playlist to load"
+msgstr "Playliste zum laden wählen"
+
+msgid "Choose a playlist to remove"
+msgstr "Playliste zum löschen wählen"
+
+msgid "Choose playlist to copy"
+msgstr "Playliste zum kopieren wählen"
+
+msgid "Choose playlist to load"
+msgstr "Playliste zum laden wählen"
+
+msgid "Choose playlist to remove"
+msgstr "Playliste zum löschen wählen"
+
+msgid "Clear playlist"
+msgstr "Playliste leeren"
+
+msgid "Clocks"
+msgstr "Uhren"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Colorsets"
+msgstr "Colorsets"
+
+msgid "Computer Science"
+msgstr "Computerwissenschaften"
+
+msgid "Console Only"
+msgstr "nur Konsole"
+
+msgid "Contact Management"
+msgstr "Addressbuch"
+
+msgid "Copy playlist"
+msgstr "Playliste kopieren"
+
+msgid "Core"
+msgstr "Core"
+
+msgid "Crossfade"
+msgstr "Überblenden"
+
+msgid "Current playlist"
+msgstr "Aktuelle Playliste"
+
+msgid "Custom action "
+msgstr "Spezielle Aktion "
+
+msgid "Custom playlists"
+msgstr "Eigene Playlisten"
+
+msgid "Data Visualization"
+msgstr "Bildliche Datendarstellung"
+
+msgid "Databases"
+msgstr "Datenbanken"
+
+msgid "Debuggers"
+msgstr "Debugger"
+
+msgid "Decorations and colorsets"
+msgstr "Dekorationen und Colorsets"
+
+msgid "Default browser"
+msgstr "Standard Browser"
+
+msgid "Default terminal"
+msgstr "Standard Terminal"
+
+msgid "Delayed fullscreen"
+msgstr "Verzögert Vollbild"
+
+msgid "Desktop Settings"
+msgstr "Desktopeinstellungen"
+
+msgid "Desktop geometry"
+msgstr "Desktopgröße"
+
+msgid "Desktop manager"
+msgstr "Desktopmanager"
+
+msgid "Desktop menu"
+msgstr "Desktopmenü"
+
+msgid "Destroy"
+msgstr "Zerstören"
+
+msgid "Destroy MPlayer"
+msgstr "Zerstöre MPlayer"
+
+msgid "Developer menu"
+msgstr "Entwicklermenü"
+
+msgid "Development"
+msgstr "Entwicklung"
+
+msgid "Dial-up"
+msgstr "Verbindungsaufbau"
+
+msgid "Dictionaries"
+msgstr "Wörterbücher"
+
+msgid "Dictionary"
+msgstr "Wörterbuch"
+
+msgid "Disc Burning"
+msgstr "CD brennen"
+
+msgid "Each line has the following format:"
+msgstr "Jede Zeile hat das folgende Format:"
+
+msgid "Economy"
+msgstr "Wirtschaft"
+
+msgid "Electricity"
+msgstr "Elektrizität"
+
+msgid "Electronics"
+msgstr "Electronik"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Emulators"
+msgstr "Emulatoren"
+
+msgid "Emplacement"
+msgstr "Einlagerung"
+
+msgid "Engineering"
+msgstr "Ingenieurwissenschaft"
+
+msgid "Enter the default browser"
+msgstr "Standard-Browser eintragen"
+
+msgid "Enter the name of the channel list for the DVB input"
+msgstr "Name der Kanalliste für DVB-Eingang eintragen"
+
+msgid "Everything"
+msgstr "Alles"
+
+msgid "Exit"
+msgstr "Beenden"
+
+msgid "External scripts and applications"
+msgstr "Externe Skripte und Programme"
+
+msgid "FVWM Man Pages"
+msgstr "FVWM Man "
+
+msgid "FVWM manpages"
+msgstr "FVWM manpages"
+
+msgid "FVWM version"
+msgstr "FVWM Version"
+
+msgid "FVWM-Crystal Help"
+msgstr "FVWM-Crystal Hilfe"
+
+msgid "FVWM-Crystal documentation"
+msgstr "FVWM-Crystal Dokumentation"
+
+msgid "FVWM-Crystal users email list, or the"
+msgstr "FVWM-Crystal User Emailliste, oder"
+
+msgid "FVWM-Crystal with raise"
+msgstr "FVWM-Crystal mit anheben"
+
+msgid "Feedback, support"
+msgstr "Rückmeldung, Support"
+
+msgid "File browser action"
+msgstr "Dateibrowser Aktion"
+
+msgid "File Managers"
+msgstr "Dateimanager"
+
+msgid "File Systems"
+msgstr "Dateisystem"
+
+msgid "File Tools"
+msgstr "Dateiwerkzeuge"
+
+msgid "File Transfer"
+msgstr "Dateiübertragung"
+
+msgid "Files"
+msgstr "Dateien"
+
+msgid "Flow Charts"
+msgstr "Flussdiagramme"
+
+msgid "Fonts sizes"
+msgstr "Schriftgrößen"
+
+msgid "Force suspend"
+msgstr "Ruhezustand erzwingen"
+
+msgid "Forward"
+msgstr "Vorwärts"
+
+msgid "Frame"
+msgstr "Rahmen"
+
+msgid "Frame step"
+msgstr "Rahmenschritt"
+
+msgid "Fullscreen"
+msgstr "Vollbild"
+
+msgid "Fvwm-Crystal Docs"
+msgstr "Fvwm-Crystal Dokumente"
+
+msgid "FvwmConsole terminal"
+msgstr "FvwmConsole Terminal"
+
+msgid "GUI Designers"
+msgstr "GUI Designer"
+
+msgid "Games"
+msgstr "Spiele"
+
+msgid "Generate application menu"
+msgstr "Applikationsmenü erstellen"
+
+msgid "Geography"
+msgstr "Geographie"
+
+msgid "Geology"
+msgstr "Geologie"
+
+msgid "Geoscience"
+msgstr "Geowissenschaften"
+
+msgid "Go to the FVWM-Crystal users email list"
+msgstr "Gehe zur FVWM-Crystal User Mailingliste"
+
+msgid "Go to the fvwm-crystal IRC channel"
+msgstr "Gehe zum FVWM-Crystal IRC-Kanal"
+
+msgid "Graphics"
+msgstr "Grafik"
+
+msgid "Ham Radio"
+msgstr "Ham Radio"
+
+msgid "Handle width"
+msgstr "Handle-Breite"
+
+msgid "Hardware Settings"
+msgstr "Hardwareeinstellungen"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "History"
+msgstr "Geschichte"
+
+msgid "I am sure"
+msgstr "Ich bin sicher"
+
+msgid "IDE"
+msgstr "IDE"
+
+msgid "IRC Clients"
+msgstr "IRC Clients"
+
+msgid "Iconify"
+msgstr "Minimieren"
+
+msgid "Identify"
+msgstr "Identifizieren"
+
+msgid "Icons"
+msgstr "Icons"
+
+msgid "Icons in file browser"
+msgstr "Icons im Dateibrowser"
+
+msgid "Identify window"
+msgstr "Fenster identifizieren"
+
+msgid "If you don’t want any such icons,"
+msgstr "Wenn keine solchen Icons gewollt sind,"
+
+msgid "Image Processing"
+msgstr "Bildbearbeitung"
+
+msgid "Image tools"
+msgstr "Bildwerkzeuge"
+
+msgid "Instant Messaging"
+msgstr "Sofortnachrichtendienst"
+
+msgid "Interface look and feel"
+msgstr "Interface Look and Feel"
+
+msgid "Jump"
+msgstr "Springe"
+
+msgid "Jump to left page"
+msgstr "zur linken Seite springen"
+
+msgid "Jump to previous page"
+msgstr "zur vorherigen Seite springen"
+
+msgid "Jump to right page"
+msgstr "zur rechten Seite springen"
+
+msgid "Key binding modifiers editor"
+msgstr "Kurztasten-Editor"
+
+msgid "Kids Games"
+msgstr "Spiele für Kinder"
+
+msgid "Knowledge"
+msgstr "Wissen"
+
+msgid "Languages"
+msgstr "Sprachen"
+
+msgid "Left"
+msgstr "Links"
+
+msgid "Literature"
+msgstr "Literatur"
+
+msgid "Load all"
+msgstr "Alles laden"
+
+msgid "Load media file"
+msgstr "Mediendatei laden"
+
+msgid "Load playlist"
+msgstr "Playliste laden"
+
+msgid "Lock screen"
+msgstr "Bildschirm sperren"
+
+msgid "Logic Games"
+msgstr "Logikspiele"
+
+msgid "Logout"
+msgstr "Abmelden"
+
+msgid "MPlayer volume"
+msgstr "MPlayer Lautstärke"
+
+msgid "Main documentation"
+msgstr "Hauptdokumentation"
+
+msgid "Main volume"
+msgstr "Hauptlautstärke"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Max back"
+msgstr "Max zurück"
+
+msgid "Maximize"
+msgstr "Maximieren"
+
+msgid "Maximize horizontally"
+msgstr "Horizontal maximieren"
+
+msgid "Maximize vertically"
+msgstr "Vertikal maximieren"
+
+msgid "Media directories"
+msgstr "Medienverzeichnisse"
+
+msgid "Medical Software"
+msgstr "Medizinische Software"
+
+msgid "Menu with left click"
+msgstr "Menü mit Linksklick"
+
+msgid "Menus"
+msgstr "Menüs"
+
+msgid "Menus font size"
+msgstr "Menüschriftgröße"
+
+msgid "Minimize"
+msgstr "Minimieren"
+
+msgid "Mixers"
+msgstr "Mixer"
+
+msgid "Modules used in FVWM-Crystal"
+msgstr "Benutzte Module in FVWM-Crystal"
+
+msgid "Monitors"
+msgstr "Monitore"
+
+msgid "More..."
+msgstr "Mehr..."
+
+msgid "Mount"
+msgstr "Einbinden"
+
+msgid "Mounted partitions"
+msgstr "Eingebundene Pertitionen"
+
+msgid "Move song:"
+msgstr "Verschiebe Lied:"
+
+msgid "Move to left page"
+msgstr "Auf linke Seite verschieben"
+
+msgid "Move to page"
+msgstr "Verschiebe auf Seite"
+
+msgid "Move to previous page"
+msgstr "Auf vorherige Seite verschieben"
+
+msgid "Move to right page"
+msgstr "Auf rechte Seite verschieben"
+
+msgid "Multimedia"
+msgstr "Multimedia"
+
+msgid "Multimedia Browser"
+msgstr "Multimedia Browser"
+
+msgid "Music"
+msgstr "Musik"
+
+msgid "Music find"
+msgstr "Musik finden"
+
+msgid "Music player"
+msgstr "Musikplayer"
+
+msgid "Name of the playlist"
+msgstr "Name der Playliste"
+
+msgid "Nested sessions"
+msgstr "Nested Sessions"
+
+msgid "Network"
+msgstr "Netzwerk"
+
+msgid "New login"
+msgstr "Neu einloggen"
+
+msgid "New menu entries will be used after next startup"
+msgstr "Neue Menüeinträge werden nach dem nächsten Start benutzt"
+
+msgid "New nested login"
+msgstr "Neu einloggen (nested)"
+
+msgid "New notification area manager will be used after next startup"
+msgstr "Neuer Notifikationsbereichs-Manager wird nach dem nächsten Start benutzt"
+
+msgid "New notification area setting will be used after next startup"
+msgstr "Neue Notifikationsbereichs-Einstellungen werden nach dem nächsten Start benutzt"
+
+msgid "New notification area width will be used after next startup"
+msgstr "Neue Notifikationsbereichs-Breite wird nach dem nächsten Start benutzt"
+
+msgid "New recipe will be used after next startup"
+msgstr "Neues Rezept wird nach dem nächsten Start benutzt"
+
+msgid "New type of icons will be used after next startup"
+msgstr "Neues Rezept wird nach dem nächsten Start benutzt"
+
+msgid "News"
+msgstr "Neuigkeiten"
+
+msgid "Next"
+msgstr "Nächstes"
+
+msgid "No icon"
+msgstr "Kein Icon"
+
+msgid "No menu with left click"
+msgstr "Kein Menü mit Linksklick"
+
+msgid "No notification area"
+msgstr "Kein Notifikationsbereich"
+
+msgid "No XDG menu with Alt+A"
+msgstr "Kein XDG-Menü mit Alt+A"
+
+msgid "None"
+msgstr "Nichts"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Normal &backward"
+msgstr "Normal &rückwärts"
+
+msgid "Normal mode"
+msgstr "Normalmodus"
+
+msgid "Not now"
+msgstr "nicht jetzt"
+
+msgid "Nothing else is allowed in that file."
+msgstr "Nichts anderes wird in dieser Datei erlaubt."
+
+msgid "Notification area manager"
+msgstr "Notifikationsbereichs-Manager"
+
+msgid "Numerical Analysis"
+msgstr "Numerische Analyse"
+
+msgid "OCR"
+msgstr "OCR"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Off"
+msgstr "Aus"
+
+msgid "Office"
+msgstr "Büroprogramme"
+
+msgid "Om server"
+msgstr "Om Server"
+
+msgid "On"
+msgstr "An"
+
+msgid "Open debug window"
+msgstr "Öffne Debugfenster"
+
+msgid "Other"
+msgstr "Anderes"
+
+msgid "Others"
+msgstr "Andere"
+
+msgid "Package Managers"
+msgstr "Paketmanager"
+
+msgid "Panels"
+msgstr "Panels"
+
+msgid "Panels font size"
+msgstr "Panelschriftgröße"
+
+msgid "Parallel Computing"
+msgstr "Verteiltes Rechnen"
+
+msgid "Pause"
+msgstr "Pause"
+
+msgid "Personal audio playlists"
+msgstr "Persönliche Musik-Playliste"
+
+msgid "Personal video playlists"
+msgstr "Persönliche Video-Playliste"
+
+msgid "Photography"
+msgstr "Fotografie"
+
+msgid "Physics"
+msgstr "Physik"
+
+msgid "Play"
+msgstr "Wiedergabe"
+
+msgid "Play DVD"
+msgstr "DVD abspielen"
+
+msgid "Play/Pause"
+msgstr "Wiedergabe/Pause"
+
+msgid "Playback"
+msgstr "Abspielen"
+
+msgid "Player"
+msgstr "Player"
+
+msgid "Player is stopped"
+msgstr "Player is gestoppt"
+
+msgid "Player volume"
+msgstr "Player Lautstärke"
+
+msgid "Players"
+msgstr "Players"
+
+msgid "Playlist copy"
+msgstr "Playliste kopieren"
+
+msgid "Playlist editor"
+msgstr "Playlisten-Editor"
+
+msgid "Playlists"
+msgstr "Playlisten"
+
+msgid "Please edit the following file to suit your need"
+msgstr "Die folgende Datei an die Bedürfnisse anpassen"
+
+msgid "Powersave"
+msgstr "Energiesparen"
+
+msgid "Preferences"
+msgstr "Vorlieben"
+
+msgid "Preference Warning"
+msgstr "Voreingestellte Warnung"
+
+msgid "Preferences editor"
+msgstr "Vorlieben-Editor"
+
+msgid "Presentation"
+msgstr "Präsentation"
+
+msgid "Prev"
+msgstr "Vor"
+
+msgid "Printing"
+msgstr "Drucken"
+
+msgid "Privileged terminals"
+msgstr "Bevorzugtes Terminal"
+
+msgid "Programming and debugging"
+msgstr "Entwicklung"
+
+msgid "Project Management"
+msgstr "Projekt-Management"
+
+msgid "Publishing"
+msgstr "Publishing"
+
+msgid "QuakeConsole terminal"
+msgstr "Quake Konsole Terminal"
+
+msgid "Random"
+msgstr "Zufällig"
+
+msgid "Random wallpaper"
+msgstr "Zufälliges Wallpaper"
+
+msgid "Raster Graphics"
+msgstr "Rastergrafik-Programme"
+
+msgid "Reboot computer"
+msgstr "Computer neustarten"
+
+msgid "Recorders"
+msgstr "Aufnahmegeräte"
+
+msgid "Recording"
+msgstr "Aufnahme"
+
+msgid "Recreate the Playlists"
+msgstr "Neuerstellen der Playlisten"
+
+msgid "Recreate the playlists"
+msgstr "Neuerstellen der Playlisten"
+
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+msgid "Reload current recipe"
+msgstr "Aktuelles Rezept neu laden"
+
+msgid "Remote Access"
+msgstr "Entfernter Zugriff"
+
+msgid "Remove current song"
+msgstr "Lösche aktuelles Lied"
+
+msgid "Remove playlist"
+msgstr "Lösche Playliste"
+
+msgid "Restart"
+msgstr "Neustart"
+
+msgid "Restart FVWM-Crystal"
+msgstr "FVWM-Crystal neu starten"
+
+msgid "Resume hybride"
+msgstr "Zurück von Ruhezustand"
+
+msgid "Resume to RAM"
+msgstr "Zurück ins RAM"
+
+msgid "Revision Control"
+msgstr "Revisionskontrolle"
+
+msgid "Rhythm"
+msgstr "Rythmus"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "Robotics"
+msgstr "Robotik"
+
+msgid "Role Playing"
+msgstr "Rollenspiele"
+
+msgid "Samplers"
+msgstr "Sampler"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Save playlist"
+msgstr "Playlist speichern"
+
+msgid "Save playlist..."
+msgstr "Playlist speichern..."
+
+msgid "Scanning"
+msgstr "Scannen"
+
+msgid "Screen resolution"
+msgstr "Bildschirmauflösung"
+
+msgid "Screensaver"
+msgstr "Bildschirmschoner"
+
+msgid "Screenshot"
+msgstr "Bildschirmphoto"
+
+msgid "Security"
+msgstr "Sicherheit"
+
+msgid "Seek"
+msgstr "Suchen"
+
+msgid "Seek &forward"
+msgstr "&Vorwärts suchen"
+
+msgid "Seek &backward"
+msgstr "&Rückwärts suchen"
+
+msgid "Select channel list"
+msgstr "Kanalliste auswählen"
+
+msgid "Selected desktop manager will be used"
+msgstr "Ausgewählter Desktop-Manager wird benutzt"
+
+msgid "Selected notification area manager will be used"
+msgstr "Ausgewählter Notifikationsbereichs-Manager wird benutzt"
+
+msgid "Send feedback (for support keep reading)"
+msgstr "Feedback senden (zur Unterstützung weiterlesen)"
+
+msgid "Sequencers"
+msgstr "Sequenzer"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Shooters"
+msgstr "Ego-Shooter Spiele"
+
+msgid "Show file name"
+msgstr "Zeige Dateiname"
+
+msgid "Show main mixer"
+msgstr "Zeige Hauptmixer"
+
+msgid "Show/Hide Alsaplayer"
+msgstr "Zeige/Verstecke Alsaplayer"
+
+msgid "Show/Hide GMPC"
+msgstr "Zeige/Verstecke GMPC"
+
+msgid "Show/Hide GXMMS2"
+msgstr "Zeige/Verstecke GXMMS2"
+
+msgid "Show/Hide QJackCtl"
+msgstr "Zeige/Verstecke QJackCtl"
+
+msgid "Show/Hide menu"
+msgstr "Zeige/Verstecke Menü"
+
+msgid "Show/Hide player"
+msgstr "Zeige/Verstecke Player"
+
+msgid "Show directories"
+msgstr "Zeige Verzeichnisse"
+
+msgid "Show on top with panels"
+msgstr "Über Panels plazieren"
+
+msgid "Shuffle playlist"
+msgstr "Zufällige Playlist"
+
+msgid "Silent operations"
+msgstr "Leiser Betrieb"
+
+msgid "Song change"
+msgstr "Lied wechseln"
+
+msgid "Sound"
+msgstr "Klang"
+
+msgid "Sound Card"
+msgstr "Soundkarte"
+
+msgid "Sound Effects"
+msgstr "Klangeffekte"
+
+msgid "Sound Processing"
+msgstr "Tonverarbeitung"
+
+msgid "Speed"
+msgstr "Geschwindigkeit"
+
+msgid "Speed control"
+msgstr "Geschwindigkeitskontrolle"
+
+msgid "Sports"
+msgstr "Sport"
+
+msgid "Sports Games"
+msgstr "Sportspiele"
+
+msgid "Spreadsheets"
+msgstr "Tabellenkalkulationsprogramme"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Start Alsaplayer"
+msgstr "Alsaplayer starten"
+
+msgid "Start Audacious"
+msgstr "Audacious starten"
+
+msgid "Start C* Music Player"
+msgstr "C* Music Player starten"
+
+msgid "Start CDCD"
+msgstr "CDCD starten"
+
+msgid "Start MPlayer"
+msgstr "MPlayer starten"
+
+msgid "Start Music On Console"
+msgstr "Musik in Konsole starten"
+
+msgid "Start Music Player Daemon"
+msgstr "Music Player Daemon starten"
+
+msgid "Start QJackCtl"
+msgstr "QJackCtl starten"
+
+msgid "Start Quod Libet"
+msgstr "Quod Libet starten"
+
+msgid "Start XDRadio"
+msgstr "XDRadio starten"
+
+msgid "Start when battery is as low as"
+msgstr "Starten wenn Batterie niedriger ist als"
+
+msgid "Start bling bling"
+msgstr "Bling bling starten"
+
+msgid "Start player"
+msgstr "Player starten"
+
+msgid "Start screensaver"
+msgstr "Bildschirmschoner starten"
+
+msgid "Start translucency"
+msgstr "Transparenz starten"
+
+msgid "Stay lowered"
+msgstr "Im Hintergrund bleiben"
+
+msgid "Stay raised"
+msgstr "Im Vordergrund bleiben"
+
+msgid "Stick"
+msgstr "Festhalten"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Stop Audacious"
+msgstr "Audacious stoppen"
+
+msgid "Stop MPlayer"
+msgstr "MPlayer stoppen"
+
+msgid "Stop XMMS2"
+msgstr "XMMS2 stoppen"
+
+msgid "Stop bling bling"
+msgstr "Bling bling stoppen"
+
+msgid "Stop loop wallpaper"
+msgstr "Wallpaperschleife stoppen"
+
+msgid "Stop playback"
+msgstr "Abspielen stoppen"
+
+msgid "Stop player"
+msgstr "Player stoppen"
+
+msgid "Stop screensaver"
+msgstr "Bildschirmschoner stoppen"
+
+msgid "Stop translucency"
+msgstr "Transparenz stoppen"
+
+msgid "Strategy Games"
+msgstr "Strategiespiele"
+
+msgid "Streaming"
+msgstr "Streaming"
+
+msgid "Suspend"
+msgstr "Bereitschaft"
+
+msgid "Suspend to disk"
+msgstr "Ruhezustand"
+
+msgid "Synthetizers"
+msgstr "Synthetizer"
+
+msgid "System"
+msgstr "System"
+
+msgid "Take all free space"
+msgstr "Den gesamten freien Platz nehmen"
+
+msgid "Take all horizontal space"
+msgstr "Den gesamten horizontalen Platz nehmen"
+
+msgid "Take all vertical space"
+msgstr "Den gesamten vertikalen Platz nehmen"
+
+msgid "Telephony"
+msgstr "Telephonie"
+
+msgid "Telephony Tools"
+msgstr "Telephoniewerkzeuge"
+
+msgid "Terminals"
+msgstr "Terminals"
+
+msgid "Text Editors"
+msgstr "Texteditoren"
+
+msgid "Text Tools"
+msgstr "Textwerkzeuge"
+
+msgid "The majority of the icons are from the Tango project and from"
+msgstr "Die Mehrzahl der icons sind vom Tangoprojekt und von"
+
+msgid "This page wallpaper"
+msgstr "Dieses Seiten-Wallpaper"
+
+msgid "This will help him make this software better."
+msgstr "Das hilft ihm, die Software besser zu machen."
+
+msgid "Thumbnails"
+msgstr "Miniaturbilder"
+
+msgid "Thumbnails size"
+msgstr "Miniaturbildergröße"
+
+msgid "Title bars"
+msgstr "Titelleiste"
+
+msgid "Title bars font size"
+msgstr "Schriftgröße der Titelleiste"
+
+msgid "To get support, the best places are the"
+msgstr "Um Hilfe zu bekommen, ist der beste Platz"
+
+msgid "Toggle FvwmConsole"
+msgstr "FvwmConsole ein-/ausschalten"
+
+msgid "Toggle loop wallpaper"
+msgstr "Wallpaperschleife ein-/ausschalten"
+
+msgid "Toggle random"
+msgstr "Zufall ein-/ausschalten"
+
+msgid "Toggle repeat"
+msgstr "Wiederholung ein-/ausschalten"
+
+msgid "Tools"
+msgstr "Werkzeuge"
+
+msgid "Translation"
+msgstr "Übersetzung"
+
+msgid "Translucency"
+msgstr "Transparenz"
+
+msgid "Translucency is not supported by FVWM."
+msgstr "Transparenz wird nicht von FVWM unterstützt."
+
+msgid "Tuners"
+msgstr "Tuner"
+
+msgid "Turn off computer"
+msgstr "Computer ausschalten"
+
+msgid "Type a command to bind to the first mouse button."
+msgstr "Kommando eintippen für den ersten Mausbutton."
+
+msgid "Type a command to bind to the second mouse button."
+msgstr "Kommando eintippen für den zweiten Mausbutton."
+
+msgid "Type of icons"
+msgstr "Art der Icons"
+
+msgid "Umount"
+msgstr "Aushängen"
+
+msgid "Under construction"
+msgstr "In Bearbeitung"
+
+msgid "Unexpected results may occur."
+msgstr "Unerwartete Ergebnisse könnten auftauchen."
+
+msgid "Update database"
+msgstr "Datenbank erneuern"
+
+msgid "Used recipe"
+msgstr "Benutztes Rezept"
+
+msgid "User"
+msgstr "Benutzer"
+
+msgid "User feedback"
+msgstr "Benutzerrückmeldung"
+
+msgid "Vector Graphics"
+msgstr "Vektorgrafikprogramme"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "Video Effects"
+msgstr "Videoeffekte"
+
+msgid "Video playlists"
+msgstr "Videoplaylisten"
+
+msgid "Video tools"
+msgstr "Videowerkzeuge"
+
+msgid "Viewers"
+msgstr "Bildbetrachter"
+
+msgid "Volume"
+msgstr "Lautstärke"
+
+msgid "Vu-Meters"
+msgstr "Lautstärkeanzeigen"
+
+msgid "Wallpaper"
+msgstr "Wallpaper"
+
+msgid "Watch DVB"
+msgstr "DVB anschauen"
+
+msgid "Web Browsers"
+msgstr "Web-Browser"
+
+msgid "Web Development"
+msgstr "Webentwicklung"
+
+msgid "Window decorations"
+msgstr "Fenster Dekorationen"
+
+msgid "Window focus policy"
+msgstr "Fenster Fokus Richtlinie"
+
+msgid "WindowStyle"
+msgstr "WindowStyle"
+
+msgid "With contributions from:"
+msgstr "Mit Beiträgen von:"
+
+msgid "Word Processors"
+msgstr "Textverarbeitungsprogramme"
+
+msgid "X.org documentation"
+msgstr "X.org Dokumentation"
+
+msgid "XDG Menu with Alt+A"
+msgstr "XDG Menü mit Alt+A"
+
+msgid "XDG user directories"
+msgstr "XDG Benutzerverzeichnisse"
+
+msgid "XOrg Docs"
+msgstr "X.org Dokumentation"
+
+msgid "XOrg Help"
+msgstr "XOrg Hilfe"
+
+msgid "You are editing the file"
+msgstr "Du editierst gerade die Datei"
+
+msgid "You are welcomed to send feedback to the developer:"
+msgstr "Gerne kannst du Feedback an die Entwickler senden:"
+
+msgid "You have been warned!"
+msgstr "Du wurdest gewarnt!"
+
+msgid "You should edit the file"
+msgstr "Du solltest folgende Datei editieren"
+
+msgid "and choose a player in the preferences."
+msgstr "und wähle einen Player in den Voreinstellungen."
+
+msgid "and path is the full path to the media directory."
+msgstr "und der Pfad ist der volle Pfad zum Medienverzeichniss."
+
+msgid "and restart this tool:"
+msgstr "und starte folgendes Tool neu:"
+
+msgid "at the next start of your X session"
+msgstr "beim nächsten Start deiner X-Sitzung"
+
+msgid "bug reports, suggestions, patches, ideas,"
+msgstr "Fehlerberichte, Vorschläge, Patches, Ideen,"
+
+msgid "congratulations or complaints."
+msgstr "Glückwünsche oder Beschwerden."
+
+msgid "fvwm-crystal IRC channel on FreeNode:"
+msgstr "FVWM-Crystal IRC Kanal auf FreeNode:"
+
+msgid "just blank this file but keep it."
+msgstr "leere einfach diese Datei, aber behalte sie."
+
+msgid "of your preferred file browser."
+msgstr "von deinem bevorzugten Dateibrowser."
+
+msgid "page"
+msgstr "Seite"
+
+msgid "pages"
+msgstr "Seiten"
+
+msgid "path2 is optional and will be shown in the second panel"
+msgstr "path2 ist optional und wird im zweiten Panel angezeigt"
+
+msgid "pixel"
+msgstr "Pixel"
+
+msgid "pixels"
+msgstr "Pixel"
+
+msgid "type path"
+msgstr "tippe Pfad"
+
+msgid "use X and space otherwise."
+msgstr "benutze X und Leerzeichen andererseits."
+
+msgid "where path1 and path2 are directory paths"
+msgstr "wobei path1 und path2 Verzeichnispfade sind"
+
+msgid "where type is one of the following"
+msgstr "wobei type einer der folgenden ist"
+
+msgid "you want to have with the desktop icons."
+msgstr "du mit Desktopicons haben möchtest."

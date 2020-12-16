@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec netpanzer $@ 2>/dev/null
+

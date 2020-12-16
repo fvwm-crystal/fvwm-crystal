@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec deluge-torrent $@ 2>/dev/null
+

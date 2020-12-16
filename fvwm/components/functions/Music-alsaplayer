@@ -1,0 +1,295 @@
+# Support for Alsaplayer in Fvwm-Crystal
+# Written by: Dominique Michel <dominique_free@users.sourceforge.net> 2008-2019
+# See ChangeLog for details
+
+# Initialisations, shared functions {{{1
+Include components/functions/Music
+
+Style alsaplayer 	NoActiveIconOverride, NoIcon, WindowListSkip, Sticky, StaysOnTop
+Style Alsaplayer 	UseStyle alsaplayer
+
+DestroyFunc StyleMediaPlayer
+AddToFunc StyleMediaPlayer
++ I Style start_cadence NoIcon
++ I Style start_jack NoIcon
++ I UpdateStyles
+# Schedule needed at Start and after Restart for start_[jack|cadence]
+Schedule 1 StyleMediaPlayer
+
+# Alsaplayer normal speed
+InfoStoreAdd speed 1
+
+# First button {{{1
+# Player controls and prefs
+# mouse 1 Menu /Player {{{2
+# Recreate the playlists : in Music
+AddToFunc Music-Start
++ I Exec exec $0
+
+AddToMenu /Music/Start
++ "Alsa" Music-Start "alsaplayer -o alsa -s alsa"
++ "Jack" Music-Start "alsaplayer -o jack -F 48000 -s Alsaplayer"
+
+AddToFunc Music-Kill
++ I Exec exec alsaplayer --quit
+
+AddToFunc Music-GUI
++ I All (alsaplayer) Iconify toggle
+
+# Player-generator (All)
+AddToFunc Player-generator
++ I DestroyMenu recreate /Player
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Music player]' Popup /Preferences/MusicPlayer
++ I AddToMenu /Player "" Nop
++ I Test (X qjackctl) AddToMenu /Player '$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Player '$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjackctl) AddToMenu /Player "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
++ I AddToMenu /Player '$[gt.Start Alsaplayer]' Popup /Music/Start
++ I AddToMenu /Player '$[gt.Stop player]' Music-Kill
+
+# mouse 2 Music-GUI : allready here {{{2
+# mouse 3 Music-QJackGUI : in Music
+# mouse 4 Mixer-Volume-Up
+# mouse 5 Mixer-Volume-Down
+# are in components/Mixer
+
+# Second button {{{1
+# Player controls and main vol
+# mouse 1 Menu /Playlist-button {{{2
+
+# /Music/LoadPlaylist
+AddToFunc FuncFvwmMenuAudioDirectory
++ I PipeRead 'case \"$0\" in \
+	"$[infostore.AudioPlaylists]"*) myexec="alsaplayer -e";; \
+	"$[infostore.UserManagedAudioPlaylists]"*) myexec="alsaplayer -e";; \
+    esac; \
+    test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
+    test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
+    fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \
+    --icon-file "${mypng:-22x22/categories/Audio.png}" \
+    --dir \"$0\" --exec-title "-" --exec-file "^${myexec}" \
+    --func-name "FuncFvwmMenuAudioDirectory"'
+
+AddToFunc Music-ClearPlaylist
++ I Exec exec alsaplayer --clear
+
+AddToFunc Playlist-generator-button
++ I DestroyMenu recreate /Playlist-button
++ I AddToMenu /Playlist-button '$[gt.Remove playlist]' Popup /Music/RemovePlaylist
++ I AddToMenu /Playlist-button '$[gt.Playlist copy]' Popup /Music/CopyPlaylist
++ I AddToMenu /Playlist-button '$[gt.Clear playlist]' Music-ClearPlaylist
++ I AddToMenu /Playlist-button '$[gt.Load playlist]' Popup /Music/LoadPlaylist
+
+AddToMenu /Playlist-button
++ DynamicPopupAction Function Playlist-generator-button
+
+# mouse 2 Menu /Playback {{{2
+AddToFunc Music-Next
++ I Exec exec alsaplayer --next
+
+AddToFunc Music-Prev
++ I Exec exec alsaplayer --prev
+
+AddToFunc Music-SongChange
++ I Exec exec alsaplayer --jump $0
+
+AddToMenu /Music/SongChange
++ " 1" Music-SongChange '1'
++ " 2" Music-SongChange '2'
++ " 3" Music-SongChange '3'
++ " 4" Music-SongChange '4'
++ " 5" Music-SongChange '5'
++ " 6" Music-SongChange '6'
++ " 7" Music-SongChange '7'
++ " 8" Music-SongChange '8'
++ " 9" Music-SongChange '9'
++ "10" Music-SongChange '10'
++ "11" Music-SongChange '11'
++ "12" Music-SongChange '12'
++ "13" Music-SongChange '13'
++ "14" Music-SongChange '14'
++ "15" Music-SongChange '15'
++ "16" Music-SongChange '16'
++ "17" Music-SongChange '17'
++ "18" Music-SongChange '18'
++ "19" Music-SongChange '19'
++ "20" Music-SongChange '20'
+
+AddToFunc Music-Stop
++ I Exec exec alsaplayer --stop
+
+AddToFunc Music-Play
++ I Exec exec alsaplayer --start
+
+AddToFunc Music-Pause
++ I Exec exec alsaplayer --speed 0
+
+AddToFunc Music-PlayPause 
++ I Exec exec alsaplayer --speed $[infostore.speed] > /dev/null
+
+AddToFunc Music-Jump
++ I Exec exec alsaplayer --seek $0
+
+AddToMenu /Music/Jump
++ "$[gt.15 min]" Music-Jump '900'
++ "$[gt.10 min]" Music-Jump '600'
++ "$[gt. 5 min]" Music-Jump '300'
++ "$[gt. 3 min]" Music-Jump '180'
++ "$[gt. 2 min]" Music-Jump '120'
++ "$[gt. 1 min 30]" Music-Jump '90'
++ "$[gt. 1 min]" Music-Jump '60'
++ "$[gt.30 sec]" Music-Jump '30'
++ "$[gt.10 sec]" Music-Jump '10'
+
+AddToFunc Music-Seek
++ I Exec exec alsaplayer --relative $0
+
+AddToMenu /Music/Seek
++ "$[gt.+ 10 min]" Music-Seek '600'
++ "$[gt.+  5 min]" Music-Seek '300'
++ "$[gt.+  3 min]" Music-Seek '180'
++ "$[gt.+  2 min]" Music-Seek '120'
++ "$[gt.+  1 min 30]" Music-Seek '90'
++ "$[gt.+  1 min]" Music-Seek '60'
++ "$[gt.+ 30 sec]" Music-Seek '30'
++ "$[gt.+ 10 sec]" Music-Seek '10'
++ "" Nop
++ "$[gt.- 10 sec]" Music-Seek '-10'
++ "$[gt.- 30 sec]" Music-Seek '-30'
++ "$[gt.-  1 min]" Music-Seek '-60'
++ "$[gt.-  1 min 30]" Music-Seek '-90'
++ "$[gt.-  2 min]" Music-Seek '-120'
++ "$[gt.-  3 min]" Music-Seek '-180'
++ "$[gt.-  5 min]" Music-Seek '-300'
++ "$[gt.- 10 min]" Music-Seek '-600'
+
+AddToFunc Playback-generator
++ I DestroyMenu recreate /Playback
++ I AddToMenu /Playback '$[gt.Next]' Music-Next
++ I AddToMenu /Playback '$[gt.Prev]' Music-Prev
++ I AddToMenu /Playback '$[gt.Song change]' Popup /Music/SongChange
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Stop playback]' Music-Stop
++ I AddToMenu /Playback '$[gt.Play]' Music-Play
++ I AddToMenu /Playback '$[gt.Pause]' Music-Pause
++ I AddToMenu /Playback '$[gt.Play/Pause]' Music-PlayPause
++ I AddToMenu /Playback '$[gt.Jump]' Popup /Music/Jump
++ I AddToMenu /Playback '$[gt.Seek]' Popup /Music/Seek
+
+# mouse 3 Menu /Mixer : in components/Mixer {{{2
+# mouse 4 Music-Next : allready here
+# mouse 4 Music-Prev : allready here
+
+# Third button {{{1
+# Player controls and vol
+# mouse 1 Music-Pause : allready here {{{2
+# mouse 2 Music-PlayPause : allready here
+# mouse 3 Menu /Music/Volume
+
+AddToFunc Music-VolumeFr
++ I Exec exec alsaplayer --volume $0
+
+AddToFunc Music-VolumeEn
++ I Exec exec alsaplayer --volume $0
+
+DestroyMenu /Music/Volume
+AddToMenu /Music/Volume
++ '$[gt.Player volume]' Nop
++ "" Nop
+PipeRead 'if [ $[infostore.dec_point] = "," ] ; then \\
+	echo "+ \\" 0 dB\\" Music-VolumeFr 1,0"; \\
+	echo "+ \\"-3 dB\\" Music-VolumeFr \'0,707\'"; \\
+	echo "+ \\"-6 dB\\" Music-VolumeFr \'0,5\'"; \\
+	echo "+ \\"-12 dB\\" Music-VolumeFr \'0,25\'"; \\
+	echo "+ \\"-18 dB\\" Music-VolumeFr \'0,125\'"; \\
+	echo "+ \\"-24 dB\\" Music-VolumeFr \'0,0625\'"; \\
+	echo "+ \\"-30 dB\\" Music-VolumeFr \'0,03125\'"; \\
+	echo "+ \\"-36 dB\\" Music-VolumeFr \'0,015625\'"; \\
+	echo "+ \\" 0\\" Music-VolumeFr \'0,0\'"; \\
+    else \\
+    	echo "+ \\" 0 dB\\" Music-VolumeEn 1.0"; \\
+	echo "+ \\"-3 dB\\" Music-VolumeEn \'0.707\'"; \\
+	echo "+ \\"-6 dB\\" Music-VolumeEn \'0.5\'"; \\
+	echo "+ \\"-12 dB\\" Music-VolumeEn \'0.25\'"; \\
+	echo "+ \\"-18 dB\\" Music-VolumeEn \'0.125\'"; \\
+	echo "+ \\"-24 dB\\" Music-VolumeEn \'0.0625\'"; \\
+	echo "+ \\"-30 dB\\" Music-VolumeEn \'0.03125\'"; \\
+	echo "+ \\"-36 dB\\" Music-VolumeEn \'0.015625\'"; \\
+	echo "+ \\" 0\\" Music-VolumeEn \'0.0\'"; fi'
+
+# mouse 4 Music-Speed-Up {{{2
+# mouse 5 Music-Speed-Down
+AddToFunc Music-Speed-Up
++ I PipeRead 'alsaplayer --speed $($[FVWM_SYSTEMDIR]/scripts/speed_value +1comma alsaplayer $[infostore.speed]) > /dev/null; echo InfoStoreAdd speed `$[FVWM_SYSTEMDIR]/scripts/speed_value +1comma alsaplayer $[infostore.speed]`'
+
+AddToFunc Music-Speed-Down
++ I PipeRead 'alsaplayer --speed $($[FVWM_SYSTEMDIR]/scripts/speed_value -1comma alsaplayer $[infostore.speed]) > /dev/null ; echo InfoStoreAdd speed `$[FVWM_SYSTEMDIR]/scripts/speed_value -1comma alsaplayer $[infostore.speed]`'
+
+# Last button {{{1
+# speed controls
+# mouse 1 Menu /Speed {{{2
+AddToFunc Music-Speed
++ I PipeRead 'alsaplayer --speed $($[FVWM_SYSTEMDIR]/scripts/speed_value $0 alsaplayer $[infostore.speed]) > /dev/null; echo InfoStoreAdd speed `$[FVWM_SYSTEMDIR]/scripts/speed_value $0 alsaplayer $[infostore.speed]`'
+
+DestroyMenu /Speed
+AddToMenu /Speed
++ '$[gt.Speed control]'
++ "" Nop
++ "$[gt.Max]" Music-Speed 'max'
++ "$[gt.+ 1 &octave]" Music-Speed '+1octave'
++ '$[gt.+ 1 s&eventh]' Music-Speed '+1septieme'
++ '$[gt.+ 1 &sixth]' Music-Speed '+1sixte'
++ '$[gt.+ 1 &fifth]' Music-Speed '+1quinte'
++ '$[gt.+ 1 f&ourth]' Music-Speed '+1quarte'
++ '$[gt.+ 1 t&hird]' Music-Speed '+1tierce'
++ '$[gt.+ &1 tone]' Music-Speed '+1ton'
++ '$[gt.+ ½ &tone]' Music-Speed '+1/2ton'
++ "" Nop
++ '$[gt.- ½ &tone]' Music-Speed '-1/2ton'
++ '$[gt.- &1 tone]' Music-Speed '-1ton'
++ '$[gt.- 1 t&hird]' Music-Speed '-1tierce'
++ '$[gt.- 1 f&ourth]' Music-Speed '-1quarte'
++ '$[gt.- 1 &fifth]' Music-Speed '-1quinte'
++ '$[gt.- 1 &sixth]' Music-Speed '-1sixte'
++ '$[gt.- 1 s&eventh]' Music-Speed '-1septieme'
++ "$[gt.- 1 &octave]" Music-Speed '-1octave'
++ '$[gt.Max back]' Music-Speed 'min'
++ "" Nop
++ '$[gt.Normal &backward]' Music-Speed 'back'
++ "$[gt.Pause]" Music-Speed 'pause'
++ "$[gt.+ 1 &comma]" Music-Speed '+1comma'
++ "$[gt.Normal]" Music-Speed 'normal'
++ "$[gt.- 1 &comma]" Music-Speed '-1comma'
+
+## mouse 4 Button-Seek-+ {{{2
+## mouse 5 Button-Seek--
+AddToFunc Button-Seek-+
++ I Music-Seek '15'
+
+AddToFunc Button-Seek--
++ I Music-Seek '-15'
+
+# Music menus {{{1
+# Recipe without audio buttons use the following:
+# Popup /Music {{{2
+AddToFunc Music-generator
++ I DestroyMenu recreate /Music
++ I AddToMenu /Music '$[gt.Player]' Popup /Player
++ I AddToMenu /Music '$[gt.Show/Hide Alsaplayer]' Music-GUI
++ I AddToMenu /Music '$[gt.Playback]' Popup /Playback
++ I AddToMenu /Music '$[gt.Player volume]' Popup /Music/Volume
++ I AddToMenu /Music '$[gt.Speed]' Popup /Speed
++ I AddToMenu /Music '$[gt.Playlists]' Popup /Playlist-button
++ I AddToMenu /Music '$[gt.Show/Hide Audio controls]' Music-QJackGUI
+
+# Tooltip {{{1
+AddToFunc Tittle-Tooltip
++ I PipeRead 'currentsong=`alsaplayer --status|grep title|sed -e "s/title: //"`; echo "InfoStoreAdd CurrentSong \\"${currentsong}\\""'
++ I PipeRead 'echo "Fvwm-Tooltip CurrentSong \\"Current song:\\" \\"$[infostore.CurrentSong]\\" +800-450 20 750"'
+
+AddToFunc Music-Tooltip
++ I PipeRead 'echo "Tittle-Tooltip"; echo "Deschedule $[schedule.last]"; echo "Schedule 3000 Kill-FvwmTooltip CurrentSong"'
+
+# vim:ft=fvwm

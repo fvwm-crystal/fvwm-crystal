@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec ladi-player $@ 2>/dev/null

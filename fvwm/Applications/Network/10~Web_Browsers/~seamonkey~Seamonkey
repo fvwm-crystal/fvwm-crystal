@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec seamonkey $@ 2>/dev/null
+

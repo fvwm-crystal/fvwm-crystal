@@ -1,0 +1,9 @@
+# Default numpad layout
+# You need to load numpad functions as well
+
+Include components/bindings/Numpad-Control
+Include components/bindings/Numpad-Focus
+Include components/bindings/Numpad-Move
+Include components/bindings/Numpad-Warp
+
+# vim:ft=fvwm

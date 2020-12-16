@@ -1,0 +1,12 @@
+# Urgency hint makes windows go wild, let's get rid of it! ;-)
+# Especially for gajim users
+
+DestroyFunc UrgencyFunc
+#AddToFunc UrgencyFunc
+#+ I Nop
+
+DestroyFunc UrgencyDoneFunc
+#AddToFunc UrgencyDoneFunc
+#+ I Nop
+
+# vim:ft=fvwm

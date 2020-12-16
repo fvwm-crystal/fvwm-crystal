@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec tkabber $@ 2>/dev/null
+

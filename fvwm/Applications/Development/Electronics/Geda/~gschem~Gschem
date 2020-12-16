@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gschem $@ 2>/dev/null
+

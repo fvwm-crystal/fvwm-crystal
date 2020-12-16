@@ -1,0 +1,24 @@
+# Menu for different ways to run away ;)
+# Created by: Pawel "NEMO" Drygas <nemo@braxis.org>
+# Modified by Dominique Michel <dominique_libre@sourceforge.net> for use with
+# session managers as gnome-session
+
+DestroyMenu /Exit
+AddToMenu /Exit 
++ '%22x22/fvwm-crystal/view-refresh.png%$[gt.Restart]' Restart
+Test (x xscreensaver) + '%22x22/fvwm-crystal/system-lock-screen.png%$[gt.Lock screen]' X xscreensaver-command -lock
++ '%22x22/fvwm-crystal/system-log-out.png%$[gt.Logout]' Popup /Exit/Logout
+
+DestroyFunc Exit-SelectLoginManager
+AddToFunc Exit-SelectLoginManager
++ I Test (x gdmflexiserver) PipeRead 'pidof gdm > /dev/null && echo "Include components/functions/Exit-Safe-gdm" || echo "Test (x sudo) Include components/functions/Exit-Safe-sudo"'
++ I TestRc (NoMatch) Include components/functions/Exit-Safe-sudo
+
+DestroyMenu /Exit/Logout
+AddToMenu /Exit/Logout
+Test (EnvIsSet SESSION_MANAGER) + '$[gt.I am sure]' I QuitSession
+Test (!EnvIsSet SESSION_MANAGER) + '$[gt.I am sure]' Quit
+
+Exit-SelectLoginManager
+
+# vim:ft=fvwm

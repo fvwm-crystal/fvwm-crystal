@@ -1,0 +1,17 @@
+# Exit commands - works with sudo
+# Created by: Pawel "NEMO" Drygas <nemo@braxis.org>
+
+AddToMenu /Exit 
+Test (x sudo) + "" Nop
+Test (x sudo) + '%22x22/fvwm-crystal/system-reboot.png%$[gt.Reboot computer]' Popup /Exit/Reboot
+Test (x sudo) + '%22x22/fvwm-crystal/system-shutdown.png%$[gt.Turn off computer]' Popup /Exit/Halt
+
+DestroyMenu /Exit/Reboot
+AddToMenu /Exit/Reboot
++ '$[gt.I am sure]' S shutdown -r now
+
+DestroyMenu /Exit/Halt
+AddToMenu /Exit/Halt
++ '$[gt.I am sure]' S shutdown -h now
+
+# vim:ft=fvwm

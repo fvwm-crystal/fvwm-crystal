@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+
+# Select random wallpaper from given directory or directories
+# Usage: <wallpaper-program> `fvwm-crystal.wallpaper <directory> [directory] ...
+
+import sys, os, string, random
+
+# This function looks for image files in specified directory and it's
+# subdirectories and returns the list of absolute names
+def find_images(root):
+	for path, dirs, files in os.walk(root):
+		for filename in files:
+			extension = os.path.splitext(filename)
+			if str.lower(extension[1]) in ('.jpg', '.jpeg', '.png'):
+				yield os.path.join(path, filename)
+
+# Exit with no arguments
+if len(sys.argv) == 1:
+	sys.exit()
+
+# Find images in all directories specified in the command line
+images=[]
+
+for argument in sys.argv:
+	for image in find_images(argument):
+		images.append(image)
+
+# Select random wallpaper and print it
+print(random.choice(images))
+

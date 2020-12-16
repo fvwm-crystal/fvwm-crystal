@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec djview $@ 2>/dev/null
+

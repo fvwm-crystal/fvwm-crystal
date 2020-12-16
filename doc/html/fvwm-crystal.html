@@ -1,0 +1,1451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 9.0.2" />
+<title>fvwm-crystal(1)</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overridden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="manpage">
+<div id="header">
+<h1>
+fvwm-crystal(1) Manual Page
+</h1>
+<h2>NAME</h2>
+<div class="sectionbody">
+<p>fvwm-crystal -
+   an easy to use, eye-candy but also powerful desktop environment for GNU/Linux or other Unix-like operating systems.
+</p>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>[variables] <strong>startx /usr/bin/fvwm-crystal</strong></p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>FVWM-Crystal</strong> aims to be an easy to use, eye-candy but also powerful desktop environment based on the F? Virtual Window Manager (FVWM). It uses following programs: FVWM as a window manager and "main core", icons on the desktop with support for more than 10 different file managers and custom commands (with optional Nautilus or ROX-Filer support), different terminal emulators inclusive xterm, aterm, mrxvt or urxvt, different music and medias players inclusive MPD, XMMS2 or MPlayer (there&#8217;s built-in support for controlling these programs, and several other tools for different functions, like setting a wallpaper or making screen shots. Fvwm-Crystal provide some unique features like the ability to bring in full screen virtually any application, and to flow through the full-screened applications and the desktop. In this document you will find a general description of <strong>FVWM-Crystal</strong>, how to begin with it and how to customize it.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usage">USAGE</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>FVWM-Crystal use some built-in environmental variables. You can redifine them at the command line:</p></div>
+<div class="paragraph"><p><strong>FVWM_USERDIR</strong> set where is the user-wide configuration (default: <strong>$HOME/.fvwm-crystal</strong>).</p></div>
+<div class="paragraph"><p><strong>FVWM_CONFIGDIR</strong> set where is the system-wide configuration (default: <strong>/etc/X11/fvwm/fvwm-crystal</strong>).</p></div>
+<div class="paragraph"><p></p></div>
+<div class="paragraph"><p><strong>FVWM_DISTROMENUDIR</strong> set where the distribution specific menu is located (default: <strong>/var/lib/fvwm-crystal</strong>).</p></div>
+<div class="paragraph"><p><strong>FVWM_DISTROMENUNAME</strong> set the name of the distribution menu (default: <strong>debian</strong>).</p></div>
+<div class="paragraph"><p><strong>Note:</strong> FVWM_DISTROMENUDIR and FVWM_DISTROMENUNAME are used by fvwm-crystal to create menus specific to a distribution. As example, with debian as distro menu name, <strong>FVWM_*DIR/Applications/debian</strong> will be searched for menu entries. Take a look into the recipes for examples of use.</p></div>
+<div class="paragraph"><p>You can define these variables in your <strong>~/.xinitrc</strong> file, or use something like:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>FVWM_USERDIR="/home/user/.my-dir" startx /usr/bin/fvwm-crystal</code></pre>
+</div></div>
+<div class="paragraph"><p>or with <strong>~/.xinitrc</strong>:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>xrdb ~/.Xdefaults
+exec /usr/bin/fvwm-crystal 2&gt;.errors.fvwm-crystal 1&gt;.errors.xorg</code></pre>
+</div></div>
+<div class="paragraph"><p>and run it with</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>startx</code></pre>
+</div></div>
+<div class="paragraph"><p>Another example:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>FVWM_USERDIR="/home/user/.my_dir" startx</code></pre>
+</div></div>
+<div class="paragraph"><p>Alternative to the last command, in <strong>~/.xinitrc</strong>:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>xrdb ~/.Xdefaults
+FVWM_USERDIR="~/.my_dir"
+export FVWM_USERDIR
+exec /usr/bin/fvwm-crystal 2&gt;.errors.fvwm-crystal 1&gt;.errors.xorg</code></pre>
+</div></div>
+<div class="paragraph"><p>and run</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>startx</code></pre>
+</div></div>
+<div class="paragraph"><p>When fvwm3 is in use, the following variables can be used:</p></div>
+<div class="paragraph"><p><strong>FVWMCRYSTAL_DEBUG</strong> set fvwm3 in debug mode when set to a non empty value (default: not set). You don&#8217;t need to redirect the errors into a file, fvwm3 will do it for you.</p></div>
+<div class="paragraph"><p><strong>FVWM_LOGFILE</strong> set fvwm3 log file when in debug mode (default: ~/.fvwm-crystal.log).</p></div>
+<div class="sect2">
+<h3 id="_first_start">First Start</h3>
+<div class="paragraph"><p><strong>FVWM-Crystal</strong> checks while your first login if <code>~/.fvwm-crystal</code> exist and if old preferences must be converted to the new Fvwm InfoStore variables. In all cases, it should just start.</p></div>
+<div class="paragraph"><p><strong>FVWM-Crystal</strong> will also check your locale and create the XDG localized user directories if they don&#8217;t exist. Those directories are common to most modern OS and are used to store dedicated files. As example <code>$HOME/Music</code>, <code>$HOME/Documents</code> and <code>$HOME/Pictures</code>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_initial_media_player_setup">Initial Media Player Setup</h3>
+<div class="paragraph"><p>MPlayer is the default media player. A help screen can pop-up and show you how to setup the Media directories preferences, which tell FVWM-Crystal where your music and movie files are. You can do it now or later, but it must be done before to use the play-lists features found in the Music menu (or button).</p></div>
+<div class="paragraph"><p>For that, edit the file <code>~/.fvwm-crystal/preferences/MediaDirectories</code>:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>audio $HOME/Music
+video $HOME/Video
+cdrom /dev/cdrom0
+dvd /dev/cdrom1</code></pre>
+</div></div>
+<div class="paragraph"><p>You can put as many lines you need. Each line have the following format:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>type path</code></pre>
+</div></div>
+<div class="paragraph"><p>where <strong>type</strong> is one of [<code>audio</code> <code>video</code> <code>cdrom</code> <code>dvd</code>]
+and <strong>path</strong> is the <code>full path</code> to a directory or a device.
+Devices are used only for <code>cd</code> and <code>dvd</code>.
+Note that all players doesn&#8217;t support all the provided features. Their respective menus will be adjusted accordingly.</p></div>
+<div class="paragraph"><p>As example, you can have:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>audio /home/name/Music
+video /home/name/Video
+audio /mnt/work/Music
+video /mnt/usb/Video
+dvd /dev/cdrom</code></pre>
+</div></div>
+<div class="paragraph"><p>When you are done, save the file. To edit that file, you can launch a very simple editor from the preferences menu:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>Crystal -&gt; Preferences -&gt; Preferences editor</code></pre>
+</div></div>
+<div class="paragraph"><p>Now, You can load the control for your preferred player from the preferences menu:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>Crystal -&gt; Music -&gt; Player -&gt; Music player</code></pre>
+</div></div>
+<div class="paragraph"><p>or from the menu on the first music button.</p></div>
+<div class="paragraph"><p>In the same menu, you will find <code>Recreate the playlists</code>. This script will scan the paths pointed by the MediaDirectories preference file, and create the play-lists into <code>$HOME/.fvwm-crystal/Playlists</code>. They will be separated into an Audio and a Video part. We can call them the Crystal play-lists. Don&#8217;t edit those files, all your changes will be lost the next time you run <code>Recreate the playlists</code>. Instead, 2 other directories will be created: <code>$HOME/Playlists/Audio</code> and <code>$HOME/Playlists/Video</code>. They are the User play-lists.</p></div>
+<div class="paragraph"><p>In the same Music menu, the play-lists operation are grouped. You can of course load them into the selected player. <code>Copy playlist</code> will copy the selected play-list from the Crystal play-lists to the User play-lists. <code>Remove playlist</code> will remove the selected play-lists from the User play-lists. Some players provide they own play-lists management system, FVWM-Crystal try to support them as well.</p></div>
+<div class="paragraph"><p>Some supported players must be setup before FVWM-Crystal can use them. For that, please refer to their respective documentation. If you have a DVB card, please refer also to the linuxtv.org V4L-DVB Wiki at <a href="http://linuxtv.org/wiki/index.php/Main_Page">http://linuxtv.org/wiki/index.php/Main_Page</a>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_mixer_setup">Mixer Setup</h3>
+<div class="paragraph"><p><strong>FVWM-Crystal</strong> default mixer is <strong>AlsaMixer</strong> (via amixer). It must have dB support for most, if not all, sound cards, which is a must. It is no default setup because the ALSA control names vary from card to card. To setup the mixer, just go into the preferences of the Music menu or via a right click on the second music button.</p></div>
+<div class="paragraph"><p>The amixer control was fully rewritten, and it use the native steps of the ALSA driver for the card in use.</p></div>
+<div class="paragraph"><p>For the other mixers, the dB scale is approximated.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_desktop_organisation">Desktop Organisation</h3>
+<div class="paragraph"><p>20 different desktop layouts, named recipes, are available.</p></div>
+<div class="paragraph"><p>Some are very simple and provide very few decorations. Others provide many buttons and decorations. A few of them mimic existing OS, like Nebulae which loosely mimic Windows, or Amiga which mimic the Amiga OS. The Custom recipe provide a modern look and feel via a magic button with its own preference menu.</p></div>
+<div class="paragraph"><p>You can change them via Fvwm-Crystal system menu:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>Preferences -&gt; Recipes -&gt; System</code></pre>
+</div></div>
+<div class="paragraph"><p>The other preferences apply to all recipes and are independent from each others.
+By example, you can choose to have desktop icons showing the XDG user directories and the mounted partitions, and to not show applications icons.</p></div>
+<div class="paragraph"><p>It is 2 menus, the system menu available with <strong>Alt + Win_R</strong> (Meta + Windows Right) and the application menu available with <strong>Alt + Menu</strong> (Meta + a "menu" key). A menu can also be available by holding a <strong>Left click</strong> on the root window (the desktop) if selected in System &#8594; Preferences &#8594; Desktop menu (On by default). The content of that menu depend on the recipe in use.</p></div>
+<div class="paragraph"><p>With FVWM &gt; 2.6.5, a supplementary XDG application menu is available with *Alt + A" if selected in the preferences menu.</p></div>
+<div class="sect3">
+<h4 id="_decorations_common_to_all_recipes">Decorations common to all recipes</h4>
+<div class="paragraph"><p>Not all recipes use all followings decorations called buttons, but they can be used in any recipe, inclusive your own ones.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<em>The "Crystal" Button</em>
+</dt>
+<dd>
+<div class="paragraph"><p>or "FvwmButtons-MainMenu" is the little button with a diamond.</p></div>
+<div class="paragraph"><p>There are some mouse bindings available:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+left clicking open the system menu
+</p>
+</li>
+<li>
+<p>
+middle clicking open the wallpaper menu
+</p>
+</li>
+<li>
+<p>
+right clicking on some recipes open the applications menu
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The Amiga recipe is different:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+left clicking shift the top bar to a menu bar and back
+</p>
+</li>
+<li>
+<p>
+middle clicking open the wallpaper menu
+</p>
+</li>
+<li>
+<p>
+right clicking open the system menu
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>When the button is located at the top left corner:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+mouse wheeling will change the screen resolution
+</p>
+</li>
+</ul></div>
+</dd>
+<dt class="hdlist1">
+<em>The Media Buttons</em>
+</dt>
+<dd>
+<div class="paragraph"><p>They are 4 grouped media buttons - FvwmButtons-Music - providing controls and menus for the supported media players and mixers. For a description of their bindings, consult <strong>man MouseBindings</strong> and <strong>man KeyboardBindings</strong>, or the html documentation.</p></div>
+<div class="paragraph"><p>The same functionalities are provided by the Music menu, which is located in the System menu.</p></div>
+<div class="paragraph"><p>The supported media players are <code>alsaplayer</code>, <code>audacious</code>, <code>cdcd</code>, <code>cmus</code>, <code>mocp</code>, <code>mpd</code>, <code>mplayer</code>, <code>mplayer2</code>, <code>quodlibet</code> and <code>xmms2</code>.</p></div>
+<div class="paragraph"><p>The supported audio mixers are <code>alsamixer</code> and <code>aumix</code>, plus the mixers of the players. <code>QJackCTL</code> is also supported.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+left clicking on the first media button will open a menu.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>In it, <code>Music player</code> is where you choose the player and can start it. <code>Recreate the playlists</code> will scan your music and video files and create the play-lists for you. For that, it will use the preferences file you edited in the section "First Start". It is also a mixer preferences menu where you can choose the mixer and the sound card.</p></div>
+<div class="paragraph"><p>Each player have its own features set, and the Music menu and functions will change accordingly.</p></div>
+<div class="paragraph"><p>As example, with <strong>cdcd</strong> you have a cd player and you will be able to control it, when with <strong>mplayer</strong>, you have an universal media player, and FVWM-Crystal will even recognize if you have a DVB card and use it. Basic stream capture is enabled and use the standard <em>C</em> MPlayer key binding. See <strong>man mplayer</strong>. This will create a stream dump in $HOME. That file will be usable only with MPEG sources, and it can be edited with applications like <code>Kino</code>.</p></div>
+</dd>
+<dt class="hdlist1">
+<em>The Application Panel</em>
+</dt>
+<dd>
+<div class="paragraph"><p>It is an auto generated panel which provide one button for each <strong>FreeDesktop</strong> menu main category. The icon of each button is the icon of the preferred application of that category. The mouse bindings available are:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+left clicking open the application menu of the category
+</p>
+</li>
+<li>
+<p>
+middle clicking on some recipes launch the second preferred application
+</p>
+</li>
+<li>
+<p>
+right clicking launch the preferred application
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>These menus have full support for the additional FreeDesktop categories, which mean much less modifications will be needed in comparison with many other desktops. And last but not least, your modifications will never been lost. It is why at the first place I begun with Crystal and I will keep it that way. See <strong>man ApplicationDatabase</strong> for how to customize the application menu (the examples are at the end).</p></div>
+<div class="paragraph"><p>More: the files in the applications database are scripts. You can put anything you want into them. You will find them into <code>$prefix/share/fvwm-crystal/fvwm/Applications</code> and <code>$HOME/.fvwm-crystal/Applications</code>, and can copy them from this first location to the second one. The files in the second path will take the precedence. The same apply for the icons directory.</p></div>
+<div class="paragraph"><p>The same database is used to generate the application menu available with the system menu on some recipes, and with the Alt+Menu key binding.</p></div>
+<div class="paragraph"><p>The application database provided by <code>FVWM_Crystal</code> contain a large set of menu entries and application icons. You can generate extra database menu entries and icons from the preferences menu:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>Diamond -&gt; Preferences -&gt; Generate application menu+</code></pre>
+</div></div>
+<div class="paragraph"><p>This will populate <code>$HOME/.fvwm-crystal/Applications</code> and <code>$HOME/.fvwm-crystal/icons</code>.</p></div>
+<div class="paragraph"><p>The 2 first time you run this script, it will copy 2 preferences files and show help messages.</p></div>
+<div class="paragraph"><p>Those files are <code>$HOME/.fvwm-crystal/preferences/IconDirs</code> and <code>$HOME/.fvwm-crystal/preferences/DesktopDirs</code>. They must contain the full path to where the icon and desktop files provided by the applications are stored, typically something like <code>/usr/share/icons</code> and <code>/usr/share/pixmaps</code> for the icons, and <code>/usr/share/applications</code> and <code>/usr/share/applications/kde4</code> for the desktop files. The 2 preference files are self explained.</p></div>
+</dd>
+<dt class="hdlist1">
+<em>The Clock</em>
+</dt>
+<dd>
+<div class="paragraph"><p>As its name describe it, a clock.</p></div>
+</dd>
+<dt class="hdlist1">
+<em>The Pager</em>
+</dt>
+<dd>
+<div class="paragraph"><p>It is a miniature illustration of the virtual desktop pages with mini windows. By clicking on each of the segments you can change the page.</p></div>
+<div class="paragraph"><p>For a description of the bindings, see "man MouseBindings".
+*
+Some recipes provide only a small button. Clicking on it will show or hide the pager.</p></div>
+<div class="paragraph"><p>The number of desktop pages can be changed on the fly from the preferences menu, option <code>Desktop geometry</code>. If necessary, windows will be moved on the last available desktop page.</p></div>
+</dd>
+<dt class="hdlist1">
+<em>Notification area</em>
+</dt>
+<dd>
+<div class="paragraph"><p>Both stalonetray and trayer are supported. For best support will all recipes, use stalonetray.</p></div>
+</dd>
+<dt class="hdlist1">
+<em>Icon Manager</em>
+</dt>
+<dd>
+<div class="paragraph"><p>A recipe can provide several icon managers, or only one, or not at all. They can show the icons from the running applications on the whole desktop or on the current desktop page. They can be grouped by applications type like terminals or other application types.  The application name can be shown in the icon manager or as a tool-tip when the mouse is over the icon. And different actions are bound to these icons.</p></div>
+<div class="paragraph"><p>Some recipes provide an icon manager for the iconic applications. With these recipes, no application icons will be on the desktop, independently of what choice was made in the preferences.</p></div>
+</dd>
+<dt class="hdlist1">
+<em>Desktop Icons</em>
+</dt>
+<dd>
+<div class="paragraph"><p>It is 2 types of icons: application icons and desktop icons.</p></div>
+<div class="paragraph"><p>Desktop icons are typically used to launch a file browser at a given path. You can choose in <code>Preferences &#8594; Desktop manager</code> how FVWM-Crystal will manage them:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>None</code> will remove the desktop icons
+</p>
+</li>
+<li>
+<p>
+<code>FVWM-Crystal</code> will let FVWM-Crystal manage these icons
+</p>
+</li>
+<li>
+<p>
+<code>ROX_Filer</code> will manage these icons
+</p>
+</li>
+<li>
+<p>
+<code>Nautilus</code> will manage these icons.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>You can change on the fly between <code>None</code> and <code>FVWM-Crystal</code>. The other changes need to logout and restart Xorg and FVWM-Crystal. At that time of writing, the FVWM-Crystal-3.4.0 desktop icon managing is mature enough to considerer that ROX-Filer and Nautilus are provided only as a commodity or for backward compatibility or convenience. (See <strong>man CrystalRoxHOWTO</strong> for rox.)</p></div>
+<div class="paragraph"><p>When <code>FVWM-Crystal</code> is selected, it will show all its icons by default. Right clicking on the <code>Home</code> icon will open the <code>Desktop icons preference menu</code>. the <code>Home</code> icon is mandatory, both the <code>XDG user directories</code> icons, the <code>partitions</code> icons are optionals and the <code>User managed directories</code> are optionals.</p></div>
+<div class="paragraph"><p>In the same menu, you can select the actions for the left and middle clicks. Several file managers have built-in support: <code>Thunar</code>, <code>Worker</code> (a very good Directory Opus clone), <code>Midnight Commander</code> (mc in short), <code>ROX-Filer</code>, <code>Nautilus</code>, <code>Krusader</code>, <code>Xfm</code>, <code>4Pane</code>, <code>Ranger</code> (a Vim like file manager), <code>PCMan FM</code>, <code>gentoo</code> (another dopus clone), <code>Konqueror</code>, <code>emelFM2</code> (which, like mc, support extfs), <code>Dolphin</code> and <code>SpaceFM</code>.</p></div>
+<div class="paragraph"><p>A custom command can also be set where both console commands and X commands can be used. A self documented form will be launched, which let you update and save the configuration.</p></div>
+<div class="paragraph"><p>If <code>pmount-gui</code> is installed, the contextual menu of the Home icon will show 2 options for mounting and unmounting the removable devices. The contextual menu of the partition&#8217;s icons will show the mount points of the patitions and an item for umounting the partitions. This options will use <code>pumount</code> if the partition is mounted in /media, <code>umount</code> otherwise.
+You will also get menu items to mount the unmounted partitions, if they are present in /etc/fstab with the option user(s).</p></div>
+</dd>
+<dt class="hdlist1">
+<em>Magic Button Bar</em>
+</dt>
+<dd>
+<div class="paragraph"><p>The Magic button bar is provided by the Custom recipe. This is a button bar with its own preference menu. You can choose to show the applets like the clock, and different menu or application launchers.</p></div>
+<div class="paragraph"><p>A right click on a menu or application launcher will show its dedicated preferences menu. In that menu, you can choose:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+To show the magic button on the top, bottom, right or left of the screen.
+</p>
+</li>
+<li>
+<p>
+The size of the buttons
+</p>
+</li>
+<li>
+<p>
+To toggle the bar on top of the applications with the mouse on the border.
+</p>
+</li>
+<li>
+<p>
+To edit the magic button bar preferences file. Usefull to reorder the launchers.
+</p>
+</li>
+<li>
+<p>
+To generate its preferences menu. Needed when new applications are added or removed from the system.
+</p>
+</li>
+<li>
+<p>
+To generate the button bar.
+</p>
+</li>
+<li>
+<p>
+To choose an applet to add or remove.
+</p>
+</li>
+<li>
+<p>
+To choose a menu to add.
+</p>
+</li>
+<li>
+<p>
+To choose an application launcher to add.
+</p>
+<div class="paragraph"><p>An application and menu launcher will be added to the right of the launcher from where the preference menu was called. To remove a menu or application launcher from the magic button bar, just make a middle click on it. The pager will be the last button, the other applets will be first.</p></div>
+</li>
+</ul></div>
+</dd>
+<dt class="hdlist1">
+<em>Application Icons</em>
+</dt>
+<dd>
+<div class="paragraph"><p>They are the icons of the iconic applications. This will work only with the recipe with no icon manager. In</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>Preferences -&gt; Type of icons</code></pre>
+</div></div>
+<div class="paragraph"><p>you can choose between:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>None</code>
+</p>
+</li>
+<li>
+<p>
+<code>Thumbnails</code>
+</p>
+</li>
+<li>
+<p>
+<code>Amiga</code>
+</p>
+</li>
+<li>
+<p>
+<code>Mwm</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><code>Amiga</code> and <code>Mwm</code> will show the application icons. Simple clicking on the <code>Amiga</code> style icons will restore the application window. Double clicking on the <code>Mwm</code> style icons will do the same.</p></div>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_full_screen_navigation">Full Screen Navigation</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>For what I know, FVWM-Crystal is the only GNU/Linux desktop that provide that feature.</p></div>
+<div class="paragraph"><p>In short, <strong>Full Screen Navigation</strong> is the ability to bring in full screen virtually any application, and to navigate between these full-screened applications, as well than between them and the desktop.</p></div>
+<div class="paragraph"><p>It can be many useful use cases for it. As example, if you have several browser windows open and want to zap quickly. Or with a file manager like mc which is limited to 2 panels. It is one limitation: the full screened windows must be on the same desktop page. This limitation is a force at the same time, because you can zap the desktop pages too, and you can have full-screened and "normal" windows in any desktop page at the same time.</p></div>
+<div class="paragraph"><p>Try it. Launch  a few applications on the current desktop pages ans put them in full screen with <strong>Alt + KP_</strong>*. When this is done, use <strong>Alt + Shift + KP_</strong>* to zap between the full screened windows and the desktop. With <strong>Alt + F&lt;n&gt;</strong>, you can zap the desktop pages.</p></div>
+<div class="paragraph"><p>In fact, this functionality is not new. It was already available with the first Amiga computer in 1985, when Windows was not born and the Mac was boring in black and white. It was called the window stack. With the <code>Amiga recipe</code>, simple clicking on the button at the top right corner provide that function too.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preferences">PREFERENCES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Most preferences are applied on the fly. To change from or to the ROX-Filer or Nautilus desktop manager need a restart.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Select recipe</strong>
+</dt>
+<dd>
+<p>
+        Select a recipe.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Desktop geometry</strong>
+</dt>
+<dd>
+<p>
+        Select the number of desktop pages from 1 to 9.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Characters fonts</strong>
+</dt>
+<dd>
+<p>
+        Launch FVWM-Crystal font selector dialog. <strong>Panel font</strong> is used by the buttons, <strong>Tittle font</strong> by the window title bars, and <strong>Menu font</strong> by  menus. FVWM-Crystal support xft fonts and this dialog let you visualize the fonts, save and apply the fonts, as well than edit, save and restore the example string. Restore will restore the example string to its original value. To restore it to its saved value, you have to quit and launch again the font selector.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Handle width</strong>
+</dt>
+<dd>
+<p>
+        Set the handle width between 1 to 7 pixels. Handles are used to resize the windows with the mouse. See also *man KeyboardBindings".
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Translucency</strong>
+</dt>
+<dd>
+<p>
+        Start and stop translucency. Off by default, this setting will not survive a restart. When On, you can use the mouse wheel on the window title bars to set their translucency.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Bling bling</strong>
+</dt>
+<dd>
+<p>
+        Start and stop the bling bling. It is an effect that will shift the translucency with the focus. This setting is Off by default and will not survive a restart. Translucency can have a negative impact with some softwares like MPlayer. In the worst case, shift to a primary console with <strong>Ctrl + Alt + F&lt;n&gt;</strong>, login, run <strong>killall mplayer</strong> or <strong>killall -9 mplayer</strong>, and get back to FVWM-Crystal with <strong>Alt + F7</strong>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Default terminal</strong>
+</dt>
+<dd>
+<p>
+        Set the terminal available with <strong>Right click</strong> on the root window. Possible choices: <code>GNOME-Terminal</code>, <code>Multi-GNOME-Terminal</code>, <code>XFCE4-Terminal</code>, <code>Terminator</code>, <code>MRxvt</code>, URxvt+, <code>ATerm</code>, <code>ETerm</code> and <code>XTerm</code>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Fvwm console terminal</strong>
+</dt>
+<dd>
+<p>
+        Set FVWM console terminal, <strong>Alt + ;</strong> will show/hide it, and it will be present on all desktop pages. It will only send commands to FVWM. Very useful to try any FVWM command.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>QuakeConsole termianl</strong>
+</dt>
+<dd>
+<p>
+        Set terminal for the QuakeConsole. <strong>Alt + ' (grave)</strong> will show/hide it, and it will be present on all desktop pages. You can use it for whatever console you want, by example htop. Supported by these 2 last terminal are <code>MRxvt</code>, <code>URxvt</code>, <code>ATerm</code> and <code>XTerm</code>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Desktop manager</strong>
+</dt>
+<dd>
+<p>
+        Select the manager for the desktop icons. See above.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Icon type</strong>
+</dt>
+<dd>
+<p>
+        Select the icon type for iconic applications. See above.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Desktop menu</strong>
+</dt>
+<dd>
+<p>
+        Set On or Off the menu available with left clicking.
+        You can also set On or Off the XDG menu available wia <strong>Alt + A</strong>
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Notification area manager</strong>
+</dt>
+<dd>
+<p>
+        Select stalonetray or trayer, and let you choose the size of the area between 0 to 20 icons.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Focus policy</strong>
+</dt>
+<dd>
+<p>
+        Select the focus policy between
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>Amiga</code> - click to focus without raise
+</p>
+</li>
+<li>
+<p>
+<code>FVWM-Crystal</code> -enter to focus without raise
+</p>
+</li>
+<li>
+<p>
+<code>FVWM-Crystal with raise</code> - enter to focus with raise
+</p>
+</li>
+<li>
+<p>
+<code>MS Windows</code> - click to focus with raise.
+</p>
+</li>
+</ul></div>
+</dd>
+</dl></div>
+<div class="paragraph"><p>With the without raise policies, a click on a title bar will raise the window.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>Mouse velocity</strong>
+</dt>
+<dd>
+<p>
+        Set if you want than Fvwm-Crystal manage the velocity of the mouse.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Privileged terminals</strong>
+</dt>
+<dd>
+<p>
+        With URxvt and ETerm, set the FPOverrideGrabFocus style. Such terminals will never loose the focus.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Generate application menu</strong>
+</dt>
+<dd>
+<p>
+        Generate the databse entries and icons for the applications menu. It will also set the Icon and MiniIcon related styles.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Silent operations</strong>
+</dt>
+<dd>
+<p>
+        Add "2&gt;/dev/null" at the end of most commands launched by FVWM-Crystal. Usefull if you don&#8217;t want to pollute your log file with messages from external applications.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>Preferences editor</strong>
+</dt>
+<dd>
+<p>
+        Launch the Preferences editor which let you set several preference files and variables:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>Startup</code> - launch applications at startup
+</p>
+</li>
+<li>
+<p>
+<code>ShowDirectories</code> - custom directories shown by FVWM_Crystal Desktop Manager
+</p>
+</li>
+<li>
+<p>
+<code>Browser</code> - The default browser (BROWSER environmental variable)
+</p>
+</li>
+<li>
+<p>
+<code>Editor</code> - The default editor (EDITOR environmental variable)
+</p>
+</li>
+<li>
+<p>
+<code>DesktopDirs</code> - The paths for the application type desktop files
+</p>
+</li>
+<li>
+<p>
+<code>IconsDirs</code> - The paths for the application icons
+</p>
+</li>
+<li>
+<p>
+<code>MediaDirectories</code> - The paths for your media files
+</p>
+</li>
+<li>
+<p>
+<code>FullscreenApps</code> - Set the applications you want in full screen by default
+</p>
+</li>
+</ul></div>
+</dd>
+<dt class="hdlist1">
+<strong>Key binding modifiers editor</strong>
+</dt>
+<dd>
+<p>
+        Let you set which key are used as modifiers with the key bindings. This is useful if the key bindings of FVWM-Crystal collide with the key bindings of your prefered application (ardour, emas, whatever&#8230;). In most cases, to change <strong>Mod1 Meta</strong> is sufficient. I use <strong>4</strong> for the left windows key for it.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_customization">CUSTOMIZATION</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_structure_of_fvwm_crystal">Structure of Fvwm-Crystal</h3>
+<div class="paragraph"><p><strong>FVWM-Crystal</strong> is split into system-wide files, a system-wide configuration, and an user-wide configuration.</p></div>
+<div class="paragraph"><p>The system part is located in <code>/usr/local/share/fvwm-crystal/fvwm</code> (default) or <code>/usr/share/fvwm-crystal/fvwm</code> (distribution related). We can call it &lt;system&gt;</p></div>
+<div class="paragraph"><p>The system configuration part is located in <code>/etc/X11/fvwm/fvwm-crystal</code>. Call it &lt;config&gt;</p></div>
+<div class="paragraph"><p>The user part is located in <code>~/.fvwm-crystal</code>. &lt;user&gt;</p></div>
+<div class="paragraph"><p>You can copy any file from the system part (without the /fvwm/) to the 2 other parts. For each file, files in the user part will be used first if they exist. If they don&#8217;t exist, FVWM-Crystal will use the files in the system configuration part (empty be default), and if they don&#8217;t exist, it will use the files in the system part. This is true for all files loaded with the <strong>Include</strong> command, which is the case for allmost all FVWM-Crystal files.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_location_of_some_files_and_their_function">Location of some Files and their Function</h3>
+<div class="paragraph"><p><strong>&lt;system&gt;/config</strong> will be the first file loaded by FVWM. It initialize some variables and load the whole FVWM-Crystal configuration, inclusive the recipe in use.</p></div>
+<div class="paragraph"><p><strong>&lt;system&gt;/components/Standard</strong> is the second file loaded by FVWM. It contain the functions used to load the other files with respect to their priorities part order. After, it load other files with functions used in many places.</p></div>
+<div class="paragraph"><p>The other files in &lt;system&gt; are grouped in directories. Each directory correspond to a group of functions. For example, <strong>&lt;system&gt;/preferences</strong> are for the default preferences, <strong>&lt;system&gt;/apps</strong> are functions to control some main features of FVWM-Crstal like the Desktop Icons, the Screen Saver, or the Fvwm Console.</p></div>
+<div class="paragraph"><p>As a rule, make small modification at a time. And RTFM. FVWM is not so difficult, but it is very complex. This complexity make things harder. So, try to keep focused on one thing at a time.</p></div>
+<div class="paragraph"><p>FVWM documentation is huge, The best place to read it is on the FVWM website where you will find an html version, which ease the navigation. Use the stable 2.6 branch, the unstable 2.7 is outdated and will not work well with FVWM-Crystal.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_autostart_of_applications">Autostart of Applications</h3>
+<div class="paragraph"><p>Copy <strong>&lt;system&gt;/preferences/Startup</strong> to <strong>&lt;user&gt;/preferences/Startup</strong> and put your commands here.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_custom_fvwm_commands">Custom FVWM Commands</h3>
+<div class="paragraph"><p>Create the file <strong>&lt;user&gt;/userconfig</strong> and put your FVWM commands here. It will be the last loaded file.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authors">AUTHORS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This man page was written by Dominique Michel &lt;<a href="mailto:dominique_libre@users.sourceforge.net">dominique_libre@users.sourceforge.net</a>&gt; &#169; 2013-2019. I am not here to live up to your expectations and will not apologize for my bad English. If you don&#8217;t like it or can improve it, please considere to contribute.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_copyright">COPYRIGHT</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>FVWM-Crystal</strong> and all the scripts and other files coming with
+the distribution are subject to the GNU General Public License (GPL) version 3 or later.
+Please refer to the COPYING file that came with <strong>FVWM-Crystal</strong> for details.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bugs">BUGS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Bug reports can be sent to the fvwm-crystal-users mailing list at
+<a href="https://mail.gna.org/listinfo/fvwm-crystal-users/">https://mail.gna.org/listinfo/fvwm-crystal-users/</a>.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>KeyboardBindings</strong>(1), <strong>MouseBindings</strong>(1), <strong>FVWMCrystalFAQ</strong>(1), <strong>TIPS</strong>(1), <strong>CrystalRoxHOWTO</strong>(1), <strong>ApplicationDatabase</strong>(1) <a href="http://fvwm-crystal.sourceforge.net/">http://fvwm-crystal.sourceforge.net/</a></p></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated
+ 2020-12-03 01:36:23 CET
+</div>
+</div>
+</body>
+</html>

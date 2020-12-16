@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gattrib $@ 2>/dev/null
+

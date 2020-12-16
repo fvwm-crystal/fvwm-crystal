@@ -1,0 +1,10 @@
+# Switch to the prev/next desktop page using Alt+[ and Alt+] keys
+Key bracketleft	 A $[Mod1]	GotoPage-Left
+Key bracketright A $[Mod1]	GotoPage-Right
+
+# Move windows to the prev/next desktop page and swith to it using
+# Alt+Shift+[ and Alt+Shift+] keys
+Key bracketleft	 A $[Mod2]	WarpToPage-Left
+Key bracketright A $[Mod2]	WarpToPage-Right
+
+# vim:ft=fvwm

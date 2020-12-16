@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec transmission-gtk $@ 2>/dev/null 2>/dev/null
+

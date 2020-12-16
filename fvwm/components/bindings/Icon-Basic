@@ -1,0 +1,7 @@
+# Icon bindings
+Mouse 1 I $[Mod]	Icon-Restore-CurrentDesk
+Mouse 2 I $[Mod1]	Icon-Close
+Mouse 2 I $[Mod1]2	Icon-Close
+Mouse 3 I $[Mod]	AA
+
+# vim:ft=fvwm

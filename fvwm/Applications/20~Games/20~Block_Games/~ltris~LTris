@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ltris $@ 2>/dev/null
+

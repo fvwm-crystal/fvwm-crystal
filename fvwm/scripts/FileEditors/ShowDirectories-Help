@@ -1,0 +1,43 @@
+All (ShowDirectories-Dialog) Close
+DestroyModuleConfig ShowDirectories-Dialog: *
+*ShowDirectories-Dialog: Title "$[gt.Show Directories]"
+*ShowDirectories-Dialog: Text "$[gt.You are editing the file]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[FVWM_USERDIR]/Preferences/ShowDirectories"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.Each line has the following format:]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.path1 path2]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.where path1 and path2 are directory paths]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.you want to have with the desktop icons.]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.path2 is optional and will be shown in the second panel]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.of your preferred file browser.]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.Some file browsers can support more than 2 paths.]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.Path names with spaces must be quoted with single quotes.]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.If you don’t want any such icons,]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.just blank this file but keep it.]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Button quit " $[gt.OK] " ^[
+*ShowDirectories-Dialog: Command Nop
+*ShowDirectories-Dialog: Line center
+’

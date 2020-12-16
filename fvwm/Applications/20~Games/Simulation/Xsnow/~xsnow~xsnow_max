@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xsnow -snowflakes 1000 -delay 0 $@ 2>/dev/null
+

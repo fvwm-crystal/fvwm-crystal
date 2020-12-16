@@ -1,0 +1,4 @@
+# Launch gnome-settings-daemon only at startup
+Test (x gnome-settings-daemon) Exec pidof gnome-settings-daemon || exec gnome-settings-daemon
+
+# vim:ft=fvwm

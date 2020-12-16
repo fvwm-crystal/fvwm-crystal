@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec castle-combat $@ 2>/dev/null
+

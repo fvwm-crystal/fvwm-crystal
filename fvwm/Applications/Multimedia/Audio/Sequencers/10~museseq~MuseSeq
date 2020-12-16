@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec museseq $@ 2>/dev/null
+

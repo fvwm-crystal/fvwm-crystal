@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec workman $@ 2>/dev/null
+

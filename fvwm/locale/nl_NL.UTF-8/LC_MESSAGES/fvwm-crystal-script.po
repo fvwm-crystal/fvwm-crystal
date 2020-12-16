@@ -1,0 +1,208 @@
+# Dutch translation for FVWM-Crystal
+# Copyright (C) 2014-2015 FVWM-Crystal team
+# This file is distributed under the same license as the fvwm-crystal package.
+# Original by Alwin <translations@ziggo.nl>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fvwm-crystal 3.4.0 (rev. 777)\n"
+"POT-Creation-Date: 2015-11-07 14:41+0100\n"
+"PO-Revision-Date: 2015-09-22 00:00+0000\n"
+"Last-Translator: Alwin <translations@ziggo.nl>\n"
+"Language-Team: Dutch\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../fvwm/components/scripts/FvwmScript-CpuTemp:18
+#: ../fvwm/components/scripts/FvwmScript-CpuTemp:28
+msgid "°C"
+msgstr "°C"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:17
+msgid "FVWM-Crystal File Editor"
+msgstr "FVWM-Crystal-bestand bewerken"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:104
+msgid "File"
+msgstr "Bestand"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:120
+#: ../fvwm/scripts/PrefVars/PrefVars:613
+msgid "Help"
+msgstr "Hulp"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:139
+#: ../fvwm/scripts/PrefVars/PrefVars:272 ../fvwm/scripts/PrefVars/PrefVars:444
+#: ../fvwm/scripts/PrefVars/PrefVars:629 ../fvwm/scripts/PrefVars/PrefVars:814
+msgid "Add line"
+msgstr "Regel toevoegen"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:160
+#: ../fvwm/scripts/FontSelector/FontSelector:812
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:289
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:400
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:510
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:620
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:730
+#: ../fvwm/scripts/PrefVars/PrefVars:119 ../fvwm/scripts/PrefVars/PrefVars:186
+#: ../fvwm/scripts/PrefVars/PrefVars:293 ../fvwm/scripts/PrefVars/PrefVars:465
+#: ../fvwm/scripts/PrefVars/PrefVars:650 ../fvwm/scripts/PrefVars/PrefVars:835
+msgid "Save"
+msgstr "Opslaan"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:198
+#: ../fvwm/scripts/PrefVars/PrefVars:333 ../fvwm/scripts/PrefVars/PrefVars:503
+#: ../fvwm/scripts/PrefVars/PrefVars:688 ../fvwm/scripts/PrefVars/PrefVars:873
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:218
+#: ../fvwm/scripts/PrefVars/PrefVars:353 ../fvwm/scripts/PrefVars/PrefVars:523
+#: ../fvwm/scripts/PrefVars/PrefVars:708 ../fvwm/scripts/PrefVars/PrefVars:893
+msgid "Update"
+msgstr "Bijwerken"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:8
+msgid "FVWM-Crystal Font Selector"
+msgstr "FVWM-Crystal-lettertypen kiezen"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:80
+#: ../fvwm/scripts/FontSelector/FontSelector:603
+#: ../fvwm/scripts/FontSelector/FontSelector:620
+#: ../fvwm/scripts/FontSelector/FontSelector:637
+#: ../fvwm/scripts/FontSelector/FontSelector:654
+#: ../fvwm/scripts/FontSelector/FontSelector:671
+#: ../fvwm/scripts/FontSelector/FontSelector:707
+msgid "abijk ABIJK éç ÀÉ O09 你好"
+msgstr "abijk ABIJK éç ÀÉ O09 你好"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:384
+#: ../fvwm/scripts/FontSelector/FontSelector:408
+msgid "Regular"
+msgstr "Normaal"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:424
+#: ../fvwm/scripts/FontSelector/FontSelector:448
+msgid "Bold"
+msgstr "Vet"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:464
+#: ../fvwm/scripts/FontSelector/FontSelector:488
+msgid "Italic"
+msgstr "Cursief"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:504
+#: ../fvwm/scripts/FontSelector/FontSelector:528
+msgid "Bold Italic"
+msgstr "Vet cursief"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:568
+msgid "With"
+msgstr "Met"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:688
+msgid " Edit me:"
+msgstr " Bewerk mij:"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:724
+msgid "Save editing"
+msgstr "Bewerking opslaan"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:740
+msgid "Reset editing"
+msgstr "Bew. ongedaan maken"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:764
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:780
+msgid "Apply"
+msgstr "Toepassen"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:854
+msgid ". Panel Font"
+msgstr ". Paneellettertype"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:882
+msgid ". Title Font"
+msgstr ". Titellettertype"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:911
+msgid ". Menu Font"
+msgstr ". Menulettertype"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:10
+msgid "FVWM-Crystal Keyboard Modifiers Editor"
+msgstr "FVWM-Crystal-modificatortoetsen bewerken"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:221
+msgid "N=none, A=any (0 or more), M=Meta (Alt_L), S=Shift_L, C=Control_L, 4=Super_L (Win_L)"
+msgstr "N=geen, A=enige (0 of meer), M=Meta (Alt_L), S=Shift_L, C=Control_L, 4=Super_L (Win_L)"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:252
+msgid "Mod: any modifier (0 or more)"
+msgstr "Mod: enige modificators (0 of meer)"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:331
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:441
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:551
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:661
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:771
+msgid "Restore"
+msgstr "Herstellen"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:363
+msgid "Mod0: no modifier"
+msgstr "Mod0: geen modificator"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:473
+msgid "Mod1: usually Meta"
+msgstr "Mod1: gewoonlijk Meta"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:583
+msgid "Mod2: second mode"
+msgstr "Mod2: tweede modus"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:693
+msgid "SelectOnRelease: for WindowLists"
+msgstr "SelectOnRelease: voor vensterlijsten"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:10
+msgid "FVWM-Crystal Variables Editor"
+msgstr "FVWM-Crystal-variabelen bewerken"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:103
+msgid "Browser"
+msgstr "Browser"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:170
+msgid "Editor"
+msgstr "Bewerker"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:241
+msgid "Desktop"
+msgstr "Bureaublad"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:256 ../fvwm/scripts/PrefVars/PrefVars:428
+#: ../fvwm/scripts/PrefVars/PrefVars:598
+msgid "Directories"
+msgstr "Mappen"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:413
+msgid "Icons"
+msgstr "Iconen"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:583
+msgid "Media"
+msgstr "Media"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:768
+msgid "Full screen"
+msgstr "Schermvullende"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:783
+msgid "Applications"
+msgstr "Programma's"

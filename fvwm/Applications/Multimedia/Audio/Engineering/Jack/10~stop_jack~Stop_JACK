@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'A stop_jack $@ 2>/dev/null'
+

@@ -1,0 +1,650 @@
+'\" t
+.\"     Title: MouseBindings
+.\"    Author: [see the "AUTHORS" section]
+.\" Generator: DocBook XSL Stylesheets v1.79.1 <http://docbook.sf.net/>
+.\"      Date: 04/12/2020
+.\"    Manual: FVWM-Crystal
+.\"    Source: MouseBindings 3.4.0
+.\"  Language: English
+.\"
+.TH "MOUSEBINDINGS" "1" "04/12/2020" "MouseBindings 3\&.4\&.0" "FVWM\-Crystal"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+MouseBindings \- FVWM\-Crystal Mouse Bindings Reference
+.SH "SYNOPSIS"
+.sp
+None
+.SH "DESCRIPTION"
+.sp
+In this file you can find all mouse bindings used in FVWM\-Crystal desktop\&.
+.SH "LEGEND:"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+Alt \- Meta (Alt)
+Win_L \- Windows Left
+Win_R \- Windows Right
+Menu \- a "menu" key
+KP_ \- means that following key is on the numeric keyboard
+LMB \- Left Mouse Button
+RMB \- Right Mouse Button
+MMB \- Middle Mouse Button
+Wheel \- The mouse wheel
+.fi
+.if n \{\
+.RE
+.\}
+.SH "THE DESKTOP:"
+.PP
+\fBLMB (+ hold)\fR
+.RS 4
+IF ENABLED IN THE PREFERENCES, OPEN APPLICATIONS OR SYSTEM MENU DEPENDING ON THE RECIPE IN USE\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+OPEN A TERMINAL WINDOW\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+TOGGLE THE ABILITY TO SWITCH DESKTOP PAGES USING SCREEN EDGE (OFF/ON, DEFAULT OFF)\&. With some recipes, we get instead when numlock is off: Amiga recipe: toggle the topbar on top\&. LapLeft/Right, LapLeft/Right with ACPI: Show a global window list\&.
+.RE
+.PP
+\fBALT + MMB\fR
+.RS 4
+HIDE OR SHOW DESKTOP PANELS\&.
+.RE
+.PP
+\fBALT + SHIFT + MMB\fR
+.RS 4
+Toggle the desktop panels on top\&.
+.RE
+.SH "WINDOW THUMBNAILS:"
+.PP
+\fBDoubleclick LMB\fR
+.RS 4
+Bring back minimized window\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Open a terminal window\&.
+.RE
+.PP
+\fBAlt + DoubleClick MMB\fR
+.RS 4
+Close selected window\&.
+.RE
+.SH "WINDOW:"
+.PP
+\fBAlt + LMB\fR
+.RS 4
+Raise selected window\&.
+.RE
+.PP
+\fBAlt + LMB + drag\fR
+.RS 4
+Raise window and move it on the screen\&.
+.RE
+.PP
+\fBAlt + RMB\fR
+.RS 4
+Lower selected window\&.
+.RE
+.PP
+\fBAlt + RMB + drag\fR
+.RS 4
+Move window on the screen without raising\&.
+.RE
+.PP
+\fBAlt + MMB\fR
+.RS 4
+Resize selected window (move bottom\-right corner)\&.
+.RE
+.SH "WINDOW\(cqS TITLEBAR:"
+.PP
+\fBLMB\fR
+.RS 4
+Raise selected window\&.
+.RE
+.PP
+\fBLMB + drag\fR
+.RS 4
+Raise window and move it on the screen\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Lower selected window\&.
+.RE
+.PP
+\fBRMB + drag\fR
+.RS 4
+Move window on the screen without raising\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Shade or unshade window\&.
+.RE
+.PP
+\fBMMB + drag\fR
+.RS 4
+Resize selected window (choose window edge(s) to move)\&.
+.RE
+.PP
+\fBWheel\fR
+.RS 4
+Increase or decrease the transparency of the selected window\&.
+.RE
+.SH "TITLEBAR BUTTONS:"
+.PP
+\fBLMB, RMB, MMB + hold\fR
+.RS 4
+Show button menu(s)\&.
+.RE
+.SS "FVWM\-Crystal button model:"
+.sp
+| Close B\&. |\-\-\-\-//\-\-\-\-\-| Arrows B\&.| Options B\&.| Maximize B\&.| Close B\&. |
+.sp
+This apply also to the Amiga button model, which is the same but with only one close button on the left\&.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBClose buttons:\fR
+.RS 4
+.PP
+\fBLMB\fR
+.RS 4
+Close selected window\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Iconify selected window\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Identify selected window\&.
+.RE
+.PP
+\fBAlt + MMB\fR
+.RS 4
+Destroy (kill) selected window\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBMaximize button (toggle between new size and default size):\fR
+.RS 4
+.PP
+\fBLMB\fR
+.RS 4
+Maximize window\&.
+.RE
+.PP
+\fBAlt + LMB\fR
+.RS 4
+Take the free space (to the next windows)\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Maximize window horizontally\&.
+.RE
+.PP
+\fBAlt + RMB\fR
+.RS 4
+Take the free space horizontally\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Maximize window vertically\&.
+.RE
+.PP
+\fBAlt + MMB\fR
+.RS 4
+Take the free space horizontally\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBWindow options button:\fR
+.RS 4
+.PP
+\fBLMB\fR
+.RS 4
+Minimize the window (or toggle to the default size)\&.
+.RE
+.PP
+\fBAlt + LMB\fR
+.RS 4
+Toggle sticky window mode\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Set window in "normal" mode (clears stay on top/bottom)\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Set window to stay on top\&.
+.RE
+.PP
+\fBAlt + MMB\fR
+.RS 4
+Set window to stay on bottom\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBArrows button:\fR
+.RS 4
+.PP
+\fBLMB\fR
+.RS 4
+Move selected window to the left (upper) desktop page\&.
+\fBAmiga model\fR: Iconify the window\&.
+.RE
+.PP
+\fBAlt + LMB\fR
+.RS 4
+Go to the left (upper) page with selected window\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Move selected window to the right (lower) desktop page\&.
+.RE
+.PP
+\fBAlt + RMB\fR
+.RS 4
+Go to the right (lower) page with selected window\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Move selected window to the previously active desktop page\&.
+.RE
+.PP
+\fBAlt + MMB\fR
+.RS 4
+Go to the previously active desktop page with selected window\&.
+.RE
+.RE
+.SS "Other button models:"
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBClose button:\fR
+.RS 4
+.PP
+\fBLMB\fR
+.RS 4
+Close window\&.
+.RE
+.PP
+\fBRMB\fR (in OS/2 and NeXTStep button model)
+.RS 4
+Iconify window\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBMaximize button:\fR
+.RS 4
+.PP
+\fBLMB\fR
+.RS 4
+Maximize window\&.
+.RE
+.PP
+\fBAlt + LMB\fR
+.RS 4
+Take the free space (to the next windows)\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Maximize window horizontally\&.
+.RE
+.PP
+\fBAlt + RMB\fR
+.RS 4
+Take the free space horizontally\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Maximize window vertically\&.
+.RE
+.PP
+\fBAlt + MMB\fR
+.RS 4
+Take the free space horizontally\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBIconify button:\fR
+.RS 4
+.PP
+\fBLMB\fR
+.RS 4
+Iconify window\&.
+.RE
+.RE
+.SH "APPLICATIONS PANEL:"
+.PP
+\fBLMB\fR
+.RS 4
+Open the menu of selected application group\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Launch application which is shown on the app panel\&.
+.RE
+.SH "DESKTOP PAGER:"
+.PP
+\fBLMB\fR
+.RS 4
+Switch to selected desktop/page\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Switch to selected region\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Move selected miniature window to a different desktop page, or move outside the pager window to the current desktop\&.
+.RE
+.SH "WINDOW PANEL (SHOWS CURRENTLY OPENED WINDOWS):"
+.PP
+\fBLMB\fR
+.RS 4
+Go to the window\(cqs desktop page, raise and focus it\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Bring selected window to the current page, raise and focus it\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Iconify/deiconify selected window\&.
+.RE
+.SH "ICON PANEL (SHOWS CURRENTLY ICONIFIED WINDOWS):"
+.PP
+\fBLMB\fR
+.RS 4
+Bring back iconified window on the current page, raise and focus it\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Go to the window\(cqs desktop page, bring window back, raise and focus it\&.
+.RE
+.SH "CLOCK:"
+.PP
+\fBLMB\fR, \fBMMB\fR
+.RS 4
+Toggle between date and time display\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Toggle between 12h and 24h time format\&.
+.RE
+.SH ""FVWM\-CRYSTAL" BUTTON:"
+.PP
+\fBLMB\fR
+.RS 4
+Open the system menu\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Change wallpaper randomly\&.
+.RE
+.PP
+\fBMouse wheel\fR
+.RS 4
+Change the resolution using xrandr (only when the button is at the top left corner)
+.RE
+.SH ""FVWM\-CRYSTAL" BUTTON, AMIGA RECIPE \- TOP DESKTOP BAR:"
+.PP
+\fBLMB\fR
+.RS 4
+Toggle the top bar between dekstop bar and menu bar\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Change wallpaper randomly
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Open the system menu
+.RE
+.PP
+\fBMouse wheel\fR
+.RS 4
+Change the resolution using xrandr\&.
+.RE
+.SH "AMIGA RECIPE \- TOP MENU BAR:"
+.PP
+\fBLMB\fR
+.RS 4
+\fBWorkbench button\fR
+\- Toggle the top bar between dekstop bar and menu bar\&.
+\fBApplication buttons\fR
+\- Launch preferred application #1
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+\fBWorkbench button\fR
+\- Toggle the top bar between dekstop bar and menu bar\&.
+\fBApplication buttons\fR
+\- Launch preferred application #2
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+\fBWorkbench button\fR
+\- Open the system menu\&.
+\fBApplication buttons\fR
+\- Open the category application menu
+.RE
+.SH ""SWITCH LEFT" BUTTON, AMIGA RECIPE:"
+.PP
+\fBLMB\fR
+.RS 4
+Show/Hyde the player buttons, the notification area and the application panel\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Show pount\-gui to mount removable medias (for *kit free systems)\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Show pmount\-gui to un\-mount removables medias\&.
+.RE
+.SH ""SWITCH MIDDLE" BUTTON, AMIGA RECIPE:"
+.PP
+\fBLMB\fR
+.RS 4
+Show/Hyde applications panel\&.
+.RE
+.SH ""PLAYER" BUTTON (NOT ALL THE PLAYERS IMPLEMENT ALL THE FUNCTIONS):"
+.PP
+\fBLMB\fR
+.RS 4
+Open the players system menu\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Toggle player GUI\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Toggle visibility of QJackCtl\&.
+.RE
+.PP
+\fBMouse wheel\fR
+.RS 4
+Change volume up and down\&.
+.RE
+.SH ""EJECT" BUTTON:"
+.PP
+\fBLMB\fR
+.RS 4
+Open the playlist menu\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Open the player mixer menu\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Open the system volume menu\&.
+.RE
+.PP
+\fBMouse wheel\fR
+.RS 4
+Play next or previous media\&.
+.RE
+.SH ""PLAY" BUTTON:"
+.PP
+\fBLMB\fR
+.RS 4
+Play\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Pause or toggle playback/pause\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Show the playback menu\&.
+.RE
+.PP
+\fBMouse wheel\fR
+.RS 4
+Change the speed up and down\&.
+.RE
+.SH ""FORWARD" BUTTON:"
+.PP
+\fBLMB\fR
+.RS 4
+Open the speed menu\&.
+.RE
+.PP
+\fBMouse wheel\fR
+.RS 4
+Seek reverse or forward\&.
+.RE
+.SH ""WINDOWS" BUTTON:"
+.PP
+\fBLMB\fR
+.RS 4
+Show list of currently opened windows\&.
+.RE
+.PP
+\fBRMB\fR
+.RS 4
+Show list of currently iconified windows\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Place again all windows on the current desktop page\&.
+.RE
+.SH ""DESKTOP" BUTTON:"
+.PP
+\fBLMB\fR or \fBRMB\fR
+.RS 4
+Show/hide desktop pager window\&.
+.RE
+.PP
+\fBMMB\fR
+.RS 4
+Go to previously active desktop page\&.
+.RE
+.PP
+\fBMouse wheel\fR
+.RS 4
+Go to next/previous desktop page\&.
+.RE
+.SH "AUTHORS"
+.sp
+Documentation written by Maciej Delmanowski <harnir@berlios\&.de> Augmented, maintained and ported to asciidoc by Dominique Michel <dominique_libre@users\&.sourceforge\&.net>
+.SH "COPYRIGHT"
+.sp
+\fBFVWM\-Crystal\fR and all the scripts and other files coming with the distribution are subject to the GNU General Public License (GPL)\&. Please refer to the COPYING file that came with \fBFVWM\-Crystal\fR for details\&.
+.SH "BUGS"
+.sp
+Bug reports can be sent to the fvwm\-crystal\-users mailing list at https://mail\&.gna\&.org/listinfo/fvwm\-crystal\-users/\&.

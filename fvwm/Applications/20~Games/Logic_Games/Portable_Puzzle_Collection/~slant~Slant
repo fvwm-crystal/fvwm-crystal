@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec slant $@ 2>/dev/null
+

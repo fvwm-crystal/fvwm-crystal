@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec bcast $@ 2>/dev/null

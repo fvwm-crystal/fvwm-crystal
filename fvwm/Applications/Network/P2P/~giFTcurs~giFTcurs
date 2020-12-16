@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'A giFTcurs $@ 2>/dev/null'
+

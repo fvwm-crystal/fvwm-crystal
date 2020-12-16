@@ -1,0 +1,449 @@
+MouseBindings(1)
+================
+:doctype: manpage
+:man source:   MouseBindings
+:man version:  3.4.0
+:man manual:   FVWM-Crystal
+
+NAME
+----
+MouseBindings - FVWM-Crystal Mouse Bindings Reference
+
+
+SYNOPSIS
+--------
+
+None
+
+
+DESCRIPTION
+-----------
+
+In this file you can find all mouse bindings used in FVWM-Crystal desktop.
+
+Legend:
+-------
+	Alt - Meta (Alt)
+	Win_L - Windows Left
+	Win_R - Windows Right
+	Menu - a "menu" key
+	KP_ - means that following key is on the numeric keyboard
+	LMB - Left Mouse Button
+	RMB - Right Mouse Button
+	MMB - Middle Mouse Button
+	Wheel - The mouse wheel
+
+
+The Desktop:
+------------
+*LMB (+ hold)*::
+	IF ENABLED IN THE PREFERENCES, OPEN APPLICATIONS OR SYSTEM MENU
+	DEPENDING ON THE RECIPE IN USE.
+
+*RMB*::
+	OPEN A TERMINAL WINDOW.
+
+*MMB*::
+	TOGGLE THE ABILITY TO SWITCH DESKTOP PAGES USING SCREEN EDGE (OFF/ON,
+	DEFAULT OFF).
+	With some recipes, we get instead when numlock is off:
+	Amiga recipe: toggle the topbar on top.
+	LapLeft/Right, LapLeft/Right with ACPI: Show a global window list.
+
+*ALT + MMB*::
+	HIDE OR SHOW DESKTOP PANELS.
+
+*ALT + SHIFT + MMB*::
+	Toggle the desktop panels on top.
+
+
+Window thumbnails:
+------------------
+*Doubleclick LMB*::
+	Bring back minimized window.
+
+*RMB*::
+	Open a terminal window.
+
+*Alt + DoubleClick MMB*::
+	Close selected window.
+
+
+Window:
+-------
+*Alt + LMB*::
+	Raise selected window.
+
+*Alt + LMB + drag*::
+	Raise window and move it on the screen.
+
+*Alt + RMB*::
+	Lower selected window.
+
+*Alt + RMB + drag*::
+	Move window on the screen without raising.
+
+*Alt + MMB*::
+	Resize selected window (move bottom-right corner).
+
+
+Window's titlebar:
+------------------
+*LMB*::
+	Raise selected window.
+
+*LMB + drag*::
+	Raise window and move it on the screen.
+
+*RMB*::
+	Lower selected window.
+
+*RMB + drag*::
+	Move window on the screen without raising.
+
+*MMB*::
+	Shade or unshade window.
+
+*MMB + drag*::
+	Resize selected window (choose window edge(s) to move).
+
+*Wheel*::
+	Increase or decrease the transparency of the selected window.
+
+
+Titlebar buttons:
+-----------------
+
+*LMB, RMB, MMB + hold*::
+	Show button menu(s).
+
+FVWM-Crystal button model:
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+`| Close B. |----//-----| Arrows B.| Options B.| Maximize B.| Close B. |`
+[level="1"]
+This apply also to the Amiga button model, which is the same but with only
+one close button on the left.
+
+Close buttons:
+^^^^^^^^^^^^^^
+*LMB*::
+	Close selected window.
+	
+*RMB*::
+	Iconify selected window.
+	
+*MMB*::
+	Identify selected window.
+	
+*Alt + MMB*::
+	Destroy (kill) selected window.
+	
+
+Maximize button (toggle between new size and default size):
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*LMB*::
+	Maximize window.
+		
+*Alt + LMB*::
+	Take the free space (to the next windows).
+
+*RMB*::
+	Maximize window horizontally.
+
+*Alt + RMB*::
+	Take the free space horizontally.
+
+*MMB*::
+	Maximize window vertically.
+
+*Alt + MMB*::
+	Take the free space horizontally.
+
+Window options button:
+^^^^^^^^^^^^^^^^^^^^^^
+*LMB*::
+	Minimize the window (or toggle to the default size).
+
+*Alt + LMB*::
+	Toggle sticky window mode.
+		
+*RMB*::
+	Set window in "normal" mode (clears stay on top/bottom).
+
+*MMB*::
+	Set window to stay on top.
+
+*Alt + MMB*::
+	Set window to stay on bottom.
+
+
+Arrows button:
+^^^^^^^^^^^^^^
+*LMB*::
+	Move selected window to the left (upper) desktop page.
+	*Amiga model*: Iconify the window.
+
+*Alt + LMB*::
+	Go to the left (upper) page with selected window.
+
+*RMB*::
+	Move selected window to the right (lower) desktop page.
+
+*Alt + RMB*::
+	Go to the right (lower) page with selected window.
+
+*MMB*::
+	Move selected window to the previously active desktop page.
+
+*Alt + MMB*::
+	Go to the previously active desktop page with selected window.
+
+Other button models:
+~~~~~~~~~~~~~~~~~~~~
+Close button:
+^^^^^^^^^^^^^
+*LMB*::
+	Close window.
+
+*RMB* (in OS/2 and NeXTStep button model)::
+	Iconify window.
+
+Maximize button:
+^^^^^^^^^^^^^^^^
+*LMB*::
+	Maximize window.
+		
+*Alt + LMB*::
+	Take the free space (to the next windows).
+
+*RMB*::
+	Maximize window horizontally.
+
+*Alt + RMB*::
+	Take the free space horizontally.
+
+*MMB*::
+	Maximize window vertically.
+
+*Alt + MMB*::
+	Take the free space horizontally.
+
+Iconify button:
+^^^^^^^^^^^^^^^
+*LMB*::
+	Iconify window.
+
+
+Applications panel:
+-------------------
+*LMB*::
+	Open the menu of selected application group.
+
+*RMB*::
+	Launch application which is shown on the app panel.
+
+
+Desktop pager:
+--------------
+*LMB*::
+	Switch to selected desktop/page.
+
+*RMB*::
+	Switch to selected region.
+
+*MMB*::
+	Move selected miniature window to a different desktop page, or move
+	outside the pager window to the current desktop.
+
+
+Window panel (shows currently opened windows):
+----------------------------------------------
+*LMB*::
+	Go to the window's desktop page, raise and focus it.
+
+*RMB*::
+	Bring selected window to the current page, raise and focus it.
+
+*MMB*::
+	Iconify/deiconify selected window.
+
+
+Icon panel (shows currently iconified windows):
+-----------------------------------------------
+*LMB*::
+	Bring back iconified window on the current page, raise and focus it.
+
+*RMB*::
+	Go to the window's desktop page, bring window back, raise and focus
+	it.
+
+
+Clock:
+------
+*LMB*, *MMB*::
+	Toggle between date and time display.
+
+*RMB*::
+	Toggle between 12h and 24h time format.
+
+
+"FVWM-Crystal" button:
+----------------------
+*LMB*::
+	Open the system menu.
+
+*MMB*::
+	Change wallpaper randomly.
+
+*Mouse wheel*::
+	Change the resolution using xrandr (only when the button is at the top
+	left corner)
+
+
+"FVWM-Crystal" button, Amiga Recipe - Top Desktop bar:
+------------------------------------------------------
+*LMB*::
+	Toggle the top bar between dekstop bar and menu bar.
+
+*MMB*::
+	Change wallpaper randomly
+
+*RMB*::
+	Open the system menu
+
+*Mouse wheel*::
+	Change the resolution using xrandr.
+
+
+Amiga Recipe - Top Menu bar:
+----------------------------
+*LMB*::
+	*Workbench button* - Toggle the top bar between dekstop bar and menu bar.
+	*Application buttons* - Launch preferred application #1
+
+*MMB*::
+	*Workbench button* - Toggle the top bar between dekstop bar and menu bar.
+	*Application buttons* - Launch preferred application #2
+
+*RMB*::
+	*Workbench button* - Open the system menu.
+	*Application buttons* - Open the category application menu
+
+
+
+"Switch left" button, Amiga recipe:
+-----------------------------------
+*LMB*::
+	Show/Hyde the player buttons, the notification area and the 
+	application panel.
+
+*MMB*::
+	Show pount-gui to mount removable medias (for *kit free systems).
+
+*RMB*::
+	Show pmount-gui to un-mount removables medias.
+
+
+"Switch middle" button, Amiga recipe:
+-------------------------------------
+*LMB*::
+	Show/Hyde applications panel.
+
+
+"Player" button (not all the players implement all the functions):
+------------------------------------------------------------------
+*LMB*::
+	Open the players system menu.
+
+*MMB*::
+	Toggle player GUI.
+
+*RMB*::
+	Toggle visibility of QJackCtl.
+
+*Mouse wheel*::
+	Change volume up and down.
+
+
+"Eject" button:
+---------------
+*LMB*::
+	Open the playlist menu.
+
+*MMB*::
+	Open the player mixer menu.
+
+*RMB*::
+	Open the system volume menu.
+
+*Mouse wheel*::
+	Play next or previous media.
+
+
+"Play" button:
+--------------
+*LMB*::
+	Play.
+
+*MMB*::
+	Pause or toggle playback/pause.
+
+*RMB*::
+	Show the playback menu.
+
+*Mouse wheel*::
+	Change the speed up and down.
+
+
+"Forward" button:
+-----------------
+*LMB*::
+	Open the speed menu.
+
+*Mouse wheel*::
+	Seek reverse or forward.
+
+
+"Windows" button:
+-----------------
+*LMB*::
+	Show list of currently opened windows.
+
+*RMB*::
+	Show list of currently iconified windows.
+
+*MMB*::
+	Place again all windows on the current desktop page.
+
+
+"Desktop" button:
+-----------------
+*LMB* or *RMB*::
+	Show/hide desktop pager window.
+
+*MMB*::
+	Go to previously active desktop page.
+
+*Mouse wheel*::
+	Go to next/previous desktop page.
+
+AUTHORS
+-------
+Documentation written by Maciej Delmanowski <harnir@berlios.de>
+Augmented, maintained and ported to asciidoc by Dominique Michel
+<dominique_libre@users.sourceforge.net>
+
+
+COPYRIGHT
+---------
+*FVWM-Crystal* and all the scripts and other files coming with 
+the distribution are subject to the GNU General Public License (GPL). 
+Please refer to the COPYING file that came with *FVWM-Crystal* for details.
+
+
+BUGS
+----
+Bug reports can be sent to the fvwm-crystal-users mailing list at 
+<https://mail.gna.org/listinfo/fvwm-crystal-users/>.
+
+

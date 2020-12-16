@@ -1,0 +1,908 @@
+# FvwmScript Preferences Variable Editor
+# A Variables Editor Fvwm-Crystal
+# Copyright Dominique Michel <dominique_libre@users.sourceforge.net> 2013
+# Released under the GNU GPL license v3 or later
+
+# Usage: Script scripts/PrefVars/PrefVars
+
+# Header ̣{{{1
+UseGettext {$FVWM_USERDIR/locale;fvwm-crystal-script:$FVWM_SYSTEMDIR/locale;fvwm-crystal-script:+}
+WindowLocaleTitle {FVWM-Crystal Variables Editor}
+
+#WindowSize 800 510
+WindowSize 800 710
+#WindowPosition 300 300
+Colorset	1
+# Dont change it or the text titles will be shorted: 
+Font	"xft:$[panel_font]:pixelsize:$[panel_font_size]:style:$[panel_font_style]"
+
+# Initialisation {{{1
+Init
+Begin
+    Set $FDIR = (GetOutput {echo "$FVWM_USERDIR"} 1 -1)
+    Set $PDIR = $FDIR {/preferences/}
+    # Load BROWSER variable
+    ChangeTitle 1 (GetOutput {cat $FVWM_USERDIR/preferences/BROWSER | sed -e 's:SetEnv BROWSER ::' -e 's:"::g'	} 1 -1)
+    Set $browser = (GetTitle 1)
+    # Load EDITOR variable
+#    ChangeTitle 2 (GetOutput {cat $FVWM_USERDIR/preferences/EDITOR | sed -e 's:SetEnv EDITOR ::' -e 's:"::g'	} 1 -1)
+    ChangeTitle 2 (GetOutput {echo $EDITOR} 1 -1)
+    Set $editor = (GetTitle 2)
+    # Load DesktopDirs file
+    Set $dfile = $PDIR {DesktopDirs}
+    Set $cmd = {cat }$dfile{ | tr '\n' '|'}
+    ChangeTitle 3 (GetOutput $cmd 1 -1)
+    Set $desktopd = (GetTitle 3)
+    # Load IconDirs file
+    Set $icfile = $PDIR {IconDirs}
+    Set $cmd = {cat }$icfile{ | tr '\n' '|'}
+    ChangeTitle 4 (GetOutput $cmd 1 -1)
+    Set $iconsd = (GetTitle 4)
+    # Load MediaDirectories file
+    Set $mfile = $PDIR {MediaDirectories}
+    Set $cmd = {cat }$mfile{ | tr '\n' '|'}
+    ChangeTitle 5 (GetOutput $cmd 1 -1)
+    Set $mediad = (GetTitle 5)
+    # Load FullScreenApps file
+    Set $fsafile = $PDIR {FullScreenApps}
+    Set $cmd = {cat }$fsafile{ | tr '\n' '|'}
+    ChangeTitle 6 (GetOutput $cmd 1 -1)
+    Set $fsad = (GetTitle 6)
+    
+    # Load Startup file
+    Do {AT "FVWM-Crystal Editor" "}$editor{ }$PDIR{Startup}
+    #Do {Exec exec xdg-open }$PDIR{Startup}
+End
+
+# Periodic Tasks {{{1
+PeriodicTasks
+Begin
+    # use a timer for flickering {{{2
+    If (RemainderOfDiv (GetTime) 1) == 0 Then
+    Begin
+	# faster if we do nothing here
+	Do Nop
+    End
+End
+
+# Quit Function {{{1
+QuitFunc
+Begin
+  Do Nop
+#  Do {Echo The font: }$SetFont{ is xft:}$FontName{:pixelsize=}$Size{:}$Style
+End
+
+# Main {{{1
+# BROWSER {{{2
+Widget 1
+Property
+    Flags NoReliefString	
+    Position 130 5
+    Size 480 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $browser = (GetTitle 1)
+ End
+ 1 :
+ Begin
+    Set $browser = (GetTitle 1)
+ End
+End
+
+# Browser label
+Widget 10
+Property
+    Flags NoReliefString Center	
+    Position 5 5
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Browser}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Save browser
+Widget 11
+Property
+ Flags NoReliefString
+ Position 625 5
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do {SavePreferences BROWSER "SetEnv BROWSER \\\"}$browser{\\\""}
+  End
+End
+
+# Separation
+Widget 12
+Property
+ Flags NoReliefString
+ Position 20 45
+ Size 760 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# EDITOR {{{2
+Widget 2
+Property
+    Flags NoReliefString	
+    Position 130 50
+    Size 480 35
+    Type TextField
+    Title { }
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $editor = (GetTitle 2)
+ End
+ 1 :
+ Begin
+    Set $editor = (GetTitle 2)
+ End
+End
+
+# Editor label
+Widget 20
+Property
+    Flags NoReliefString Center	
+    Position 5 50
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Editor}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Save editor
+Widget 21
+Property
+ Flags NoReliefString
+ Position 625 50
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do {SavePreferences EDITOR "SetEnv EDITOR \\\"}$editor{\\\""}
+  End
+End
+
+# Separation
+Widget 22
+Property
+ Flags NoReliefString
+ Position 20 90
+ Size 760 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# Desktop directories {{{2
+Widget 3
+Property
+    Flags NoReliefString	
+    Position 130 95
+    Size 480 105
+    Type List
+#    Font "xft:$[panel_font]:size=10:$[panel_font_style]"
+    Title { }
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $desktopd = (GetTitle 3)
+    Set $ddindex = (GetValue 3)
+    Set $cmd = {exec echo "}$desktopd{"|cut -d '|' -f }$ddindex
+    Set $DDstring = (GetOutput $cmd 1 -1)
+    Set $oldDDstring = $DDstring
+    HideWidget 34
+    ChangeTitle 34 $DDstring
+    ShowWidget 34
+ End
+End
+
+# Desktop directories label
+Widget 30
+Property
+    Flags NoReliefString Center	
+    Position 5 95
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Desktop}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+Widget 31
+Property
+    Flags NoReliefString Center	
+    Position 5 125
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Directories}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Add line
+Widget 32
+Property
+ Flags NoReliefString
+ Position 625 125
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Add line}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$desktopd{"|sed -e "s:^.*$:&}$DDstring{|:"}
+      Set $desktopd = (GetOutput $cmd 1 -1)
+      HideWidget 3
+      ChangeTitle 3 $desktopd
+      ShowWidget 3
+      Set $oldDDstring = $DDstring
+  End
+End
+
+# Save desktop dirs
+Widget 33
+Property
+ Flags NoReliefString
+ Position 625 125
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $cmd = {PipeRead 'echo "}$desktopd{"| sed -e \'s:|$::\' | tr \'|\' \'\\n\'>}$dfile{'}
+    Do $cmd
+#  Do {Echo cmd: }$cmd
+#    WriteToFile $dfile $desktopd # crash
+  End
+End
+
+# Edit entry
+Widget 34
+Property
+    Flags NoReliefString	
+    Position 130 205
+    Size 480 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $DDstring = (GetTitle 34)
+ End
+ 1 :
+ Begin
+    Set $DDstring = (GetTitle 34)
+ End
+End
+
+# Remove string
+Widget 35
+Property
+ Flags NoReliefString
+ Position 5 205
+ Size 120 35
+ Type PushButton
+ LocaleTitle {Remove}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$desktopd{"|sed -e "s:}$oldDDstring{|::"}
+      Set $desktopd = (GetOutput $cmd 1 -1)
+      HideWidget 3
+      ChangeTitle 3 $desktopd
+      ShowWidget 3
+  End
+End
+
+# Update string
+Widget 36
+Property
+ Flags NoReliefString
+ Position 625 205
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Update}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$desktopd{"|sed -e "s:}$oldDDstring{:}$DDstring{:"}
+      Set $desktopd = (GetOutput $cmd 1 -1)
+      HideWidget 3
+      ChangeTitle 3 $desktopd
+      ShowWidget 3
+      Set $oldDDstring = $DDstring
+  End
+End
+
+# Separation
+Widget 37
+Property
+ Flags NoReliefString
+ Position 5 245
+ Size 780 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# Icons directories {{{2
+Widget 4
+Property
+    Flags NoReliefString	
+    Position 130 250
+    Size 480 105
+    Type List
+#    Font "xft:$[panel_font]:size=10:$[panel_font_style]"
+    Title { }
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $iconsd = (GetTitle 4)
+    Set $icindex = (GetValue 4)
+    Set $cmd = {exec echo "}$iconsd{"|cut -d '|' -f }$icindex
+    Set $ICstring = (GetOutput $cmd 1 -1)
+    Set $oldICstring = $ICstring
+    HideWidget 44
+    ChangeTitle 44 $ICstring
+    ShowWidget 44
+ End
+End
+
+# Desktop directories label
+Widget 40
+Property
+    Flags NoReliefString Center	
+    Position 5 250
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Icons}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+Widget 41
+Property
+    Flags NoReliefString Center	
+    Position 5 280
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Directories}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Add line
+Widget 42
+Property
+ Flags NoReliefString
+ Position 625 280
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Add line}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$iconsd{"|sed -e "s:^.*$:&}$ICstring{|:"}
+      Set $iconsd = (GetOutput $cmd 1 -1)
+      HideWidget 4
+      ChangeTitle 4 $iconsd
+      ShowWidget 4
+      Set $oldICstring = $ICstring
+  End
+End
+
+# Save icons dirs
+Widget 43
+Property
+ Flags NoReliefString
+ Position 625 320
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $cmd = {PipeRead 'echo "}$iconsd{"| sed -e \'s:|$::\' | tr \'|\' \'\\n\'>}$icfile{'}
+    Do $cmd
+  End
+End
+
+# Edit entry
+Widget 44
+Property
+    Flags NoReliefString	
+    Position 130 360
+    Size 480 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $ICstring = (GetTitle 44)
+ End
+ 1 :
+ Begin
+    Set $ICstring = (GetTitle 44)
+ End
+End
+
+# Remove string
+Widget 45
+Property
+ Flags NoReliefString
+ Position 5 360
+ Size 120 35
+ Type PushButton
+ LocaleTitle {Remove}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$iconsd{"|sed -e "s:}$oldICstring{|::"}
+      Set $iconsd = (GetOutput $cmd 1 -1)
+      HideWidget 4
+      ChangeTitle 4 $iconsd
+      ShowWidget 4
+  End
+End
+
+# Update string
+Widget 46
+Property
+ Flags NoReliefString
+ Position 625 360
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Update}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$iconsd{"|sed -e "s:}$oldICstring{:}$ICstring{:"}
+      Set $iconsd = (GetOutput $cmd 1 -1)
+      HideWidget 4
+      ChangeTitle 4 $iconsd
+      ShowWidget 4
+      Set $oldICstring = $ICstring
+  End
+End
+
+# Separation
+Widget 47
+Property
+ Flags NoReliefString
+ Position 5 400
+ Size 780 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# Media directories {{{2
+Widget 5
+Property
+    Flags NoReliefString	
+    Position 130 405
+    Size 480 105
+    Type List
+#    Font "xft:$[panel_font]:size=10:$[panel_font_style]"
+    Title { }
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $mediad = (GetTitle 5)
+    Set $mindex = (GetValue 5)
+    Set $cmd = {exec echo "}$mediad{"|cut -d '|' -f }$mindex
+    Set $Mstring = (GetOutput $cmd 1 -1)
+    Set $oldMstring = $Mstring
+    HideWidget 54
+    ChangeTitle 54 $Mstring
+    ShowWidget 54
+ End
+End
+
+# Media directories label
+Widget 50
+Property
+    Flags NoReliefString Center	
+    Position 5 405
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Media}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+Widget 51
+Property
+    Flags NoReliefString Center	
+    Position 5 435
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Directories}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+Widget 510
+Property
+ Flags NoReliefString
+ Position 5 480
+ Size 120 35
+ Type PushButton
+ LocaleTitle {Help}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do {Module FvwmForm MediaDirectories-Dialog}
+  End
+End
+
+# Add line
+Widget 52
+Property
+ Flags NoReliefString
+ Position 625 435
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Add line}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$mediad{"|sed -e "s:^.*$:&}$Mstring{|:"}
+      Set $mediad = (GetOutput $cmd 1 -1)
+      HideWidget 5
+      ChangeTitle 5 $mediad
+      ShowWidget 5
+      Set $oldMstring = $Mstring
+  End
+End
+
+# Save media dirs
+Widget 53
+Property
+ Flags NoReliefString
+ Position 625 475
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $cmd = {PipeRead 'echo "}$mediad{"| sed -e \'s:|$::\' | tr \'|\' \'\\n\'>}$mfile{'}
+    Do $cmd
+  End
+End
+
+# Edit entry
+Widget 54
+Property
+    Flags NoReliefString	
+    Position 130 515
+    Size 480 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $Mstring = (GetTitle 54)
+ End
+ 1 :
+ Begin
+    Set $Mstring = (GetTitle 54)
+ End
+End
+
+# Remove string
+Widget 55
+Property
+ Flags NoReliefString
+ Position 5 515
+ Size 120 35
+ Type PushButton
+ LocaleTitle {Remove}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$mediad{"|sed -e "s:}$oldMstring{|::"}
+      Set $mediad = (GetOutput $cmd 1 -1)
+      HideWidget 5
+      ChangeTitle 5 $mediad
+      ShowWidget 5
+  End
+End
+
+# Update string
+Widget 56
+Property
+ Flags NoReliefString
+ Position 625 515
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Update}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$mediad{"|sed -e "s:}$oldMstring{:}$Mstring{:"}
+      Set $mediad = (GetOutput $cmd 1 -1)
+      HideWidget 5
+      ChangeTitle 5 $mediad
+      ShowWidget 5
+      Set $oldMstring = $Mstring
+  End
+End
+
+# Separation
+Widget 57
+Property
+ Flags NoReliefString
+ Position 5 555
+ Size 780 1
+ Type Rectangle
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Do Nop
+  End
+End
+
+# Full screen apps {{{2
+Widget 6
+Property
+    Flags NoReliefString	
+    Position 130 560
+    Size 480 105
+#    Type SwallowExec
+    Type List
+    Title { }
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $fsad = (GetTitle 6)
+    Set $fsaindex = (GetValue 6)
+    Set $cmd = {exec echo "}$fsad{"|cut -d '|' -f }$fsaindex
+    Set $FSAstring = (GetOutput $cmd 1 -1)
+    Set $oldFSAstring = $FSAstring
+    HideWidget 64
+    ChangeTitle 64 $FSAstring
+    ShowWidget 64
+ End
+End
+
+# Full Screen Apps label
+Widget 60
+Property
+    Flags NoReliefString Center	
+    Position 5 560
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Full screen}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+Widget 61
+Property
+    Flags NoReliefString Center	
+    Position 5 595
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {Applications}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+#Widget 610
+#Property
+# Flags NoReliefString
+# Position 5 620
+# Size 120 35
+# Type PushButton
+# LocaleTitle {Help}
+#Main
+#  Case message of
+#  SingleClic :
+#  Begin
+#      Do {Module FvwmForm FullScreenApps-Dialog}
+#  End
+#End
+
+# Add line
+Widget 62
+Property
+ Flags NoReliefString
+ Position 625 590
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Add line}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$fsad{"|sed -e "s:^.*$:&}$FSAstring{|:"}
+      Set $fsad = (GetOutput $cmd 1 -1)
+      HideWidget 6
+      ChangeTitle 6 $fsad
+      ShowWidget 6
+      Set $oldFSAstring = $FSAstring
+  End
+End
+
+# Save Full Screen Apps
+Widget 63
+Property
+ Flags NoReliefString
+ Position 625 630
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $cmd = {PipeRead 'echo "}$fsad{"| sed -e \'s:|$::\' | tr \'|\' \'\\n\'>}$fsafile{'}
+    Do $cmd
+  End
+End
+
+# Edit entry
+Widget 64
+Property
+    Flags NoReliefString	
+    Position 130 670
+    Size 480 35
+    Type TextField
+    Title { }
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $FSAstring = (GetTitle 64)
+ End
+ 1 :
+ Begin
+    Set $FSAstring = (GetTitle 64)
+ End
+End
+
+# Remove string
+Widget 65
+Property
+ Flags NoReliefString
+ Position 5 670
+ Size 120 35
+ Type PushButton
+ LocaleTitle {Remove}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$fsad{"|sed -e "s:}$oldFSAstring{|::"}
+      Set $fsad = (GetOutput $cmd 1 -1)
+      HideWidget 6
+      ChangeTitle 6 $fsad
+      ShowWidget 6
+  End
+End
+
+# Update string
+Widget 66
+Property
+ Flags NoReliefString
+ Position 625 670
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Update}
+Main
+ Case message of
+  SingleClic :
+  Begin
+      Set $cmd = {echo "}$fsad{"|sed -e "s:}$oldFSAstring{:}$FSAstring{:"}
+      Set $fsad = (GetOutput $cmd 1 -1)
+      HideWidget 6
+      ChangeTitle 6 $fsad
+      ShowWidget 6
+      Set $oldFSAstring = $FSAstring
+  End
+End
+
+# vim:ft=fvwm

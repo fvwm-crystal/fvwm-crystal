@@ -1,0 +1,110 @@
+# Thumbnails
+# If included after Fullscreen, the icons cannot be moved
+
+SetEnv ThumbWidth 128
+SetEnv ThumbHeight 128
+
+# Icons don't have titles
+Style * !NoIcon
+Style * NoIconTitle
+Style * IconSize 128 128
+#Style * HilightIconTitleColorset
+Style * IconBackgroundColorset $[infostore.cs_transparent]
+#Style * IconTitleRelief 0
+Style * IconBackgroundRelief 0
+
+
+# One of (best to worst): resize, scale, sample
+SetEnv ThumbQuality "resize"
+SetEnv ThumbBorderColor "gray"
+
+SetEnv ThumbDirectory "/tmp"
+
+#SetEnv SelectOnReleaseKey Alt_L
+
+DestroyFunc Window-Iconify
+AddToFunc Window-Iconify
++ I Current (!Iconifiable) Break
++ I CreateThumbnail
+
+# Window thumbnails can be moveable using LMB
+#AddToFunc Icon-Restore-CurrentDesk M Move
+
+DestroyFunc Icon-Close
+AddToFunc Icon-Close
+#+ I Nop
+# Keep this line for the benefit of FVWM 2.5.13 -- versions thereafer
+# support nested variable expansion.
++ D PipeRead "echo WindowStyle Icon \\$\\[Icon-$[w.id]\\]"
++ D WindowId $[w.id] Layer 0 4
++ D UnsetEnv Icon-$[w.id]
++ D DestroyWindowStyle
++ D Test (f $[ThumbDirectory]/icon.tmp.$[w.id].png) Exec exec rm -f $[ThumbDirectory]/icon.tmp.$[w.id].png
++ D Close
+
+DestroyFunc CreateThumbnail
+AddToFunc CreateThumbnail
++ I Raise
++ I Piperead "xwd -silent -id $[w.id] > $[ThumbDirectory]/icon.tmp.$[w.id].xwd"
++ I Iconify
++ I State 4 true
++ I State 5 true
++ I PipeRead ` nice -19 convert -$[ThumbQuality] $[ThumbWidth]x$[ThumbHeight] -frame 1x1 \
+    -mattecolor $[ThumbBorderColor] -quality 0 \
+    xwd:$[ThumbDirectory]/icon.tmp.$[w.id].xwd png:$[ThumbDirectory]/icon.tmp.$[w.id].png; \
+    rm $[ThumbDirectory]/icon.tmp.$[w.id].xwd; test -f $[w.iconfile] && composite -compose over -geometry +5+5 \
+    $[w.iconfile] $[ThumbDirectory]/icon.tmp.$[w.id].png $[ThumbDirectory]/icon.tmp.$[w.id].png; \
+    echo 'WindowId $[w.id] WindowStyle NeverFocus, Colorset $[infostore.cs_quakeconsole], HilightColorset $[infostore.cs_quakeconsole], EWMHMiniIconOverride, IconOverride, Icon $[ThumbDirectory]/icon.tmp.$[w.id].png, MiniIcon $[ThumbDirectory]/icon.tmp.$[w.id].png'; \
+    echo 'WindowId $[w.id] Layer 0 2'`
+
+# {{{ Comments about RemoveThumbnail
+# In FVWM-Crystal thumbnails are de-iconified using "Iconify false" command.
+# FvwmEvent module catches this event and starts 'RemoveThumbnail' function.
+# Because there are two instances of FvwmEvent, we can make a double-loop and
+# do two things in one complex function:
+# How thumbnail system works:
+# While thumbnail is created, two States are set (4 & 5). When
+# 'RemoveThumbnail' is called, it does:
+# (first FvwmEvent instance)
+# - check if State 5 is set, if yes, then try to de-iconify and focus a window
+# (currently impossible because of the window's Styles)
+# - check if State 4 is set, if yes, then remove the thumbnail and reset
+# window's Syles
+# - unset State 4
+# (second FvwmEvent instance)
+# - check if State 5 is set, if yes, then try to de-iconify and focus a window
+# (now doable)
+# - check if State 4 is set, if no, unset State 5 and break
+# The result is focused window after de-iconification and cleaned up thumbnail
+# image. }}}
+DestroyFunc RemoveThumbnail
+AddToFunc RemoveThumbnail
++ I ThisWindow (!State 5) Break
++ I ThisWindow DestroyWindowStyle
++ I Schedule 100 WindowId $[w.id] Window-Focus-CurrentDesk
++ I ThisWindow (!State 4) State 5 false
++ I ThisWindow (!State 4) Break
+# Keep this in for the benefit of FVWM 2.5.13, although versions
+# thereafter have support for nested variable expansion.
++ I PipeRead "echo WindowStyle Icon \\$\\[Icon-$[w.id]\\]"
++ I WindowId $[w.id] Layer 0 4
++ I UnsetEnv Icon-$[w.id]
++ I Test (f $[ThumbDirectory]/icon.tmp.$[w.id].png) Exec exec rm -f $[ThumbDirectory]/icon.tmp.$[w.id].png
++ I State 4 false
++ I Test (f $[infostore.TmpDirectory]/fullscreen.19.$[w.id].$[page.nx].$[page.ny].tmp) ThisWindow Fullscreen-Start
+
+DestroyModuleConfig FvwmEvent-Icon-Thumbnails: *
+*FvwmEvent-Icon-Thumbnails: deiconify RemoveThumbnail
+Module FvwmEvent FvwmEvent-Icon-Thumbnails
+
+# Restore the thumbnails after session restart, a delay is required to get correct icons order with the Icon-Launcher
+DestroyFunc RecoverThumbnails
+AddToFunc RecoverThumbnails
++ I All Test (f $[ThumbDirectory]/icon.tmp.$[w.id].png) WindowId $[w.id] WindowStyle IconOverride, Icon $[ThumbDirectory]/icon.tmp.$[w.id].png
+
+AddToFunc StartFunction I Schedule 500 RecoverThumbnails
+
+# Icons can be moved around
+AddToFunc Icon-Restore-CurrentDesk M Move
+
+# vim:ft=fvwm

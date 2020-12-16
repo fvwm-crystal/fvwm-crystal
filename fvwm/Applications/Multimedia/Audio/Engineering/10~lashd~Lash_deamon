@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec lashd $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec jack-dssi-host sineshaper.so $@ 2>/dev/null
+

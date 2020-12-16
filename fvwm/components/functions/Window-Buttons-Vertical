@@ -1,0 +1,140 @@
+# Menus for window buttons
+# This the same as the 'Window-Buttons' file, except that it provides
+# functions for vertically-aligned desktop pages.
+# Usage:
+#
+# Mouse (mbutton#) (button#) (mod) Window-Button-Function (Button#) (menu) (function)
+#
+# Where:
+# mbutton# - number of the mouse button (0 - all buttons, 1 - left button,
+# 2 - middle button, 3 - right button)
+# button# - number of the window title button, 0-9
+# mod - modifier, see ~/.fvwm/functions/Keyboard-Modifiers
+# Button# - number of the window title button, Button0-Button9
+# menu - name of the menu opened on the mouse hold
+# function - function executed after mouse click
+
+DestroyFunc NS-Maximize
+AddToFunc NS-Maximize
++ I Maximize True 100 100
+
+DestroyFunc Minimize
+AddToFunc Minimize
++ I This Window ("URxvt|XTerm|aterm|Terminal|Gnome-terminal|UXTerm|xterm|Xfce4-terminal|Vte") ResizeMaximize direction East 80c 3c
++ I TestRc (NoMatch) ResizeMaximize direction East 200p 60p
+
+DestroyFunc NS-Default
+AddToFunc NS-Default
++ I Maximize $[WindowWidth_$[w.id]] $[WindowHeight_$[w.id]]
+
+DestroyFunc NS-A100
+AddToFunc NS-A100
++ I Maximize True 100 100
+
+DestroyFunc NS-H100
+AddToFunc NS-H100
++ I Maximize True 100 0
+
+DestroyFunc NS-V100
+AddToFunc NS-V100
++ I Maximize True 0 100
+
+DestroyFunc NS-Hgrow
+AddToFunc NS-Hgrow
++ I Maximize True grow 0
+
+DestroyFunc NS-Vgrow
+AddToFunc NS-Vgrow
++ I Maximize True 0 grow
+
+DestroyFunc NS-VHgrow
+AddToFunc NS-VHgrow
++ I Maximize True grow grow
+
+# Wrapper functions for window decorations {{{1
+DestroyFunc Window-MoveToPage-Forward
+AddToFunc Window-MoveToPage-Forward
++ I MoveToPage-Down
+
+DestroyFunc Window-MoveToPage-Backward
+AddToFunc Window-MoveToPage-Backward
++ I MoveToPage-Up
+
+DestroyFunc Window-WarpToPage-Forward
+AddToFunc Window-WarpToPage-Forward
++ I WarpToPage-Down
+
+DestroyFunc Window-WarpToPage-Backward
+AddToFunc Window-WarpToPage-Backward
++ I WarpToPage-Up
+
+
+DestroyFunc Window-Button-Function
+AddToFunc Window-Button-Function
++ H Popup $1 $0 0 100
++ C $2 $3 $4 $5 $6 $7 $8 $9
+
+
+DestroyMenu /Window-Menu-Close
+AddToMenu /Window-Menu-Close
++ '$[gt.Iconify]'	Window-Iconify
++ '$[gt.Close]'		Close
++ '$[gt.Destroy]'	Destroy
++ "" Nop
++ '$[gt.Identify]'	FvwmIdent
+
+DestroyMenu /Window-Menu-Maximize
+AddToMenu /Window-Menu-Maximize
++ '$[gt.Fullscreen]'	Fullscreen
++ '$[gt.Maximize]'	Maximize
++ '$[gt.Minimize]'	Minimize
++ '$[gt.Maximize horizontally]'	Maximize 100 0
++ '$[gt.Maximize vertically]'	Maximize 0 100
++ "" Nop
++ '$[gt.Take all free space]'	Maximize grow grow
++ '$[gt.Take all horizontal space]'	Maximize grow 0
++ '$[gt.Take all vertical space]'	Maximize 0 grow
+
+DestroyMenu /Window-Menu-Layer
+AddToMenu /Window-Menu-Layer
++ '$[gt.Stay raised]'	Layer 0 5
++ '$[gt.Normal mode]'	Layer 0 4
++ '$[gt.Stay lowered]'	Layer 0 3
++ '$[gt.Stick]'		Stick
++ "" Nop
++ '$[gt.Refresh]'	RefreshWindow
+
+DestroyMenu /Window-Menu-Page
+AddToMenu /Window-Menu-Page
++ DynamicPopupAction Function /Window-Menu-Page-generator
+
+DestroyFunc /Window-Menu-Page-generator
+AddToFunc /Window-Menu-Page-generator
++ I DestroyMenu recreate /Window-Menu-Page
++ I AddToMenu /Window-Menu-Page '$[gt.Move to upper page]'		Window-MoveToPage-Backward
++ I AddToMenu /Window-Menu-Page '$[gt.Move to previous page]'		MoveToPage-Focus prev
++ I AddToMenu /Window-Menu-Page '$[gt.Move to lower page]'		Window-MoveToPage-Forward
++ I AddTomenu /Window-Menu-Page "" Nop
++ I AddToMenu /Window-Menu-Page '$[gt.Jump to upper page]'		Window-WarpToPage-Backward
++ I AddToMenu /Window-Menu-Page '$[gt.Jump to previous page]'		WarpToPage prev
++ I AddToMenu /Window-Menu-Page '$[gt.Jump to lower page]'		Window-WarpToPage-Forward
++ I AddToMenu /Window-Menu-Page "" Nop
++ I PipeRead 'for i in `seq 0 $(($[desk.pagesy]-1))` ; do echo "AddToMenu /Window-Menu-Page \'$[gt.Move to page] $(($i+1))\' MoveToPage 0 $i" ; done'
+
+
+# Combined version of menu for window styles other than FVWM-Crystal {{{1
+DestroyMenu /Window-Menu
+AddToMenu /Window-Menu
++ '$[gt.Iconify]'	Window-Iconify
++ '$[gt.Stick]'		Stick
++ '$[gt.Stay raised]'	Layer 0 5
++ '$[gt.Normal mode]'		Layer 0 4
++ '$[gt.Fullscreen]'		Fullscreen
++ "" Nop
++ '$[gt.Move to upper page]'	Window-MoveToPage-Backward
++ '$[gt.Move to lower page]'	Window-MoveToPage-Forward
++ "" Nop
++ '$[gt.Identify]'		FvwmIdent
++ '$[gt.Close]'			Close
+
+# vim:ft=fvwm

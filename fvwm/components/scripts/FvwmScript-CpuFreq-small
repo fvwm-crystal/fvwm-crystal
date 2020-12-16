@@ -1,0 +1,119 @@
+#
+# Dominique Michel 2014; Derived from Fvwm-Script-CpuFreq from:
+# LiNiO <linio@wonder.pl> - 2005.01.15
+# 2005.08.12 - jeśli wartość się nie zmieniła, nie wyświetla jej ponownie
+#         - usunięcie efektu "migotania"
+#
+# 2006.05.15 - fall back to /proc/cpuinfo which is present on every linux
+#         system in case cpufreq is not available
+#         Michael Stilkerich <ms@mike2k.de>
+#
+# o 2015.10.02 - Use same colorset than the AcpiBatt applet
+#   Dominique Michel <dominique.c.michel@gmail.com>
+
+WindowTitle {FvwmScript-CpuFreq}
+WindowSize 60 24
+WindowPosition 10000 10000
+Font "xft:Tahoma:pixelsize=10:Bold"
+Colorset 12
+
+Init
+Begin
+  Set $hascpufreq=(GetOutput {if [ -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq ]; then echo 1; else echo 0; fi} 1 -1)
+  If $hascpufreq == {1} Then
+    Set $freqcmd={cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq}
+  Else
+    Set $freqcmd={cat /proc/cpuinfo | grep "cpu MHz" | sed -e 's/[^0-9]//g'}
+  
+  Set $freqa = (GetOutput $freqcmd 1 -1)
+  Set $freqa_prev = $freqa
+  Set $freq = (Div $freqa 1000)
+
+  If $freq < 1000 Then
+    Set $freq=$freq MHz
+  Else
+  Begin
+    Set $freqg = (Div $freq 1000)
+    Set $freqm = (StrCopy $freq 2 3)
+    Set $freq=$freqg . $freqm GHz
+  End
+
+  ChangeTitle 1 $freq
+End
+
+PeriodicTasks
+Begin 
+ If (RemainderOfDiv (GetTime) 5)==0 Then
+ Begin
+  Set $freqa = (GetOutput $freqcmd 1 -1)
+  If $freqa==$freqa_prev Then
+  Begin
+    # do nothing
+  End
+  Else
+  Begin
+    # We should only get here with cpufreq available
+    Set $freqa_prev = $freqa
+    Set $freqmin = (GetOutput {cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq} 1 1)
+    Set $freqmax = (GetOutput {cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq} 1 1)
+    Set $freqminneg = (Mult $freqmin -1)
+    Set $freqp1 = (Add $freqa $freqminneg )
+    Set $freqp2 = (Add $freqmax $freqminneg )
+    Set $freqp2 = (Div $freqp2 100 )
+
+    Set $freqp = (Div $freqp1 $freqp2)
+
+    Set $freq = (Div $freqa 1000)
+
+    If $freq < 1000 Then
+      Set $freq=$freq MHz
+    Else
+    Begin
+      Set $freqg = (Div $freq 1000)
+      Set $freqm = (StrCopy $freq 2 3)
+      Set $freq=$freqg . $freqm GHz
+    End
+  
+    If $freqp>74 Then
+      ChangeColorset 1 17
+    Else
+    Begin
+      If $freqp>43 Then
+        ChangeColorset 1 16
+      Else
+      Begin
+        If $freqp>22 Then
+          ChangeColorset 1 15
+        Else
+        Begin
+          If $freqp>11 Then
+            ChangeColorset 1 14
+          Else
+          Begin
+            If $freqp>1 Then
+              ChangeColorset 1 13
+            Else
+              ChangeColorset 1 12
+          End
+        End
+      End
+    End
+    ChangeTitle 1 $freq
+  End
+ End
+End
+
+Widget 1
+Property
+Position 0 0
+Size 60 22
+Type ItemDraw
+Flags NoReliefString
+Title {}
+Colorset 12
+Main
+Case message of
+ SingleClic :
+ Begin
+ End
+End

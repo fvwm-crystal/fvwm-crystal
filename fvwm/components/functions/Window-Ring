@@ -1,0 +1,14 @@
+# Window ring functions - using these you can go in either direction of the
+# FVWM ring of windows
+
+DestroyFunc Window-Ring-Next
+AddToFunc Window-Ring-Next
++ I Next (CurrentPage, !Iconic, AcceptsFocus) Focus
++ I Current (CurrentPage, !Iconic, AcceptsFocus) Raise
+
+DestroyFunc Window-Ring-Previous
+AddToFunc Window-Ring-Previous
++ I Prev (CurrentPage, !Iconic, AcceptsFocus) Focus
++ I Current (CurrentPage, !Iconic, AcceptsFocus) Raise
+
+# vim:ft=fvwm

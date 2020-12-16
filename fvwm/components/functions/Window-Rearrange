@@ -1,0 +1,23 @@
+# Window rearrange functions
+
+DestroyFunc Window-Rearrange-Cascade
+AddToFunc Window-Rearrange-Cascade
++ I All (CurrentPage,!Fvwm*, !gkrellm, !trayer) WindowShade off
++ I Piperead 'echo FvwmRearrange -cascade -animate -noresize  -m $[EWMH_BS_Panel_Left]p $[EWMH_BS_Panel_Top]p `expr $[vp.width] - $[EWMH_BS_Panel_Right]`p `expr $[vp.height] - $[EWMH_BS_Panel_Bottom]`p'
+
+DestroyFunc Window-Rearrange-Cascade-Shaded
+AddToFunc Window-Rearrange-Cascade-Shaded
++ I All (CurrentPage,!Fvwm*, !gkrellm, !trayer) WindowShade on
++ I Piperead 'echo FvwmRearrange -cascade -animate -noresize  -m $[EWMH_BS_Panel_Left]p $[EWMH_BS_Panel_Top]p `expr $[vp.width] - $[EWMH_BS_Panel_Right]`p `expr $[vp.height] - $[EWMH_BS_Panel_Bottom]`p'
+
+DestroyFunc Window-Rearrange-One-Column
+AddToFunc Window-Rearrange-One-Column
++ I All (CurrentPage,!Fvwm*, !gkrellm, !trayer) WindowShade off
++ I Piperead 'echo FvwmRearrange -tile -animate -resize -mn 1 -m $[EWMH_BS_Panel_Left]p $[EWMH_BS_Panel_Top]p `expr $[vp.width] - $[EWMH_BS_Panel_Right]`p `expr $[vp.height] - $[EWMH_BS_Panel_Bottom]`p'
+
+DestroyFunc Window-Rearrange-Two-Column
+AddToFunc Window-Rearrange-Two-Column
++ I All (CurrentPage,!Fvwm*, !gkrellm, !trayer) WindowShade off
++ I Piperead 'echo FvwmRearrange -tile -animate -resize -mn 2 -m $[EWMH_BS_Panel_Left]p $[EWMH_BS_Panel_Top]p `expr $[vp.width] - $[EWMH_BS_Panel_Right]`p `expr $[vp.height] - $[EWMH_BS_Panel_Bottom]`p'
+
+# vim:ft=fvwm

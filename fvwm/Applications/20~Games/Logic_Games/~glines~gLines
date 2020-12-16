@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec glines $@ 2>/dev/null
+

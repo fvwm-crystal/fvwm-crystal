@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec deluge $@ 2>/dev/null
+

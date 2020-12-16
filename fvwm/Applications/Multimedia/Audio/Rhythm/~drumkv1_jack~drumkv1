@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec /usr/bin/drumkv1_jack $@ 2>/dev/null

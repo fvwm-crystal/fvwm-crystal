@@ -1,0 +1,85 @@
+'\" t
+.\"     Title: CrystalRoxHOWTO
+.\"    Author: [see the "AUTHORS" section]
+.\" Generator: DocBook XSL Stylesheets v1.79.1 <http://docbook.sf.net/>
+.\"      Date: 04/12/2020
+.\"    Manual: FVWM-Crystal
+.\"    Source: CrystalROXHOWTO 3.2.5
+.\"  Language: English
+.\"
+.TH "CRYSTALROXHOWTO" "1" "04/12/2020" "CrystalROXHOWTO 3\&.2\&.5" "FVWM\-Crystal"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+CrystalRoxHOWTO \- Crystal ROX! HOWTO \- (Read as "Crystal rocks!" ;)
+.SH "SYNOPSIS"
+.sp
+None
+.SH "DESCRIPTION"
+.sp
+In this HOWTO I will show you how to setup FVWM\-Crystal desktop with ROX\-Filer file manager, so they are working smoothly\&.
+.SH "WHAT IS ROX\-FILER?"
+.sp
+(From the ROX\-Filer manual) ROX\-Filer is a graphical file manger for the X Window System\&. Its user interface is based on the RISC OS filer and it supports similar features such as application directories and drag\-and\-drop loading and saving of files\&. The filer can also act as a pinboard, allowing you to pin frequently used files onto the desktop background\&.
+.sp
+Homepage: http://rox\&.sourceforge\&.net
+.sp
+In Crystal, while you can utilize an application\-based work system (open an application and from it\(cqs menu open a document), ROX\-Filer will let you use also document\-based work style (open a document file in selected application), of course after a little customization of Filer\(cqs settings\&.
+.SH "HOW TO MAKE ROX\-FILER WORK WITH FVWM\-CRYSTAL?"
+.sp
+Install ROX\-Filer\&. I assume that executable is called \fBrox\fR\&. If name is different, change it accordingly or make a symlink to \fB/usr/local/bin/rox\fR\&.
+.sp
+In FVWM\-Crystal you can select a \fBdesktop manager\fR to use\&. This option is located in: Diamond ⇒ Preferences ⇒ Desktop manager\&. Select ROX\-Filer\&. Crystal will ask you to logout and start again your X session \- you can do it right away or later, if you wish\&.
+.sp
+If everything was correctly installed, FVWM\-Crystal should run with gray background and \fBHome\fR icon in the upper\-left corner of the screen (that\(cqs ROX\(cqs pinboard)\&. Now click on the background and from the menu select \fBROX\-Filer\fR ⇒ \fBOptions\fR\&. Go to \fBIconified windows\fR and turn off \fBShow iconified windows\fR option\&. Now go to \fBCompatibility\fR section and turn on \fBPass all backdrop mouse clicks to window manager\fR option\&. This way you will be able to open terminal windows using RMB on the desktop\&. ROX\-Filer menu can be still accessed by clicling with RMB on the icons\&. You can now change ROX\(cqs options at will\&.
+.sp
+You can change desktop wallpaper using the Crystal\(cqs menu system\&.
+.SH "KNOWN ISSUES:"
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+window thumbnails aren\(cqt transparent, probably because FVWM doesn\(cqt use ROX\(cqs pinboard as the source of transparency for it\(cqs icons?
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Icon selected on the desktop stays selected; that\(cqs because ROX\-Filer sends all mouse button clicks to the window manager\&. If you don\(cqt want a selected icon on the desktop all the time, open a directory or launch a file from your desktop\&.
+.RE
+.SH "AUTHORS"
+.sp
+Documentation written by Maciej Delmanowski <harnir@berlios\&.de> and ported to asciidoc by Dominique Michel <dominique_libre@users\&.sourceforge\&.net>
+.SH "COPYRIGHT"
+.sp
+\fBFVWM\-Crystal\fR and all the scripts and other files coming with the distribution are subject to the GNU General Public License (GPL)\&. Please refer to the COPYING file that came with \fBFVWM\-Crystal\fR for details\&.
+.SH "BUGS"
+.sp
+Bug reports can be sent to the fvwm\-crystal\-users mailing list at https://mail\&.gna\&.org/listinfo/fvwm\-crystal\-users/\&.

@@ -1,0 +1,43 @@
+# NeXTStep version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle Inactive AdjustedPixmap $./title-inactive.png
++ TitleStyle Active AdjustedPixmap $./title-active.png
++ TitleStyle Centered
++ TitleStyle -- flat
+PipeRead 'echo "+ TitleStyle Height $(($[title_font_size]+$(($[title_font_size]/3))))"'
+
++ BorderStyle -- HiddenHandles
++ BorderStyle -- Flat
+
+# Iconify
++ ButtonStyle 1 Inactive AdjustedPixmap $./button-gray.png
++ ButtonStyle 1 ActiveUp AdjustedPixmap $./button-yellow.png
++ ButtonStyle 1 ActiveDown AdjustedPixmap $./button-yellow-icon.png
+
+# Close
++ ButtonStyle 2 Inactive AdjustedPixmap $./button-gray.png
++ ButtonStyle 2 ActiveUp AdjustedPixmap $./button-red.png
++ ButtonStyle 2 ActiveDown AdjustedPixmap $./button-red-icon.png
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- flat
+
+Style * HandleWidth 1, BorderWidth 1
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactive], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_active]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-nextstep
+

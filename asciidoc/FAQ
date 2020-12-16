@@ -1,0 +1,548 @@
+fvwm-crystal-FAQ(1)
+===================
+:doctype: manpage
+:man source:   FAQ
+:man version:  3.6.4
+:man manual:   FVWM-Crystal
+
+NAME
+----
+FVWMCrystalFAQ - FVWM-Crystal Frequently Asked Questions
+
+
+SYNOPSIS
+--------
+
+None
+
+
+DESCRIPTION
+-----------
+
+Last updated:
+~~~~~~~~~~~~
+ 05.11.2015, for version 3.4.0
+
+Table of Contents
+-----------------
+
+1. General information.
+~~~~~~~~~~~~~~~~~~~~~~~
+1.1: What is FVWM-Crystal?
+
+1.2: Who are the authors?
+
+1.3: Where I can get the newest version?
+
+1.4: Is there a mailing list?
+
+
+2. Installation.
+~~~~~~~~~~~~~~~~
+2.1: What do I need to install FVWM-Crystal?
+
+2.2: Can I use FVWM-Crystal with *stable* FVWM branch (2.4.x)?
+
+2.3: How to install FVWM-Crystal from distributed packages?
+
+2.4: How to install FVWM-Crystal from darcs repository?
+
+2.5: How to install FVWM-Crystal manually?
+
+2.6: How I can select FVWM-Crystal as my window manager?
+
+2.7: When I start FVWM-Crystal I get only the empty FVWM desktop...
+
+2.8: Why there is no application panel on the desktop?
+
+2.9: How can I get the error log of FVWM-Crystal
+
+
+3. Usage.
+~~~~~~~~~
+3.1: Where can I start some prefered application at startup?
+
+3.2: Where can I add my prefered fvwm command?
+
+3.3: How can I have a tear off menu?
+
+3.4: How can I record medias with mplayer?
+
+3.5: The Music menu get screwed. What can I do about this?
+
+3.6: Mplayer doesn't show the movie I selected into the menu. Why?
+
+3.7: Mplayer is flaky. What can I do?
+
+3.8: How to change FVWM-Crystal key bindings that collide with Emacs or Ardour?
+
+3.9: What do I need to do to create my own personal recipe(s)?
+
+3.10: How to customize the application menu?
+
+3.11: How to get a consistant look between toolkits?
+
+3.12: Mounting/unmounting don't work with all medias?
+
+3.13: The Feedback/Support form just close when I click on any button?
+
+3.14: The menu generation fail with oofice4?
+
+Frequently Asked Questions
+--------------------------
+Here are the answers!
+
+1. General information.
+-----------------------
+
+1.1 Q: What is FVWM-Crystal?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: It's a set of FVWM configuration files, some Python and shell scripts, a set of application icons and images. This combination produces a fairly decent and customized Linux desktop using FVWM as it's basic component. With additional file managers, such as Thunar ROX-Filer or Nautilus (from GNOME Project) you can create usable and good-looking Linux desktop environment.
+
+1.2 Q: Who are the authors?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: The original author FVWM-Crystal is Maciej Delmanowski. You can contact with him using his e-mail account <harnir@berlios.de> or through Jabber network <harnir@jabberek.net>.
+
+The current author and maintener is Dominique Michel
+<dominique_libre@users.sourceforge.net>
+
+FVWM-Crystal could not be in the present state without the help of other people. You can find their list in the AUTHORS file included in the project's package.
+
+
+1.3 Q: Where I can get the newest version?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Newest stable version can be always found on the main FVWM-Crystal website:
+----
+https://sourceforge.net/projects/fvwm-crystal/?source=navbar
+----
+Some GNU/Linux distributions have already included packages, usually named *fvwm-crystal*.
+
+You can also use the development version. It is a subversion repository which contains the newest code. You can find more information on
+----
+http://fvwm-crystal.sourceforge.net/download.html
+----
+
+1.4 Q: Is there a mailing list?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Yes, there is. You can read the archives by pointing your web browser on
+----
+http://lists.berlios.de/pipermail/fvwm-crystal-users/
+----
+If you want to subscribe, you can do it using the Web interface:
+----
+http://lists.berlios.de/mailman/listinfo/fvwm-crystal-users
+----
+
+2. Installation.
+-----------------
+
+2.1 Q: What do I need to install FVWM-Crystal?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: If you want to use FVWM-Crystal, you need to have:
+
+- *FVWM window manager*, version 2.6.5+
+
+- *Python* interpreter 2.7
+
+- POSIX shell interpreter
+
+- an application which can set the desktop wallpaper (Esetroot, hsetroot, feh)
+
+- coreutils (you just already have it)
+
+- gawk
+
+- sed
+
+- xwd (for on the fly icon generation)
+
+- /proc/mounts for the FVWM-Crystal desktop icons (used to update the icons on the fly)
+
+- bc if AlsaPlayer or MPlayer is installed (speed control)
+
+You can install these applications to get additional functionality:
+
+- terminal emulator (xterm, Aterm, Eterm, urxvt, mrxvt, gnome-terminal, terminator, konsole, mgt or xfce4-terminal are currently supported)
+
+- ImageMagick - for window thumbnails and making screenshots
+
+- XScreenSaver - a desktop screensaver
+
+- stalonetray or trayer - stand-alone tray/notification area application
+
+- sudo - running text-based applications as superuser and for shutdown/reboot commands (needs to be configured properly)
+
+- gksudo - for running graphical applications as superuser
+
+- GDM (gdmflexiserver) - for shutdown/reboot/new login commands
+
+- a music player - AlsaPlayer, XMMS2 , QuodLibet, cdcd, MPlayer, cmus, audacious or MPD are supported
+
+- some file manager - Thunar, ROX-Filer, Nautilus, worker, mc krusader, xfm, 4Pane, ranger, pcmanfm, gentoo, konqueror, emelfm2dolphin and spacefm are supported directly. The other can be supported via custom commands in the preferences of the FVWM_Crystal desktop manager.
+
+- pm-utils - hibernate / resume functions. It was tested with and without systemd
+
+Here are URLs for applications specified above:
+
+- FVWM		http://www.fvwm.org/
+
+- habak, trayer	http://fvwm-crystal.berlios.de/
+
+- Esetroot	http://www.jnrowe.ukfsn.org/projects/esetroot.html
+
+- hsetroot	http://thegraveyard.org/hsetroot.php
+
+- Aterm		http://aterm.sourceforge.net/
+
+- Eterm		http://eterm.sourceforge.net/
+
+- URxvt		http://software.schmorp.de/
+
+- mrxvt		http://materm.sourceforge.net/
+
+- ImageMagick	http://www.imagemagick.org/
+
+- XScreenSaver	http://www.jwz.org/xscreensaver/
+
+- sudo		http://www.courtesan.com/sudo/
+
+- XMMS		http://www.xmms.org/
+
+- XMMS2		http://wiki.xmms2.xmms.se/index.php/Main_Page
+
+- xmms-shell	http://directory.fsf.org/audio/mp3/xmms-shell.html
+
+- xmms-find	http://xmmsfind.sourceforge.net/
+
+- MPD		http://www.musicpd.org/
+
+- mpc		http://musicpd.org/mpc.shtml
+
+- QuodLibet	http://www.sacredchao.net/quodlibet
+
+- cdcd		http://libcdaudio.sourceforge.net/
+
+- ROX-Filer	http://rox.sourceforge.net/
+
+
+2.2 Q: Can I use FVWM-Crystal with "stable" FVWM branch (2.4.x)?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: No. Old FVWM version (so called "stable") is in fact, old. Even 2.5.x
+series which has many improvements over the old stable tree is old now, for example support for PNG images, new modules, improvements in existing modules and bugfixes.
+
+From FVWM 2.6.x, all releases are stable and 2.7 is outdated.
+
+Due to the introduction of infostore in FVWM and its use in FVWM-Crystal, you will need FVWM 2.6.5+.
+
+In order to get the XDG application menu with *Alt + A*, you need FVWM 2.6.6+, which is FVWM from cvs at that time of writing.
+
+2.3 Q: How to install FVWM-Crystal from distributed packages?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Unpack fvwm-crystal-X.Y.tar.gz to an empty directory. After that cd into the unpacked directory and execute:
+----
+make install
+----
+By default Crystal will be installed in /usr/local directory. You can select another destination directory using:
+----
+make prefix=/usr install
+----
+After successful installation you can copy sample *~/.Xresources* file from
+*addons/* directory of the FVWM-Crystal package, if you don't have
+one. A Xsession desktop file will be installed into /usr/share/xsessions, making possible to select FVWM.Crystal with
+any graphical login manager.
+       
+To use the Exit and Hibernate/Resume functions, you must be into the *fvwm-crystal* group. This can be done with:
+----
+groupadd fvwm-crystal
+useradd -G fvwm-crystal <user_name>
+----
+
+2.4 Q: How to install FVWM-Crystal from subversion repository?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: You need to create a local copy of the subversion repository with:
+----
+svn co svn://svn.code.sf.net/p/fvwm-crystal/code/ fvwm-crystal
+----
+
+When it finishes, cd into newly created 'fvwm-crystal/' directory and issue commands:
+----
+make install
+----
+
+You can change the destination directory as described above. Also, be sure to be into the *fvwmcrystal* group.
+
+
+2.5 Q: How to install FVWM-Crystal manually?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Parts of FVWM-Crystal configuration needs to have executable bit on, and it's set by the make script. If you can't or don't want to use it, you can installa FVWM-Crystal manually. Unpack the distributed package or get a copy of the subversion repository as described above, then issue commands below:
+
+Note: This answer is obsolete but can get you started. Continue reading if it
+doesn't work.
+----
+cd fvwm-crystal
+chmod a+rx bin/*
+chmod -R a+rx fvwm/Applications
+chmod a+rx fvwm/scripts/FvwmMPD/*.py fvwm/scripts/FvwmMPD/*.sh
+----
+
+Now put all files from *fvwm/* directory in the chosen configuration
+directory. If you want to install FVWM-Crystal in your $HOME directory,
+put the configuration files in ~/.fvwm-crystal directory (without the
+'fvwm/' subdirectory!). Startup script will use them automatically.
+
+You can also copy ~/.Xresources or fvwm-crystal.desktop as described above.
+
+Note: The following is up-to-date.
+The Makefile has been updated to reflect the current state of the software. In
+consequence, you must be able to install Fvwm-Crystal by running
+----
+make install
+----
+for in installation into /usr/lib or
+----
+make prefix=/usr install
+----
+for in installation into /usr.
+
+Due to the installation of the session file in /etc/X11/Sessions and of a sudo
+configuration file in /etc/sudoers.d, the installation into the user file hierarchy is not
+supported. Anyway, if you don't have root access, you may process as explained above,
+and install every thing but these files in /etc.
+
+
+2.6 Q: How I can select FVWM-Crystal as my window manager?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: If you are using *startx* for running your X session, copy the file
+*addons/Xsession* from FVWM-Crystal package to your ~~/.Xsession or
+~~/.xinitrc file. In other words, you need to start *fvwm-crystal* script,
+*fvwm* or *fvwm2* will not work, because FVWM-Crystal has it's main configuration files in different place than FVWM. That imply the last line of your .xinitrc file should contain:
+----
+exec fvwm-crystal
+----
+
+If you are using a graphical login manager like *GDM*, just select
+*FVWM-Crystal* in the Session menu.
+
+2.7 Q: When I start FVWM-Crystal I get only the empty FVWM desktop...
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Make sure that you have correct path to the system-wide configuration files
+in *fvwm-crystal* script. Also check if in your ~~/.Xsession or ~~/.xinitrc
+the last line contains *exec fvwm-crystal*. Select *FVWM-Crystal* as your
+session in GDM, *FVWM* will not work.
+
+2.8 Q: Why there is no application panel on the desktop?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Do you have Python installed?
+Is *fvwm-crystal.apps* script in a directory listed in $PATH environment variable?
+All files in Crystal's Application Database needs to have *executable* bit set (all files are actually scripts). You can set it by issuing command:
+----
+chmod -R a+rx <installpath>/Applications
+----
+
+2.9 Q: How can I get the error log of FVWM-Crystal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: The best way is to run FVWM-Crystal with startx. The last line of your .xinitrc file should be:
+----
+exec fvwm-crystal 2>.errors.fvwm-crystal
+----
+The log of fvwm-crystal will be in the file ~/.errors.fvwm-crystal. The verbosity of the log can be reduced in the preferences:
+----
+Preferences -> Silent operations
+----
+
+
+3. Usage
+--------
+
+3.1 Q: Where can I start some prefered application at startup?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Copy the file */usr/share/fvwm-crystal/fvwm/preferences/Startup* to
+*~/.fvwm-crystal/preferences/Startup* and add yours commands here.
+
+3.2 Q: Where can I add my prefered fvwm command?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: You want to use some custom styles, keybindings or so, or to replace existing ones. Create the file
+----
+~/.fvwm-crystal/userconfig
+----
+and add them here.
+
+Good candidates are
+----
+HideGeometryWindow
+----
+that will show information when moving/resizing windows, or
+----
+Key Tab A $[Mod1] Window-Ring-Next
+Key Tab A $[Mod2] Window-Ring-Previous
+----
+will circulate focus trough open windows.
+
+3.3 Q: How can I have a tear off menu?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: When in the menu you want to tear off, press the backspace key. To remove
+the menu, press escape. This is a standard FVWM feature. See *man fvwm*.
+
+3.4 Q: How can I record medias with mplayer?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Recording with mplayer produce a stream dump. Such a dump is unusable for anything else than MPEG streams. Dump only MPEG sources. When watching such a sources, press "c" and mplayer will begin to make a stream dump to the file ~/stream.dump.
+
+Press "c" again to stop capturing. You can use Kino to edit this file.
+
+3.5 Q: The Music menu get screwed. What can I do about this?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: According to Thomas Adam, auto-generated menus in FVWM are very sensitive to special characters. You must change all the special characters in the directories and folders names where FVWM will search for your media files.
+
+I get more troubles with these menus when using icons into them, so I added a perference:
+----
+Music -> Player -> Icons into the file navigator
+----
+You should get much better results when the icons are off.
+
+3.6 Q: Mplayer doesn't show the movie I selected into the menu. Why?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A; You are watching something else. The file(s) was just added into mplayer's internal playlist. Press Enter or chosse Next in the menu. Only the DVB and DVD sources will play instantly.
+
+3.7 Q: Mplayer is flaky. What can I do?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Try another video output. For that, edit ~/.mplayer/config and put a line
+like *vo=xv* or *vo=gl*. *mplayer -vo help* will show you a list.
+
+In the worst case (Fvwm-Crystal is unusable), go to one of the primary console
+with *Ctrl + Alt + F<n>*, login and issue a *killall -9 mplayer*.
+
+With *Alt + F7*, you will go back to Fvwm-Crystal.
+
+You can also try a different X graphic driver. For that, you must follow the documentation of your GNU/Linux distribution, install the wanted driver and edit the configuration of your X server.
+
+3.8 Q: How to change FVWM-Crystal key bindings that collide with Emacs or Ardour?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: With Emacs and Ardour, the problem is the Alt key. You must change this keyboard modifier.
+From FVWM-Crystal-3.2.8, you may use the Key Binding Modifiers Editor located into the preferences menu.
+
+With older versions, copy
+
+----
+/usr/share/fvwm-crystal/fvwm/compoments/functions/Keyboard-Modifiers
+----
+
+to
+
+----
+~/.fvwm-crystal/components/functions/Keyboard-Modifiers
+----
+
+edit it and change *SetEnv Mod1 M* to *SetEnv Mod1 4*, and *SetEnv Mod2 MS* to
+*SetEnv Mod 2 4S* to use the windows key.
+
+You may want to also change *SetEnv SelectOnReleaseKey Alt_L* to *SetEnv
+SelectOnReleaseKey Super_L*.
+
+From FVWM-Crystal-3.2.7, you may use the Key Binding Modifiers Editor located into the preferences menu.
+ 
+3.9 Q: What do I need to do to create my own personal recipe(s)?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Create the directory ~/.fvwm-crystal/recipes and put your recipe(s) in it. After restrarting FWM-Crystal from its main menu, you will get 2 choices in the preferences recipes menu: system and user.
+
+3.10 Q: How to customize the application menu?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: First, take a look at the documentation:
+----
+Main FVWM-Crystal menu -> FVWM-Crystal documentation -> Application Database.
+----
+The application menu use a priority system based on the file name.
+
+With the default priority of 0, the file name will begin with *~prog_name~Prog_name*. By renaming it to *10~prog_name~Prog_name*, you will give it a more important priority than *~prog2~Prog2*, and less priority than *20~prog3~Prog3*
+
+FVWM-Crystal comme with a collection a preconfigured menu entries. You will
+find them in /usr/fvwm-crystal/fvwm/applications/* and can copy them into
+~/.fvwm-crystal/applications/* for customization.
+
+In the preferences, you can tell FVWM-Crystal to generate the application menu entries for the non provided entries. It will place them into ~/.fvwm-crystal/applications/*
+
+This function use the desktop files provided by the applications. If the application doesn't provide any desktop file, you will have to create your own menu entry and will find many examples in the provided FVWM-Crystal files.
+
+3.11 Q: How to get a consistant look between toolkits?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: This is not related to FVWM-Crystal, but anyway, the look of the applications can be a little bit difficult to configure if you don't have Gnome and KDE installed, and don't know how to proceed.
+
+First, you must install lxappearance and qtconfig. At that time of writing (May 2013), lxappearance have a bug that imply any custom color change will be lost. But anyway, it is the best light application to change the GTK+ themes, icons, etc. If you want to customize the colors, you can always edit ~/.gtkrc-2.0 directly.
+
+After selecting your favorite GTK+ theme with lxappearance, run qtconfig to select the Default theme to use the system settings, or the GTK+ style to apply your GTK+ settings to QT.
+
+Fram fvwm-crystal-3.6.4, the Panel font preferences will be applyed to GTK+ 2 and 3 as its default font.
+
+We are now in 2017 and time have changed. We are now in the QT5 time and qtconfig don't exist anymore. First install qt5ct and, if possible, qt5-styleplugins. 
+
+With qt5ct, you can set the theme, some of them have both gtk+ and qt versions and you can set them here for qt. When qt5-styleplugins is installed, you can choose the gtk2 theme and any time you change the gtk+ theme, as example with lxappearance, qt will use it. Be aware the gtk theme will work best if it have both gtk2 and gtk3 versions.
+
+For all that to work, you may have to set 2 variables, as example in ~/.xinitrc or ~/.bashprofile:
+----
+export XDG_CURRENT_DESKTOP="gnome"
+export QT_QPA_PLATFORMTHEME="gtk2"
+----
+
+For a detailled discussion, take a lokk at https://wiki.archlinux.org/index.php/Uniform_look_for_Qt_and_GTK_applications
+
+
+3.12 Q: Mounting/unmounting don't work with all medias?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: FVWM-Crystal dekstop manager use mount, umount for the "regular" partitions and pmount for the removable medias. It also support pmount-gui for the removable medias.
+
+- For the "regular" partitions, they must be configured in /etc/fstab, and you must have the right to mount them. mount/umount will be used. For example:
+----
+/dev/sdb1  /mnt/work  ext4  users,noatime  0 2
+----
+
+- For the USB and Firewire devices, you can add entries for them in /etc/fstab. mount/umount will be used. They will be mounted at boot and the +users+ tag will let you mount and umount them as user. For example:
+----
+/dev/sdd1  /mnt/usb  ext3  users,noatime  0 2
+----
+
+
+- For the USB and Firewire devices not present into the fstab file, you must install pmount. pmount-gui is also supported. They will be mounted in /media. You may want to install uam too. For uam to give you write access with ext formatted partitions, /media must be created after uam installation and you must adjust PARENT_PERMS and MP_PERMS in /etc/udev/uam.conf accordingly:
+----
+PARENT_PERMS=0777
+MP_PERMS=0777
+----
+
+- For the CD/DVD devices and much more, install and configure autofs.
+
+3.13 Q: The Feedback/Support form just close when I click on any button?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: This form use the BROWSER variable. If it don't exist, FVWM-Crystal will launch
+a dialog where you can set it, that at start time. If it is set to a wrong value,
+it will do nothing.
+
+You can set it in your ~/.bashprofile file:
+----
+export BROWSER "/usr/bin/firefox"
+----
+or change the value in the file ~/.fvwm-crystal/preferences/BROWSER.
+----
+SetEnv BROWSER /usr/bin/firefox
+----
+
+3.14 Q: The menu generation fail with oofice4?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A: Take a look at addons/oo4.tar.bz2.
+
+
+AUTHORS
+-------
+Original written by Maciej Delmanowski <harnir@berlios.de>,
+augmented, maintained and ported to asciidoc by Dominique Michel
+<dominique_libre@users.sourceforge.net>
+
+
+COPYRIGHT
+---------
+*FVWM-Crystal* and all the scripts and other files coming with 
+the distribution are subject to the GNU General Public License (GPL). 
+Please refer to the COPYING file that came with *FVWM-Crystal* for details.
+
+
+BUGS
+----
+Bug reports can be sent to the fvwm-crystal-users mailing list at 
+<https://mail.gna.org/listinfo/fvwm-crystal-users/>.

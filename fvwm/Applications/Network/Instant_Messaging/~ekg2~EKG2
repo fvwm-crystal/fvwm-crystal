@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'A ekg2 $@ 2>/dev/null'
+

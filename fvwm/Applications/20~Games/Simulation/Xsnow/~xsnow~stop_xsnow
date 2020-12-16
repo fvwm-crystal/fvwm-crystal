@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec killall -3 xsnow $@ 2>/dev/null
+

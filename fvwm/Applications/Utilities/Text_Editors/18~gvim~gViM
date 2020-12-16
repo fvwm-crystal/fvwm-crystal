@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gvim $@ 2>/dev/null
+

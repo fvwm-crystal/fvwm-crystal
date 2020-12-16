@@ -1,0 +1,482 @@
+# Multimedia support in Fvwm-Crystal:
+# initialisations and some shared functions
+# Written by: Dominique Michel <dominique_libre@userssourceforge.net>
+#
+# This file must be included at the top of the multimedia player control files.
+#	Include components/functions/Media
+#
+# Recipes with media button: Amiga, Corner, Default, Default with ACPI, Dock
+# The bindings of the media buttons are:
+#
+#       n button        n button   fumction		    comment
+#	Button 1:	(Mouse 1) Menu /Player 		# Main player menu
+#			(Mouse 2) Music-GUI 		# show/hide the player
+#			(Mouse 3) Music-QJackGUI 	# show/hide QJackCtl
+#			(Mouse 4) Mixer-Volume-Up 	# main volume up
+#			(Mouse 5) Mixer-Volume-Down 	# main volume down
+#	Button 2:	(Mouse 1) Menu /Playlist-button # playlist menu
+#			(Mouse 2) Menu /Music/Volume	# player volume menu
+#			(Mouse 3) Menu /Mixer		# main mixer menu
+#			(Mouse 4) Music-Next		# next media
+#			(Mouse 5) Music-Prev		# previous media
+#	Button 3:	(Mouse 1) Music-Play		# play
+#			(Mouse 2) Music-Pause		# pause
+#			(Mouse 3) Menu /Playback	# playback menu
+#			(Mouse 4) Music-Speed-Up	# speed up
+#			(Mouse 5) Music-Speed-Down	# speed down
+#	Button 4:	(Mouse 1) Menu /Speed		# speed control menu
+#			(Mouse 4) Music-Seek-+		# seek forward
+#			(Mouse 5) Music-Seek--		# seek backward
+# NOTE : the actual bindings are fixed into the recipes.
+#
+# Recipes with media menu: Clean, Clean Vertical, Light, Wing-Commander
+# The media menu is: Popup /Music
+#
+# TODO : - Move the media button here
+#	 - Find something to do with mouse 2 and 3 on button 4
+
+# Amixer and Mplayer are selected as default mixer and player if the user
+# didn't changed it. We keep them or the user settings.
+
+# The playlists are now in 4 places:
+# 	$[FVWM_USERDIR]/Playlists/Audio for the playlists of audio files
+# 	$[FVWM_USERDIR]/Playlists/Video for the playlists of movie files
+# 	$[HOME]/Playlists/Audio for "by the user managed" audio playlists
+# 	$[HOME]/Playlists/Video for "by the user managed" video playlists
+#
+# 'Recreate the playlist' will manage the playlists in $[FVWM_USERDIR] in a
+# very simple way: delete all and recreate all. At the same time, it will
+# create the user managed directories if they don't exist.
+#
+# Note: according to /etc/xdg/user-dirs.defaults, the default medias paths
+#	are $HOME/Music and $HOME/Videos and will be translated on a
+#	per-path-element basis into the users locale.
+#	TODO: 	centralize here the paths
+
+# Media Music functions {{{1
+Include components/functions/Media-Music-functions
+# Mixer
+Include components/functions/Mixer
+
+# Variables {{{1
+# speed control (alsaplayer, mplayer) {{{2
+InfoStoreAdd speed 1
+# We must start mplayer in slave mode and send the commands via a pipe
+# Create the pipe if it doesn't exist:
+Piperead 'echo InfoStoreAdd USERDIR `id -un`'
+Piperead 'mkdir -p /home/$[infostore.USERDIR]/.mplayer'
+Test (!F /home/$[infostore.USERDIR]/.mplayer/pipe) PipeRead 'mkfifo /home/$[infostore.USERDIR]/.mplayer/pipe'
+
+############################################################
+### We don't want player specific functions lying around ###
+### otherwise, we put here the functions that doesn't    ###
+### change between the audio-video players.              ###
+############################################################
+
+# First button {{{1
+# Player controls and prefs
+# mouse 1 Menu /Player {{{2
+# start the player(s) (alsaplayer, mplayer)
+AddToFunc Music-Start
++ I Exec exec $*
+
+# in Music-mplayer* Menu /Music/Start
+
+# player quit (alsaplayer, mplayer)
+AddToFunc Music-Kill
++ I Exec exec $[FVWM_SYSTEMDIR]/scripts/killmplayer $0
+
+# show/hyde the player GUI/menu
+# (alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet)
+AddToFunc Music-GUI
++ I All (XDRadio) Iconify toggle
+# Comment out the line you dont want:
+#+ I Exec exec echo "menu up" > /home/$[infostore.USERDIR]/.mplayer/pipe
++ I Music-Tooltip
+
+# Button menu
+# (alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet)
+AddToFunc Player-generator
++ I DestroyMenu recreate /Player
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-preferences-2.png%$[gt.Music player]' Popup /Preferences/MusicPlayer
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-preferences-2.png%$[gt.Icons in file browser]' Popup /Preferences/MediaFileMenuIcons
++ I AddToMenu /Player "" Nop
++ I Test (X qjackctl) AddToMenu /Player '%22x22/apps/qjackctl.png%$[gt.Start QJackCtl]' Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Player '%22x22/apps/cadence.png%$[gt.Start Cadence]' Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjackctl) AddToMenu /Player "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic-2.png%$[gt.Start player]' Popup /Music/Start
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic-1.png%$[gt.Stop MPlayer]' Music-Kill
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic-1.png%$[gt.Destroy MPlayer]' Music-Kill -9
+
+# Button menu (all)
+AddToMenu /Player
++ DynamicPopupAction Function Player-generator
+
+# mouse 2 Music-GUI : allready here {{{2
+# mouse 3 Music-QJackGUI (all) in Media-Music-functions
+
+# mouse 4 Mixer-Volume-Up {{{2
+# mouse 5 Mixer-Volume-Down
+# are in components/Mixer
+
+# Second button {{{1
+# Player controls and main vol 
+# mouse 1 Menu /Playlist-button {{{2
+# Play DVD (mplayer)
+AddToFunc Load-DVD
++ I Exec exec echo "stop" > /home/$[infostore.USERDIR]/.mplayer/pipe
+#+ I Exec exec fvwm-crystal.mplayer-wrapper dvd $[infostore.USERDIR]
++ I Exec exec fvwm-crystal.mplayer-wrapper file $[infostore.USERDIR] dvdnav://
++ I Exec exec echo "start" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# Generate /Music/LoadMovie menu (mplayer)
+PipeRead '$[FVWM_SYSTEMDIR]/scripts/media_directories $[infostore.USERDIR] $[MediaMenuIcons]'
+Include tmp/MenuMovieDirectory
+
+# Load Media Playlists (mplayer)
+AddToFunc FuncFvwmMenuMediaDirectory
++ I PipeRead 'case \"$0\" in \
+	"$[infostore.AudioPlaylists]"*) myexec="fvwm-crystal.mplayer-wrapper list $[infostore.USERDIR]";; \
+	"$[infostore.UserManagedAudioPlaylists]"*) myexec="fvwm-crystal.mplayer-wrapper list $[infostore.USERDIR]";; \
+	"$[infostore.VideoPlaylists]"*) myexec="fvwm-crystal.mplayer-wrapper list $[infostore.USERDIR]";; \
+	"$[infostore.UserManagedVideoPlaylists]"*) myexec="fvwm-crystal.mplayer-wrapper list $[infostore.USERDIR]";; \
+    esac; \
+    test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
+    test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
+    fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \
+    --icon-file "${mypng:-22x22/categories/Audio.png}" \
+    --func="FuncFvwmMenuMediaDirectory" \
+    --exec-file "^${myexec}" --dir \"$0\" \
+    --exec-t="^fvwm-crystal.play-movies \"$0\""'
+
+AddToMenu /Music/LoadMediaPlaylist
++ MissingSubmenuFunction FuncFvwmMenuMediaDirectory
++ '%22x22/categories/video_movies_view.png%$[gt.Audio playlists]' Popup $[infostore.AudioPlaylists]
++ '%22x22/categories/video_movies_view.png%$[gt.Video playlists]' Popup $[infostore.VideoPlaylists]
++ '%22x22/categories/video_movies_view.png%$[gt.Personal audio playlists]' Popup $[infostore.UserManagedAudioPlaylists]
++ '%22x22/categories/video_movies_view.png%$[gt.Personal video playlists]' Popup $[infostore.UserManagedVideoPlaylists]
+
+# (alsaplayer, mplayer)
+AddToFunc FuncFvwmMenuRemovePlaylistDirectory
++ I PipeRead 'case \"$0\" in \
+	"$[infostore.UserManagedAudioPlaylists]"*) myexec="rm -f";; \
+	"$[infostore.UserManagedVideoPlaylists]"*) myexec="rm -f";; \
+    esac; \
+    test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
+    test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
+    fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \
+    --icon-file "${mypng:-22x22/categories/Audio.png}" \
+    --dir \"$0\" --exec-title "-" --exec-file "^${myexec}" \
+    --func-name "FuncFvwmMenuRemovePlaylistDirectory"'
+
+AddToMenu /Music/RemovePlaylist
++ '$[gt.Choose playlist to remove]' Nop
++ MissingSubmenuFunction FuncFvwmMenuRemovePlaylistDirectory
++ '%22x22/categories/video_movies_view.png%$[gt.Browse Medias]' Popup $[infostore.UserManagedAudioPlaylists]
++ '%22x22/categories/video_movies_view.png%$[gt.Browse Medias]' Popup $[infostore.UserManagedVideoPlaylists]
+
+# Copy playlist (alsaplayer, mplayer)
+AddToFunc FuncFvwmMenuCopyPlaylistDirectory
++ I PipeRead 'case \"$0\" in \
+	"$[infostore.AudioPlaylists]"*) myexec="Exec cp -r \'%f\' \'$[infostore.UserManagedAudioPlaylists]\'";; \
+	"$[infostore.VideoPlaylists]"*) myexec="Exec cp -r \'%f\' \'$[infostore.UserManagedVideoPlaylists]\'";; \
+    esac; \
+    test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
+    test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
+    fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \
+    --icon-file "${mypng:-22x22/categories/Audio.png}" \
+    --dir \"$0\" --exec-title "-" --command-file "${myexec}" \
+    --func-name "FuncFvwmMenuCopyPlaylistDirectory"'
+
+AddToMenu /Music/CopyPlaylist
++ '$[gt.Choose playlist to copy]' Nop
++ MissingSubmenuFunction FuncFvwmMenuCopyPlaylistDirectory
++ '%22x22/categories/video_movies_view.png%$[gt.Browse Medias]' Popup $[infostore.AudioPlaylists]
++ '%22x22/categories/video_movies_view.png%$[gt.Browse Medias]' Popup $[infostore.VideoPlaylists]
+
+# button menu (alsaplayer, audacious, mocp, mpd, mplayer, xmms2)
+AddToFunc Playlist-generator-button
++ I DestroyMenu recreate /Playlist-button
+Test (F /dev/dvb/adapter0/frontend0) + I AddToMenu /Playlist-button '$[gt.Select channel list]' PopUp /Preferences/MplayerChannelList
++ I AddToMenu /Playlist-button '$[gt.Remove playlist]' Popup /Music/RemovePlaylist
++ I AddToMenu /Playlist-button '$[gt.Copy playlist]' Popup /Music/CopyPlaylist
+Test (F /dev/dvb/adapter0/frontend0) + I AddToMenu /Playlist-button '$[gt.Watch DVB] 1' Music-WatchDVB 1
+Test (F /dev/dvb/adapter0/frontend0) + I AddToMenu /Playlist-button '$[gt.Channels] DVB 1' PopUp /Music/ChannelSet1
+Test (F /dev/dvb/adapter1/frontend0) + I AddToMenu /Playlist-button '$[gt.Watch DVB] 2' Music-WatchDVB 2
+Test (F /dev/dvb/adapter1/frontend0) + I AddToMenu /Playlist-button '$[gt.Channels] DVB 2' PopUp /Music/ChannelSet2
+Test (F /dev/dvb/adapter2/frontend0) + I AddToMenu /Playlist-button '$[gt.Watch DVB] 3' Music-WatchDVB 3
+Test (F /dev/dvb/adapter3/frontend0) + I AddToMenu /Playlist-button '$[gt.Channels] DVB 3' PopUp /Music/ChannelSet3
+Test (F /dev/dvb/adapter3/frontend0) + I AddToMenu /Playlist-button '$[gt.Watch DVB] 4' Music-WatchDVB 4
+Test (F /dev/dvb/adapter3/frontend0) + I AddToMenu /Playlist-button '$[gt.Channels] DVB 4' PopUp /Music/ChannelSet4
++ I AddToMenu /Playlist-button '$[gt.Load media file]' Popup /Music/LoadMovie
++ I AddToMenu /Playlist-button '$[gt.Play DVD]' Load-DVD
++ I AddToMenu /Playlist-button '$[gt.Load playlist]' Popup /Music/LoadMediaPlaylist
++ I AddToMenu /Playlist-button '$[gt.Show file name]' Exec exec echo "osd_show_property_text \${filename} 7000" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+AddToMenu /Playlist-button
++ DynamicPopupAction Function Playlist-generator-button
+
+# mplayer
+Test (F /dev/dvb/adapter0/frontend0) Include preferences/MplayerChannelList1 
+Test (F /dev/dvb/adapter1/frontend0) Include preferences/MplayerChannelList2
+Test (F /dev/dvb/adapter2/frontend0) Include preferences/MplayerChannelList3
+Test (F /dev/dvb/adapter3/frontend0) Include preferences/MplayerChannelList4
+
+AddToMenu /Playlist
++ DynamicPopupAction Function /Playlist-generator
+
+AddToFunc /Playlist-generator
++ I DestroyMenu recreate /Playlist
+Test (F /dev/dvb/adapter0/frontend0) + I AddToMenu /Playlist '$[gt.Watch DVB] 1' Music-WatchDVB 1
+Test (F /dev/dvb/adapter1/frontend0) + I AddToMenu /Playlist '$[gt.Watch DVB] 2' Music-WatchDVB 2
+Test (F /dev/dvb/adapter2/frontend0) + I AddToMenu /Playlist '$[gt.Watch DVB] 3' Music-WatchDVB 3
+Test (F /dev/dvb/adapter3/frontend0) + I AddToMenu /Playlist '$[gt.Watch DVB] 4' Music-WatchDVB 4
++ I AddToMenu /Playlist '$[gt.Play DVD]' Load-DVD
++ I AddToMenu /Playlist '$[gt.Load media file]' Popup /Music/LoadMovie
++ I AddToMenu /Playlist '$[gt.Load playlist]' Popup /Music/LoadMediaPlaylist
+#+ I AddToMenu /Playlist '$[gt.Clear playlist]' Music-ClearPlaylist
++ I AddToMenu /Playlist '$[gt.Copy playlist]' Popup /Music/CopyPlaylist
++ I AddToMenu /Playlist '$[gt.Remove playlist]' Popup /Music/RemovePlaylist
++ I AddToMenu /Playlist '$[gt.Show file name]' Exec exec echo "osd_show_property_text \${filename} 7000" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+AddToFunc Music-WatchDVB
++ I Exec exec echo "stop" > /home/$[infostore.USERDIR]/.mplayer/pipe
++ I Exec exec fvwm-crystal.mplayer-wrapper file $[infostore.USERDIR] dvb://$[0]@
++ I Exec exec echo "start" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# DVD channels {{{1
+# The DVB linux support is messy. Some multituners (frontends) cards (adapters)
+# have their tuners grouped under the same adapter, other use different adapter,
+# To make things worst, mplayer support only the first frontend of a given adapter,
+# and it can use an unique channel list file or several files.
+# If you are in the first case, you may want to define some custom udev rules.
+AddToFunc Music-ChannelSet
++ I Exec exec echo "dvb_set_channel $0 $1" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+AddToFunc Channels-generator1
++ I DestroyMenu recreate /Music/ChannelSet1
+Test (F $[FVWM_USERDIR]/preferences/MplayerChannelList1) Test (F /dev/dvb/adapter0/frontend0) PipeRead 'i=0; while read line; do a=$(echo "$line" | sed -e \'s/\\([A-Za-z0-9 -_.]*\\).*/+ I AddToMenu \\/Music\\/ChannelSet1 "\\1"/\'); echo "$a Music-ChannelSet $i 0" ; i=$(($i+1)) ; done <$[infostore.MplayerChannelList1]'
+
+AddToMenu /Music/ChannelSet1
++ DynamicPopupAction Function Channels-generator1
+
+AddToFunc Channels-generator2
++ I DestroyMenu recreate /Music/ChannelSet2
+Test (F $[FVWM_USERDIR]/preferences/MplayerChannelList2) Test (F /dev/dvb/adapter1/frontend0) PipeRead 'i=0; while read line; do a=$(echo "$line" | sed -e \'s/\\([A-Za-z0-9 -_.]*\\).*/+ I AddToMenu \\/Music\\/ChannelSet2 "\\1"/\'); echo "$a Music-ChannelSet $i 1" ; i=$(($i+1)) ; done <$[infostore.MplayerChannelList2]'
+
+AddToMenu /Music/ChannelSet2
++ DynamicPopupAction Function Channels-generator2
+
+AddToFunc Channels-generator3
++ I DestroyMenu recreate /Music/ChannelSet3
+Test (F $[FVWM_USERDIR]/preferences/MplayerChannelList3) Test (F /dev/dvb/adapter2/frontend0) PipeRead 'i=0; while read line; do a=$(echo "$line" | sed -e \'s/\\([A-Za-z0-9 -_.]*\\).*/+ I AddToMenu \\/Music\\/ChannelSet3 "\\1"/\'); echo "$a Music-ChannelSet $i 2" ; i=$(($i+1)) ; done <$[infostore.MplayerChannelList3]'
+
+AddToMenu /Music/ChannelSet3
++ DynamicPopupAction Function Channels-generator3
+
+AddToFunc Channels-generator4
++ I DestroyMenu recreate /Music/ChannelSet4
+Test (F $[FVWM_USERDIR]/preferences/MplayerChannelList4) Test (F /dev/dvb/adapter4/frontend0) PipeRead 'i=0; while read line; do a=$(echo "$line" | sed -e \'s/\\([A-Za-z0-9 -_.]*\\).*/+ I AddToMenu \\/Music\\/ChannelSet4 "\\1"/\'); echo "$a Music-ChannelSet $i 3" ; i=$(($i+1)) ; done <$[infostore.MplayerChannelList4]'
+
+AddToMenu /Music/ChannelSet4
++ DynamicPopupAction Function Channels-generator4
+
+# mouse 2 Menu /Playback {{{2
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet, xmms2
+AddToFunc Music-Next
++ I Exec exec echo "pt_step 1" > /home/$[infostore.USERDIR]/.mplayer/pipe
+# dvb:
++ I Exec exec echo "tv_step_channel +1" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet, xmms2
+AddToFunc Music-Prev
++ I Exec exec echo "pt_step -1" > /home/$[infostore.USERDIR]/.mplayer/pipe
+# dvb:
++ I Exec exec echo "tv_step_channel -1" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet, xmms2
+AddToFunc Music-Play
++ I Exec exec echo "frame_step" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet, xmms2
+AddToFunc Music-Pause
++ I Exec exec echo "pause" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# mplayer
+AddToFunc Music-FrameStep
++ I Exec exec echo "frame_step" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# alsaplayer, mplayer
+AddToFunc Music-Jump
++ I Exec exec echo "seek $0 1" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+AddToMenu /Music/Jump
++ " 96 %" Music-Jump '96'
++ " 80 %" Music-Jump '80'
++ " 60 %" Music-Jump '60'
++ " 40 %" Music-Jump '40'
++ " 20 %" Music-Jump '20'
++ " 10 %" Music-Jump '10'
++ "  5 %" Music-Jump '5'
++ "  2 %" Music-Jump '2'
++ "  1 %" Music-Jump '1'
++ '$[gt.Start]' Music-Jump '0'
+
+# alsaplayer, mplayer
+AddToFunc Music-Seek
++ I Exec exec echo "seek $[0] 0" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+AddToMenu /Music/Seek
++ '$[gt.+ 10 min]' Music-Seek '600'
++ '$[gt.+  5 min]' Music-Seek '300'
++ '$[gt.+  3 min]' Music-Seek '180'
++ '$[gt.+  2 min]' Music-Seek '120'
++ '$[gt.+  1 min 30]' Music-Seek '90'
++ '$[gt.+  1 min]' Music-Seek '60'
++ '$[gt.+ 45 sec]' Music-Seek '45'
++ '$[gt.+ 30 sec]' Music-Seek '30'
++ '$[gt.+ 20 sec]' Music-Seek '20'
++ '$[gt.+ 10 sec]' Music-Seek '10'
++ "" Nop
++ '$[gt.- 10 sec]' Music-Seek '-10'
++ '$[gt.- 20 sec]' Music-Seek '-20'
++ '$[gt.- 30 sec]' Music-Seek '-30'
++ '$[gt.- 45 sec]' Music-Seek '-45'
++ '$[gt.-  1 min]' Music-Seek '-60'
++ '$[gt.-  1 min 30]' Music-Seek '-90'
++ '$[gt.-  2 min]' Music-Seek '-120'
++ '$[gt.-  3 min]' Music-Seek '-180'
++ '$[gt.-  5 min]' Music-Seek '-300'
++ '$[gt.- 10 min]' Music-Seek '-600'
+
+# button menu
+# (alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, mocp, mpd, mplayer, quodlibet, xmms2)
+AddToFunc Playback-generator
++ I DestroyMenu recreate /Playback
++ I AddToMenu /Playback '$[gt.Pause]' Music-Pause
++ I AddToMenu /Playback '$[gt.Frame step]' Music-FrameStep
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Next]' Music-Next
++ I AddToMenu /Playback '$[gt.Prev]' Music-Prev
++ I AddToMenu /Playback '$[gt.Jump]' Popup /Music/Jump
++ I AddToMenu /Playback '$[gt.Seek]' Popup /Music/Seek
+
+# button menu (all)
+AddToMenu /Playback
++ DynamicPopupAction Function Playback-generator
+
+# mouse 3 Menu /Mixer : in components/Mixer {{{2
+# mouse 4 Music-Next : allready here
+# mouse 4 Music-Prev : allready here
+
+# Third button {{{1
+# Player controls and vol
+# mouse 1 Music-Play : allready here {{{2
+# mouse 2 Music-Pause : allready here
+# mouse 3 Menu /Music/Volume
+# audacious, mplayer
+AddToFunc Music-Volume
++ I Exec exec echo "volume $0 1" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# mplayer
+AddToFunc Music-VolumeUp
++ I Exec exec echo "volume 10 0" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+AddToFunc Music-VolumeDown
++ I Exec exec echo "volume -10 0" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# button menu (alsaplayer, audacious, mplayer)
+AddToMenu /Music/Volume
++ '$[gt.MPlayer volume]' Nop
++ " 0 dB" Music-Volume "100"
++ "- 3 dB" Music-Volume "70.7"
++ "- 6 dB" Music-Volume "50"
++ "- 12 dB" Music-Volume "25"
++ "- 18 dB" Music-Volume "12.5"
++ "- 24 dB" Music-Volume "6.25"
++ "- 30 dB" Music-Volume "3.125"
++ "- 36 dB" Music-Volume "1.5625"
++ " 0" Music-Volume "0"
+
+# mouse 4 Music-Speed-Up {{{2
+# mouse 5 Music-Speed-Down
+# alsaplayer, mplayer
+AddToFunc Music-Speed-Up
++ I PipeRead 'echo "speed_set $($[FVWM_SYSTEMDIR]/scripts/speed_value +1comma mplayer $[infostore.speed])" > /home/$[infostore.USERDIR]/.mplayer/pipe ; echo InfoStoreAdd speed $($[FVWM_SYSTEMDIR]/scripts/speed_value +1comma mplayer $[infostore.speed])'
+
+AddToFunc Music-Speed-Down
++ I PipeRead 'echo "speed_set $($[FVWM_SYSTEMDIR]/scripts/speed_value -1comma mplayer $[infostore.speed])" > /home/$[infostore.USERDIR]/.mplayer/pipe ; echo InfoStoreAdd speed $($[FVWM_SYSTEMDIR]/scripts/speed_value -1comma mplayer $[infostore.speed])'
+
+# Last button {{{1
+# speed controls
+# mouse 1 Menu /Speed {{{2
+# alsaplayer, mplayer
+AddToFunc Music-Speed
++ I PipeRead 'echo "speed_set $($[FVWM_SYSTEMDIR]/scripts/speed_value "$0" mplayer $[infostore.speed])" > /home/$[infostore.USERDIR]/.mplayer/pipe ; echo "InfoStoreAdd speed $($[FVWM_SYSTEMDIR]/scripts/speed_value "$[0]" mplayer $[infostore.speed])"'
+
+# button menu (alsaplayer, mplayer)
+# speed_set <0.01 to 100>
+AddToMenu /Speed
++ '$[gt.Speed control]' Nop
++ "" Nop
++ '$[gt.Max]' Music-Speed 'maxmplayer mplayer'
++ '$[gt.+ 1 &octave]' Music-Speed '+1octave mplayer'
++ '$[gt.+ 1 s&eventh]' Music-Speed '+1septieme mplayer'
++ '$[gt.+ 1 &sixth]' Music-Speed '+1sixte mplayer'
++ '$[gt.+ 1 &fifth]' Music-Speed '+1quinte mplayer'
++ '$[gt.+ 1 f&ourth]' Music-Speed '+1quarte mplayer'
++ '$[gt.+ 1 t&hird]' Music-Speed '+1tierce mplayer'
++ '$[gt.+ &1 tone]' Music-Speed '+1ton mplayer'
++ '$[gt.+ ½ &tone]' Music-Speed '+1/2ton mplayer'
++ "" Nop
++ '$[gt.- ½ &tone]' Music-Speed '-1/2ton mplayer'
++ '$[gt.- &1 tone]' Music-Speed '-1ton mplayer'
++ '$[gt.- 1 t&hird]' Music-Speed '-1tierce mplayer'
++ '$[gt.- 1 f&ourth]' Music-Speed '-1quarte mplayer'
++ '$[gt.- 1 &fifth]' Music-Speed '-1quinte mplayer'
++ '$[gt.- 1 &sixth]' Music-Speed '-1sixte mplayer'
++ '$[gt.- 1 s&eventh]' Music-Speed '-1septieme mplayer'
++ '$[gt.- 1 &octave]' Music-Speed '-1octave mplayer'
++ '$[gt.Min]' Music-Speed 'minmplayer mplayer'
++ "" Nop
++ '$[gt.Normal]' Music-Speed 'normal mplayer'
++ '$[gt.+ 1 &comma]' Music-Speed '+1comma mplayer'
++ '$[gt.Pause]' Music-Pause
++ '$[gt.- 1 &comma]' Music-Speed '-1comma mplayer'
+
+# mouse 4 Button-Seek-+ {{{2
+# mouse 5 Button-Seek--
+# alsaplayer mplayer
+AddToFunc Button-Seek-+
++ I Music-Seek '180'
+
+AddToFunc Button-Seek--
++ I Music-Seek '-180'
+
+# Music menus {{{1
+# main music menu (alsaplayer, audacious, mocp) {{{2
+AddToFunc Music-generator
++ I DestroyMenu recreate /Music
++ I AddToMenu /Music '%22x22/fvwm-crystal/audio-x-generic-2.png%$[gt.Player]' Popup /Player
++ I AddToMenu /Music '$[gt.Show/Hide menu]' Music-GUI
++ I AddToMenu /Music '%22x22/fvwm-crystal/audio-x-generic-2.png%$[gt.Playback]' Popup /Playback
++ I AddToMenu /Music '$[gt.Playlists]' Popup /Playlist
++ I AddToMenu /Music '%22x22/fvwm-crystal/mixer-2.png%$[gt.Mixers]' Popup /Mixer
++ I AddToMenu /Music '$[gt.Speed]' Popup /Speed
++ I AddToMenu /Music '$[gt.Show/Hide Audio controls]' Music-QJackGUI
+# DVB channels
+Test (F /dev/dvb/adapter0/frontend0) + I AddToMenu /Music '$[gt.Channels] DVB 1' PopUp /Music/ChannelSet1
+Test (F /dev/dvb/adapter1/frontend0) + I AddToMenu /Music '$[gt.Channels] DVB 2' PopUp /Music/ChannelSet2
+Test (F /dev/dvb/adapter2/frontend0) + I AddToMenu /Music '$[gt.Channels] DVB 3' PopUp /Music/ChannelSet3
+Test (F /dev/dvb/adapter3/frontend0) + I AddToMenu /Music '$[gt.Channels] DVB 4' PopUp /Music/ChannelSet4
+
+AddToMenu /Music
++ DynamicPopupAction Function Music-generator
+
+# Tooltip (alsaplayer, mplayer*) {{{1
+AddToFunc Music-Tooltip
++ I Exec exec echo "osd_show_property_text \${path} 3999" > /home/$[infostore.USERDIR]/.mplayer/pipe
+
+# vim:ft=fvwm

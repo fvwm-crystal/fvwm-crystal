@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kompare $@ 2>/dev/null
+

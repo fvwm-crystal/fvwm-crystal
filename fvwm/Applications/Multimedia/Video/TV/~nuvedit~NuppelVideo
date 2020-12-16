@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec nuvedit $@ 2>/dev/null
+

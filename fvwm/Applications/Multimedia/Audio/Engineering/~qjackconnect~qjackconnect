@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec qjackconnect $@ 2>/dev/null
+

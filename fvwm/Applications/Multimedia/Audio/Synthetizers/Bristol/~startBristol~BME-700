@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec startBristol -bme700 -jack $@ 2>/dev/null
+

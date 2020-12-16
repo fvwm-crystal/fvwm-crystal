@@ -1,0 +1,7 @@
+# Nice, thumbnailed icons on the desktop
+#SetEnv IconsType Mwm
+Include components/functions/Icon-Basic
+Include components/functions/Icon-Mwm
+Include components/bindings/Icon-Basic
+
+# vim:ft=fvwm

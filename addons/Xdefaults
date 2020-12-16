@@ -1,0 +1,260 @@
+! $Header: /home/taviso/.Xdefaults,v 1.3 2004/04/20 19:52:21 taviso Exp $
+
+! TEST
+!XEmacs*font: -xos4-terminus-medium-r-normal--24-240-72-72-c-120-iso8859-1
+!XEmacs*font: xft:Bistream Vera Sans Mono:pixelsize=20
+XEmacs*font: xft:Monospace:pixelsize=20
+!XEmacs*boldFont: -*-terminus-bold-*-*-*-*-*-*-*-*-*-*-
+XEmacs*boldFont: xft:MonospaceBold:pixelsize=20
+!XEmacs*saveLines: 100000
+! TEST
+
+
+Aterm*colorBD: blue
+Aterm*colorUL: green
+! We don't want to screw up 'shopt login_shell'
+! when used in .bashrc or .bash_profile
+! If you get errors at terminal start up before the prompt
+! comment out the following line (it is 2 other similar lines downer):
+! Aterm*loginShell: true
+Aterm*scrollBar: false
+Aterm*foreground: white
+Aterm*background: #000052
+Aterm*transparent: true
+Aterm*tintingType: true
+Aterm*shading: 90
+Aterm*tinting: white
+!Aterm*font: -monotype-andale mono-medium-r-normal--0-0-0-0-m-0-iso8859-1
+!Aterm*boldFont: -*-terminus-bold-*-*-*-*-*-*-*-*-*-*-*
+Aterm*saveLines: 100000
+
+Rxvt*geometry: 80x60
+Rxvt*colorBD: blue
+Rxvt*colorUL: green
+! Rxvt*loginShell: true
+Rxvt*scrollBar: false
+Rxvt*foreground: white
+Rxvt*background: #577274
+!Rxvt*font: -xos4-terminus-medium-r-normal--24-240-72-72-c-120-iso8859-1
+!Rxvt*font: xft:Bistream Vera Sans Mono:pixelsize=20
+Rxvt*font: xft:Monospace:pixelsize=20
+!Rxvt*boldFont: -*-terminus-bold-*-*-*-*-*-*-*-*-*-*-
+Rxvt*boldFont: xft:MonospaceBold:pixelsize=20
+Rxvt*saveLines: 100000
+
+! ===========================================================================
+! URxvt resources
+
+! Remove garbage with Alt+NumLook+KP_Multiply
+URxvt.keysym.M-N-KP_Multiply: command:
+
+! Look similar to the Linux Console, with transparency
+! ---------------------------------------------------------------------------
+URxvt.background: black
+URxvt.foreground: white
+URxvt.shading: 30
+URxvt.tintColor: white
+URxvt.transparent: true
+URxvt.scrollBar: false
+
+! Font settings
+! URxvt uses UTF-8, so we don't need encoding-specific settings'
+! ---------------------------------------------------------------------------
+! 640x480
+!URxvt.font: xft:Monospace:pixelsize=10
+! 800x600
+!URxvt.font: xft:Monospace:pixelsize=10
+! 1024x768
+!URxvt.font: xft:Monospace:pixelsize=11
+! 1152x864
+!URxvt.font: xft:Monospace:pixelsize=12
+! 1280x1024
+!URxvt.font: xft:Monospace:pixelsize=14
+! 1600x1024
+URxvt.font: xft:Monospace:pixelsize=20
+! 1680x1280
+!URxvt.font: xft:Monospace:pixelsize=20
+
+! Colors similar to Linux console
+! ---------------------------------------------------------------------------
+URxvt.color0: rgb:0/0/0
+URxvt.color1: rgb:cc/00/00
+URxvt.color2: rgb:00/cc/00
+URxvt.color3: #bd5e01
+URxvt.color4: rgb:00/00/cc
+URxvt.color5: rgb:cc/00/cc
+URxvt.color6: rgb:00/cc/cc
+URxvt.color7: rgb:aa/aa/aa
+URxvt.color8: rgb:33/33/33
+URxvt.color9: rgb:ff/00/00
+URxvt.color10: rgb:00/ff/00
+URxvt.color11: rgb:ff/ff/00
+URxvt.color12: rgb:00/00/ff
+URxvt.color13: rgb:ff/00/ff
+URxvt.color14: rgb:00/ff/ff
+URxvt.color15: rgb:ff/ff/ff
+
+! Default URxvt colors
+! ---------------------------------------------------------------------------
+!URxvt.color0: black
+!URxvt.color1: red3
+!URxvt.color2: green3
+!URxvt.color3: brown
+!URxvt.color4: blue3
+!URxvt.color5: magenta3
+!URxvt.color6: cyan3
+!URxvt.color7: gray90
+!URxvt.color8: gray30
+!URxvt.color9: red
+!URxvt.color10: green
+!URxvt.color11: yellow
+!URxvt.color12: blue
+!URxvt.color13: magenta
+!URxvt.color14: cyan
+!URxvt.color15: white
+
+!ascii[-range]:class,...
+!XTerm*VT100*font: -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1
+!XTerm*VT100*widefont: -misc-fixed-medium-r-normal-ja-13-125-75-75-c-120-iso10646-1
+!XTerm*VT100*boldfont: -misc-fixed-bold-r-semicondensed--13-120-75-75-c-60-iso10646-1
+XTerm*VT100*Geometry: 80 50
+XTerm*charClass: 33:48,37:48,45-47:48,38:48,58:48
+!XTerm*faceName: Andale Mono Bold:size=11
+XTerm*faceName: Terminus
+XTerm*faceSize: 18
+XTerm*Background: #577274
+XTerm*Foreground: #ffffff
+XTerm*eightBitInput: false
+XTerm*eightBitControl: false
+XTerm*utf8: 1
+XTerm*ActiveIcon: true
+XTerm*AllowWindowOps: true
+! use mouse wheel in mutt
+Mutt*Translations: #override \
+        <Btn5Down>:string("\033[6~") \n\
+        <Btn4Down>:string("\033[5~")
+IDAPro*showBlinkAsBold: true
+! intercept mouse wheel events in ida
+IDAPro*Translations: #override \
+        <Btn5Down>:interpret("\033[?1002l\033[?1002r") string("\033[6~") \n\
+        <Btn5Up>:interpret("\033[?1002s\033[?1002h") \n\
+        <Btn4Down>:interpret("\033[?1002l\033[?1002r") string("\033[5~") \n\
+        <Btn4Up>:interpret("\033[?1002s\033[?1002h")
+
+
+HiddenConsole*faceName: Andale Mono Bold:size=11
+HiddenConsole*Background: #577274
+HiddenConsole*Foreground: #ffffff
+HiddenConsole*eightBitInput: false
+
+! look in /usr/share/cursors/xorg-x11
+! Xcursor.theme: whiteglass
+! Xcursor.theme: tuxcursor
+! Xcursor.theme: Blue
+! Xcursor.theme: Gold
+! Xcursor.theme : ComixCursors-Orange-Regular
+! Xcursor.theme : ComixCursors-Orange-Large
+Xcursor.theme : Oxygen_White_Big
+Xcursor.size: 48
+
+! XTerm*loginShell: true
+
+xosview*title: xosview
+xosview*captions: False
+xosview*labels: False
+xosview*usedlabels: False
+xosview*borderwidth: 0
+xosview*foreground: black
+xosview*transparent: True
+xosview*background: #c6c3c6
+
+xosview*cpuUserColor: #ffe4b5
+xosview*cpuNiceColor: #ffe4b5
+xosview*cpuSystemColor: #ffe4b5
+xosview*cpuInterruptColor: #ffe4b5
+xosview*cpuFreeColor: #c6cbd6
+xosview*cpuDecay: False
+xosview*cpuGraph: False
+xosview*cpuPriority: 2
+
+xosview*memFreeColor: #c6cbd6
+xosview*memInactiveColor: #99b0de
+xosview*memUsedColor: #99b0de
+xosview*memBufferColor: #c6cbd6
+xosview*memCacheColor: #c6cbd6
+xosview*memSharedColor: #99b0de
+xosview*memTextColor: #99b0de
+xosview*memOtherColor: #99b0de
+xosview*memActiveColor: #99b0de
+xosview*memGraph: False
+
+xosview*netBackground: #c6cbd6
+xosview*netInColor: #b5c7b5
+xosview*netOutColor: #b5c7b5
+xosview*netBandwidth: 120000
+xosview*netDecay: False
+xosview*netGraph: False
+
+xosview*swapFreeColor: #c6cbd6
+xosview*swapUsedColor: #7ec0ee
+
+xosview*diskIdleColor: #c6cbd6
+xosview*diskReadColor: #b5aeff
+xosview*diskWriteColor: #b5aeff
+xosview*diskUsedColor: #b5aeff
+xosview*diskGraph: False
+xosview*diskDecay: False
+
+xosview*battery: False
+xosview*gfx: False
+xosview*net: False
+xosview*page: False
+xosview*disk: False
+xosview*interrupts: False
+xosview*load: False
+xosview*swap: False
+xosview*lmstemp: False
+xosview*cpu: False
+xosview*mem: False
+
+*beNiceToColormap: False
+!*shapeStyle: Rectangle
+!*Text.borderWidth: 0
+!*SimpleMenu.borderWidth: 0
+!*Paned.internalBorderWidth: 0
+!SmeBSB.shadowWidth:  0
+
+!## NETSCAPE
+Netscape*drawingArea.translations:  #replace    \
+<Btn1Down>:           ArmLink()   \n\
+<Btn2Down>:           ArmLink()   \n\
+~Shift<Btn1Up>:       ActivateLink()  \n\
+~Shift<Btn2Up>:       ActivateLink(new-window)  \
+DisarmLink()    \n\
+Shift<Btn1Up>:        ActivateLink(save-only)  \
+DisarmLink()    \n\
+Shift<Btn2Up>:        ActivateLink(save-only)  \
+DisarmLink()    \n\
+<Btn1Motion>:             DisarmLinkIfMoved()  \n\
+<Btn2Motion>:             DisarmLinkIfMoved()  \n\
+<Btn3Motion>:             DisarmLinkIfMoved()  \n\
+<Motion>:             DescribeLink()  \n\
+<Btn3Down>:           xfeDoPopup()    \n\
+<Btn3Up>:             ActivatePopup() \n\
+Ctrl<Btn4Down>: PageUp()\n\
+Ctrl<Btn5Down>: PageDown()\n\
+Shift<Btn4Down>: LineUp()\n\
+Shift<Btn5Down>: LineDown()\n\
+None<Btn4Down>: LineUp()LineUp()LineUp()LineUp()LineUp()LineUp()\n\
+None<Btn5Down>: LineDown()LineDown()LineDown()LineDown()LineDown()LineDown()\n\
+Alt<Btn4Down>: xfeDoCommand(forward)\n\
+Alt<Btn5Down>: xfeDoCommand(back)\n
+
+      Netscape*globalNonTextTranslations: #override\n\
+      Shift<Btn4Down>: LineUp()\n\
+      Shift<Btn5Down>: LineDown()\n\
+      None<Btn4Down>:LineUp()LineUp()LineUp()LineUp()LineUp()LineUp()\n\
+      None<Btn5Down>:LineDown()LineDown()LineDown()LineDown()LineDown()LineDown()\n\
+      Alt<Btn4Down>: xfeDoCommand(forward)\n\
+      Alt<Btn5Down>: xfeDoCommand(back)\n
+

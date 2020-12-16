@@ -1,0 +1,58 @@
+# MS Windows version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle Active MultiPixmap \
+	Main AdjustedPixmap		$./title-active-background.png \
+	UnderText AdjustedPixmap	$./title-active-text.png \
+	LeftOfText AdjustedPixmap	$./title-active-text-left.png \
+	RightOfText AdjustedPixmap	$./title-active-text-right.png
++ TitleStyle Inactive MultiPixmap \
+	Main AdjustedPixmap		$./title-inactive-background.png \
+	UnderText AdjustedPixmap	$./title-inactive-text.png \
+	LeftOfText AdjustedPixmap	$./title-inactive-text-left.png \
+	RightOfText AdjustedPixmap	$./title-inactive-text-right.png
+PipeRead 'echo "+ TitleStyle LeftJustified Height $(($[title_font_size]+$(($[title_font_size]/3)))) -- flat noinset"'
+
++ BorderStyle -- !HidenHandles
++ BorderStyle -- Raised
+
++ ButtonStyle 1 \
+	ActiveUp (AdjustedPixmap $./window-active-options.png) \
+	ActiveDown (AdjustedPixmap $./window-active-options-down.png) \
+	Inactive (AdjustedPixmap $./window-inactive-options.png)
+
++ ButtonStyle 2 \
+	ActiveUp (AdjustedPixmap $./window-active-close.png) \
+	ActiveDown (AdjustedPixmap $./window-active-close-down.png) \
+	Inactive (AdjustedPixmap $./window-inactive-close.png)
+
++ ButtonStyle 4 \
+	ActiveUp (AdjustedPixmap $./window-active-maximize.png) \
+	ActiveDown (AdjustedPixmap $./window-active-maximize-down.png) \
+	Inactive (AdjustedPixmap $./window-inactive-maximize.png)
+
++ ButtonStyle 6 \
+	ActiveUp (AdjustedPixmap $./window-active-iconify.png) \
+	ActiveDown (AdjustedPixmap $./window-active-iconify-down.png) \
+	Inactive (AdjustedPixmap $./window-inactive-iconify.png)
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- flat
+
+Style * HandleWidth 3, BorderWidth 3
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactiveborder], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_activeborder]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-windows

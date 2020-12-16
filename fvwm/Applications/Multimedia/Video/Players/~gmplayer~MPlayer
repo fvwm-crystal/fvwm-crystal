@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gmplayer $@ 2>/dev/null
+

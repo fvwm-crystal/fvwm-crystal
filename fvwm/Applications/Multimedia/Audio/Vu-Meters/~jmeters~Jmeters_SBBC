@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec jmeters -t sbbc -f small SBBC $@ 2>/dev/null

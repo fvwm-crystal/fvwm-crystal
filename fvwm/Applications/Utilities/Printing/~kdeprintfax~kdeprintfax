@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kdeprintfax $@ 2>/dev/null
+

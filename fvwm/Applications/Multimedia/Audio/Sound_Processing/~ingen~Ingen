@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec ingen -eg $@ 2>/dev/null

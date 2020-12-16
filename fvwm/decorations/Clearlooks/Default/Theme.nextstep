@@ -1,0 +1,43 @@
+# NeXTStep version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle Active AdjustedPixmap $./window-active-title.png
++ TitleStyle InActive AdjustedPixmap $./window-inactive-title.png
+PipeRead 'echo "+ TitleStyle Centered  Height $(($[title_font_size]+$(($[title_font_size]/3)))) -- flat"'
+
++ BorderStyle -- HiddenHandles
++ BorderStyle -- Flat
+
++ ButtonStyle 1 \
+	ActiveUp (AdjustedPixmap $./window-active-iconify.png) \
+	ActiveDown (AdjustedPixmap $./window-active-iconify-down.png) \
+	InactiveUp (AdjustedPixmap $./window-inactive-iconify.png) \
+	InactiveDown (AdjustedPixmap $./window-inactive-iconify-down.png)
+
++ ButtonStyle 2 \
+	ActiveUp (AdjustedPixmap $./window-active-close.png) \
+	ActiveDown (AdjustedPixmap $./window-active-close-down.png) \
+	InactiveUp (AdjustedPixmap $./window-inactive-close.png) \
+	InactiveDown (AdjustedPixmap $./window-inactive-close-down.png)
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- flat
+
+Style * HandleWidth 1, BorderWidth 1
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactiveborder], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_activeborder]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-nextstep
+

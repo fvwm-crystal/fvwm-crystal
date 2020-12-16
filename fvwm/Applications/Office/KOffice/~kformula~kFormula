@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kformula $@ 2>/dev/null
+

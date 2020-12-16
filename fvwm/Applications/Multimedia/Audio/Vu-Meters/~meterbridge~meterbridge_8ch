@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec meterbridge -t dpm system:capture_1 system:capture_2 system:capture_3 system:capture_4 system:capture_5 system:capture_6 system:capture_7 system:capture_8 $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xsnow -santa 2 -santaspeed 10 -snowflakes 1000 -delay 0 -ssnowdepth 100 -wsnowdepth 100 -xspeed 100 -yspeed 100 -windtimer 3 -santaupdatefactor 1 -unsmooth $@ 2>/dev/null
+

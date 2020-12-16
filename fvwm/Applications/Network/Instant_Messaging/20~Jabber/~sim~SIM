@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec sim $@ 2>/dev/null
+

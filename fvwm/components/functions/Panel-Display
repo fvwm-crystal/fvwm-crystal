@@ -1,0 +1,50 @@
+# Panels control for FVWM-Crystal
+#
+# Version 1.0
+# License GPL 3+
+# Author: Jorge Daniel Sampayo Vargas
+#
+# This file provide basic functions to control the display of the Panels
+
+# Toggle the visivility of the whole desktop decoration
+DestroyFunc Panel-Toggle
+AddToFunc Panel-Toggle
++ I All (State 31) WindowStyle NoIcon
++ I All (State 31) Schedule 100 Iconify
+PipeRead "if [ \"$(echo $[infostore.Fvwm_Crystal_Recipe]| sed -e 's:.*Amiga:Amiga:')\" = \"Amiga\" ]; then echo '+ I Schedule 100 Restore-TopBar-RaiseLower'; fi"
+
+# Toogle the whole desktop decoration (all windows with
+# State 31 true, State 1 true => on bottom, false => on top 
+DestroyFunc Panel-Toggle-OnTop
+AddToFunc Panel-Toggle-OnTop
++ I All (State 30, State 1) WindowStyle StaysOnTop, !State 1
++ I TestRc (NoMatch) All (State 31) WindowStyle StaysOnBottom, State 1
+PipeRead "if [ \"$(echo $[infostore.Fvwm_Crystal_Recipe]| sed -e 's:.*Amiga:Amiga:')\" = \"Amiga\" ]; then echo '+ I Schedule 100 Restore-TopBar-RaiseLower'; fi"
+
+# Toggle the whole topbar and pager between the top and bottom layers {{{1
+# For the Amiga recipe
+# bindings in components/bindings/Desktop-MMB-ToggleTopBar (Alt-MMB)
+# MMB Toggle-TopBar-OnTop 1{{{
+DestroyFunc Toggle-TopBar-OnTop
+AddToFunc Toggle-TopBar-OnTop
++ I All (FvwmButtons-PanelTop, !State 1) PutTopBar-OnTop
++ I TestRc (NoMatch) PutTopBar-OnBottom
++ I Restore-TopBar-RaiseLower
+
+DestroyFunc PutTopBar-OnTop
+AddToFunc PutTopBar-OnTop
++ I All (FvwmButtons-PanelTop) PutOnTop
+#+ I All (FvwmButtons-Pager) PutOnTop
+#+ I All (FvwmPager) PutOnTop
++ I All (FvwmButtons-PanelTopMenu) PutOnTop
+
+DestroyFunc PutTopBar-OnBottom
+AddToFunc PutTopBar-OnBottom
++ I All (FvwmButtons-PanelTop) PutOnBottom
+#+ I All (FvwmButtons-Pager) PutOnBottom
+#+ I All (FvwmPager) PutOnBottom
++ I All (FvwmButtons-PanelTopMenu) PutOnBottom
+
+#EdgeCommand Top Toggle-TopBar-OnTop
+
+# vim:ft=fvwm

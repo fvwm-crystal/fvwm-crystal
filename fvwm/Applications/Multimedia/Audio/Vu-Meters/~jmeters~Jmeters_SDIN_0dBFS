@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec jmeters -t sdin -f rect -r -20 -name "SDIN 0dBFS" "SDIN 0dBFS" $@ 2>/dev/null

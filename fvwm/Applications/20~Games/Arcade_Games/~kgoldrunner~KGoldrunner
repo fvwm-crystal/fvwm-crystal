@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kgoldrunner $@ 2>/dev/null
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec jmeters -t cppm -f small CPPM $@ 2>/dev/null

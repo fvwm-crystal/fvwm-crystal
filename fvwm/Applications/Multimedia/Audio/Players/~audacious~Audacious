@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec audacious $@ 2>/dev/null
+

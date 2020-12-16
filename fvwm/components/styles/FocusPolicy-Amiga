@@ -1,0 +1,27 @@
+# Window focusing policy - FVWM-Crystal style
+
+# - click to focus
+# - windows are not raised upon focusing, can be raised by click on the
+#   window's titlebar or border
+# - new windows are automatically being focused
+
+Style * !FPEnterToFocus, !FPLeaveToUnfocus, FPClickToFocus, FPClickDecorToFocus
+Style * !FPClickRaisesFocused, FPClickDecorRaisesFocused
+Style * FPAllowRaiseClickFunction, FPAllowFocusClickFunction
+Style * FPFocusByProgram, FPFocusByFunction, !FPFocusByFunctionWarpPointer
+Style * FPGrabFocus, FPGrabFocusTransient
+Style * FPReleaseFocus, FPReleaseFocusTransient
+Style * FPSortWindowlistByFocus
+Style * FPFocusClickModifiers $[Mod]$[Mod0]
+
+Style FvwmScript !FPEnterToFocus, !FPLeaveToUnfocus, FPClickToFocus, FPClickDecorToFocus
+Style FvwmScript FPClickRaisesFocused, FPClickDecorRaisesFocused
+Style FvwmScript FPGrabFocus, FPGrabFocusTransient
+Style FvwmScript FPReleaseFocus, FPReleaseFocusTransient
+
+Include components/styles/FocusPolicy-NeverFocus
+
+# Functions for remembering last focused window on a desktop page
+Include components/functions/Window-Remember-ClickToFocus
+
+# vim:ft=fvwm

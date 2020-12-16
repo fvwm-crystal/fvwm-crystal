@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec k3bsetup $@ 2>/dev/null

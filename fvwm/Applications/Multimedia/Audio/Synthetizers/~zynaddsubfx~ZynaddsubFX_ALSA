@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec zynaddsubfx -I alsa -O alsa $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec sylpheed-claws $@ 2>/dev/null
+

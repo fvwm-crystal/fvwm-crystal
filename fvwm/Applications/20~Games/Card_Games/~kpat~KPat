@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kpat $@ 2>/dev/null
+

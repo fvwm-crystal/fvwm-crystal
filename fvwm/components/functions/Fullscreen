@@ -1,0 +1,87 @@
+# FVWM-Crystal: Fullscreen
+# Written by: Dominique Michel 2008-2020
+# <dominique_libre@users.sourceforge.net>
+# replace the Fullscreen functions written when fvwm did not have native Fs support.
+# but now (2019) fvwm have that support, so rewrite things around.
+#
+# How to use:
+# Bind "Fullscreen" command somewhere, example:
+#
+# 	Key KP_Multiply		A $[Mod1] Fullscreen
+#
+# Disappear overview
+# When using this function, Fvwm-Crystal will cycle through all the fullscreened
+# windows and the workbench on the current page.
+# To use it, bind "Disappear" command somewhere.
+#
+# 	Key KP_Multiply		A $[Mod2] Disappear
+#
+# The other window size functions are into Window-Buttons.
+
+# Fullscreen functions {{{1
+# Workaround: We need a wrapper because of buggy browser windowss which think they know better than the window manager.
+# 	TODO: make a preference setting for which window(s) to trick.
+
+DestroyFunc Fullscreen
+AddToFunc Fullscreen
++ I ThisWindow (!FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) ToggleFullscreen
+#+ I ThisWindow (!FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) Maximize Fullscreeen
+
+DestroyFunc PutInFSProp
+AddToFunc PutInFSProp
+# Needed by browsers on youtube
++ I WindowStyle !Borders, !Title
++ I UpdateStyles
++ I State 6 True
++ I Schedule Periodic 1000 $[w.id] ThisWindow (State 4, !Fullscreen) Maximize FullScreen True
+
+DestroyFunc PutOutFSProp
+AddToFunc PutOutFSProp
++ I WindowStyle Borders, Title
++ I UpdateStyles
++ I State 6 False
++ I Deschedule $[w.id]
+
+DestroyFunc ToggleFullscreen
+AddToFunc ToggleFullscreen
++ I ThisWindow (Fullscreen, "Navigator|Firefox*|Netscape*|Vivaldi*|Konqueror*|Mozilla*|Brave-*") PutOutFSProp
++ I KeepRc Maximize Fullscreen
++ I TestRc (NoMatch) ThisWindow ("Navigator|Firefox*|Netscape*|Vivaldi*|Konqueror*|Mozilla*|Brave-*") PutInFSProp
+
+# Disapear functions {{{1
+DestroyFunc Disappear
+AddToFunc Disappear
++ I Next (CurrentPage, Fullscreen, Iconic) Disappear-Off
++ I TestRc (NoMatch) All (CurrentPage, Fullscreen) Disappear-On
+
+DestroyFunc Disappear-On
+AddToFunc Disappear-On
++ I WindowStyle NoIcon
++ I UpdateStyles
++ I Iconify true
+
+DestroyFunc Disappear-Off
+AddToFunc Disappear-Off
++ I Iconify false
++ I WindowStyle Icon
++ I UpdateStyles
+
+# Rearrange in fullscreen {{{1
+DestroyFunc Fullscreen-Rearrange
+AddToFunc Fullscreen-Rearrange
++ I All (CurrentPage, !Iconic, !FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) ToggleFullscreen
+#+ I All (CurrentPage, !Iconic, !FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) Maximize Fullscreen
+
+# Start in full screen at application statup {{{1
+DestroyFunc Window-AutoFS
+AddToFunc Window-AutoFS
+PipeRead '$[FVWM_SYSTEMDIR]/scripts/FSApps'
+
+# Event {{{1
+DestroyModuleConfig FvwmEvent-Window-Fullscreen-Auto: *
+*FvwmEvent-Window-FullScreen-Auto: add_window Window-AutoFS
+*FvwmEvent-Window-FullScreen-Auto: destroy_window Current Deschedule  $[w.id]
+#*FvwmEvent-Window-FullScreen-Auto: destroy_window "Echo FE Current Deschedule  $[w.id]"
+Module FvwmEvent FvwmEvent-Window-Fullscreen-Auto
+
+# vim:ft=fvwm

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec crossfire-client-gtk2 $@ 2>/dev/null

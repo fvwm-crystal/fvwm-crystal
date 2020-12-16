@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec acroread $@ 2>/dev/null
+

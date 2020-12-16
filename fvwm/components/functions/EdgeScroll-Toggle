@@ -1,0 +1,24 @@
+# With the Amiga recipe, this will toggle the top bar
+# With all other recipes, this will toggle the edge scroll
+
+DestroyFunc EdgeScroll-Toggle
+AddToFunc EdgeScroll-Toggle
++ I EdgeScroll-Toggle_Soft $0 $1 $2 $3
+
+DestroyFunc EdgeScroll-Toggle_Soft
+AddToFunc EdgeScroll-Toggle_Soft
++ I EdgeScroll 100000 100000
++ I EdgeResistance 0
++ I Style * EdgeMoveDelay 0
++ I Style * EdgeMoveResistance 0
++ I $0 $1 $2 $3 EdgeScroll-Toggle_Hard $0 $1 $2 $3
+
+DestroyFunc EdgeScroll-Toggle_Hard
+AddToFunc EdgeScroll-Toggle_Hard
++ I EdgeScroll 0 0
++ I EdgeResistance 0
++ I Style * EdgeMoveDelay 0
++ I Style * EdgeMoveResistance 0
++ I $0 $1 $2 $3 EdgeScroll-Toggle_Soft $0 $1 $2 $3
+
+# vim:ft=fvwm

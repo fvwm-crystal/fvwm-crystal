@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xnc $@ 2>/dev/null
+

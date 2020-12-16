@@ -1,0 +1,138 @@
+# Support for CDCD CDAudio player into Fvwm-Crystal
+# Written by: Maciej Delmanowski <harnir@post.pl>
+# sed commands by: Grzegorz Niewęgłowski <hoppke@dobremiasto.net>
+# Modifications, debugging and improvments by Dominique Michel
+# <dominique_libre@users.sourceforge.net> 2008-2019
+# See ChangeLog for details
+
+# Overview:
+# This is a set of function for controlling the CDCD CD Audio player
+# (http://libcdaudio.sourceforge.net/).
+
+# Initialisations, shared functions
+Include components/functions/Music
+Style cdcd 		NoActiveIconOverride, NoIcon, Sticky, WindowListSkip, StaysOnTop
+
+DestroyFunc StyleMediaPlayer
+AddToFunc StyleMediaPlayer
++ I Style cdcd NoIcon
++ I Style start_cadence NoIcon
++ I UpdateStyles
+# Schedule needed at Start and after Restart for start_[jack|cadence]
+Schedule 1 StyleMediaPlayer
+
+# First button {{{1
+# Player controls and prefs
+# mouse 1 Menu /Player {{{2
+AddToFunc Music-cdcd
++ I Exec exec cdcd $0 > /dev/null
+
+AddToFunc Music-GUI
++ I All (cdcd) Close
++ I TestRc (NoMatch) None (cdcd) AT cdcd cdcd
+
+# Player-generator (All)
+AddToFunc Player-generator
++ I DestroyMenu recreate /Player
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Music player]' Popup /Preferences/MusicPlayer
++ I AddToMenu /Player "" Nop
++ I Test (X qjackctl) AddToMenu /Player '$[gt.Start QJackCtl]' 	Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Player '$[gt.Start Cadence]' 	Exec cadence-session-start --maybe-system-start; cadence
++ I Test (X qjackctl) AddToMenu /Player "" Nop
++ I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
++ I AddToMenu /Player '$[gt.Stop playback]'	Music-Stop
++ I AddToMenu /Player '$[gt.Play/Pause]' 	Music-PlayPause
+
+# mouse 2 Music-GUI : allready here {{{2
+# mouse 3 Music-QJackGUI : in Music
+# mouse 4 Mixer-Volume-Up
+# mouse 5 Mixer-Volume-Down
+# are in components/Mixer
+
+# Second button {{{1
+# Player controls and main vol
+# mouse 1 Menu /Playlist-button {{{2
+# mouse 2 Menu /Playback
+AddToFunc Music-Next
++ I Music-cdcd next
+
+AddToFunc Music-Prev
++ I Music-cdcd prev
+
+AddToFunc Music-Stop
++ I Music-cdcd stop
+
+AddToFunc Music-Play
++ I Music-cdcd play
+
+AddToFunc Music-Pause
++ I Music-cdcd toggle
+
+AddToFunc Music-PlayPause
++ I Music-cdcd toggle
+
+AddToFunc Music-Forward
++ I Music-cdcd ff
+
+AddToFunc Music-Backward
++ I Music-cdcd rew
+
+AddToFunc Playback-generator
++ I DestroyMenu recreate /Playback
++ I AddToMenu /Playback '$[gt.Next]' Music-Next
++ I AddToMenu /Playback '$[gt.Prev]' Music-Prev
++ I AddToMenu /Playback "" Nop
++ I AddToMenu /Playback '$[gt.Stop playback]' Music-Stop
++ I AddToMenu /Playback '$[gt.Play]' Music-Play
++ I AddToMenu /Playback '$[gt.Pause]' Music-Pause
++ I AddToMenu /Playback '$[gt.Play/Pause]' Music-PlayPause
++ I AddToMenu /Playback '$[gt.Forward]' Music-Forward
++ I AddToMenu /Playback '$[gt.Backward]' Music-Backward
+
+# Main menu {{{1
+AddToFunc Music-generator
++ I DestroyMenu recreate /Music
++ I AddToMenu /Music '$[gt.Volume]'		Popup /Mixer
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Stop playback]'	Music-Stop
++ I AddToMenu /Music '$[gt.Show/Hide player]'	Music-GUI
++ I AddToMenu /Music '$[gt.Show/Hide Audio controls]'	Music-QJackGUI
++ I Test (X qjackctl) AddToMenu /Music '$[gt.Start QJackCtl]' 	Exec exec qjackctl
++ I Test (X cadence) AddToMenu /Music '$[gt.Start Cadence]' 	Exec cadence-session-start --maybe-system-start; cadence
++ I AddToMenu /Music '$[gt.Play/Pause]'		Music-PlayPause
++ I AddToMenu /Music "" Nop
++ I AddToMenu /Music '$[gt.Music player]'	Popup /Preferences/MusicPlayer
+
+# Fake button functions {{{1
+# Menu /Player Music-GUI
+# Music-QJackGUI (in Music)
+# Mixer-Volume-Up (in Mixer)
+# Mixer-Volume-Down (in Mixer)
+# /Playlist-button
+AddToMenu /Playlist-button
++ "" Nop
+# Menu /Music/Volume (TODO)
+AddToMenu /Music/Volume
++ "" Nop
+# Menu /Mixer (in Mixer)
+# Music-Next
+# Music-Prev
+# Music-Play
+# Music-Pause
+# Menu /Playback
+# Music-Speed-Up
+AddToFunc Music-Speed-Up
++ I Nop
+# Music-Speed-Down
+AddToFunc Music-Speed-Down
++ I Nop
+# Menu /Speed
+AddToMenu /Speed
++ "" Nop
+# Music-Seek-+
+# Music-Seek--
+AddToFunc Music-Seek
++ I Nop
+
+# vim:ft=fvwm

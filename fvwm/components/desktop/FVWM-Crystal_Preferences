@@ -1,0 +1,11 @@
+# Load frequently used FVWM-Crystal preferences
+
+LoadPreferences MouseVelocity
+LoadPreferences NotificationAreaManager
+LoadPreferences DeskPageX
+InfoStoreAdd Desk_Pages_Y "1"
+DesktopSize $[infostore.Desk_Pages_X]x$[infostore.Desk_Pages_Y]
+LoadPreferences AutoHibernation
+LoadPreferences ScreenLidSuspend
+
+# vim:ft=fvwm

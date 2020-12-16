@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec frozen-bubble $@ 2>/dev/null
+

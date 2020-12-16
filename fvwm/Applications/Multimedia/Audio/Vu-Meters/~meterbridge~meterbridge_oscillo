@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec meterbridge -t sco system:capture_1 system:capture_2  $@ 2>/dev/null
+

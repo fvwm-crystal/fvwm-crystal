@@ -1,0 +1,53 @@
+# FvwmMiniConsole
+
+# Variables
+InfoStoreAdd FvwmConsoleTerminal "NO_FVWMCONSOLE_TERMINAL_FOUND"
+
+CheckPreferences FvwmConsoleTerminal "SavePreferences FvwmConsoleTerminal 'FindCommand FvwmConsoleTerminal urxvt mrxvt aterm xterm'"
+LoadPreferences FvwmConsoleTerminal
+# For first startup
+FindCommand FvwmConsoleTerminal urxvt mrxvt aterm xterm
+
+Mouse (FvwmMiniConsoleNeedsUniqueName) 2 W $[Mod1] FvwmMiniConsole-Resize
+
+DestroyFunc FvwmMiniConsole
+AddToFunc FvwmMiniConsole
++ I None (FvwmMiniConsoleNeedsUniqueName) FvwmMiniConsole_Init
++ I All (FvwmMiniConsoleNeedsUniqueName, CurrentDesk, Focused) FvwmMiniConsole_Hide
++ I TestRc (0) FvwmMiniConsole_Show
+
+DestroyFunc FvwmMiniConsole_Init
+AddToFunc FvwmMiniConsole_Init
++ I Style FvwmMiniConsoleNeedsUniqueName !Title, !Borders, SkipMapping,  WindowListSkip, \
+    VariableSize, VariablePosition, NoIcon, StaysOnTop, !Iconifiable, \
+    StickyAcrossPages, !Maximizable, NoHandles
++ I Style FvwmMiniConsoleNeedsUniqueName WindowShadeSteps 16
++ I Style FvwmMiniConsoleNeedsUniqueName WindowShadeShrinks
++ I Style FvwmMiniConsoleNeedsUniqueName TitleAtBottom
+# fvwm3 with golang support
++ I Test (X FvwmPrompt) AGT FvwmMiniConsoleNeedsUniqueName 80x5+0-0 FvwmPrompt
+# fvwm2 (or fvwm3 without golang support at that time of writing 15.12-2020)
++ I TestRc (NoMatch)  Module FvwmConsole -terminal $[infostore.FvwmConsoleTerminal] -geometry 80x5+0-0 -title FvwmMiniConsoleNeedsUniqueName
++ I Wait FvwmMiniConsoleNeedsUniqueName
++ I Style FvwmMiniConsoleNeedsUniqueName FixedPosition
++ I All (FvwmMiniConsoleNeedsUniqueName) MoveToDesk 0 666
++ I Prev (CurrentPage) Focus
+
+DestroyFunc FvwmMiniConsole_Show
+AddToFunc FvwmMiniConsole_Show
++ I All (FvwmMiniConsoleNeedsUniqueName) MoveToDesk 0 $[desk.n]
+#+ I All (FvwmMiniConsoleNeedsUniqueName) WindowShade false
++ I All (FvwmMiniConsoleNeedsUniqueName) Focus
+ 
+DestroyFunc FvwmMiniConsole_Hide
+AddToFunc FvwmMiniConsole_Hide
+#+ I All (FvwmMiniConsoleNeedsUniqueName) WindowShade true South
++ I All (FvwmMiniConsoleNeedsUniqueName) MoveToDesk 0 666 
+#+ I All (FvwmMiniConsoleNeedsUniqueName) WindowShade false South
++ I Prev (CurrentPage, AcceptsFocus, Visible) Focus
+
+DestroyFunc FvwmMiniConsole-Resize
+AddToFunc FvwmMiniConsole-Resize
++ I Resize Direction NE
+
+# vim:ft=fvwm

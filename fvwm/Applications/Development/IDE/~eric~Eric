@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec eric $@ 2>/dev/null
+

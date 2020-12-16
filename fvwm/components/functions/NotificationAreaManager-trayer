@@ -1,0 +1,32 @@
+# Support for trayer
+# Written by: Dominique Michel <dominique_libre@users.sourceforge.net>
+# for FVWM-Crystal, 2013
+# 
+# Version with parameters instead of the environment
+
+# Trayer Syntax:
+# NotificationAera [widthtype <request|pixel|percent>] [heighttype <request|pixel|percent>] \
+#	[height <size>] [edge <left|right|top|bottom|none>] [align  <left|right|center>] \
+#	[margin <n pixels>] [distance <n pixels>] [width <size>]
+
+AddToFunc ExitFunction I Exec exec killall trayer
+
+# Settings of Trayer {{{1
+DestroyFunc FvwmTrayerPanel
+AddToFunc FvwmTrayerPanel
++ I Exec exec trayer \
+--SetDockType false \
+--widthtype $[0] \
+--heighttype $[1] \
+--height $[2] \
+--edge $[3] \
+--align $[4] \
+--transparent true \
+--alpha $[TrayerAlpha] \
+--tint $[TrayerTint] \
+--margin $[5] \
+--distance $[6] \
+$[7] $[infostore.SILENT]
++ I Style trayer !Title, !Icon
+
+# vim:ft=fvwm

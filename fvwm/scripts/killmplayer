@@ -1,0 +1,12 @@
+#!/bin/bash
+# Support for MPlayer(2) media players into Fvwm-Crystal
+# Written by: Dominique Michel <dominique_libre@users.sourceforge.net> 2013
+
+# Kill the mplayer(2) instance(s) started by Crystal and remove the temporary files.
+# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/killmplayer <signal>
+
+rmtmp=$(ls /tmp/crystal_mplayer_* 2>/dev/null)
+for i in $rmtmp; do
+	kill $1 $(echo $i|sed -e "s:/tmp/crystal_mplayer_::")
+	rm $i
+done 2>/dev/null

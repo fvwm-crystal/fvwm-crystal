@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'S aptitude $@ 2>/dev/null'
+

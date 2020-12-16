@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec quake2 $@ 2>/dev/null
+

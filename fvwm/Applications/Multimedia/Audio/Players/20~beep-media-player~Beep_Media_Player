@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec beep-media-player $@ 2>/dev/null
+

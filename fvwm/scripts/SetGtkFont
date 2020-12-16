@@ -1,0 +1,30 @@
+#!/bin/env bash
+# This file is part of fvwm-crystal.
+# Author: Dominique Michel
+# Licence: GPLv3
+
+# Set GTK+ 2 and 3 to use the panel font of fvwm-crystal.
+# fvwm-crystal must be up and running or it will screw up your GTK+ font configuration.
+# Usage: "${FVWM_SYSTEMDIR}/scripts/SetGtkFont"
+
+Gtk2PrefFile="${HOME}/.gtkrc-2.0"
+Gtk3PrefFile="${HOME}/.config/gtk-3.0/settings.ini"
+GtkFontName=`echo ${panel_font} ${panel_font_style} ${panel_font_size}`
+
+if [ ! -f "${Gtk2PrefFile}" ]; then
+	cp ${FVWM_SYSTEMDIR}/../addons/.gtkrc-2.0 ${Gtk2PrefFile}
+fi
+if [ ! -f "${Gtk3PrefFile}" ]; then
+	mkdir -p "${HOME}/.config/gtk3-0"
+	cp ${FVWM_SYSTEMDIR}/../addons/settings.ini ${Gtk3PrefFile}
+fi
+if ! grep -q gtk-font-name "${Gtk2PrefFile}"; then
+	echo "gtk-font-name=\"${GtkFontName}\"" >> ${Gtk2PrefFile}
+else
+	sed -i "s:gtk-font-name=\".*\":gtk-font-name=\"${GtkFontName}\":" "${Gtk2PrefFile}"
+fi
+if ! grep -q gtk-font-name "${Gtk3PrefFile}"; then
+	echo "gtk-font-name=${GtkFontName}" >> ${Gtk3PrefFile}
+else
+	sed -i "s:gtk-font-name=.*:gtk-font-name=${GtkFontName}:" "${Gtk3PrefFile}"
+fi

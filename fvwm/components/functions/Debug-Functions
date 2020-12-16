@@ -1,0 +1,65 @@
+# Debug functions
+
+# It's a set of functions and panels useful for developing or debugging FVWM-Crystal
+
+# Window list
+All (FvwmIconMan-Debug-WindowList) Close
+DestroyModuleConfig FvwmIconMan-Debug-WindowList: *
+
+*FvwmIconMan-Debug-WindowList: Resolution Global
+*FvwmIconMan-Debug-WindowList: UseWinList False
+*FvwmIconMan-Debug-WindowList: ShowOnlyIcons False
+*FvwmIconMan-Debug-WindowList: DrawIcons Always
+*FvwmIconMan-Debug-WindowList: Sort Id
+*FvwmIconMan-Debug-WindowList: FollowFocus True
+*FvwmIconMan-Debug-WindowList: Format "%t [icon:%i]"
+*FvwmIconMan-Debug-WindowList: Title "Debug Window List: Title [icon:icon title] | class/resource"
+PipeRead "echo \*FvwmIconMan-Debug-WindowList: ButtonGeometry $((($[vp.width]-12)/2))x24"
+*FvwmIconMan-Debug-WindowList: ManagerGeometry +3+3
+*FvwmIconMan-Debug-WindowList: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmIconMan-Debug-WindowList: Tips always
+*FvwmIconMan-Debug-WindowList: TipsDelays 400 100
+*FvwmIconMan-Debug-WindowList: TipsFormat "%c/%r"
+*FvwmIconMan-Debug-WindowList: TipsFont "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmIconMan-Debug-WindowList: TipsBorderWidth 2
+*FvwmIconMan-Debug-WindowList: TipsColorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Debug-WindowList: TipsJustification leftup
+*FvwmIconMan-Debug-WindowList: PlainButton flat
+*FvwmIconMan-Debug-WindowList: FocusButton flat
+*FvwmIconMan-Debug-WindowList: SelectButton flat
+*FvwmIconMan-Debug-WindowList: FocusAndSelectButton flat
+*FvwmIconMan-Debug-WindowList: IconButton flat
+*FvwmIconMan-Debug-WindowList: Colorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Debug-WindowList: PlainColorset $[infostore.cs_panel_wininactive]
+*FvwmIconMan-Debug-WindowList: FocusColorset $[infostore.cs_panel_winactive]
+*FvwmIconMan-Debug-WindowList: SelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Debug-WindowList: FocusAndSelectColorset $[infostore.cs_panel_active]
+*FvwmIconMan-Debug-WindowList: IconColorset $[infostore.cs_panel_inactive]
+*FvwmIconMan-Debug-WindowList: Action Mouse 1 $[Mod] SendCommand "WarpToWindow 0 0"
+*FvwmIconMan-Debug-WindowList: Action Mouse 2 $[Mod] SendCommand "Nop"
+*FvwmIconMan-Debug-WindowList: Action Mouse 3 $[Mod] SendCommand "Menu /Debug/WindowList $[MenuPosition_BelowRight]"
+
+Style FvwmIconMan-Debug-WindowList UseStyle *
+Style FvwmIconMan-Debug-WindowList Title, Borders, VariablePosition, VariableSize, StaysOnTop, Sticky
+Module FvwmIconMan FvwmIconMan-Debug-WindowList
+
+*FvwmIdent: Colorset $[infostore.cs_panel_active]
+*FvwmIdent: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+*FvwmIdent: MinimalLayer 6
+
+DestroyMenu /Debug/WindowList
+AddToMenu /Debug/WindowList
++ '$[gt.Identify window]' Module FvwmIdent
++ '$[gt.WindowStyle]' Popup /Developer/WindowStyle
++ "" Nop
++ '$[gt.Move]' Debug-Window-Move
++ '$[gt.Resize]' Resize
++ '$[gt.Close]' Close
++ '$[gt.Destroy]' Destroy
+
+DestroyFunc Debug-Window-Move
+AddToFunc Debug-Window-Move
++ I WarpToWindow 0 0
++ I Move
+
+# vim:filetype=fvwm

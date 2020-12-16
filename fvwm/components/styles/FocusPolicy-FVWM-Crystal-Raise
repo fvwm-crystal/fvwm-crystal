@@ -1,0 +1,26 @@
+# Window focusing policy - FVWM-Crystal style with click-to-raise
+
+# - focus follows mouse (sloppy focus)
+# - windows are raised by clicks
+# - new windows are automatically being focused
+
+Style * FPEnterToFocus, !FPLeaveToUnfocus, FPClickToFocus
+Style * FPClickRaisesFocused, FPClickDecorRaisesFocused
+Style * FPAllowRaiseClickFunction
+Style * FPFocusByProgram, FPFocusByFunction, !FPFocusByFunctionWarpPointer
+Style * FPGrabFocus, FPGrabFocusTransient
+Style * FPReleaseFocus, FPReleaseFocusTransient
+Style * FPFocusClickModifiers $[Mod]$[Mod0]
+
+Style FvwmScript FPEnterToFocus, !FPLeaveToUnfocus, FPClickToFocus
+Style FvwmScript FPClickRaisesFocused, FPClickDecorRaisesFocused
+Style FvwmScript FPGrabFocus, FPGrabFocusTransient
+Style FvwmScript FPReleaseFocus, FPReleaseFocusTransient
+
+Include components/styles/FocusPolicy-NeverFocus
+
+# Functions for remembering last focused window on a desktop page
+Include components/functions/Window-Remember-SloppyFocus
+
+# vim:ft=fvwm
+Include components/styles/FocusPolicy-NeverFocus

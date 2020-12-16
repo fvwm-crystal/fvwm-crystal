@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec kjscmd --exec $@ 2>/dev/null

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'A aumix $@ 2>/dev/null'
+

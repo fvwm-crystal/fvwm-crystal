@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec iceweasel $@ 2>/dev/null
+

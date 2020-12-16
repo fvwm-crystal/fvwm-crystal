@@ -1,0 +1,53 @@
+# In this file you can start up applications at the beginning of the session.
+
+AddToFunc StartFunction
+
+# Launch GKrellM, only if it doesn't run
+#+ I Test (Init) Test (x gkrellm) Exec pidof gkrellm || exec gkrellm
+
+#Launch torsmo
+#+ I Test (x torsmo) Exec pidof torsmo || exec torsmo
+
+#Launch conky
+#+ I Test (Init) Test (x conky) Exec pidof conky || exec conky
+
+# A calendar on the desktop
+#+ I Test (Init) Test (x gdeskcal) X gdeskcal
+
+# Launch Skype
+#+ I Test (Init) Test (x skype) Exec pidof skype || exec skype
+
+# Launch Psi
+#+ I Test (Init) Test (x psi) Exec pidof psi || exec psi
+
+# Launch TleenX2
+#+ I Test (Init) Test (x tleenx2) Exec pidof tleenx2 || exec tleenx2
+
+# Launch Kadu
+#+ I Test (Init) Test (x kadu) Exec pidof kadu || exec kadu
+
+# Launch QJackCtl
+#+ I Test (Init) Test (x qjackctl) Exec pidof qjackctl || exec qjackctl
+
+# Launch LADITray
+#+ I Test (Init) Test (x ladi-system-tray) Exec pidof ladi-system-tray || exec ladi-system-tray 2>/dev/null
+
+# Launch jamin
+#+ I Test (Init) Test (x jamin) Exec pidof jamin || exec jamin
+
+# Launch jackdbus
+#+ I Test (Init) Test (x jackdbus) PipeRead "pidof jackdbus || (echo A start_jack && echo Music-QJackGUI)"
+
+# Lauch Cadence
+#+ I Test (Init) Test (x cadence) PipeRead "pidof cadence || echo A start_cadence"
+
+# Launch alsamixer
+#+ I Test (Init) Test (x alsamixer) PipeRead 'pidof alsamixer || echo "AT \\\"ALSA Mixer\\\" \\\"alsamixer -c $[infostore.SoundCard]\\\""
+
+# Launch HexChat
+#+ I Test (Init) Test (x hexchat) Exec pidof hexchat || exec hexchat
+
+# Launch Zim
+#+ I Test (Init) Test (x zim) Exec pidof zim || exec zim
+
+# vim:ft=fvwm

@@ -1,0 +1,45 @@
+# MacOS X version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle InActive Colorset $[infostore.cs_window_inactive]
++ TitleStyle Active Colorset $[infostore.cs_window_active]
++ TitleStyle Centered
++ TitleStyle -- flat
+PipeRead 'echo "+ TitleStyle Height $(($[title_font_size]+$(($[title_font_size]/3))))"'
+
++ BorderStyle -- HiddenHandles
++ BorderStyle -- Flat
+
+# Close
++ ButtonStyle 1 Inactive AdjustedPixmap $./window-inactive-close.png
++ ButtonStyle 1 Active AdjustedPixmap $./window-active-close.png
+
+# Iconify
++ ButtonStyle 3 Inactive AdjustedPixmap $./window-inactive-iconify.png
++ ButtonStyle 3 Active AdjustedPixmap $./window-active-iconify.png
+
+# Maximize
++ ButtonStyle 5 Inactive AdjustedPixmap $./window-inactive-maximize.png
++ ButtonStyle 5 Active AdjustedPixmap $./window-active-maximize.png
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- flat
+
+Style * HandleWidth 1, BorderWidth 1
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactive], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_active]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-macosx
+

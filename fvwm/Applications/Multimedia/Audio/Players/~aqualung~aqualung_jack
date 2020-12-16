@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec aqualung -o jack $@ 2>/dev/null
+

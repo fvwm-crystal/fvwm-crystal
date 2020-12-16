@@ -1,0 +1,30 @@
+#!/bin/sh
+# convert FVWM-Crystal preferences to InfoStore
+
+FC_VERSION=`grep Version "${FVWM_SYSTEMDIR}"/components/functions/About | sed -e 's/*About: Text "\$\[gt.Version\]: \([0-9.]\+\)"/\1/'`
+
+convert_preference() {
+	sed -i -e 's:SetEnv:InfoStoreAdd:' "$1"
+}
+
+convert_preferences() {
+	convert_preference "${FVWM_USERDIR}"/preferences/DefaultSoundCard
+	convert_preference "${FVWM_USERDIR}"/preferences/LastChoosenRecipe
+	convert_preference "${FVWM_USERDIR}"/preferences/DefaultMusicPlayer
+	convert_preference "${FVWM_USERDIR}"/preferences/DefaultMixer
+
+	echo ${FC_VERSION} > "${FVWM_USERDIR}"/Version
+}
+
+if [ ! -f "${FVWM_USERDIR}"/Version ]
+then 	convert_preferences
+else 	C_VERSION=`cat "${FVWM_USERDIR}"/Version`
+	if 	[ "${C_VERSION}" != "{FC_VERSION}" ]
+	then	echo ${FC_VERSION} > "${FVWM_USERDIR}"/Version
+	fi
+fi
+if [ -f "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation ]
+	then	sed -i -e "s:Up:Top:" "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation
+		sed -i -e "s:Down:Bottom:" "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation
+fi
+

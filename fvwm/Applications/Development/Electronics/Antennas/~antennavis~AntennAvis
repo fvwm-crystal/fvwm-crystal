@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec antennavis $@ 2>/dev/null
+

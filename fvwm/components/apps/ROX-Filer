@@ -1,0 +1,37 @@
+# Launch the pinboard
+Test (Init) Test (x rox) Exec exec rox --pinboard=Default
+
+# Set the specified wallpaper using ROX-Filer's pinboard
+DestroyFunc Wallpaper-Set
+AddToFunc Wallpaper-Set
++ I Test (x rox) Exec echo "<?xml version=\"1.0\"?><env:Envelope xmlns:env=\"http://www.w3.org/2001/12/soap-envelope\"><env:Body xmlns=\"http://rox.sourceforge.net/SOAP/ROX-Filer\"><SetBackdrop><Filename>$*</Filename><Style>Stretch</Style></SetBackdrop></env:Body></env:Envelope>" | rox -R
+
+DestroyFunc Wallpaper-Random
+AddToFunc Wallpaper-Random
++ I PipeRead "echo Wallpaper-Set `fvwm-crystal.wallpaper $*`"
+
+SetEnv WallpaperThumbnails "$[FVWM_USERDIR]/wallpaper-thumbnails"
+
+# Menu for wallpapers
+DestroyMenu /Wallpaper
+AddToMenu /Wallpaper
++ MissingSubmenuFunction Wallpaper-Browser
++ "%22x22/categories/directory.png%FVWM-Crystal" Popup $[FVWM_SYSTEMDIR]/wallpapers
+Test (f $[FVWM_USERDIR]/wallpapers) + "%22x22/categories/directory.png%~/.fvwm-crystal/wallpapers" Popup $[FVWM_USERDIR]/wallpapers
+Test (f $[HOME]/wallpapers) + "%22x22/categories/directory.png%~/wallpapers" Popup $[HOME]/wallpapers
+Test (f /usr/local/share/wallpapers) + "%22x22/categories/directory.png%/usr/local/share/wallpapers" Popup /usr/local/share/wallpapers
+Test (f /usr/share/wallpapers) + "%22x22/categories/directory.png%/usr/share/wallpapers" Popup /usr/share/wallpapers
+
+DestroyFunc Wallpaper-Browser
+AddToFunc Wallpaper-Browser I PipeRead 'for i in "$0/"*; do \
+                test -d "${i}" && continue; \
+                mkdir -p "$[WallpaperThumbnails]${i%/*}"; \
+                test -f "$[WallpaperThumbnails]${i}" -a  "$[WallpaperThumbnails]${i}" -nt "${i}" || \
+                convert -quality 0 -sample 42 "${i}" "png:$[WallpaperThumbnails]${i}" 2>/dev/null &  \
+        done; \
+    wait && fvwm-menu-directory --title "$[gt.Random]" --icon-title "" --icon-file __PIXMAP__ \
+    --icon-dir "22x22/categories/directory.png" --dir "$0" --links --command-file "Wallpaper-Set \'\\"%f\\"\'" \
+    --command-t="Wallpaper-Random $0" | sed -e "s#FuncFvwmMenuDirectory#Wallpaper-Browser#g" \
+    -e "s#__PIXMAP__\\(.*\\)\\\"\\(.*/\\)\\(.*\\)\\\"#$[WallpaperThumbnails]/\\2\\3\\1\\2\\3#g"'
+
+# vim:ft=fvwm

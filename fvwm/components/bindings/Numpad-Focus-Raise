@@ -1,0 +1,13 @@
+# Here are the bindings for focus-switching using the numpad
+# This version raises window after switch
+Key KP_Home             A $[Mod0] Window-FocusAndRaiseInDirection NorthWest
+Key KP_Left             A $[Mod0] Window-FocusAndRaiseInDirection West
+Key KP_End              A $[Mod0] Window-FocusAndRaiseInDirection SouthWest
+Key KP_Up               A $[Mod0] Window-FocusAndRaiseInDirection North
+Key KP_Down             A $[Mod0] Window-FocusAndRaiseInDirection South
+Key KP_Page_Up          A $[Mod0] Window-FocusAndRaiseInDirection NorthEast
+Key KP_Page_Down        A $[Mod0] Window-FocusAndRaiseInDirection SouthEast
+Key KP_Right            A $[Mod0] Window-FocusAndRaiseInDirection East
+Key KP_Begin            A $[Mod0] Window-FocusAndRaiseInDirection Center
+
+# vim:ft=fvwm

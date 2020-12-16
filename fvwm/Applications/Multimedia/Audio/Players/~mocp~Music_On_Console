@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec FvwmCommand 'A mocp $@ 2>/dev/null'
+

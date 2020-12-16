@@ -1,0 +1,44 @@
+DestroyFunc Window-Focus-CurrentDesk
+AddToFunc Window-Focus-CurrentDesk
++ I Iconify False
++ I MoveToDesk
++ I MoveToPage $[page.nx] $[page.ny]
++ I FlipFocus
+#+ I Focus
+#+ I WarpToWindow 50 50
+
+DestroyFunc Window-Focus-DefaultDesk
+AddToFunc Window-Focus-DefaultDesk
++ I Iconify False
++ I FlipFocus
+#+ I Focus
+#+ I WarpToWindow 50 50
+
+DestroyFunc Window-Focus-CurrentDesk-Raised
+AddToFunc Window-Focus-CurrentDesk-Raised
++ I Iconify False
++ I MoveToDesk
++ I MoveToPage $[page.nx] $[page.ny]
++ I FlipFocus
+#+ I Focus
++ I Layer Default
++ I Raise
+#+ I WarpToWindow 50 50
+
+DestroyFunc Window-Focus-DefaultDesk-Raised
+AddToFunc Window-Focus-DefaultDesk-Raised
++ I Iconify False
++ I FlipFocus
+#+ I Focus
++ I Layer Default
++ I Raise
+#+ I WarpToWindow 50 50
+
+# Something special for icons...
+#
+DestroyFunc Icon-Focus-CurrentDesk
+AddToFunc Icon-Focus-CurrentDesk
+#+ I Nop
++ D Window-Focus-CurrentDesk
+
+# vim:ft=fvwm

@@ -1,0 +1,11 @@
+# Show the direction arrows on the window borders
+CursorStyle TOP			top_side		black	white
+CursorStyle LEFT		left_side		black	white
+CursorStyle RIGHT		right_side		black	white
+CursorStyle BOTTOM		bottom_side		black	white
+CursorStyle TOP_LEFT		top_left_corner		black	white
+CursorStyle TOP_RIGHT		top_right_corner	black	white
+CursorStyle BOTTOM_LEFT		bottom_left_corner	black	white
+CursorStyle BOTTOM_RIGHT	bottom_right_corner	black	white
+
+# vim:ft=fvwm

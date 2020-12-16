@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec designer $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec jack-patch-bay $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kdevelop3 $@ 2>/dev/null
+

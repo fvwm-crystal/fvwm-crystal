@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xfe $@ 2>/dev/null
+

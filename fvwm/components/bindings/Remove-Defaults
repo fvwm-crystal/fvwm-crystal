@@ -1,0 +1,10 @@
+# This file clears bindings set by default in FVWM (they are hardcoded).
+
+Key F1	R 	A -
+Key Tab	A 	M -
+Mouse 1	R 	A -
+Mouse 1	T 	A -
+Mouse 1	FS	A -
+Mouse 2	FST	A -
+
+# vim:ft=fvwm

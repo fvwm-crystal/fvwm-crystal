@@ -1,0 +1,59 @@
+# FVWM-Crystal version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle InActive Colorset $[infostore.cs_window_inactive]
++ TitleStyle Active Colorset $[infostore.cs_window_active]
++ TitleStyle LeftJustified
++ TitleStyle -- Raised
+PipeRead 'echo "+ TitleStyle Height $(($[title_font_size]+$(($[title_font_size]/3))))"'
+
++ BorderStyle -- Raised HiddenHandles
+
+# Close
++ ButtonStyle 1 \
+	Active (AdjustedPixmap $./button-active-close.png) \
+	Inactive (AdjustedPixmap $./button-inactive-close.png)
+
+# Close
++ ButtonStyle 2 \
+	Active (AdjustedPixmap $./button-active-close.png) \
+	Inactive (AdjustedPixmap $./button-inactive-close.png)
+
+# Maximize
++ ButtonStyle 4 \
+	Active (AdjustedPixmap $./button-active-maximize.png) \
+	Inactive (AdjustedPixmap $./button-inactive-maximize.png)
+
+# Options
++ ButtonStyle 6 \
+	Active (AdjustedPixmap $./button-active-options.png) \
+	Inactive (AdjustedPixmap $./button-inactive-options.png)
+
+# Arrows
++ ButtonStyle 8 \
+	Active (AdjustedPixmap $./button-active-arrows.png) \
+	Inactive (AdjustedPixmap $./button-inactive-arrows.png)
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- Raised
+
+Style * HandleWidth 4, BorderWidth 4
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactiveborder], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_activeborder]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * MwmBorder
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-fvwm-crystal
+

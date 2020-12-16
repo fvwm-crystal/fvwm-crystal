@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec seq24 $@ 2>/dev/null
+

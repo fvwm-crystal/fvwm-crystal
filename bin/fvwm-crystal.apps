@@ -1,0 +1,909 @@
+#!/usr/bin/env python3
+#
+#   Author: Rafal Bisingier 2005
+#   Minor fixes and bump to python3: Dominique Michel 20xx 2019
+#	If you want to make this script to work with python2,
+#	it is just to chanhe its shebang to python2.
+#	You can do the same with the 3 other python scripts
+#	in fvwm-crystal.
+#
+#####################################################################################
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#####################################################################################
+
+import os
+import os.path
+import sys
+from optparse import OptionParser, OptionGroup
+
+__name__ = "fvwm-crystal panels and menus generator"
+__author__ = "Rafal Bisingier <ravbc@man.poznan.pl>"
+__version__ = "2.0.1"
+__license__= "GNU GPL v3+"
+
+database=['~/.fvwm/Applications']
+
+def parseArgv(argv):
+	""" Parse command line options."""
+	
+	usage = """%prog [options]
+
+Application database:
+
+	a hierarchy of directories and files
+	every entry can have a name of format:
+		priority~executable_name~entry_name
+	with the fields meaning:
+		priority - optional. used for sorting. number. default 0 (zero)
+		executable_name - optional. used for checking for application
+				existence
+		entry_name - obligatory. name of the entry in the menu
+		
+	when some fields aren't set you can use folowing simplified syntax:
+		priority~~entry_name
+		priority~entry_name
+		~executable_name~entry_name
+		~~entry_name
+		~entry_name
+		entry_name
+	so tildas separate fields, but can be left out if the fields are empty.
+	there are two exceptions:
+		- when priority isn't set, but executable_name is set you have
+		to add tilda at the beginning of the entry (without the initial
+		tilda the whole	entry change the meaning!)
+		- when tilda is the last char of the entry then it is treated
+		as a backup file and left out without taking any action.
+
+	an entry without X right removes every entry with the same entry_name
+		field located in the same directory from any earlier databases
+		example:
+			file in main database:
+			/Applications/Editors/10~emacs~Emacs
+			can be removed with a file in your database:
+			/Applications/Editors/Emacs
+			(of course this one cannot have X right set)
+
+		the same rule works for whole directories
+
+		single file can be also removed with an empty file in user
+		database with the same entry_name field, so for the last
+		example you can do just simple:
+			touch /Applications/Editors/Emacs
+		in your database.
+"""
+	parser = OptionParser(usage = usage, version = '%s %s' % (__name__, __version__))
+
+	parser.add_option('--about', action = 'store_true', dest='about', default=False, 
+		help = 'show info about this program, it\'s author and copyrights')
+
+	parser.add_option('-v', '--verbose', action='count', dest='verbosity', default=0,
+		help = 'increase number of comments printed out to stderr (could be used many times)')
+
+#	parser.add_option('--debug', action = 'store_true', dest='debug', default=False, 
+#		help = 'turn debug mode on')
+
+#	parser.add_option('--config', action = 'store', default = '~/.appsrc', 
+#		help = 'select configuration file')
+
+	parser.add_option('-d', '--database', action = 'append', type='string', dest='database', default=None, metavar='DIRECTORY',
+		help = 'crystal applications database dir (default is ~/.fvwm/Applications). use many times to define more databases. every next database covers entries from all earlier defined databases.')
+	parser.add_option('-o', '--output', action = 'store', type='string', dest='outfile', default='', metavar='FILE',
+		help = 'store generated output in FILE (default is to print on stdout)')
+
+	group = OptionGroup(parser, "General creation options", "Options definig what should be generated")
+#	group.add_option('-g', '--generate', action = 'store', choices=['all','menus','panel','topapps'], dest='generate', default='all', metavar='WHAT',
+#		help = "what should be generated. aviable options are: all, menus, panel, topapps. default is all.")
+	group.add_option('--with', action = 'append', type='string', dest='with_only', metavar='DIRECTORY',
+		help = 'generate entries only for defined entries (directories or files)')
+	group.add_option('--without', action = 'append', type='string', dest='without', metavar='DIRECTORY',
+		help = 'do NOT use defined entries (directories or files) for generating output.')
+	group.add_option('--check-execs', action = 'store_true', dest='checkExecs', default=False,
+		help = 'use exec_field from entry name to check file access, before using it to generate output')
+	group.add_option('--sort', action = 'store', choices=['prio','name','rprio','rname'], dest='sortOrder', default='prio', metavar='ORDER',
+		help = 'panel and menu entries sorting order (prio,name,rprio,rname). default is prio.')
+	group.add_option('--root-cat-name', action = 'store', type='string', dest='rootCat', default='/Applications', metavar='NAME',
+		help = 'name of the root database category (used for menu creation). default is /Applications.')
+	parser.add_option_group(group)
+
+	group = OptionGroup(parser, "Icons options", "Options for controling icon look")
+	group.add_option('--panel-icons', action = 'store', choices=['none','standard','topapp'], dest='panelIcons', default='standard', metavar='WHICH',
+		help = 'which icons should be used in application panel. aviable options are: none, standard, topapp. default is standard (icon name made from group name).')
+	group.add_option('--no-menu-icons', action = 'store_false', dest='menuIcons', default=True,
+		help = 'do NOT use icons in generated menus.')
+	group.add_option('--no-topapps-menu-icons', action = 'store_false', dest='topIcons', default=True,
+		help = 'do NOT use icons in top apps menu.')
+	group.add_option('--search-icons-in', action = 'store', type='string', dest='iconPath', default='', metavar='PATH',
+		help = 'search for icons in DIR. if icon is not found then default.png is used, otherwise the absolute path is used. directories in the path to search in should be separated by ":" (colon) sign')
+	group.add_option('--default-file-icon', action = 'store', type='string', dest='fileDefault', default='default.png', metavar='ICONFILEPATH',
+		help = 'if --search-icons-in is set and icon for a file entry isn\'t found use this icon (should be aviable in ImagePath or set with full path). default is \'default.png\'')
+	group.add_option('--default-dir-icon', action = 'store', type='string', dest='dirDefault', default='directory.png', metavar='ICONFILEPATH',
+		help = 'if --search-icons-in is set and icon for a directory entry isn\'t found use this icon (should be aviable in ImagePath or set with full path). default is \'directory.png\'')
+	parser.add_option_group(group)
+	
+	group = OptionGroup(parser, "Menus creation options", "Options for controling menu creation")
+	group.add_option('--no-menus', action = 'store_true', dest='noMenus', default=False,
+		help = 'do NOT create menus.')
+	group.add_option('--dont-clear-menu', action = 'store_false', dest='clearMenu', default=True,
+		help = 'do NOT use DestroyMenu command before creating menu.')
+	group.add_option('--menuname-suffix', action = 'store', type='string', dest='menuSuffix', default='', metavar='TEXT',
+		help = 'suffix that should be added to _every_ generated menu name. default is no suffix.')
+	group.add_option('--topapp-position', action = 'store', choices=['first','last','normal'], dest='topAppPos', default='normal', metavar='POSITION',
+		help = 'where should be top application (with highest priority) in menu placed (first, last, normal). default is normal')
+	group.add_option('--min-submenu-length', action = 'store', type='int', dest='subLength', default=3, metavar='NUMBER',
+		help = 'minimal number of entries needed for submenu creation (if submenu would be less then NUMBER long, then move entries one level up in the menu hierarchy). default is 3')
+	group.add_option('--submenu-action', action = 'store', choices=['menu','popup'], dest='subAction', default='popup', metavar='TYPE',
+		help = 'how should be submenus opened (menu,popup). default is popup')
+	group.add_option('--submenu-suffix', action = 'store', type='string', dest='subSuffix', default='', metavar='TEXT',
+		help = 'suffix that should be added to every submenu command (after a space). default is no suffix.')
+	group.add_option('--add-title', action = 'store_true', dest='menuTitle', default=False,
+		help = 'add menu title at the beggining of the menu (made from the category name). default is to not add it.')
+	group.add_option('--add-tear-off', action = 'store_true', dest='tearOff', default=False,
+		help = 'add menu tear off entry at the beggining of the menu. default is to not add it.')
+	parser.add_option_group(group)
+	
+	group = OptionGroup(parser, "Panel creation options", "Options for controling application panel creation")
+	group.add_option('--no-panel', action = 'store_true', dest='noPanel', default=False,
+		help = 'do NOT create application panel.')
+	group.add_option('--panel-name', action = 'store', type='string', dest='panelName', default='ApplicationPanel', metavar='NAME',
+		help = 'use NAME as application panel alias (whitespaces are forbiden). default is ApplicationPanel')
+	group.add_option('--panel-action1', action = 'store', choices=['menu','popup','topapp','secondapp','custom','none'], dest='action1', metavar='TYPE', default='topapp',
+		help = 'what should be the action for panel button on mouse button 1 click (menu,popup,topapp,secondapp,custom,none). topapp is the default')
+	group.add_option('--panel-custom1', action = 'store', type='string', dest='custom1', metavar='ACTION', default='',
+		help = 'if "custom" panel-action1 was choosen then use ACTION as panel-action1. default is empty (no custom action)')
+	group.add_option('--panel-action2', action = 'store', choices=['menu','popup','topapp','secondapp','custom','none'], dest='action2', metavar='TYPE', default='popup',
+		help = 'what should be the action for panel button on mouse button 2 click (menu,popup,topapp,secondapp,custom,none). popup is the default')
+	group.add_option('--panel-custom2', action = 'store', type='string', dest='custom2', metavar='ACTION', default='',
+		help = 'if custom panel-action2 was choosen then use ACTION as panel-action2. default is empty (no custom action)')
+	group.add_option('--panel-action3', action = 'store', choices=['menu','popup','topapp','secondapp','custom','none'], dest='action3', metavar='TYPE', default='secondapp',
+		help = 'what should be the action for panel button on mouse button 3 click (menu,popup,topapp,secondapp,custom,none). secondapp is the default')
+	group.add_option('--panel-custom3', action = 'store', type='string', dest='custom3', metavar='ACTION', default='',
+		help = 'if custom panel-action3 was choosen then use ACTION as panel-action3. default is empty (no custom action)')
+	group.add_option('--panel-titles', action = 'store', choices=['none','left','right','center','side'], dest='panelTitles', metavar='POSITION', default='none',
+		help = 'add title field for every entry on the panel aligned on POSITION below (left,right,center) or at the right side of icon (side). default is none, which means no title at all.')
+	group.add_option('--panel-length', action = 'store', type='int', dest='panelLength', default=0, metavar='NUMBER',
+		help = 'panel will be maximum NUMBER positions long. default is no max')
+	group.add_option('--panel-padding', action = 'store', type='int', nargs=2, dest='panelPadding', default=None, metavar='W H',
+		help = 'padding Width and Height for every entry on the panel (2 args). default is to not set padding at all')
+	group.add_option('--panel-size', action = 'store', type='int', nargs=2, dest='panelSize', default=(22,22), metavar='X Y',
+		help = 'what should be the width (X) and height (Y) of the buttons on panel (2 args). default is 22 22 (buttons 22x22)')
+	group.add_option('--panel-align', action = 'store', choices=['left','right','center'], dest='panelAlign', metavar='POSITION', default='center',
+		help = 'how to align panel entries (left,right,center). default is center.')
+	group.add_option('--button-geometry', action = 'store', type='int', nargs=2, dest='buttonGeometry', default=(1,1), metavar='X Y',
+		help = 'button X and Y (2 args) geometry used for creating panel. default: 1 1 (so geometry is 1x1)')
+	group.add_option('--menu-pos', action = 'store', type='string', dest='menuPos', default='Below', metavar='DIRECTION',
+		help = 'where should be menus placed. it uses enviroment variable [MenuPosition_DIRECTION]')
+	group.add_option('--panel-category', action = 'store', type='string', dest='panelCat', default=None, metavar='NAME',
+		help = 'create panel for entries in defined category. default is to create panel for category defined in --root-cat-name')
+	group.add_option('--top-app-one-cat', action = 'store_false', dest='topInSub', default=True,
+		help = 'search top apps only in the current category. default is to search top priority app in every subcategory of the current one also.')
+	parser.add_option_group(group)
+
+	group = OptionGroup(parser, "Top apps menu options", "Options for controling top apps menu creation.")
+	group.add_option('--topapps-menu', action = 'store_true', dest='topMenu', default=False,
+		help = 'create submenu with apps having heightest priorities in all databases.')
+	group.add_option('--topapps-menu-name', action = 'store', type='string', dest='topName', default='TopAppsMenu', metavar='NAME',
+		help = 'use NAME as top apps menu name (whitespaces are forbiden). default is TopAppsMenu')
+	group.add_option('--topapps-menu-title', action = 'store', type='string', dest='topTitle', default='Top Apps Menu', metavar='TITLE',
+		help = 'use TITLE as top apps menu title. default is "Top Apps Menu"')
+	group.add_option('--topapps-menu-length', action = 'store', type='int', dest='topLength', default=15, metavar='NUMBER',
+		help = 'top apps menu will be maximum NUMBER positions long. default is 15')
+	group.add_option('--dont-clear-topapps-menu', action = 'store_false', dest='topClear', default=True,
+		help = 'do NOT use DestroyMenu command before creating top apps menu.')
+	group.add_option('--topapps-tear-off', action = 'store_true', dest='topTearOff', default=False,
+		help = 'add menu tear off entry at the beggining of the top apps menu. default is to not add it.')
+	parser.add_option_group(group)
+
+	return parser.parse_args(argv)
+#end of parseArgv
+
+
+def getAppsData(databases=[database],checkExecs=False,searchIconsIn='',sortOrder='prio',minLength=3,with_only=None,without=None,rootName='/Applications',topInSub=True,fileIcon='default.png',dirIcon='directory.png'):
+	"""Read application databases from directories.
+	if checkExecs is True then use exec_field from file name to check access before adding it to database
+	if searchIconsIn is provided then use this path to check icons existence
+	sortOrder defines sorting order for entries
+	with_only is a list of entries (relative to the database root) that should be read
+	without is a list of entries (relative to the database root or absolute targets for symlinks) that should be left out
+	"""
+
+	def checkFileAccess(filename, mode=os.X_OK):
+		"""Check if given file is accessible in defined paths (if filename is a relative path)
+		"""
+
+		if not filename:
+			return False
+		filename=os.path.expanduser(filename)
+		if os.path.isabs(filename):
+			if os.access(filename, mode):
+				return True
+			else:
+				return False
+		else:
+			sciezki=os.getenv('PATH',os.defpath).split(os.pathsep)
+			for i in range(len(sciezki)):
+				filepath = os.path.normpath(os.path.join(os.path.expanduser(sciezki[i]),filename))
+				if os.access(filepath, mode):
+					return True
+		return False
+
+	def get_entry(root,dir,cat,sort,check,with_only,without,realcat):
+		if not os.path.isdir(os.path.join(root,dir)) or not os.access(os.path.join(root,dir),os.R_OK):
+			yield None
+		for entry in os.listdir(os.path.join(root,dir)):
+			file=os.path.join(root,dir,entry)
+			if os.path.exists(file):
+				if entry[-1]=='~':
+					#this is a backup file
+					continue
+				fields=entry.split('~',2)
+				test=None
+				prio=0
+				if len(fields)>2:
+					prio,test,name=fields
+				elif len(fields)>1:
+					prio,name=fields
+				else:
+					name=fields[0]
+
+				if not name:
+					#file with tildas only in the name??
+					continue
+
+				name=name.replace('/','')
+
+				if len(name)==0:
+					#file with tildas and slashes only in the name??
+					continue
+
+				if check and test:
+					if not checkFileAccess(test):
+						continue
+
+				if with_only and len(with_only)>0:
+					cont=False
+					for i,v in enumerate(with_only):
+						if not (os.path.join(cat,name).startswith(v) or os.path.join(cat,name.replace('_',' ')).startswith(v)):
+							cont=True
+							break
+					if cont:
+						continue
+
+				if without and os.path.join(cat,name) in without:
+					continue
+
+				name=name.replace('_',' ')
+
+				if without and os.path.join(cat,name) in without:
+					continue
+
+				executable=os.path.join(root,dir,entry)
+
+				if without and os.path.realpath(executable) in without:
+					continue
+
+				if not prio or len(prio)==0:
+					prio=0
+				else:
+					prio=-int(prio)
+
+				access = os.access(file,os.X_OK)
+				if os.path.isdir(file):
+					if sort=='name' or sort=='rname':
+						retval=[cat,(realcat,cat,0,name,prio),name,None,test,access]
+					else:
+						retval=[cat,(realcat,cat,0,prio,name),name,None,test,access]
+					yield retval
+					x = realcat[:]
+					x.extend([prio,name])
+					if access:
+						for sub in get_entry(root,os.path.join(dir,entry),os.path.join(cat,name).replace(' ','_'),sort,check,with_only,without,x):
+							yield sub
+				elif os.path.isfile(file):
+					if sort=='name' or sort=='rname':
+						retval=[cat,(realcat,cat,1,name,prio),name,executable,test,access]
+					else:
+						retval=[cat,(realcat,cat,1,prio,name),name,executable,test,access]
+					yield retval
+
+	ikonki=[]
+	if len(searchIconsIn) > 0:
+		ikonki=searchIconsIn.split(':')
+		for i in range(len(ikonki)):
+			ikonki[i]=os.path.normpath(os.path.expanduser(ikonki[i]))
+
+	entries=[]
+	if databases and len(databases)>0:
+		for i in range(len(databases)):
+			if len(databases[i])>0:
+				db=os.path.abspath(os.path.expanduser(databases[i]))
+				if not os.path.isdir(db) or not os.access(db,os.R_OK):
+					continue
+				for entry in get_entry(db,'',os.path.join('/',rootName),sortOrder,checkExecs,with_only,without,[0,rootName]):
+					if not entry:
+						continue
+					if not entry[5]:
+						#first remove any entries from the same category with the same name
+						delsub=[]
+						clear=[]
+						for j in range(len(entries)):
+							if entry[0]==entries[j][0] and entry[2]==entries[j][2]:
+								clear.append(j)
+								if not entry[3]:
+									delsub.append(j)
+						delsub.reverse()
+						for j in range(len(delsub)):
+							subcat=os.path.join(entries[delsub[j]][0],entries[delsub[j]][2]).replace(' ','_')
+							for k in range(len(entries)):
+								if entries[k][0].startswith(subcat) and not k in clear:
+									clear.append(k)
+						del delsub
+						clear.sort()
+						clear.reverse()
+						for j in range(len(clear)):
+							del entries[clear[j]]
+						del clear
+					else:
+						name=entry[2]
+						clear=[]
+						for j in range(len(entries)):
+							if entry[0]==entries[j][0] and name==entries[j][2]:
+								clear.append(j)
+						clear.sort()
+						clear.reverse()
+						for j in range(len(clear)):
+							del entries[clear[j]]
+						del clear
+						del entry[5]
+						#now set icon and add it to database
+						if entry[3] and len(entry[3])>0:
+							#filename=os.path.join(os.path.normpath(os.path.expanduser(databases[i])),entry[3])
+							filename=os.path.join(db,entry[3])
+							if os.path.getsize(filename)!=0:
+								if len(ikonki)>0:
+									icon=fileIcon
+									for k in range(len(ikonki)):
+										file=os.path.join(ikonki[k],'.'.join((name.replace(' ','_'),'png')))
+										if os.path.exists(file) and os.access(file,os.R_OK):
+											icon=file
+											break
+										file=os.path.join(ikonki[k],'.'.join((name,'png')))
+										if os.path.exists(file) and os.access(file,os.R_OK):
+											icon=file
+											break
+										if entry[4]:
+											file=os.path.join(ikonki[k],'.'.join((entry[4],'png')))
+											if os.path.exists(file) and os.access(file,os.R_OK):
+												icon=file
+												break
+								else:
+									icon='.'.join((name,'png'))
+								entry[4]=icon
+								entries.append(entry)
+						else: #no filename - it's a dir (subcategory)
+							if len(ikonki)>0:
+								icon=dirIcon
+								for k in range(len(ikonki)):
+									file=os.path.join(ikonki[k],'.'.join((name.replace(' ','_'),'png')))
+									if os.path.exists(file) and os.access(file,os.R_OK):
+										icon=file
+										break
+									file=os.path.join(ikonki[k],'.'.join((name,'png')))
+									if os.path.exists(file) and os.access(file,os.R_OK):
+										icon=file
+										break
+							else:
+								icon='.'.join((name,'png'))
+							entry[4]=icon
+							entries.append(entry)
+
+	entries.sort()
+
+	#reduce hierarchy where subcats doesn't have at least minLength
+	lastcat=None
+	count=0
+	for i,v in enumerate(entries):
+		cat,prio,name,executable,icon = v
+		if cat!=rootName:
+			if cat!=lastcat:
+				lastcat=cat
+				count=0
+				for j in range(i,len(entries)):
+					if entries[j][0].startswith(cat):
+						if entries[j][3]: #count only files, no dirs (subcategories)
+							count+=1
+					else:
+						break
+					if count >= minLength:
+						break
+			if count < minLength:
+				upper=os.path.dirname(cat)
+				if upper and upper!=rootName:
+					if entries[i][3]:
+						entries[i][0]=upper
+
+	#remove empty or too short subcategories
+	clear=[]
+	for i,v in enumerate(entries):
+		cat,prio,name,executable,icon = v
+		if cat!=rootName:
+			if not executable:
+				count=0
+				thiscat=os.path.join(cat,name).replace(' ','_')
+				for j in range(i,len(entries)):
+					if entries[j][0].startswith(thiscat):
+						if entries[j][3]: #count only files, no dirs (subcategories)
+							count+=1
+					if count >= minLength:
+						break
+				if count < minLength:
+					for j in range(i,len(entries)):
+						if entries[j][0].startswith(thiscat):
+							entries[j][0]=cat
+							if not entries[j][3]:
+								clear.append(j)
+
+	clear.sort()
+	clear.reverse()
+	for i in range(len(clear)):
+		del entries[clear[i]]
+	del clear
+
+	clear=[]
+	for i,v in enumerate(entries):
+		cat,prio,name,executable,icon = v
+		if not executable:
+			app=False
+			for j in range(len(entries)):
+				if entries[j][0].startswith(os.path.join(cat,name).replace(' ','_')) and entries[j][3]:
+					app=True
+			if not app:
+				clear.append(i)
+
+	clear.reverse()
+	for i in range(len(clear)):
+		del entries[clear[i]]
+	del clear
+
+	clear=[]
+	#remove subcategories from empty cats
+	for i,v in enumerate(entries):
+		cat,prio,name,executable,icon = v
+		if not executable:
+			count=0
+			count2=0
+			thiscat=os.path.join(cat,name).replace(' ','_')
+			for j in range(i,len(entries)):
+				if entries[j][0]==thiscat:
+					if entries[j][3]: #count only files, no dirs (subcategories)
+						count+=1
+					else:
+						count2+=1
+				if count>=1 or count2>=2:
+					break
+			if count2==1 and count==0:
+				path=cat.split('/')
+				remove=len(path)+1
+				for j in range(i,len(entries)):
+					if entries[j][0]==thiscat:
+						clear.append(j)
+					elif entries[j][0].startswith(thiscat):
+						path=entries[j][0].split('/')
+						del path[remove]
+						entries[j][0]='/'.join(path)
+
+	clear.sort()
+	clear.reverse()
+	for i in range(len(clear)):
+		del entries[clear[i]]
+	del clear
+
+	entries.sort()
+	if sortOrder=='rname' or sortOrder=='rprio':
+		entries.reverse()
+
+	for i,v in enumerate(entries):
+		cat,prio,name,executable,icon = v
+		if not executable:
+			topapp=None
+			secondapp=None
+			for j in range(len(entries)):
+				if (topInSub and entries[j][0].startswith(os.path.join(cat,name).replace(' ','_'))) or (not topInSub and entries[j][1][0]==os.path.join(cat,name).replace(' ','_')):
+					if entries[j][3]:
+						if topapp:
+							if secondapp:
+								temp=[topapp,secondapp,[entries[j][1][3],entries[j][1][4],j]]
+							else:
+								temp=[topapp,[entries[j][1][3],entries[j][1][4],j]]
+							temp.sort()
+							if sortOrder=='rname' or sortOrder=='rprio':
+								temp.reverse()
+						else:
+							temp=[[entries[j][1][3],entries[j][1][4],j],None]
+						topapp=temp[0]
+						secondapp=temp[1]
+						del temp
+			if topapp:
+				if secondapp:
+					mainapps=(topapp[2],secondapp[2])
+				else:
+					mainapps=(topapp[2],None)
+			else:
+				mainapps=(None,None)
+				#clear.append(i)
+		else:
+			mainapps=(None,None)
+		v.append(mainapps)
+		entries[i]=v
+
+	return entries
+#end of getAppsData
+
+def printMenu(apps,output=sys.stdout,suffix='',destroyMenu=False,useIcons=True,subAction='popup',subSuffix='',menuTitle=False,tearOff=False,topAppPos='normal'):
+	"""Prints menu entires for FVWM
+	"""
+
+	if len(apps)>0:
+		lastcat=None
+		lastprio=None
+		lastexec=None
+		topapp={}
+		for i in range(len(apps)):
+			cat,prio,name,executable,icon,mainapps = apps[i]
+			if cat!=lastcat:
+				if topAppPos=='last' and lastcat and lastcat in topapp:
+					output.write('+ "" Nop\n')
+					if useIcons and len(apps[topapp[lastcat]][4])>0:
+						output.write('+ "%'+str(apps[topapp[lastcat]][4]).replace('%','%%')+'%')
+					else:
+						output.write('+ "')
+					output.write('$[gt.'+str(apps[topapp[lastcat]][2])+']" Exec exec "'+str(apps[topapp[lastcat]][3]).replace('"','\\"')+'"\n')
+				lastprio=prio[1]
+				output.write("\n# --- "+str(cat)+str(suffix)+" ---\n")
+				if destroyMenu:
+					output.write('DestroyMenu '+str(cat)+str(suffix)+"\n")
+				output.write('AddToMenu '+str(cat)+str(suffix))
+				if menuTitle:
+					output.write(' "$[gt.'+str(os.path.basename(cat))+']" Title\n')
+				else:
+					output.write('\n')
+				if tearOff:
+					output.write('+ "" TearMenuOff\n')
+				if topAppPos=='first' and lastcat and cat in topapp:
+					if useIcons and len(apps[topapp[cat]][4])>0:
+						output.write('+ "%'+str(apps[topapp[cat]][4]).replace('%','%%')+'%')
+					else:
+						output.write('+ "')
+					output.write('$[gt.'+str(apps[topapp[cat]][2])+']" Exec exec "'+str(apps[topapp[cat]][3]).replace('"','\\"')+'"\n')
+					output.write('+ "" Nop\n')
+				lastcat=cat
+				lastexec=None
+				
+			if executable and (topAppPos=='normal' or not cat in topapp or topapp[cat]!=i):
+				if prio[1]!=lastprio or lastexec==0:
+					output.write('+ "" Nop\n')
+				if useIcons and len(icon)>0:
+					output.write('+ "%'+str(icon).replace('%','%%')+'%')
+				else:
+					output.write('+ "')
+				output.write('$[gt.'+str(name)+']" Exec exec "'+str(executable).replace('"','\\"')+'"\n')
+				lastexec=1
+			else: #subcategory
+				if prio[1]!=lastprio or lastexec==1:
+					output.write('+ "" Nop\n')
+				if useIcons and len(icon)>0:
+					output.write('+ "%'+str(icon).replace('%','%%')+'%')
+				else:
+					output.write('+ "')
+				output.write('$[gt.'+str(name)+']" ')
+				if subAction=='popup':
+					output.write('Popup '+str(os.path.join(cat,name).replace(' ','_'))+str(suffix)+' '+str(subSuffix)+'\n')
+				else:
+					output.write('Menu '+str(os.path.join(cat,name).replace(' ','_'))+str(suffix)+' '+str(subSuffix)+'\n')
+				if mainapps[0]:
+					topapp[str(os.path.join(cat,name).replace(' ','_'))]=mainapps[0]
+				lastexec=0
+
+			lastprio=prio[1]
+
+		return True
+	else:
+		return False
+
+#end of printMenu
+
+def printPanel(apps,output=sys.stdout,icons='standard',action1='topapp',action2='popup',action3='secondapp',suffix1='',suffix2='',suffix3='',menuPos='Below',panelName='ApplicationPanel',geometry=(1,1),size=(22,22),maxLength=12,topCat=None,titlePos='none',padding=None,align='center'):
+	"""Prints panel entires for FVWM
+	if onlyCategory is provided then prints panel entries only for this category
+	actions can be:
+		menu - prints Menu CAT
+		popup - prints Popup CAT
+		menu, popup actions adds adequate suffix to CAT
+		topapp - prints exec with highest prio in every cat
+		secondapp - prints exec with second highest prio in every cat
+		custom - prints adequate suffix as whole action
+		none - don't print adequate action entry
+	"""
+
+	if len(apps) > 0:
+		panelname=''.join(panelName.split())
+		if len(panelname) == 0:
+			sys.stderr.write('Empty panel name')
+			return False
+		output.write("\n# --- "+str(panelname)+" ---\n")
+		panelLength = 0
+		if topCat:
+			topCat=os.path.join('/',topCat.replace(' ','_'))
+		else:
+			topCat=apps[0][0]
+		for j in range(len(apps)):
+			cat,prio,name,executable,icon,mainapps = apps[j]
+			if cat!=topCat:
+				continue
+			topapp=None
+			secondapp=None
+			if mainapps and len(mainapps)>1:
+				if mainapps[0]!=None:
+					topapp=apps[mainapps[0]][3]
+				if mainapps[1]!=None:
+					secondapp=apps[mainapps[1]][3]
+			if not topapp:
+				continue
+			panelLength += 1
+			output.write('\n*'+str(panelname)+': ('+str(int(geometry[0]))+'x'+str(int(geometry[1]))+', Size ')
+			if size and len(size)==2:
+				output.write(str(int(size[0]))+' '+str(int(size[1])))
+			else:
+				output.write('22 22')
+			if align and len(align)>0:
+				if align=='left':
+					output.write(', Left')
+				elif align=='right':
+					output.write(', Right')
+			if padding and len(padding)==2:
+				w=int(padding[0])
+				h=int(padding[1])
+				output.write(', Padding '+str(w)+' '+str(h))
+			if icons=='standard':
+				output.write(', Icon "'+str(icon).replace('"','\\"')+'" ')
+			elif icons=='topapp' and topapp:
+				output.write(', Icon "'+str(apps[mainapps[0]][4]).replace('"','\\"')+'" ')
+			if titlePos and len(titlePos)>0 and titlePos!='none' and titlePos in ('left','right','center','side'):
+				if titlePos in ('left','right','side'):
+					output.write(', Title ('+str(titlePos)+') "$[gt.'+str(name).replace('"','\\"')+']" ')
+				elif titlePos=='center':
+					output.write(', Title "$[gt.'+str(name).replace('"','\\"')+']" ')
+			if not executable:
+				subcat=os.path.join(cat,name).replace(' ','_')
+				if action1=='menu':
+					output.write(', \\\nAction (Mouse 1) Menu '+str(subcat)+str(suffix1)+' $[MenuPosition_'+str(menuPos)+'] ')
+				elif action1=='popup':
+					output.write(', \\\nAction (Mouse 1) Popup '+str(subcat)+str(suffix1)+' $[MenuPosition_'+str(menuPos)+'] ')
+				elif action1=='topapp':
+					if topapp:
+						output.write(', \\\nAction (Mouse 1) Exec exec "'+str(topapp).replace('"','\\"')+'"')
+					else:
+						output.write(', \\\nAction (Mouse 1) Nop')
+				elif action1=='secondapp':
+					if secondapp:
+						output.write(', \\\nAction (Mouse 1) Exec exec "'+str(secondapp).replace('"','\\"')+'"')
+					else:
+						output.write(', \\\nAction (Mouse 1) Nop')
+				elif action1=='custom':
+					output.write(', \\\nAction (Mouse 1) '+str(suffix1))
+
+				if action2=='menu':
+					output.write(', \\\nAction (Mouse 2) Menu '+str(subcat)+str(suffix2)+' $[MenuPosition_'+str(menuPos)+'] ')
+				elif action2=='popup':
+					output.write(', \\\nAction (Mouse 2) Popup '+str(subcat)+str(suffix2)+' $[MenuPosition_'+str(menuPos)+'] ')
+				elif action2=='topapp':
+					if topapp:
+						output.write(', \\\nAction (Mouse 2) Exec exec "'+str(topapp).replace('"','\\"')+'"')
+					else:
+						output.write(', \\\nAction (Mouse 2) Nop')
+				elif action2=='secondapp':
+					if secondapp:
+						output.write(', \\\nAction (Mouse 2) Exec exec "'+str(secondapp).replace('"','\\"')+'"')
+					else:
+						output.write(', \\\nAction (Mouse 2) Nop')
+				elif action2=='custom':
+					output.write(', \\\nAction (Mouse 2) '+str(suffix2))
+
+				if action3=='menu':
+					output.write(', \\\nAction (Mouse 3) Menu '+str(subcat)+str(suffix3)+' $[MenuPosition_'+str(menuPos)+'] ')
+				elif action3=='popup':
+					output.write(', \\\nAction (Mouse 3) Popup '+str(subcat)+str(suffix3)+' $[MenuPosition_'+str(menuPos)+'] ')
+				elif action3=='topapp':
+					if topapp:
+						output.write(', \\\nAction (Mouse 3) Exec exec "'+str(topapp).replace('"','\\"')+'"')
+					else:
+						output.write(', \\\nAction (Mouse 3) Nop')
+				elif action3=='secondapp':
+					if secondapp:
+						output.write(', \\\nAction (Mouse 3) Exec exec "'+str(secondapp).replace('"','\\"')+'"')
+					else:
+						output.write(', \\\nAction (Mouse 3) Nop')
+				elif action3=='custom':
+					output.write(', \\\nAction (Mouse 3) '+str(suffix3))
+			else:
+				if action1=='menu' or action1=='popup':
+					output.write(', \\\nAction (Mouse 1) Nop')
+				elif action1=='topapp' or action1=='secondapp':
+					output.write(', \\\nAction (Mouse 1) Exec exec "'+str(executable).replace('"','\\"')+'"')
+				elif action1=='custom':
+					output.write(', \\\nAction (Mouse 1) '+str(suffix1))
+
+				if action2=='menu' or action2=='popup':
+					output.write(', \\\nAction (Mouse 2) Nop')
+				elif action2=='topapp' or action2=='secondapp':
+					output.write(', \\\nAction (Mouse 2) Exec exec "'+str(executable).replace('"','\\"')+'"')
+				elif action2=='custom':
+					output.write(', \\\nAction (Mouse 2) '+str(suffix2))
+
+				if action3=='menu' or action3=='popup':
+					output.write(', \\\nAction (Mouse 3) Nop')
+				elif action3=='topapp' or action3=='secondapp':
+					output.write(', \\\nAction (Mouse 3) Exec exec "'+str(executable).replace('"','\\"')+'"')
+				elif action3=='custom':
+					output.write(', \\\nAction (Mouse 3) '+str(suffix3))
+
+			output.write(')\n')
+			if maxLength > 0 and panelLength >= maxLength:
+				break
+
+		output.write('\nSetEnv '+panelname+'Length '+str(panelLength)+'\n')
+		return True
+	else:
+		return False
+
+#end of printPanel
+
+def printTopAppsMenu(apps,output=sys.stdout,destroyMenu=False,useIcons=True,tearOff=False,menuName='TopAppsMenu',title='Top Apps Menu',length=15,reverse=False):
+	"""Prints menu entires for FVWM
+	"""
+
+	if len(apps)>0:
+		lastcat=None
+		lastprio=None
+		topapps=[]
+		for i in range(len(apps)):
+			cat,prio,name,executable,icon,mainapps = apps[i]
+			if executable:
+				topapps.append((prio[2],prio[3],i))
+			if len(topapps)>(length*2):
+				topapps.sort()
+				if reverse:
+					topapps.reverse()
+				del topapps[length:]
+		if len(topapps)<=0:
+			sys.stderr.write('No apps in database?')
+			return False
+		topapps.sort()
+		if reverse:
+			topapps.reverse()
+		if len(topapps)>length:
+			del topapps[length:]
+
+		name=''.join(menuName.split())
+		output.write("\n# --- "+str(name)+" ---\n")
+		if destroyMenu:
+			output.write('DestroyMenu '+str(name)+"\n")
+		output.write('AddToMenu '+str(name)+' "$[gt.'+str(title)+']"\n')
+		if tearOff:
+			output.write('+ "" TearMenuOff\n')
+
+		for i,v in enumerate(topapps):
+			cat,prio,name,executable,icon,mainapps = apps[v[2]]
+			if executable:
+				if useIcons and len(icon)>0:
+					output.write('+ "%'+str(icon).replace('%','%%')+'%')
+				else:
+					output.write('+ "')
+				output.write('$[gt.'+str(name)+']" Exec exec "'+str(executable).replace('"','\\"')+'"\n')
+
+		return True
+	else:
+		return False
+
+#end of printTopAppsMenu
+
+
+#################################################################
+#								#
+#			Script body				#
+#								#
+#################################################################
+
+params=parseArgv(sys.argv)
+
+if params[0].about:
+	print('This is',__name__)
+	print('Version',__version__)
+	print('Author:',__author__)
+	print('Licensed on: ',__license__)
+	sys.exit()
+
+########################## DEBUG ################################
+if params[0].verbosity > 0:
+	sys.stderr.write('options: ')
+	sys.stderr.write(str(params[0]))
+	sys.stderr.write('\narguments: ')
+	sys.stderr.write(str(params[1])+"\n\n")
+########################## DEBUG ################################
+
+output = sys.stdout
+if len(params[0].outfile) > 0:
+	try:
+		file = os.path.expanduser(params[0].outfile)
+		output = open(file,'w')
+	except IOError:
+		sys.exit('Error writing output file: '+file)
+
+if params[0].database and len(params[0].database)>0:
+	database=params[0].database
+
+apps=getAppsData(database,checkExecs=params[0].checkExecs,searchIconsIn=params[0].iconPath,sortOrder=params[0].sortOrder,minLength=params[0].subLength,with_only=params[0].with_only,without=params[0].without,rootName=params[0].rootCat,topInSub=params[0].topInSub,fileIcon=params[0].fileDefault,dirIcon=params[0].dirDefault)
+
+########################## DEBUG ################################
+if params[0].verbosity > 1:
+	sys.stderr.write('entries:\n')
+	sys.stderr.write("\tid: [category,(priority),name,executable,icon,(topapp,secondapp)]\n")
+	for i in range(len(apps)):
+		sys.stderr.write("\t"+str(i)+': '+str(apps[i])+"\n")
+	sys.stderr.write("\n")
+########################## DEBUG ################################
+
+if not params[0].noMenus:
+	printMenu(apps,output=output,suffix=params[0].menuSuffix,destroyMenu=params[0].clearMenu,useIcons=params[0].menuIcons,subAction=params[0].subAction,subSuffix=params[0].subSuffix,menuTitle=params[0].menuTitle,tearOff=params[0].tearOff,topAppPos=params[0].topAppPos)
+
+
+if not params[0].noPanel:
+	if params[0].action1=='custom':
+		if params[0].custom1:
+			suffix1=params[0].custom1
+		else:
+			suffix1='Nop'
+	else:
+		suffix1=params[0].menuSuffix
+	if params[0].action2=='custom':
+		if params[0].custom2:
+			suffix2=params[0].custom2
+		else:
+			suffix2='Nop'
+	else:
+		suffix2=params[0].menuSuffix
+	if params[0].action3=='custom':
+		if params[0].custom3:
+			suffix3=params[0].custom3
+		else:
+			suffix3='Nop'
+	else:
+		suffix3=params[0].menuSuffix
+	if not params[0].panelCat:
+		panelCat=params[0].rootCat
+	else:
+		panelCat=params[0].panelCat
+
+	printPanel(apps,output=output,icons=params[0].panelIcons,action1=params[0].action1,action2=params[0].action2,action3=params[0].action3,suffix1=suffix1,suffix2=suffix2,suffix3=suffix3,menuPos=params[0].menuPos,panelName=params[0].panelName,geometry=params[0].buttonGeometry,size=params[0].panelSize,maxLength=params[0].panelLength,topCat=panelCat,titlePos=params[0].panelTitles.lower(),padding=params[0].panelPadding,align=params[0].panelAlign.lower())
+
+
+if params[0].topMenu:
+	if params[0].sortOrder in ('rname','rprio'):
+		reverseOrder=True
+	else:
+		reverseOrder=False
+	printTopAppsMenu(apps,output=output,destroyMenu=params[0].topClear,useIcons=params[0].topIcons,tearOff=params[0].topTearOff,menuName=params[0].topName,title=params[0].topTitle,length=params[0].topLength,reverse=reverseOrder)
+

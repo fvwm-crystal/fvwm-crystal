@@ -1,0 +1,9 @@
+# Subset of window control functions in case you don't have numpad
+Key minus	A $[Mod1]2 Raise
+Key minus	A $[Mod2]2 Lower
+Key equal	A $[Mod1]2 Maximize
+Key equal	A $[Mod2]2 Fullscreen
+Key BackSpace	A $[Mod1]2 Window-Iconify
+Key BackSpace	A $[Mod2]2 Close
+
+# vim:ft=fvwm

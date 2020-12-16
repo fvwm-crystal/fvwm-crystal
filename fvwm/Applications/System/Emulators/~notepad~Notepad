@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec notepad $@ 2>/dev/null

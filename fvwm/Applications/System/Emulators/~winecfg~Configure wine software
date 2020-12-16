@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec winecfg $@ 2>/dev/null

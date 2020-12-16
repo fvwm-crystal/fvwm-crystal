@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec noteedit $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec klamav $@ 2>/dev/null
+

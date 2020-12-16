@@ -1,0 +1,37 @@
+# Exit commands - gdm required
+# Created by: Pawel "NEMO" Drygas <nemo@braxis.org>
+# Modified by Dominique Michel <dominique_libre@sourceforge.net> for use with
+# session managers as gnome-session
+
+PipeRead "echo SetEnv GDM_Query \\\'`gdmflexiserver --authenticate --command=QUERY_LOGOUT_ACTION`\\\'"
+
+AddToMenu /Exit 
++ "" Nop
+Test (x gdmflexiserver) + '%22x22/fvwm-crystal/gdm.png%$[gt.New login]' Exec exec gdmflexiserver
+Test (x gdmflexiserver) Test (x Xnest) + '%22x22/fvwm-crystal/gdm-xnest.png%$[gt.New nested login]' Exec exec gdmflexiserver --xnest
+PipeRead "echo '$[GDM_Query]' | grep REBOOT > /dev/null && \
+	echo + \\\'%22x22/fvwm-crystal/system-reboot.png%$[gt.Reboot computer]\\\' Exit-Reboot"
+PipeRead "echo '$[GDM_Query]' | grep SUSPEND > /dev/null && \
+	echo + \\\'%22x22/fvwm-crystal/system-shutdown.png%$[gt.Suspend]\\\' Exit-Suspend"
+PipeRead "echo '$[GDM_Query]' | grep HALT > /dev/null && \
+	echo + \\\'%22x22/fvwm-crystal/system-shutdown.png%$[gt.Turn off computer]\\\' Exit-Halt"
+ 
+DestroyFunc Exit-Halt
+AddToFunc Exit-Halt
++ I PipeRead 'gdmflexiserver --authenticate --command="SET_SAFE_LOGOUT_ACTION HALT" >/dev/null 2>/dev/null'
+Test (EnvIsSet SESSION_MANAGER) + I QuitSession
+Test (!EnvIsSet SESSION_MANAGER) + I Quit
+
+DestroyFunc Exit-Reboot
+AddToFunc Exit-Reboot
++ I PipeRead 'gdmflexiserver --authenticate --command="SET_SAFE_LOGOUT_ACTION REBOOT" >/dev/null 2 >/dev/null'
+Test (EnvIsSet SESSION_MANAGER) + I QuitSession
+Test (!EnvIsSet SESSION_MANAGER) + I Quit
+
+DestroyFunc Exit-Suspend
+AddToFunc Exit-Suspend
++ I PipeRead 'gdmflexiserver --authenticate --command="SET_SAFE_LOGOUT_ACTION SUSPEND" >/dev/null 2>/dev/null'
+Test (EnvIsSet SESSION_MANAGER) + I QuitSession
+Test (!EnvIsSet SESSION_MANAGER) + I Quit
+
+# vim:ft=fvwm

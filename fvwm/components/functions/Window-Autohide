@@ -1,0 +1,51 @@
+# Window-Autohide
+# Written by:	Lluis Vilanova <xscript@gmx.net>
+#		Maciej Delmanowski <harnir@linux.net.pl>
+
+# You can use these functions to automatically hide or show certain windows.
+# Windows will be automatically unshaded when you move mouse pointer over
+# them, and automatically shaded in selected direction when you will move
+# mouse pointer away. You can select the time in miliseconds after window will
+# be (un)shaded.
+
+
+# Usage:
+# Window-Autohide <alias> <window-name> <show-time> <hide-time> <direction>
+
+# <alias>	alias for the FvwmAuto module, must be different for each window,
+#		and cannot contain spaces
+# <window-name>	name of a window to use; haven't been tested with names
+# 		containing spaces
+# <show-time>	time between entering a window and showing it
+# <hide-time>	time between leaving a window and hiding it
+# <direction>	direction for the "WindowShade" command; can be one of: N,S,E,W
+
+
+DestroyFunc Window-Autohide
+AddToFunc Window-Autohide
++ I KillModule FvwmAuto $0
++ I DestroyModuleConfig $0: *
++ I Module FvwmAuto $0 -menter "Window-Autohide-Func $1 $2 $3 $4"
+
+DestroyFunc Window-Autohide-Func
+AddToFunc Window-Autohide-Func
++ I ThisWindow ($0) Deschedule $[w.id]
++ I TestRc (!Match) Deschedule -$[w.id]
++ I ThisWindow ($0, shaded) Window-Autohide_Show $1 $3
++ I TestRc (!Match) All ($0, !shaded) Window-Autohide_Hide $2 $3
+
+DestroyFunc Window-Autohide_Show
+AddToFunc Window-Autohide_Show
++ I Schedule $0 -$[w.id] WindowShade $1 off
++ I Schedule $0 -$[w.id] Deschedule $[w.id]
++ I Schedule $0 -$[w.id] Deschedule -$[w.id]
+
+DestroyFunc Window-Autohide_Hide
+AddToFunc Window-Autohide_Hide
++ I Schedule $0 $[w.id] WindowShade $1 on
++ I Schedule $0 $[w.id] Deschedule $[w.id]
++ I Schedule $0 $[w.id] Deschedule -$[w.id]
+
+
+# ViM modeline
+# vim:ft=fvwm

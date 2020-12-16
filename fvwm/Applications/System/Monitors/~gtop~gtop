@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gtop $@ 2>/dev/null
+

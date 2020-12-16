@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kopete $@ 2>/dev/null
+

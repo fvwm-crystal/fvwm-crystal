@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec marbleblast-demo $@ 2>/dev/null

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec lskat $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec lash_synth $@ 2>/dev/null
+

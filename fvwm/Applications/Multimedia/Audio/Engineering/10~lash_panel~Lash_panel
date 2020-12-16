@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec lash_panel $@ 2>/dev/null
+

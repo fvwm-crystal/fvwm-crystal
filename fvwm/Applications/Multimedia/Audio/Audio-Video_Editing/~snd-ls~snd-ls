@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec snd-ls $@ 2>/dev/null
+

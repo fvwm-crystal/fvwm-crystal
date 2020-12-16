@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec xcdroast $@ 2>/dev/null
+

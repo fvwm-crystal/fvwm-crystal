@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec jokosher $@ 2>/dev/null

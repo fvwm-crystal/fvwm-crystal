@@ -1,0 +1,936 @@
+# FvwmScript Font Selector
+# A Font Selector for Fvwm-Crystal
+# Copyright Dominique Michel <dominique_libre@users.sourceforge.net> 2013
+# Released under the GNU GPL license v3 or later
+
+# Header ̣{{{1
+UseGettext {$FVWM_USERDIR/locale;fvwm-crystal-script:$FVWM_SYSTEMDIR/locale;fvwm-crystal-script:+}
+WindowLocaleTitle {FVWM-Crystal Font Selector}
+WindowSize 705 600
+#WindowPosition 300 300
+#The following colorsets works with the RedDesktop cs, 5 works with all cs sets (other working cs
+# not tested with other cs sets), the other ones crash that script with the RedDesktop cs
+#Colorset 2 5 8 (9 10) (11)
+Colorset 5
+# Dont change it or the text titles will be shorted: 
+Font	"xft:$[panel_font]:pixelsize=12:$[panel_font_style]"
+
+# Initialisation {{{1
+Init
+Begin
+   # Use the panel user font for the widgets {{{2
+   # We use a fixed size for the widgets to look good
+   Set $cmd = {echo $panel_font}
+   Set $PanelUserFont = (GetOutput $cmd 1 -1)
+   Set $cmd = {echo $panel_font_size}
+   Set $PanelFontSize = (GetOutput $cmd 1 -1)
+   Set $cmd = {echo $panel_font_style}
+   Set $PanelFontStyle = (GetOutput $cmd 1 -1)
+   Set $SelectorFont = {xft:}$PanelUserFont{:pixelsize=14:}$PanelFontStyle
+   Set $EditFont = {xft:}$PanelUserFont{:pixelsize=14:}$PanelFontStyle
+   Set $PanelFont = {xft:}$PanelUserFont{:pixelsize=}$PanelFontSize{:}$PanelFontStyle
+   # use it as default
+   Set $FontName = $PanelUserFont
+   Set $Style = $PanelFontStyle
+   Set $Size = $PanelFontSize
+   
+   # Get the other user fonts {{{2
+   # Title font
+   Set $cmd = {echo $title_font}
+   Set $TitleUserFont = (GetOutput $cmd 1 -1)
+   Set $cmd = {echo $title_font_size}
+   Set $TitleFontSize = (GetOutput $cmd 1 -1)
+   Set $cmd = {echo $title_font_style}
+   Set $TitleFontStyle = (GetOutput $cmd 1 -1)
+   Set $TitleFont = {xft:}$TitleUserFont{:pixelsize=}$TitleFontSize{:}$TitleFontStyle
+   # Menu font
+   Set $cmd = {echo $menu_font}
+   Set $MenuUserFont = (GetOutput $cmd 1 -1)
+   Set $cmd = {echo $menu_font_size}
+   Set $MenuFontSize = (GetOutput $cmd 1 -1)
+   Set $cmd = {echo $menu_font_style}
+   Set $MenuFontStyle = (GetOutput $cmd 1 -1)
+   Set $MenuFont = {xft:}$MenuUserFont{:pixelsize=}$MenuFontSize{:}$MenuFontStyle
+   #Do {Echo MenuFont = }$MenuFont
+
+   # Find the indexes for the current font preferences {{{2
+   Set $cmd = (GetOutput {echo \$FVWM_SYSTEMDIR/scripts/FontSelector/findindex.sh \"\$panel_font\"} 1 -1)
+   Set $PanelIndex = (GetOutput $cmd 1 -1)
+   Set $cmd = (GetOutput {echo \$FVWM_SYSTEMDIR/scripts/FontSelector/findindex.sh \"\$menu_font\"} 1 -1)
+   Set $MenuIndex = (GetOutput $cmd 1 -1)
+   Set $cmd = (GetOutput {echo \$FVWM_SYSTEMDIR/scripts/FontSelector/findindex.sh \"\$title_font\"} 1 -1)
+   Set $TitleIndex = (GetOutput $cmd 1 -1)
+
+   # Apply the fonts
+   ChangeFont 1 $PanelFont
+   For $Widget=2 To 21 Do
+       ChangeFont $Widget $SelectorFont
+   For $Widget=50 To 54 Do
+       ChangeFont $Widget $PanelFont
+   ChangeFont 100 $EditFont
+
+   # Get the font list
+   ChangeTitle 1 (GetOutput {exec fc-list : family 2>/dev/null | sort | tr '\n' '|' } 1 -1)
+   
+   # Set example default font
+   Set $FontString = $SelectorFont
+   
+   # SetFont is the font we do the preference for
+   Set $SetFont = {panel_font}
+   #Set $Size = $PaneFontSize
+   #Set $Style = $PanelFontStyle
+   # Set default example string (used by "Reset example" and if no pref file)
+   Set $ExampleOrig = (Gettext {abijk ABIJK éç ÀÉ O09 你好})
+   #Do {Echo Orig = }$ExampleOrig
+   Set $PrefDir = (GetOutput {echo \$FVWM_USERDIR} 1 -1)
+   Set $cmd = {exec cat }$PrefDir{/preferences/FontSelectorString}
+   #Do {Echo CMD =}$cmd
+   Set $Example = (GetOutput $cmd 1 -1)
+   #Do {Echo Exemple = }$Example
+   If $Example == {} Then
+    Begin
+	Set $Example = $ExampleOrig
+    End
+   ChangeTitle 50 $Example
+   ChangeTitle 51 $Example
+   ChangeTitle 52 $Example
+   ChangeTitle 53 $Example
+   ChangeTitle 54 $Example
+   ChangeTitle 100 $Example
+   ShowWidget 100
+
+   # show the font name {{{2
+   HideWidget 1
+   ChangeValue 1 $PanelIndex
+   ChangeMinValue 1 $PanelIndex
+   #Set $FontName = $PanelUserFont
+   ShowWidget 1
+   # in the label
+   Set $Label = $PanelUserFont{ }$PanelFontSize{ }$PanelFontStyle
+   ChangeTitle 8 $Label
+   ShowWidget 8
+   # Show the example
+   Set $tmp = 0
+   If $PanelFontSize < 13 Then
+    	Set $tmp = 50
+   If $PanelFontSize < 25 Then
+   Begin
+	If $tmp == 0 Then
+	   Set $tmp = 51
+   End
+   If $PanelFontSize < 37 Then
+   Begin
+	If $tmp == 0 Then
+	   Set $tmp = 52
+   End
+   If $PanelFontSize < 51 Then
+   Begin
+	If $tmp == 0 Then
+	   Set $tmp = 53
+   End
+   If $tmp == 0 Then
+	Set $tmp = 54
+   ShowWidget $tmp
+
+   # Show the style {{{2
+   If $PanelFontStyle == {Bold} Then
+   Begin
+   	HideWidget 12
+	ShowWidget 2
+	HideWidget 3
+   	ShowWidget 13
+   End
+   If $PanelFontStyle == {Italic} Then
+   Begin
+   	HideWidget 12
+	ShowWidget 2
+	HideWidget 4
+   	ShowWidget 14
+   End
+   If $PanelFontStyle == {Bold:Italic} Then
+   Begin
+   	HideWidget 12
+	ShowWidget 2
+	HideWidget 5
+   	ShowWidget 15
+   End
+
+   # Show the size {{{2
+   Set $FontSizes = {6|7|8|9|10|11|12|13|14|15|16|17|18|20|22|24|26|28|32|36|40|48|56|64|72}
+   Set $cmd = {sizes='6 7 8 9 10 11 12 13 14 15 16 17 18 20 22 24 26 28 32 36 40 48 56 64 72';size=}$Size{; i=1; for s in $sizes; do if [ $s = $size ]; then echo $i; fi ; i=$(( $i + 1 )); done}
+   #Do {Echo Cmd = }$cmd
+   Set $sindex = (GetOutput $cmd 1 -1)
+   #Do {Echo Index = }$sindex
+   HideWidget 6
+   ChangeValue 6 $sindex
+   ChangeMinValue 6 $sindex
+   ShowWidget 6
+End
+
+# Periodic Tasks {{{1
+PeriodicTasks
+Begin
+    # show the preference {{{2
+    If $ChangePref == 1 Then
+    Begin
+    	Set $ChangePref = 0
+	# get the font
+	HideWidget 1
+	If $SetFont == {panel_font} Then
+	Begin
+	   Set $FontName = $PanelUserFont
+	   Set $Size = $PanelFontSize
+	   Set $Style = $PanelFontStyle
+	End
+	If $SetFont == {menu_font} Then
+	Begin
+	   Set $FontName = $MenuUserFont
+	   Set $Size = $MenuFontSize
+	   Set $Style = $MenuFontStyle
+	End
+	If $SetFont == {title_font} Then
+	Begin
+	   Set $FontName = $TitleUserFont
+	   Set $Size = $TitleFontSize
+	   Set $Style = $TitleFontStyle
+	End
+	# set the fonts
+    	Set $LabelFont = {xft:}$FontName{:pixelsize=14:}$Style
+    	Set $EditFont = {xft:}$FontName{:pixelsize=14:}$Style
+    	Set $PanelFont = {xft:}$FontName{:pixelsize=}$Size{:}$Style
+	Do {Echo EditFont = }$EditFont
+	Do {Echo PanelFont = }$PanelFont
+	For $Widget=50 To 54 Do
+	Begin
+	   HideWidget $Widget
+    	   ChangeFont $Widget $PanelFont
+	End
+	HideWidget 100
+    	ChangeFont 100 $EditFont
+	ShowWidget 100
+   	Set $Label = $FontName{ }$Size{ }$Style
+	HideWidget 8
+	ChangeFont 8 $LabelFont
+   	ChangeTitle 8 $Label
+	ShowWidget 8
+	ChangeFont 1 $PanelFont
+	If $SetFont == {panel_font} Then
+	Begin
+	   ChangeValue 1 $PanelIndex
+	   ChangeMinValue 1 $PanelIndex
+	End
+	If $SetFont == {menu_font} Then
+	Begin
+	   ChangeValue 1 $MenuIndex
+	   ChangeMinValue 1 $MenuIndex
+	End
+	If $SetFont == {title_font} Then
+	Begin
+	   ChangeValue 1 $TitleIndex
+	   ChangeMinValue 1 $TitleIndex
+	End
+	ShowWidget 1
+
+   	# Show the example
+   	Set $tmp = 0
+   	If $Size < 13 Then
+   	 	Set $tmp = 50
+   	If $Size < 25 Then
+   	Begin
+	If $tmp == 0 Then
+		Set $tmp = 51
+   	End
+   	If $Size < 37 Then
+   	Begin
+	If $tmp == 0 Then
+	   	Set $tmp = 52
+   	End
+   	If $Size < 51 Then
+   	Begin
+	If $tmp == 0 Then
+	   	Set $tmp = 53
+   	End
+   	If $tmp == 0 Then
+		Set $tmp = 54
+   	ShowWidget $tmp
+   	# Show the style {{{2
+	For $Widget=2 To 5 Do
+		HideWidget $Widget
+	For $Widget=12 To 15 Do
+		HideWidget $Widget
+   	If $Style == {Regular} Then
+   	Begin
+   		ShowWidget 12 
+		ShowWidget 3
+		ShowWidget 4
+	   	ShowWidget 5
+   	End
+   	If $Style == {Bold} Then
+   	Begin
+   		ShowWidget 2
+		ShowWidget 13
+		ShowWidget 4
+	   	ShowWidget 5
+   	End
+   	If $Style == {Italic} Then
+   	Begin
+   		ShowWidget 2
+		ShowWidget 3
+		ShowWidget 14
+   		ShowWidget 5
+   	End
+   	If $Style == {Bold:Italic} Then
+   	Begin
+   		ShowWidget 2
+		ShowWidget 3
+		ShowWidget 4
+   		ShowWidget 15
+   	End
+   	# Show the size {{{2
+   	Set $cmd = {sizes='6 7 8 9 10 11 12 13 14 15 16 17 18 20 22 24 26 28 32 36 40 48 56 64 72';size=}$Size{; i=1; for s in $sizes; do if [ $s = $size ]; then echo $i; fi ; i=$(( $i + 1)); done}
+   	Set $sindex = (GetOutput $cmd 1 -1)
+   	HideWidget 6
+   	ChangeValue 6 $sindex
+	ChangeMinValue 6 $sindex
+	ShowWidget 6
+
+    End
+
+    # show the example {{{2
+    If $ChangeFont == 1 Then
+    Begin
+	Set $ChangeFont = 0
+	Set $FontString = {xft:}$FontName{:pixelsize=}$Size{:}$Style
+	Set $FontExample = {xft:}$FontName{:pixelsize=16:}$Style
+	Set $FontLabel = $FontName{ }$Size{ }$Style
+	HideWidget 50
+	HideWidget 51
+	HideWidget 52
+	HideWidget 53
+	HideWidget 54
+	HideWidget 100
+	Set $tmp = 0
+	If $Size < 13 Then
+	    Set $tmp = 50
+	If $Size < 25 Then
+	Begin
+	    If $tmp == 0 Then
+		Set $tmp = 51
+	End
+	If $Size < 37 Then
+	Begin
+	    If $tmp == 0 Then
+		Set $tmp = 52
+	End
+	If $Size < 51 Then
+	Begin
+	    If $tmp == 0 Then
+		Set $tmp = 53
+	End
+	If $tmp == 0 Then
+	    Set $tmp = 54
+	
+	ChangeFont $tmp $FontString
+	ChangeFont 1 $FontString
+	ChangeTitle $tmp $Example
+	ShowWidget $tmp
+	ChangeFont 100 $FontExample
+	ChangeTitle 100 $Example
+	ShowWidget 100
+	ChangeFont 8 $FontExample
+	ChangeTitle 8 $FontLabel
+	ShowWidget 8
+
+    End
+End
+
+# Quit Function {{{1
+QuitFunc
+Begin
+  Do Nop
+#  Do {Echo The font: }$SetFont{ is xft:}$FontName{:pixelsize=}$Size{:}$Style
+End
+
+# Main {{{1
+# List of fonts {{{2
+Widget 1
+Property
+    Flags NoReliefString	
+    #Flags Hidden
+    Font "xft:Verdana:size=14"
+    Position 5 50
+    Size 395 250
+    Type List
+    Title {|||Loading fonts ...}
+    #Value 1
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set $findex = (GetValue 1)
+    Set $FontList = (GetTitle 1)
+    Set $cmd = {exec echo "}$FontList{" | cut -d '|' -f } $findex 
+    Set $FontName = (GetOutput $cmd 1 -1)
+    Set $ChangeFont = 1
+ End
+End
+
+# Styles {{{2
+# Flags determine the button style
+# Regular
+Widget 2
+Property
+Flags NoReliefString Hidden
+ Position 410 50
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Regular}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $Style = {Regular}
+    Set $ChangeFont = 1
+    HideWidget 2
+    HideWidget 13
+    HideWidget 14
+    HideWidget 15
+    ShowWidget 12
+    ShowWidget 3
+    ShowWidget 4
+    ShowWidget 5
+  End
+End
+# selected
+Widget 12
+Property
+#Flags Hidden
+ Position 410 50
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Regular}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do {Nop}
+  End
+End
+
+# Bold
+Widget 3
+Property
+ Flags NoReliefString
+ Position 410 95
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Bold}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $Style = {Bold}
+    Set $ChangeFont = 1
+    HideWidget 12
+    HideWidget 3
+    HideWidget 14
+    HideWidget 15
+    ShowWidget 2
+    ShowWidget 13
+    ShowWidget 4
+    ShowWidget 5
+  End
+End
+# selected
+Widget 13
+Property
+ Flags Hidden
+ Position 410 95
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Bold}
+Main
+ Case message of
+  SingleClic :
+  Begin
+   Do {Nop} 
+  End
+End
+
+# Italic
+Widget 4
+Property
+ Flags NoReliefString
+ Position 410 140
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Italic}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $Style = {Italic}
+    Set $ChangeFont = 1
+    HideWidget 12
+    HideWidget 13
+    HideWidget 4
+    HideWidget 15
+    ShowWidget 2
+    ShowWidget 3
+    ShowWidget 14
+    ShowWidget 5
+  End
+End
+# selected
+Widget 14
+Property
+ Flags Hidden
+ Position 410 140
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Italic}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do {Nop}
+  End
+End
+
+# Bold Italic
+Widget 5
+Property
+ Flags NoReliefString
+ Position 410 185
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Bold Italic}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $Style = {Bold:Italic}
+    Set $ChangeFont = 1
+    HideWidget 12
+    HideWidget 13
+    HideWidget 14
+    HideWidget 5
+    ShowWidget 2
+    ShowWidget 3
+    ShowWidget 4
+    ShowWidget 15
+  End
+End
+# selected
+Widget 15
+Property
+ Flags Hidden
+ Position 410 185
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Bold Italic}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do {Nop}
+  End
+End
+
+# Size {{{2
+Widget 6
+Property
+ Flags NoReliefString
+ Position 590 50
+ Size 110 250
+ Type List
+ Title {6|7|8|9|10|11|12|13|14|15|16|17|18|20|22|24|26|28|32|36|40|48|56|64|72}
+ Value 11
+ MinValue 6
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $FontSizes = {6|7|8|9|10|11|12|13|14|15|16|17|18|20|22|24|26|28|32|36|40|48|56|64|72}
+    Set $sindex = (GetValue 6)
+    Set $cmd = {exec echo "}$FontSizes{" | cut -d '|' -f } $sindex 
+    Set $Size = (GetOutput $cmd 1 -1)
+    Set $ChangeFont = 1
+  End
+End
+
+# View Font {{{2
+# Label
+Widget 7
+Property
+    Font "xft:Verdana:size=14:Regular"
+    Flags NoReliefString Center	
+    Position 5 310
+    Size 120 35
+    Type ItemDraw
+    LocaleTitle {With}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# The font
+Widget 8
+Property
+    Font "xft:Verdana:size=14:Regular"
+    Flags NoReliefString Left Hidden	
+    Position 125 310
+    Size 420 35
+    Type ItemDraw
+    Title {}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Example 0 - 12
+Widget 50
+Property
+    Font "xft:Verdana:size=12"	
+    Flags Hidden
+    Position 5 392
+    MaxValue 0
+    Size 640 35
+    Type TextField
+    LocaleTitle {abijk ABIJK éç ÀÉ O09 你好}
+Main
+Case message of
+ SingleClic :
+ Begin
+ End
+End
+
+# Example 13 - 24
+Widget 51
+Property
+    Font "xft:Verdana:size=24"	
+    Flags Hidden
+    Position 5 387
+    Size 640 35
+    MaxValue 0
+    Type TextField
+    LocaleTitle {abijk ABIJK éç ÀÉ O09 你好}
+Main
+Case message of
+ SingleClic :
+ Begin
+ End
+End
+
+# Example 25 - 36
+Widget 52
+Property
+    Font "xft:Verdana:size=36"	
+    Flags Hidden
+    Position 5 380
+    Size 640 35
+    MaxValue 0
+    Type TextField
+    LocaleTitle {abijk ABIJK éç ÀÉ O09 你好}
+Main
+Case message of
+ SingleClic :
+ Begin
+ End
+End
+
+# Example 37 - 50
+Widget 53
+Property
+    Font "xft:Verdana:size=48"	
+    Flags Hidden
+    Position 5 374
+    Size 640 35
+    MaxValue 0
+    Type TextField
+    LocaleTitle {abijk ABIJK éç ÀÉ O09 你好}
+Main
+Case message of
+ SingleClic :
+ Begin
+ End
+End
+
+# Example 51 - 72
+Widget 54
+Property
+    Font "xft:Verdana:size=72"	
+    Flags Hidden
+    Position 5 360
+    Size 640 35
+    MaxValue 0
+    Type TextField
+    LocaleTitle {abijk ABIJK éç ÀÉ O09 你好}
+Main
+Case message of
+ SingleClic :
+ Begin
+ End
+End
+
+# Input text {{{2
+# Edit label
+Widget 9
+Property
+    Font "xft:Verdana:size=14:Regular"
+    Flags NoReliefString Left	
+    Position 5 480
+    Size 170 35
+    Type ItemDraw
+    LocaleTitle { Edit me:}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Do Nop
+ End
+End
+
+# Input string
+Widget 100
+Property
+    Font "xft:Verdana:size=16"	
+    Flags Hidden	
+    Position 5 520
+    Size 640 35
+    MinValue 40
+    MaxValue 0
+    Type TextField
+    LocaleTitle {abijk ABIJK éç ÀÉ O09 你好}
+Main
+Case message of
+ SingleClic :
+ Begin
+   Set $Example = (GetTitle 100)
+   Set $ChangeFont = 1
+ End
+End
+
+# Seve editing
+Widget 10
+Property
+ Flags NoReliefString
+ Position 200 480
+ Size 210 35
+ Type PushButton
+ LocaleTitle {Save editing}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do {SavePreferences FontSelectorString "}$Example{"}
+  End
+End
+
+# Reset to default string
+Widget 11
+Property
+ Flags NoReliefString
+ Position 450 480
+ Size 210 35
+ Type PushButton
+ LocaleTitle {Reset editing}
+Main
+ Case message of
+  SingleClic :
+  Begin
+   Set $Example = $ExampleOrig
+   ChangeTitle 50 $Example
+   ChangeTitle 51 $Example
+   ChangeTitle 52 $Example
+   ChangeTitle 53 $Example
+   ChangeTitle 54 $Example
+   ChangeTitle 100 $Example
+  End
+End
+
+
+# Bottom buttons {{{2
+# Quit
+Widget 16
+Property
+ Flags NoReliefString
+ Position 80 560
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Quit}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Quit
+  End
+End
+
+# Apply
+Widget 17
+Property
+ Flags NoReliefString
+ Position 267 560
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Apply}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do {SetEnv }$SetFont{ "}$FontName{"}
+    Do {SetEnv }$SetFont{_size "}$Size{"}
+    Do {SetEnv }$SetFont{_style "}$Style{"}
+    If $SetFont=={panel_font} Then
+    Begin
+      Do {Style FvwmScript Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+      Do {Style FvwmForm Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+      Do {Style FvwmIdent Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+    End
+    If $SetFont=={title_font} Then
+    Begin
+      Do {Style * Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+    End
+    If $SetFont=={menu_font} Then
+    Begin
+      Do {MenuStyle * Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+    End
+  End
+End
+
+# Save
+Widget 18
+Property
+ Flags NoReliefString
+ Position 455 560
+ Size 170 35
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Do {SetEnv }$SetFont{ "}$FontName{"}
+    Do {SetEnv }$SetFont{_size "}$Size{"}
+    Do {SetEnv }$SetFont{_style "}$Style{"}
+    If $SetFont=={panel_font} Then
+    Begin
+      Do {Style FvwmScript Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+      Do {Style FvwmForm Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+      Do {Style FvwmIdent Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+      Do {SavePreferences PanelFont "SetEnv panel_font \\\"}$FontName{\\\""}
+      Do {SavePreferences PanelFontSize "SetEnv panel_font_size }$Size{"}
+      Do {SavePreferences PanelFontStyle "SetEnv panel_font_style }$Style{"}
+      Do {Exec exec $[FVWM_SYSTEMDIR]/scripts/SetGtkFont}
+    End
+    If $SetFont=={title_font} Then
+    Begin
+      Do {Style * Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+      Do {SavePreferences TitleFont "SetEnv title_font \\\"}$FontName{\\\""}
+      Do {SavePreferences TitleFontSize "SetEnv title_font_size }$Size{"}
+      Do {SavePreferences TitleFontStyle "SetEnv title_font_style }$Style{"}
+    End
+    If $SetFont=={menu_font} Then
+    Begin
+      Do {MenuStyle * Font "xft:}$FontName{:pixelsize=}$Size{:}$Style{"}
+      Do {SavePreferences MenuFont "SetEnv menu_font \\\"}$FontName{\\\""}
+      Do {SavePreferences MenuFontSize "SetEnv menu_font_size }$Size{"}
+      Do {SavePreferences MenuFontStyle "SetEnv menu_font_style }$Style{"}
+    End
+  End
+End
+
+# Top buttons {{{2
+# Panel font
+Widget 19
+Property
+ Font "xft:Verdana:size=16"
+ Flags NoReliefString
+ Position 5 5
+ Type CheckBox
+ LocaleTitle {. Panel Font}
+ Value 1
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $clickeditem = (GetValue 19)
+    If $clickeditem==1 Then
+    Begin
+     Set $SetFont = {panel_font}
+     ChangeValue 20 0
+     ChangeValue 21 0
+     Set $ChangePref = 1
+    End
+    Else
+     ChangeValue 19 1
+     Set $ChangePref = 1
+  End
+End
+
+# Title font
+Widget 20
+Property
+ Font "xft:Verdana:size=16"
+ Flags NoReliefString
+ Position 245 5
+ Type CheckBox
+ Value 0
+ LocaleTitle {. Title Font}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $clickeditem = (GetValue 20)
+    If $clickeditem==1 Then
+    Begin
+     Set $SetFont = {title_font}
+     ChangeValue 19 0
+     ChangeValue 21 0
+     Set $ChangePref = 1
+    End
+    Else
+    Begin
+     ChangeValue 20 1
+     Set $ChangePref = 1
+    End
+  End
+End
+
+# Menu font
+Widget 21
+Property
+ Font "xft:Verdana:size=16"
+ Flags NoReliefString
+ Position 470 5
+ Type CheckBox
+ Value 0
+ LocaleTitle {. Menu Font}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set $clickeditem = (GetValue 21)
+    If $clickeditem==1 Then
+    Begin
+     Set $SetFont = {menu_font}
+     ChangeValue 19 0
+     ChangeValue 20 0
+     Set $ChangePref = 1
+    End
+    Else
+    Begin
+     ChangeValue 21 1
+     Set $ChangePref = 1
+    End
+  End
+End
+
+# vim:ft=fvwm

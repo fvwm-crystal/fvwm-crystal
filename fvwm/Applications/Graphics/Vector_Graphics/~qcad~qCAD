@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec qcad $@ 2>/dev/null
+

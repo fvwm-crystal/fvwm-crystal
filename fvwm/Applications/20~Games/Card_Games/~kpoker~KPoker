@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kpoker $@ 2>/dev/null
+

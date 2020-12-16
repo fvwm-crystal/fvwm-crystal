@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kfind $@ 2>/dev/null
+

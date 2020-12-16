@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec alsa-patch-bay $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec qsampler $@ 2>/dev/null
+

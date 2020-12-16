@@ -1,0 +1,42 @@
+# Support for graphic viewer
+# Written by: Dominique Michel
+#
+# Only comix is supported at that time.
+# Any file in $fvwm_pic_path1 and 2 will be loaded
+# into $fvwm_pic_exec (comix).
+# Comix support the usual pictures formats as well than zip,
+# tar and rar archives with picture files.
+#
+# TODO: add more viewers.
+
+SetEnv fvwm_pic_path1 "/mnt/usb/$[USERDIR]/Pictures"
+SetEnv fvwm_pic_path2 "/home/$[USERDIR]/Pictures"
+SetEnv fvwm_pic_exec "comix"
+
+DestroyFunc FuncFvwmMenuPicDirectory
+AddToFunc FuncFvwmMenuPicDirectory
++ I PipeRead 'case "$0" in \
+	"$[fvwm_pic_path1]"*) myexec="$[fvwm_pic_exec]";; \
+	"$[fvwm_pic_path2]"*) myexec="$[fvwm_pic_exec]";; \
+    esac; \
+    test -f "$0"/.icontitle.png && mytitle="$0"/.icontitle.png; \
+    test -f "$0"/.media.png && mypng="$0"/.media.png; \
+    fvwm-menu-directory --func-name "FuncFvwmMenuPicDirectory" \
+    --icon-title "${mytitle:-22x22/categories/directory.png}" \
+    --icon-file "${mypng:-22x22/categories/Graphics.png}" \
+    --dir "$0" --links \
+    --exec-file "^${myexec}"'
+
+DestroyMenu /Graphic/LoadPic
+AddToMenu /Graphic/LoadPic
++ MissingSubmenuFunction FuncFvwmMenuPicDirectory
++ '$[gt.Browse Pictures]' Popup $[fvwm_pic_path1]
++ '$[gt.Browse Pictures]' Popup $[fvwm_pic_path2]
+DestroyMenu /Graphic
+AddToMenu /Graphic
++ DynamicPopupAction Function /Graphic-generator
+
+DestroyFunc /Graphic-generator
+AddToFunc /Graphic-generator
++ I DestroyMenu recreate /Graphic
++ I AddToMenu /Graphic '$[gt.Load picture file]' Popup /Graphic/LoadPic

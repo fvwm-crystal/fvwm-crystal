@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ktuberling $@ 2>/dev/null
+

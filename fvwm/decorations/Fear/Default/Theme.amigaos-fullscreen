@@ -1,0 +1,51 @@
+# FVWM-Crystal version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle Active Colorset $[infostore.cs_window_active]
++ TitleStyle Inactive Colorset $[infostore.cs_window_inactive]
+PipeRead 'echo "+ TitleStyle LeftJustified Height $(($[title_font_size]+$(($[title_font_size]/3)))) -- flat noinset"'
+
++ BorderStyle -- HiddenHandles
++ BorderStyle -- Raised
+
++ ButtonStyle 1 \
+	ActiveUp (AdjustedPixmap $./window-active-close.png) \
+	ActiveDown (AdjustedPixmap $./window-active-close-down.png) \
+	Inactive (AdjustedPixmap $./window-inactive.png)
+
++ ButtonStyle 2 \
+	ActiveUp (AdjustedPixmap $./window-active-maximize.png) \
+	ActiveDown (AdjustedPixmap $./window-active-maximize-down.png) \
+	Inactive (AdjustedPixmap $./window-inactive.png)
+
++ ButtonStyle 4 \
+	ActiveUp (AdjustedPixmap $./window-active-options.png) \
+	ActiveDown (AdjustedPixmap $./window-active-options-down.png) \
+	Inactive (AdjustedPixmap $./window-inactive.png)
+
++ ButtonStyle 6 \
+	ActiveUp (AdjustedPixmap $./window-active-arrows.png) \
+	ActiveDown (AdjustedPixmap $./window-active-arrows-down.png) \
+	Inactive (AdjustedPixmap $./window-inactive.png)
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- flat
+
+Style * HandleWidth 3, BorderWidth 3
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactiveborder], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_activeborder]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-amigaos-Fullscreen
+

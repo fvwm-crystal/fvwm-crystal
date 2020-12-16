@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec karchiver $@ 2>/dev/null
+

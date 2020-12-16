@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec oobase $@ 2>/dev/null
+

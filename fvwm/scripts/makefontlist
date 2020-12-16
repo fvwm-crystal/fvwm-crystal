@@ -1,0 +1,5 @@
+#!/bin/bash
+
+fc-list : family | sort > "$FVWM_USERDIR/FontList"
+
+

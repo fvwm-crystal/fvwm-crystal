@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec squelch $@ 2>/dev/null
+

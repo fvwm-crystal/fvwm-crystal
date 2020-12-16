@@ -1,0 +1,50 @@
+# FVWM-Crystal version
+
+# Setup colorsets
+Read $./Colorsets
+
+DestroyDecor recreate WindowDecoration
+AddToDecor WindowDecoration
+
++ TitleStyle InActive Colorset $[infostore.cs_window_inactive]
++ TitleStyle Active Colorset $[infostore.cs_window_active]
++ TitleStyle Centered
++ TitleStyle -- Raised
+PipeRead 'echo "+ TitleStyle Height $(($[title_font_size]+$(($[title_font_size]/3))))"'
+
++ BorderStyle -- Raised
+
+# Close
++ ButtonStyle 1 Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 \
+			80x30@0 60x50@0 80x70@1 80x80@0 70x80@0 \
+			50x60@0 30x80@0 20x80@0 20x70@0 40x50@1 \
+			20x30@0 20x20@1
+
+# Maximize
++ ButtonStyle 2 Vector 5 25x25@1 25x75@1 75x75@0 75x25@0 25x25@1
+
+# Options
++ ButtonStyle 4 Vector 4 50x35@1 65x65@0 35x65@0 50x35@1
+
+# Arrows
++ ButtonStyle 6 Vector 8 20x35@4 40x18@1 40x58@0 20x35@0 52x35@4 \
+			72x55@1 52x75@0 52x35@1
+
++ ButtonStyle All -- UseTitleStyle
++ ButtonStyle All -- Raised
+
+Style * HandleWidth 5, BorderWidth 5
+Style * Colorset                $[infostore.cs_window_inactive], \
+        BorderColorset          $[infostore.cs_window_inactive], \
+        HilightColorset         $[infostore.cs_window_active], \
+        HilightBorderColorset   $[infostore.cs_window_active]
+
+Style * Font "xft:$[title_font]:pixelsize=$[title_font_size]:$[title_font_style]"
+
+Style * MwmBorder
+
+Style * UseDecor WindowDecoration
+
+# Setup button functions
+Include components/decorations/Buttons-amigaos-Fullscreen
+

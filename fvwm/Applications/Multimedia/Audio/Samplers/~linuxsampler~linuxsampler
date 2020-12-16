@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec linuxsampler $@ 2>/dev/null
+

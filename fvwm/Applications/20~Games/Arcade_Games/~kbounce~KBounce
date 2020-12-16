@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kbounce $@ 2>/dev/null
+

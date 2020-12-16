@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec soundtracker $@ 2>/dev/null
+

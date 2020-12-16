@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec sound-juicer $@ 2>/dev/null
+

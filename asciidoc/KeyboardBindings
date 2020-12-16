@@ -1,0 +1,386 @@
+KeyboardBindings(1)
+===================
+:doctype: manpage
+:man source:   KeyboardBindings
+:man version:  3.4.0
+:man manual:   FVWM-Crystal
+
+NAME
+----
+KeyboardBindings - FVWM-Crystal Keyboard Bindings Reference
+
+
+SYNOPSIS
+--------
+
+None
+
+
+DESCRIPTION
+-----------
+
+In this file you can find all keyboard bindings used in FVWM-Crystal desktop.
+
+Legend:
+-------
+	Alt - Meta (Alt)
+	Win_L - Windows Left
+	Win_R - Windows Right
+	Menu - a "menu" key
+	KP_ - means that following key is on the numeric keyboard
+	LMB - Left Mouse Button
+	RMB - Right Mouse Button
+	MMB - Middle Mouse Button
+
+	Preference menu -> Key binding modifiers editor
+
+let you change the key modifiers. It is necessary to quit and restart X
+for the changes to take effect. As exemple, if a software have a lot of
+bindings with the Alt key, you can reassign all the Mod1 fvwm-crystal bindings
+to use another modifier like Win_L.
+
+Terminal windows:
+-----------------
+*Alt + ` (grave)*::
+	Opens "QuakeConsole", a terminal similar to console available in FPP
+	games, like Quake series. It's a normal terminal where you can launch
+	commands. It stays on top of other windows, is visible on all
+	desktops. When you press Alt+` again, it will roll up and hide,
+	waiting for your next press of Alt+`, when it will show up again, so
+	you can launch a command in this terminal and hide it.
+
+*Alt + Shift + ` (grave)*::
+	It will open new terminal window, Aterm by default.
+
+*Alt + ;*::
+	Opens FvwmConsole in the lower-left corner of the screen, where you
+	can issue FVWM commands, and sometimes see error messages. The same
+	combination will hide/unhide it.
+
+
+System and Applications menu:
+-----------------------------
+*Alt + Menu* or *Alt + Shift + Win_R*::
+	Opens a small menu with all the menus from ApplicationPanel and
+	Docklet. You can navigate the menu using cursor keys, or h, j, k, l,
+	Escape cancels the selection, Enter selects a menu position.
+
+*Alt + Win_R* or *Alt + Shift + Menu*::
+	Opens an /Applications menu which contains a list of available
+	applications. You can use arrow keys or hjkl to move between menu
+	entries, Enter to select an entry and Escape to close the menu.
+
+*Alt + A*::
+	FVWM>2.6.5: Opens a XDG applications menu which contains a list of avaible
+	applications. You can use the same keys than with the 2 other menus.
+
+
+Desktop switching & moving windows between desktops:
+----------------------------------------------------
+*Alt + Escape*::
+	Swiches between two last used pages of the desktop.
+
+*Alt + F1, F2, F3, F4, F5, F6, F7, F8. F9*::
+	Switches to the selected page of the desktop, from 1 to 9 as selected in the preferences.
+
+*Alt + Shift + F1, F2, F3, F4, F5, F6, F7, F8, F9*::
+	Moves active window to selected page, from 1 to 9.
+
+*Alt + [*::
+	Go to the page on the left side of the current one.
+
+*Alt + ]*::
+	Go to the page on the right side of the current one.
+
+*Alt + Shift + [*::
+	Move the focused window to the page on the left side of the current
+	one and go there.
+
+*Alt + Shift + ]*::
+	Move the focused window to the page on the right side of the current
+	one and go there.
+
+
+Window movement on a single desktop:
+------------------------------------
+*Alt + h, j, k, l*::
+	Move windows to selected screen edge, centered:
+		  j
+		h   k
+		  l
+
+*Alt + Shift + h, j, k, l*::
+	Move windows to selected screen corner:
+		h  k
+		j  l
+
+*Alt + E*::
+	Launch the Expose clone
+
+
+Window and icon list:
+---------------------
+*Alt + Tab*::
+	Shows a list of opened windows on the current page, allows you to
+	switch between them. Last active window will be at the end of the
+	list, previously active window will be at the top - that way quickly
+	pressed and released Alt+Tab will switch between two last used
+	windows.
+
+*Alt + Shift + Tab*::
+	Shows a list of iconified windows, with thumbnails. After releasing
+	Alt selected window will show up on the current page. Escape cancels
+	this operation.
+
+
+Window resizer:
+---------------
+*Alt + Shift + 1, 2, 3, 4, 5, 6, 7, 8, 9, 0*::
+	Resizes currently focused window in different ways. Try it to see what
+	happens :)
+
+*Alt + Shift + D*::
+	Restore the original size and place again the windows.
+
+*Alt + Shift + F*::
+	Toggle all non iconic windows on the current desktop page between full
+	screen and non fullscreen.
+
+Music player and audio mixer:
+-----------------------------
+*Alt + Z*::
+	Selects prevouse track in music player.
+
+*Alt + X*::
+	Starts playback in music player.
+
+*Alt + C*::
+	Pauses playback in music player.
+
+*Alt + V*::
+	Stops playback in music player.
+
+*Alt + B*::
+	Selects next track in music player.
+
+*Alt + P*::
+	Selects previous track ignoring "Shuffle" setting in music player.
+
+*Alt + N*::
+	Selects next track ignoring "Shuffle" setting in music player.
+
+*Alt + ,*::
+	Lowers the volume by 1.5 dB (with amixer by 1 hardware step).
+
+*Alt + .*::
+	Raises the volume by 1.5 dB (with amixer by 1 hardware step).
+
+*Alt + Shift + ,*::
+	Lowers the volume by 10 % (with amixer by 2 hardware steps).
+
+*Alt + Shift + .*::
+	Raises the volume by 10 % (with amixer by 2 hardware steps).
+
+*Alt + / (slash)*::
+	Activates the search function of the music player (currently only XMMS
+	with XMMS-Find)
+
+*Alt + Shift + / (slash)*::
+	Toggles sequential/random playback
+
+*Alt + G*::
+	Toggle the display of the media player. With mplayer, it will display the file name.
+
+*Alt + S*::
+	Toggle the display of the audio mixer and QJackCtl.
+
+
+Multimedia keys:
+----------------
+Not all the media players/mixers support all the following bindings.
+
+*XF86AudioRaiseVolume*::
+	Volume up by 1.5 dB steps
+	The 1.5 dB steps are true for a 24 bits sound card and
+	alsamixer. It is an aproximation otherwise.
+
+*XF86AudioLowerVolume*::
+	Volume down by 1.5 dB steps
+
+*Ctrl + XF86AudioRaiseVolume*::
+	Player speed up
+
+*Ctrl + XF86AudioLowerVolume*::
+	Player speed down
+
+*XF86AudioMute*::
+	Toggle mute. When alsamixer or aumix is selected in the mixer preferences, the Master control, with fallback to PCM, will be (un)muted, and the prefered media player will be (un)paused.
+	When another mixer is selected, only the prefered media player will be (un)paused.
+
+*Ctrl + XF86AudioMute*::
+	Toggle mute only alsamixer or aumix.
+
+*XF86AudioPlay*::
+	Player frame step. Advance one frame or resume the pause.
+
+*Alt + XF86AudioPlay*::
+	Use normal speed.
+
+*Ctrl + XF86AudioPlay*::
+	Pause.
+
+*Alt + XF86AudioStop*::
+	Use normal speed
+
+*Ctrl + XF86AudioStop*::
+	Pause
+
+*XF86AudioNext*::
+	Play next song.
+
+*XF86AudioPrev*::
+	Play previous song.
+
+*XF86AudioMedia*::
+	Show/hide the player.
+
+	
+Numeric keyboard - window focus:
+--------------------------------
+*KP_1, KP_2, KP_3, KP_4, KP_6, KP_7, KP_8, KP_9*::
+	Change focus in the selected direction from the currently focused
+	window.
+
+*KP_5*::
+	Switch focus between two closest windows on the current page.
+
+
+Numeric keyboard - window movement:
+-----------------------------------
+*Alt + KP_1, KP_2, KP_3, KP_4, KP_5, KP_6, KP_7, KP_8, KP_9*::
+	Move currently focused window to the selected part of the screen,
+	corresponding to the numbers on the numeric keyboard. Pressing it
+	twice very fast moves a window instantly.
+
+
+Numeric keyboard - window controls:
+-----------------------------------
+*KP_0* or *Alt + - (substract)*::
+	Raise currently focused window.
+
+*KP_.* or *Alt + - (substract)*::
+	Lower currently focused window.
+
+*KP_/*::
+	Shade or unshade currently focused window.
+
+*Alt + KP_/*::
+	Stick or unstick currently focused window.
+
+*`KP_*`* or *Alt + = (equal)*::
+	Maximize currently focused window.
+
+*`Alt + KP_*`* or *Alt + Shift + = (equal)*::
+	Make currently focused window a full-screened window. It looses the
+	titlebar and border and is maximized to the entire screen.
+	Full-screened window cannot be lowered but can be iconified.
+	Pressing Alt+KP_* on the full-screened window brings back the titlebar
+	and border and resizes a window to it's previous size and position.
+
+*`Alt + Shift + KP_*`*::
+	Switch focus between the different full-screened windows of the current
+	desktop page and the desktop.
+
+*Alt + KP_-* or *Alt + Backspace*::
+	Iconifies currently focused window (or makes a thumbnail).
+
+*Alt + Shift + KP_-* or *Alt + Shift + Backspace*::
+	Closes currently focused window.
+	
+*KP_+*::
+	Moves window to the default layer, where are "normal" windows.
+
+*Alt + KP_+*::
+	Moves window to the upper layer, where are "always on top" windows.
+
+*Alt + Shift + KP_+*::
+	Moves window to the lower layer, where are "always at botton"
+	windows.
+
+
+Other functions:
+----------------
+*Print Screen*::
+	Makes a screenshot of the entire desktop in .jpg format and puts it in
+	'~/.fvwm/screenshots/' directory (by default).
+
+*Alt + Home*::
+	Move mouse cursor to "home position" - top left corner of the screen.
+
+*Alt + O*::
+	Shut down the screen.
+
+
+Note:
+-----
+If you want to modify some bindings, the best place is to put them into
+  ~/.fvwm-crystal/userconfig
+
+That file will be read at the very end of Fvwm-Crystal startup and restart.
+That way, your changes will not be lost after an update, and they will be
+read after all the other configuration settings.
+
+In case you want to reassign an existing binding to another key, the best
+practice is to unassign the old key and assign the new one. As example:
+
+----
+Key grave A $[Mod1] -
+Key grave A $[Mod1]2 -
+Key Q A $[Mod1] QuakeConsole
+Key Q A $[Mod1]2 QuakeConsole
+----
+
+will unassign Fvwm-Crystal binding (Alt + `) that launch the QuakeConsole
+and assign it to (Alt + Q).
+
+To reassign another function to an existing binding, it is just to reassign
+the binding. As example:
+
+----
+Key grave A $[Mod1] MyFunction
+Key grave A $[Mod1]2 MyFunction
+----
+
+will reassign the QuakeConsole binding (Alt + `) to MyFunction.
+The first binding is for use without NumLock, the second one is for use
+with NumLock (The 2 after $[Mod1]).
+
+For the signification of the modifiers, read the key and mouse commands
+description into `man fvwm`, as well than the output of
+
+----
+less "${FVWM_SYSTEMDIR}"/components/functions/Keyboard-Modifiers
+----
+
+while FVWM-Crystal is running.
+
+AUTHORS
+-------
+Documentation written by Maciej Delmanowski <harnir@berlios.de>,
+updated and ported to asciidoc by Dominique Michel
+<dominique_libre@users.sourceforge.net>
+
+
+COPYRIGHT
+---------
+*FVWM-Crystal* and all the scripts and other files coming with 
+the distribution are subject to the GNU General Public License (GPL). 
+Please refer to the COPYING file that came with *FVWM-Crystal* for details.
+
+
+BUGS
+----
+Bug reports can be sent to the fvwm-crystal-users mailing list at 
+<https://mail.gna.org/listinfo/fvwm-crystal-users/>.
+
+

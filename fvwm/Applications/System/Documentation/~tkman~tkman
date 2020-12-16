@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec tkman $@ 2>/dev/null
+

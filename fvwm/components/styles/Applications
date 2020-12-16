@@ -1,0 +1,60 @@
+# Settings for specific windows
+
+# Terminal emulators:
+# Resize window just with border, not window contents visible
+# makes some transparent terminals work faster
+Style XTerm ResizeOutline
+Style URxvt ResizeOutline
+
+# Xephyr does not support the EWMH hints but wee want it in fullscreen
+Style Xephyr !Title, !Borders
+
+# ---------------------------------------------------------------------------
+# Other applications
+#Style Untitled		!Title, !Borders
+Style wine		!Title, !Borders, Lenience
+Style Wine		Lenience
+Style lxdoom		!Title, !Borders, EWMHPlacementIgnoreWorkingArea
+Style Firefox		NoPPosition, EWMHNoMiniIconOverride
+Style Firefox-bin	UseStyle Firefox
+Style Thunderbird	NoPPosition, EWMHNoMiniIconOverride
+Style Thunderbird-bin	UseStyle Thunderbird
+Style Mozilla-thunderbird-bin UseStyle Thunderbird
+Style Mozilla		NoPPosition, EWMHNoMiniIconOverride
+Style Mozilla-bin	UseStyle Mozilla
+Style Google-chrome	NoPPosition, EWMHNoMiniIconOverride
+Style Eog		NoPPosition, EWMHNoMiniIconOverride
+
+Style Gambas*		!UsePPosition, !UseUSPosition
+
+Style kicker		!Title, !Borders, NeverFocus, NoIcon, FixedSize, \
+			WindowListSkip, FixedPosition
+Style pypanel		!Title, StaysOnBottom, Sticky, NoIcon, NeverFocus, \
+			FixedSize, WindowListSkip, FixedPosition, !Borders
+
+Style Blender		!Title, !Borders
+Style giFToxic		EWMHMiniIconOverride
+
+Style tuxeyes		!Title, !Borders, StaysOnBottom, Sticky, NoIcon, \
+			WindowListSkip
+
+Style gdesklets-daemon	!Title, !Borders, Sticky, NoIcon, \
+			WindowListSkip, NeverFocus, FixedPosition, FixedSize
+
+Style gDeskCal		!Title, !Borders, StaysOnBottom, Sticky, NoIcon, \
+			WindowListSkip, NeverFocus, FixedPosition, FixedSize
+
+Style gnome-panel	!Title, !Borders, StaysOnTop, Sticky, NoIcon
+
+Style ROX-Panel		!Title, !Borders, Sticky, NoIcon, StaysOnBottom
+
+Style FREEGLUT		!Title, !Borders
+
+Style Zinf		!Title
+
+Style OpenOffice.org*	Title, Borders, NakedTransient
+Style soffice.bin	Title, Borders, NakedTransient
+
+Style xtensoftphone	!Title, !Borders
+
+# vim:ft=fvwm

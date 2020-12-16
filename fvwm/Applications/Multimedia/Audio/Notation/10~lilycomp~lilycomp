@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec lilycomp $@ 2>/dev/null
+

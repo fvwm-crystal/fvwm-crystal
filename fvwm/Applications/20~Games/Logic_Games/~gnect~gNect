@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gnect $@ 2>/dev/null
+

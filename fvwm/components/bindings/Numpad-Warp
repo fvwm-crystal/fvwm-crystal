@@ -1,0 +1,12 @@
+# Window warping using numpad keys
+Key KP_Home             A $[Mod1] Window-Warp-LeftTop
+Key KP_Up               A $[Mod1] Window-Warp-CenterTop
+Key KP_Page_Up          A $[Mod1] Window-Warp-RightTop
+Key KP_Left             A $[Mod1] Window-Warp-LeftCenter
+Key KP_Begin            A $[Mod1] Window-Warp-CenterCenter
+Key KP_Right            A $[Mod1] Window-Warp-RightCenter
+Key KP_End              A $[Mod1] Window-Warp-LeftBottom
+Key KP_Down             A $[Mod1] Window-Warp-CenterBottom
+Key KP_Page_Down        A $[Mod1] Window-Warp-RightBottom
+
+# vim:ft=fvwm

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec twiddle $@ 2>/dev/null
+

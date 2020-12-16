@@ -1,0 +1,22 @@
+# Style of the mouse cursor in various places on the screen
+CursorStyle TITLE		left_ptr	blue	white
+CursorStyle SYS			left_ptr	brown	white
+CursorStyle DEFAULT		left_ptr	black	white
+CursorStyle SELECT		crosshair	black	white
+CursorStyle DESTROY		pirate		black	white
+CursorStyle MENU		left_ptr	black	white
+CursorStyle STROKE		left_ptr	red	white
+CursorStyle ROOT		left_ptr	black	white
+
+# Show the normal arrow on the window borders instead of the directional
+# arrows
+CursorStyle TOP			left_ptr	black	white
+CursorStyle LEFT		left_ptr	black	white
+CursorStyle RIGHT		left_ptr	black	white
+CursorStyle BOTTOM		left_ptr	black	white
+CursorStyle TOP_LEFT		left_ptr	black	white
+CursorStyle TOP_RIGHT		left_ptr	black	white
+CursorStyle BOTTOM_LEFT		left_ptr	black	white
+CursorStyle BOTTOM_RIGHT	left_ptr	black	white
+
+# vim:ft=fvwm

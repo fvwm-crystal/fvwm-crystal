@@ -1,0 +1,48 @@
+# Support for stalonetray
+# Written by: Dominique Michel <dominique_libre@users.sourceforge.net>
+# for FVWM-Crystal, 2013
+# 
+# Version with parameters instead of the environment
+
+# Stalone Syntax: 
+# NotificationAera [icon-size <size>] [geometry <width (icons)>x<height (icons)><x (pixels)><y (pixels)>] > \
+#	[icon-gravity <NW|NE|SW|SE>] [button geometry <pixels>x<pixels><x (pixels)><y (pixels>]
+
+AddToFunc ExitFunction I Exec exec killall stalonetray
+#AddToFunc RestartFunction I Exec exec killall stalonetray
+#PipeRead 'killall -9 stalonetray'
+
+PipeRead 'echo "SetEnv TrayerTintS $(echo $[TrayerTint]|sed -e \'s:0[Xx]:#:\')"'
+PipeRead 'echo "SetEnv TrayerAlphaS $((256 - $[TrayerAlpha]))"'
+
+# Settings of Stalone {{{1
+DestroyFunc FvwmStalonePanel
+AddToFunc FvwmStalonePanel
++ I Exec exec killall -9 stalonetray
++ I DestroyModuleConfig FvwmStalonePanel: *
++ I *FvwmStalonePanel: Frame 0
++ I *FvwmStalonePanel: BoxSize smart
++ I *FvwmStalonePanel: Font none
++ I *FvwmStalonePanel: ActiveColorset $[infostore.cs_panel_inactive]
++ I *FvwmStalonePanel: Colorset $[infostore.cs_panel_active]
++ I *FvwmStalonePanel: Columns 1
++ I *FvwmStalonePanel: Rows 1
++ I *FvwmStalonePanel: (1x1, Padding 0 0, Swallow (NoClose) "stalonetray" 'Exec exec stalonetray \
+--decorations none \
+--window-type dock \
+--transparent true \
+--tint-color \'$[TrayerTintS]\' \
+--tint-level $[TrayerAlphaS] \
+--no-shrink true \
+--kludges force_icons_size \
+--icon-size $[0] \
+--geometry $[1]x$[2]$[3]$[4] \
+--icon-gravity $[5] $[infostore.SILENT]')
++ I Module FvwmButtons -g $[6]x$[7]$[8]$[9] FvwmStalonePanel
++ I Style FvwmStalonePanel ParentalRelativity, !Icon
++ I Style stalonetray !Title, !Borders, !Icon
+# Debug
+#+ I Echo NotifArea stalone $*
+#--parent-bg true \
+
+# vim:ft=fvwm

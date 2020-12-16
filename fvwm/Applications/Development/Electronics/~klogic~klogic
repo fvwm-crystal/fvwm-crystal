@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec klogic $@ 2>/dev/null
+

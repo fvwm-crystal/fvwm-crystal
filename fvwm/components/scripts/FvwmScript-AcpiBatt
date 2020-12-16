@@ -1,0 +1,99 @@
+#
+# LiNiO <linio@wonder.pl> - 2005.01.15
+# 2005.08.12 - jeśli wartość się nie zmieniła, nie wyświetla jej ponownie - usunięcie efektu "migotania"
+# 2015.09.23 - Jorge Sampayo (jdsampayo@gmail.com), change the function to
+# the new way to get the acpi battery status:
+# http://askubuntu.com/questions/69556/how-to-check-battery-status-using-terminal
+#
+# o 2015.10.02 - Use new colorsets instead of statically changing the colors
+#   Dominique Michel <dominique.c.michel@gmail.com>
+
+
+WindowTitle {FvwmScript-AcpiBatt}
+WindowSize 48 24
+WindowPosition 10000 10000
+Font "xft:Tahoma:pixelsize=12:Bold"
+Colorset 12
+
+Init
+Begin
+  Set $acstate = (GetOutput {cat /sys/class/power_supply/BAT0/status} 1 -1)
+  Set $batt = (GetOutput {cat /sys/class/power_supply/BAT0/capacity} 1 -1)
+
+  Set $batt_prev = -1
+  Set $batt = $batt %
+
+  If $acstate==Discharging Then
+    Set $batt = * $batt 
+  ChangeTitle 1 $batt
+End
+
+PeriodicTasks
+Begin
+ If (RemainderOfDiv (GetTime) 30)==0 Then
+ Begin
+   If $batt==$batt_prev Then
+   Begin
+     # do nothing
+   End
+   Else
+   Begin
+    Set $batt = (GetOutput {cat /sys/class/power_supply/BAT0/capacity} 1 -1)
+    Set $acstate = (GetOutput {cat /sys/class/power_supply/BAT0/status} 1 -1)
+    Set $batt_prev = $batt
+
+    If $batt>99 Then
+      # amiga.cs: black
+      ChangeColorset 1 12
+    Else
+      Begin
+      If $batt>74 Then
+        # dark blue #0000ff
+        ChangeColorset 1 13
+      Else
+        Begin
+        If $batt>49 Then
+          # green #00ff00
+          ChangeColorset 1 14
+        Else
+          Begin
+          If $batt>24 Then
+            # yellow #ffff00
+            ChangeColorset 1 15
+          Else
+	    Begin
+            If $batt>12 Then
+              # orange #ff4400
+              ChangeColorset 1 16
+            Else
+              # red #ff0000
+              ChangeColorset 1 17
+            End
+          End
+        End
+      End
+
+      Set $batt = $batt %
+
+      If $acstate==Discharging Then
+        Set $batt = * $batt
+
+      ChangeTitle 1 $batt
+    End
+  End
+End
+
+Widget 1
+Property
+Position 0 -2
+Size 48 24
+Type ItemDraw
+Flags NoReliefString
+Title {}
+Colorset 1
+Main
+Case message of
+ SingleClic :
+ Begin
+ End
+End

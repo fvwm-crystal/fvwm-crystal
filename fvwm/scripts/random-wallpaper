@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# set ramdom wallpapers from the ones in $FVWM_USERDIR/wallpapers/*
+# it follow the symlinks; but all the pictures must be in child directories
+# USAGE:
+# 'Exec exec random-wallpaper' will set a randdom wallpaper and exit
+# 'Exec exec random-wallpaper loop <delay>' will loop and set wallpaper at <delay> in secondes interval
+
+# PID to kill if fvwm is interrupted
+TMPFILE="/tmp/crystal_wallpaper_$$"
+
+# POSIX
+let() {
+    IFS=, command eval test '$(($*))' -ne 0
+}
+
+cleanup() {
+	rm -f "${TMPFILE}"
+	FvwmCommand 'UnsetEnv LOOPWP'
+	FvwmCommand "LoadPreferences LastChoosenWallpaper"
+	exit 0
+}
+
+trap cleanup INT QUIT TERM
+
+# set random wallpaper
+set_uniquewp() {
+	WPS=""
+	n=0
+	for i in ${FVWM_USERDIR}/wallpapers/*/; do
+		WPS[${n}]="$i"
+		let n++;
+	done
+	((N_ELEMENTS=${#WPS[@]}, MAX_INDEX=N_ELEMENTS - 1))
+	CMD="fvwm-crystal.wallpaper "
+	for ((i=0; i <= MAX_INDEX; i++)); do
+		CMD="${CMD} \"${WPS[$i]}\""
+	done
+	echo "$CMD" > ${TMPFILE}
+	WPS=\'$(sh ${TMPFILE})\'
+
+	# helpful text, when no picture is found
+	if [ "${WPS}" = "''" ]; then
+		FvwmCommand 'Include components/functions/AutoWallpaper-Error'
+		cleanup
+	fi
+
+	FvwmCommand "SavePreferences LastChoosenWallpaper \"Wallpaper-Set ${WPS}\""
+#	echo $WPS
+	sleep 1
+	FvwmCommand 'LoadPreferences LastChoosenWallpaper'
+}
+
+# loop random wallpaper
+set_loopwp() {
+	touch "${TMPFILE}"
+	while :; do
+		set_uniquewp
+		sleep $1
+		# fvwm is started with exec, be sure it is running
+		pidof fvwm 1>/dev/null || cleanup
+	done
+}
+
+# main program
+SCRIPTID="$$"
+
+if [ "$1" = "loop" ]; then
+	LOOPDELAY="$(($2 - 1))"
+	if [ "${LOOPWP}" = "" ]; then
+		FvwmCommand "SetEnv LOOPWP ${SCRIPTID}"
+		set_loopwp "${LOOPDELAY}"
+	else	kill "${LOOPWP}" 2>/dev/null
+		sleep 1
+		FvwmCommand "SetEnv LOOPWP ${SCRIPTID}"
+		set_loopwp $2
+	fi
+else
+	set_uniquewp
+	rm -f "${TMPFILE}"
+fi

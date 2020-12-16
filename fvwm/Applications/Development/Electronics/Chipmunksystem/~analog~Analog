@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec analog $@ 2>/dev/null
+

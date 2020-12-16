@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec oofromtemplate2 $@ 2>/dev/null

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec startBristol -mini -jack $@ 2>/dev/null
+

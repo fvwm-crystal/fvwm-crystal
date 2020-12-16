@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec startBristol -odyssey -jack $@ 2>/dev/null
+

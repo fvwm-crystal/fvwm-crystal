@@ -1,0 +1,44 @@
+# What colorsets we use for various interface elements
+
+# Colorset form QuakeConsole and thumbnailed windows
+InfoStoreAdd cs_quakeconsole 0
+
+# Colorset for inactive parts of the panels, iconmans, pagers, forms
+InfoStoreAdd cs_panel_inactive 1
+
+# Colorset for active parts of the panels, iconmans, pagers, forms
+# and FvwmIdent
+InfoStoreAdd cs_panel_active 2
+
+# Colorset for "inactive window" parts of FvwmPager and FvwmIconMan
+InfoStoreAdd cs_panel_wininactive 3
+
+# Colorset for "active window" parts of FvwmPager and FvwmIconMan
+InfoStoreAdd cs_panel_winactive 4
+
+# Colorset for border around panels, pagers, iconmans, forms and FvwmIdent
+InfoStoreAdd cs_panel_border 5
+
+# Colorset for inactive menu items
+InfoStoreAdd cs_menu_inactive 6
+
+# Colorset for active menu items and active icon titles
+InfoStoreAdd cs_menu_active 7
+
+# Colorset for icon titles and backgrounds
+InfoStoreAdd cs_icon_active 8
+
+# decorations/*
+# cs_window_inactive "9"
+# cs_window_active "10"
+
+# Transparent colorset
+InfoStoreAdd cs_transparent 11
+
+# Colorset for AcpiBatt applet
+InfoStoreAdd cs_acpibatt_99 12
+InfoStoreAdd cs_acpibatt_74 13
+InfoStoreAdd cs_acpibatt_49 14
+InfoStoreAdd cs_acpibatt_24 15
+InfoStoreAdd cs_acpibatt_12 16
+InfoStoreAdd cs_acpibatt_0 17

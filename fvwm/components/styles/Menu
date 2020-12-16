@@ -1,0 +1,22 @@
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Menu apperance settings
+MenuStyle * MenuColorset $[infostore.cs_menu_inactive]
+MenuStyle * ActiveColorset $[infostore.cs_menu_active]
+MenuStyle * ItemFormat "%.3p%|%3.2i%2.5l%.5l%.5r%2.3>%1|%.3p"
+MenuStyle * AutomaticHotkeys
+MenuStyle * BorderWidth 1
+MenuStyle * HilightBack
+MenuStyle * ActiveFore
+MenuStyle * Hilight3DOff
+MenuStyle * AnimationOff
+MenuStyle * PopupOffset 0 100
+MenuStyle * PopupDelayed, PopupDelay 50
+MenuStyle * PopDownDelayed
+MenuStyle * PopDownDelay 100
+MenuStyle * TitleUnderlines0
+MenuStyle * TitleWarpOff
+MenuStyle * TrianglesSolid
+MenuStyle * VerticalItemSpacing 1 4
+MenuStyle * Font "xft:$[menu_font]:pixelsize=$[menu_font_size]:$[menu_font_style]"
+
+# vim:ft=fvwm

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec oopadmin $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec seahorse $@ 2>/dev/null
+

@@ -1,0 +1,17 @@
+# MacOS X Button Setup
+# Written by Maciej Delmanowski <harnir@linux.net.pl>
+# Maintained and updated by Dominique Michel <dominique_libre@users.sourceforge,net>
+#
+# This is the window titlebar button setup similar to the MacOS X
+# buttons on the titlebar
+# Additional support for NumLock key
+
+# third button - various ways to maximize a window
+Mouse 1 5 $[Mod0]2	Window-Button-Function Button5 /Window-Menu-Maximize Maximize
+Mouse 2 5 $[Mod0]2	Window-Button-Function Button5 /Window-Menu-Maximize Maximize 0 100
+Mouse 3 5 $[Mod0]2	Window-Button-Function Button5 /Window-Menu-Maximize Maximize 100 0
+Mouse 1 5 $[Mod1]2	Window-Button-Function Button5 /Window-Menu-Maximize Maximize grow grow
+Mouse 2 5 $[Mod1]2	Window-Button-Function Button5 /Window-Menu-Maximize Maximize 0 grow
+Mouse 3 5 $[Mod1]2	Window-Button-Function Button5 /Window-Menu-Maximize Maximize grow 0
+
+# vim:ft=fvwm

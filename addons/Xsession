@@ -1,0 +1,4 @@
+# Sample ~/.Xsession file for starting FVWM-Crystal
+
+exec fvwm-crystal
+

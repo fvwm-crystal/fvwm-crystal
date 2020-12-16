@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec xwine $@ 2>/dev/null

@@ -1,0 +1,73 @@
+#!/bin/sh
+# Helper script DesktopActions for FVWM-Crystal
+#
+# Version:	1.0.0
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	<24/05/2013>
+# Changed:	<24/05/2013>
+#
+# Description:	This script will generate the actions preference menu for the desktop icons
+#
+# Syntax: PipeRead "$[FVWM_SYSTEMDIR]/scripts/DesktopActions MenuName n"
+#         where MenuName is the name of the menu as in the PopUp command
+#	  and n is the action number (mouse button number)
+
+Execs='thunar worker mc rox nautilus krusader xfm 4Pane ranger pcmanfm gentoo konqueror emelfm2 dolphin spacefm'
+
+for ExecN in ${Execs}
+do
+	case ${ExecN} in
+	thunar)
+		echo "Test (X ${ExecN}) AddToMenu $1 'Thunar' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	worker)
+		echo "Test (X ${ExecN}) AddToMenu $1 'Worker' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	mc)
+		echo "Test (X ${ExecN}) AddToMenu $1 'Midnight Commander' SetFileBrowser $2 'A ${ExecN}'"
+		;;
+	rox)
+		echo "Test (X ${ExecN}) AddToMenu $1 'ROX-Filer' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	nautilus)
+		echo "Test (X ${ExecN}) AddToMenu $1 'Nautilus' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	krusader)
+		echo "Test (X ${ExecN}) AddToMenu $1 'Krusader' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	xfm)
+		echo "Test (X ${ExecN}) AddToMenu $1 'Xfm' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	4Pane)
+		echo "Test (X ${ExecN}) AddToMenu $1 '4Pane' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	ranger)
+		echo "Test (X ${ExecN}) AddToMenu $1 'Ranger' SetFileBrowser $2 'A ${ExecN}'"
+		;;
+	pcmanfm)
+		echo "Test (X ${ExecN}) AddToMenu $1 'PCMan FM' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	gentoo)
+		echo "Test (X ${ExecN}) AddToMenu $1 'gentoo' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	konqueror)
+		echo "Test (X ${ExecN}) AddToMenu $1 'Konqueror' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	emelfm2)
+		echo "Test (X ${ExecN}) AddToMenu $1 'emelFM2' SetFileBrowser $2 'X ${ExecN} -1'"
+		;;
+	dolphin)
+		echo "Test (X ${ExecN}) AddToMenu $1 'Dolphin' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	spacefm)
+		echo "Test (X ${ExecN}) AddToMenu $1 'SpaceFM' SetFileBrowser $2 'X ${ExecN}'"
+		;;
+	*)
+		echo "Echo Filemanager ${ExecN} dont exist"
+		;;
+	esac
+done
+

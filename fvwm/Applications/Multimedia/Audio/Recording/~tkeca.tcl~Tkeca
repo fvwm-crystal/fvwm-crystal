@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec tkeca.tcl $@ 2>/dev/null
+

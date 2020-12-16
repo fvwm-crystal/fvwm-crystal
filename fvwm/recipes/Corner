@@ -1,0 +1,187 @@
+# Corner desktop (former "devel")
+# Written by: Maciej Delmanowski <harnir@post.pl>
+#
+# 2007-2013: Dominique Michel <dominique_libre@users.sourceforge.net>
+# See ChangeLog for details
+#
+# You can use folding to navigate this file
+
+Echo Corner recipe loading from $.
+InfoStoreAdd Recipe "Corner"
+
+# No magic button, we nedd to reset its ewmh values after a recipe change.
+InfoStoreAdd EWMH_CBB_Left 3
+InfoStoreAdd EWMH_CBB_Right 3
+InfoStoreAdd EWMH_CBB_Top 3
+InfoStoreAdd EWMH_CBB_Bottom 3
+
+# Includes and FVWM modules {{{1
+Include components/bindings/Desktop-MMB-EdgeScroll
+# Type of icons on the desktop {{{2
+LoadPreferences IconsType
+
+# Media player {{{2
+Include components/functions/Music-$[infostore.MusicPlayer]
+
+# Desktop settings {{{1
+EdgeScroll	0	0
+EdgeResistance			0
+Style * EdgeMoveDelay		250
+Style * EdgeMoveResistance	100
+HideGeometryWindow	Move, Resize
+OpaqueMoveSize	100
+EdgeThickness	1
+EWMH-Desktop 3 3 3 3
+EWMH-Panel-Right 30
+EWMH-Panel-Top 55
+InfoStoreAdd EWMH_Recipe_Left $[EWMH_BS_Panel_Left]
+InfoStoreAdd EWMH_Recipe_Right $[EWMH_BS_Panel_Right]
+InfoStoreAdd EWMH_Recipe_Top $[EWMH_BS_Panel_Top]
+InfoStoreAdd EWMH_Recipe_Bottom $[EWMH_BS_Panel_Bottom]
+PipeRead '$[FVWM_SYSTEMDIR]/scripts/set_DesktopIconsGeom $[vp.height]'
+
+# Desktop manager {{{2
+DestroyFunc RedrawIconBox
+AddToFunc RedrawIconBox
++ I PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+50))))x$(($[vp.height]-42))+$((((50*$[IconColumnsNumber]))+24))+39, IconFill left bottom, IconGrid 30 30"'
+LoadPreferences DefaultDesktopManager
+
+# Settings for icons on the desktop {{{1
+Style * StickyIcon
+
+Test (EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-((((50*$[IconColumnsNumber]))+50))))x$(($[vp.height]-42))+$((((50*$[IconColumnsNumber]))+24))+39, IconFill left bottom, IconGrid 30 30"'
+Test (!EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-36))x$(($[vp.height]-42))+3-39, IconFill left bottom, IconGrid 30 30"'
+
+# Pager {{{1
+DestroyFunc FvwmPagerWindow
+AddToFunc FvwmPagerWindow
++ I All (FvwmPager) Close
++ I DestroyModuleConfig FvwmPager: *
++ I PipeRead 'echo \*FvwmPager: Geometry $((28*$[infostore.Desk_Pages_X]))x24--1+-1'
++ I *FvwmPager: Rows   1
++ I *FvwmPager: MiniIcons
++ I *FvwmPager: Font none
++ I *FvwmPager: WindowBorderWidth 1
++ I *FvwmPager: Window3DBorders
+#+ I *FvwmPager: NoSeparators
++ I *FvwmPager: UseSkipList
++ I *FvwmPager: Colorset * $[infostore.cs_panel_inactive]
++ I *FvwmPager: HilightColorset * $[infostore.cs_panel_active]
++ I *FvwmPager: WindowColorsets $[infostore.cs_panel_wininactive] $[infostore.cs_panel_winactive]
++ I Module FvwmPager
+
+FvwmPagerWindow
+
+# Clock {{{1
+All (FvwmButtons-Clock) Close
+DestroyModuleConfig FvwmButtons-Clock: *
+*FvwmButtons-Clock: Geometry --1+24
+*FvwmButtons-Clock: BoxSize smart
+*FvwmButtons-Clock: ActiveColorset $[infostore.cs_panel_active]
+*FvwmButtons-Clock: Colorset $[infostore.cs_panel_inactive]
+*FvwmButtons-Clock: Columns 2
+*FvwmButtons-Clock: Padding 2 2
+*FvwmButtons-Clock: Frame 0
+*FvwmButtons-Clock: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+
+*FvwmButtons-Clock: (2x1, Size 60 24, \
+Swallow (Close, Respawn, FvwmModule) "FvwmScript-Clock" 'Script components/scripts/FvwmScript-Clock', \
+Action (Mouse 3) SendToModule *FvwmScript-Clock SendString 1 1 str)
+
+Module FvwmButtons FvwmButtons-Clock
+
+# Main panel {{{1
+All (FvwmButtons-Panel) Close
+DestroyModuleConfig FvwmButtons-Panel: *
+*FvwmButtons-Panel: Geometry --1+49
+*FvwmButtons-Panel: BoxSize smart
+*FvwmButtons-Panel: ActiveColorset $[infostore.cs_panel_active]
+*FvwmButtons-Panel: Colorset $[infostore.cs_panel_inactive]
+*FvwmButtons-Panel: Columns 1
+*FvwmButtons-Panel: Padding 1 1
+*FvwmButtons-Panel: Frame 0
+*FvwmButtons-Panel: Font "xft:$[panel_font]:pixelsize=$[panel_font_size]:$[panel_font_style]"
+
+# diamond with menus {{{2
+*FvwmButtons-Panel: (1x1, Size 22 22, Icon "22x22/fvwm-crystal/fvwm-crystal.png", \
+	Action (Mouse 1) Menu /FVWM-Crystal $[MenuPosition_WS], \
+	Action (Mouse 2) Menu /Random-Wallpaper $[MenuPosition_WS], \
+	Action (Mouse 3) Menu /Applications $[MenuPosition_WS])
+# window list {{{2
+*FvwmButtons-Panel: (1x1, Icon "22x22/fvwm-crystal/window-list.png", \
+Action (Mouse 1) Window-List "$[MenuPosition_WS]", \
+Action (Mouse 2) All (CurrentPage) PlaceAgain anim, \
+Action (Mouse 3) Window-List-Icons "$[MenuPosition_WS]")
+
+# Main music button 1, with main menus and controls {{{2
+*FvwmButtons-Panel: (1x1, Size 22 22, Icon "22x22/categories/Multimedia.png", \
+	Action (Mouse 1) Menu /Player $[MenuPosition_WS], \
+	Action (Mouse 2) Music-GUI, \
+	Action (Mouse 3) Music-QJackGUI, \
+	Action (Mouse 4) Change-Volume-Up $[infostore.Vol_Step], \
+	Action (Mouse 5) Change-Volume-Down $[infostore.Vol_Step])
+# music controls button 2 {{{2
+*FvwmButtons-Panel: (1x1, Size 22 22, Icon "22x22/fvwm-crystal/media-eject.png", \
+	Action (Mouse 1) Menu /Playlist-button $[MenuPosition_WS], \
+	Action (Mouse 2) Menu /Music/Volume $[MenuPosition_WS], \
+	Action (Mouse 3) Menu /Mixer $[MenuPosition_WS], \
+	Action (Mouse 4) Music-Next, \
+	Action (Mouse 5) Music-Prev)
+# music controls button 3 {{{2
+*FvwmButtons-Panel: (1x1, Size 22 22, Icon "22x22/fvwm-crystal/media-playback-start.png", \
+        Action (Mouse 1) Music-Play, \
+        Action (Mouse 2) Music-Pause, \
+        Action (Mouse 3) Menu /Playback $[MenuPosition_WS], \
+	Action (Mouse 4) Music-Speed-Up, \
+	Action (Mouse 5) Music-Speed-Down)
+# music controls button 4 {{{2
+*FvwmButtons-Panel: (1x1, Size 22 22, Icon "22x22/fvwm-crystal/media-skip-forward.png", \
+	Action (Mouse 1) Menu /Speed $[MenuPosition_WS], \
+	Action (Mouse 4) Button-Seek-+, \
+	Action (Mouse 5) Button-Seek--)
+# }}}2
+
+# Settings of stalonetray {{{2
+Test (!EnvMatch trayer_width 0) \
+PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "stalonetray" ]; then echo FvwmStalonePanel \
+    24 1 $(($[trayer_width]/24)) "--1" "+194" SE \
+    24 $[trayer_width] "--1" "+194"; fi'
+Test (!EnvMatch trayer_width 0) \
+PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "stalonetray" ]; then echo "*FvwmButtons-Panel: (1x$(($[trayer_width]/24)), \
+	Size 24 $[trayer_width], Swallow (Close, Respawn, FvwmModule) FvwmStalonePanel Nop)"; fi'
+
+# Settings of trayer {{{2
+Test (!EnvMatch trayer_width 0) \
+    PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "trayer" ]; then echo FvwmTrayerPanel \
+    request pixel 24 right left 195 1; fi'
+
+Module FvwmButtons FvwmButtons-Panel
+
+# Applications menu generator {{{1
+PipeRead 'fvwm-crystal.apps --database=$[FVWM_DISTROMENUDIR]/Applications --database=$[FVWM_SYSTEMDIR]/Applications --database=$[FVWM_USERDIR]/Applications --search-icons-in=$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]/32x32/apps:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]/32x32/apps:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/32x32/categories:$[FVWM_DISTROMENUDIR]/icons/$[infostore.Icon_Theme]/32x32/apps --default-file-icon=32x32/apps/default.png --default-dir-icon=32x32/categories/directory.png --min-submenu-length=5 --sort=prio --no-panel --check-execs'
+AddToMenu /Applications '%22x22/fvwm-crystal/audio-x-generic.png%$[gt.Music]' Popup /Music
+
+# Desktop menu with left click
+SetEnv DesktopMenu /Applications
+#SetEnv DesktopMenu /FVWM-Crystal
+
+# Change desktop pages using mouse wheel on pager
+Mouse (FvwmPager) 4 W $[Mod] GotoPage-Right
+Mouse (FvwmPager) 5 W $[Mod] GotoPage-Left
+
+# Styles {{{1
+Style FvwmButtons-Panel !Icon
+Style FvwmButtons-Music !Icon
+Style FvwmButtons-Clock !Icon
+Style FvwmPager !Icon
+Style FvwmButtons-Clock Layer 2
+
+# Styles for FvwmButtons-Music
+Style FvwmButtons-Musi* NoIcon
+
+Echo /--------- Fvwm-Crystal: Recipe loaded ---------/
+#PrintInfo Locale 1 #2
+#PrintInfo infostore
+
+# ViM modeline {{{1
+# vim:foldmethod=marker:foldenable:foldlevel=0:ft=fvwm

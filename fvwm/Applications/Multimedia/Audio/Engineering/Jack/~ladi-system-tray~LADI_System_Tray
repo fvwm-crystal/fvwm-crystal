@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec ladi-system-tray $@ 2>/dev/null

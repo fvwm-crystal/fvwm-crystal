@@ -1,0 +1,32 @@
+# Menu for controlling XScreenSaver
+
+DestroyFunc StartScreenSaver
+AddToFunc StartScreenSaver
++ I X xscreensaver -nosplash
++ I SavePreferences XScreenSaver "X xscreensaver -nosplash"
+
+DestroyFunc StopScreenSaver
+AddToFunc StopScreenSaver
++ I X xscreensaver-command -exit
++ I SavePreferences XScreenSaver "Nop"
+
+CheckPreferences XScreenSaver "SavePreferences XScreenSaver \"X xscreensaver -nosplash\""
+
+DestroyMenu /Screensaver
+AddToMenu /Screensaver
++ DynamicPopupAction Function Screensaver-generator
+
+DestroyFunc Screensaver-generator
+AddToFunc Screensaver-generator
++ I DestroyMenu recreate /Screensaver
++ I AddToMenu /Screensaver
++ I AddToMenu /Screensaver '$[gt.Force suspend]' X xset dpms force suspend
++ I AddToMenu /Screensaver '$[gt.Activate]'	X xscreensaver-command -activate
++ I AddToMenu /Screensaver '$[gt.Lock screen]' X xscreensaver-command -lock
++ I AddToMenu /Screensaver '$[gt.Preferences]' X xscreensaver-command -prefs
++ I AddToMenu /Screensaver "" Nop
++ I PipeRead 'pidof xscreensaver > /dev/null && echo "AddToMenu /Screensaver \'$[gt.Stop screensaver]\' StopScreenSaver" || echo "AddToMenu /Screensaver \'$[gt.Start screensaver]\' StartScreenSaver"'
+
+Test (x xscreensaver) AddToFunc StartFunction I LoadPreferences XScreenSaver
+
+# vim:ft=fvwm

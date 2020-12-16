@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec startBristol -aks -aks $@ 2>/dev/null
+

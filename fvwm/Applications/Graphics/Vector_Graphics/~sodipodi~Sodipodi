@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec sodipodi $@ 2>/dev/null
+

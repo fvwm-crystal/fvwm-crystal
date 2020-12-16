@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec xjump $@ 2>/dev/null

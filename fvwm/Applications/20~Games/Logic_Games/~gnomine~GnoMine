@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gnomine $@ 2>/dev/null
+

@@ -1,0 +1,35 @@
+# NeXTStep Button Setup
+# Written by Maciej Delmanowski <harnir@linux.net.pl>
+#
+# This is the window titlebar button setup similar to the NeXTStep
+# buttons on the titlebar
+
+# 1st button - iconify
+Mouse 1 1 $[Mod]	Window-Button-Function Button1 /Window-Menu Window-Iconify
+Mouse 2 1 $[Mod]	Window-Button-Function Button1 /Window-Menu Nop
+Mouse 3 1 $[Mod]	Window-Button-Function Button1 /Window-Menu Nop
+Style * Button 1
+
+# 2th button - close
+Mouse 1 2 $[Mod]	Window-Button-Function Button2 /Window-Menu Close
+Mouse 2 2 $[Mod]	Window-Button-Function Button2 /Window-Menu Nop
+Mouse 3 2 $[Mod]	Window-Button-Function Button2 /Window-Menu Window-Iconify
+Style * Button 2
+
+Style * NoButton 3
+
+Style * NoButton 4
+
+Style * NoButton 5
+
+Style * NoButton 6
+
+Style * NoButton 7
+
+Style * NoButton 8
+
+Style * NoButton 9
+
+Style * NoButton 0
+
+# vim:ft=fvwm

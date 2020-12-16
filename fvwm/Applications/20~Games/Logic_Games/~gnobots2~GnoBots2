@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec gnobots2 $@ 2>/dev/null
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Output a diff between a file in that directory and the same file into a second directory.
+# The first file must be in $FVWM_USERDIR and the second one into a copy of the svn repository.
+
+CurrentDir=`pwd|sed -e "s:\(.*fvwm-crystal\)\(.*\):\2:"`
+
+diff -u ${HOME}/Developement/FVWM-Crystal/sourceforge/fvwm-crystal-code/fvwm"${CurrentDir}/${1}" "${1}"

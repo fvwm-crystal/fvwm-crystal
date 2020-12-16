@@ -1,0 +1,1125 @@
+#!/bin/bash
+#
+# Generate FVWM-Crystal menu from desktop and icons files provided by the applications.
+# For software which have an icon, generate the Icon and MiniIcon styles.
+#
+# Author: Dominique Michel <dominique_libre@user.sourceforge.net>, 2007-2014
+#
+# Provided as it without any garanty of any kind. 
+# Released under the GPL version 3+ license.
+#
+# Usage: 
+# fvwm-crystal.generate-menu : will search for all the desktop files in the system and
+# generate the corresponding entries and icons if they don't already exist. Make asumption
+# based on the install Prefix to find the existing FVWM-Crystal files.
+#
+# fvwm-crystal.generate-menu <name> : will search only for <name>.desktop and 
+# generate the corresponding entry and icons if they don't already exist.
+#
+# When running this script as user, the files will be generated in FVWM_USERDIR,
+# as root, in FVWM_SYSTEMDIR
+#
+# Syntax from fvwm-crystal:
+# fvwm-crystal.generate-menu $[FVWM_SYSTEMDIR] $[FVWM_USERDIR]
+#
+# For a detailled view of the algorhythm, open generate_menu.png in your favorite
+# picture viewer.
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
+# Your real id
+your_id="$(id -un)"
+
+# If run from a shell
+if [ $# -lt 2 ]; then
+	echo "Running $0 from the shell"
+	# Where are the Fvwm-Crystal menu files:
+	FC_MENUBASEROOT="/usr/share/fvwm-crystal/fvwm/Applications"
+	FC_MENUBASEUSER="/.fvwm-crystal/Applications"
+	# Where are the Fvwm-Crystal icons files:
+	FC_ICONBASEROOT="/usr/share/fvwm-crystal/fvwm/icons/Default"
+	FC_ICONBASEUSER="/.fvwm-crystal/icons/Default"
+	# Where are the Fvwm-Crystal styles files:
+	FC_STYLEBASEROOT="/usr/share/fvwm-crystal/fvwm/components/styles"
+	FC_STYLEBASEUSER="/.fvwm-crystal/components/styles"
+	# Test which user run the script. Ir root, install in FVWM-SYSTEMDIR,
+	# otherwise in FVWM_USERDIR. If ROOT, existing entry will be searched
+	# only in FVWM_SYSTEMDIR, otherwise in both FVWM_DIR.
+	if [[ "${your_id}" == root ]]; then
+		FC_MENUBASE="${FC_MENUBASEROOT}"
+		FC_ICONBASE="${FC_ICONBASEROOT}"
+		FC_STYLEBASE="${FC_STYLEBASEROOT}"
+		FC_MENUEXIST="${FC_STYLEBASEROOT}"
+		FC_ICONEXIST="${FC_ICONBASEROOT}"
+#		FC_STYLEEXIST="${FC_STYLEBASEROOT}"
+	else
+		FC_MENUBASE="/home/${your_id}${FC_MENUBASEUSER}"
+		FC_ICONBASE="/home/${your_id}${FC_ICONBASEUSER}"
+		FC_STYLEBASE="/home/${your_id}${FC_STYLEBASEUSER}"
+		FC_MENUEXIST="${FC_MENUBASEROOT} /home/${your_id}${FC_MENUBASEUSER}"
+		FC_ICONEXIST="${FC_ICONBASEROOT} /home/${your_id}${FC_ICONBASEUSER}"
+#		FC_STYLEEXIST="${FC_ICONBASEROOT} /home/${your_id}${FC_STYLEBASEUSER}"
+	fi
+else
+	FC_MENUBASEROOT="$1/Applications"
+	FC_ICONBASEROOT="$1/icons/Default"
+#	FC_STYLEBASEROOT="$1/components/styles"
+	FC_MENUBASE="$2/Applications"
+	FC_ICONBASE="$2/icons/Default"
+	FC_STYLEBASE="$2/components/styles"
+	FC_MENUEXIST="${FC_MENUBASEROOT} ${FC_MENUBASE}"
+	FC_ICONEXIST="${FC_ICONBASEROOT} ${FC_ICONBASE}"
+#	FC_STYLEEXIST="${FC_STYLEBASEROOT} ${FC_STYLEBASE}"
+fi
+	SIZES="22x22 32x32 48x48"
+	ICONSIZE="32x32"
+	MINIICONSIZE="22x22"
+	ICONSTYLEFILE="Generated-Application-Icons-22-32"
+
+#
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Don't change anything past this line
+# # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# make the directories if they don't exist; the menu directories are made later
+for size in ${SIZES}; do
+	mkdir -p "${FC_ICONBASE}/${size}/apps"
+done
+mkdir -p "${FC_STYLEBASE}"
+
+# The locale in use
+LOC="$(echo $LANG|cut -d "_" -f 1)"
+case "$LOC" in
+	en)
+	LOC=""
+	echo "Using English"
+	;;
+	C)
+	LOC=""
+	echo "Using English"
+	;;
+	POSIX)
+	LOC=""
+	echo "Using English"
+	;;
+	*)
+	echo "Using $LOC"
+	;;
+esac
+
+# Type of .desktop files to search for
+DESKTYPE="Type=Application"
+
+# Where are the preferences:
+if [ $# -lt 2 ]; then
+	SYSPREFS="/usr/share/fvwm-crystal/fvwm/preferences"
+	USERPREFS="/home/$your_id/.fvwm-crystal/preferences"
+else
+	SYSPREFS="$1/preferences"
+	USERPREFS="$2/preferences"
+fi
+
+loadpref() {
+# Copy default user prefs if they don't exist.
+if [ ! -e $USERPREFS/$1 ]; then
+	cp $SYSPREFS/$1 $USERPREFS
+fi
+
+eval "$2=\"$(cat $USERPREFS/$1|grep -Ev ^#)\""
+}
+
+# Load the icon files preference:
+loadpref IconDirs SYSTEM_ICONDIRS
+# Load the desktop files preference:
+loadpref DesktopDirs DesktopDir
+
+# Info screen
+echo "You are running $0 as user ${your_id}."
+echo " "
+echo "FVWM-Crystal menu entries will be installed in"
+echo "$FC_MENUBASE and the icons in $FC_ICONBASE."
+echo " "
+echo "The program will search for existing menu entries in $FC_MENUEXIST and for existing"
+echo " icons in $FC_ICONEXIST."
+echo "It will look for desktop file into $DesktopDir and for original icons into $SYSTEM_ICONDIRS"
+echo " "
+echo "Installing the menu entrie in ${FC_MENUBASE}, the icons in $FC_ICONBASE"
+echo "and the styles in ${FC_STYLEBASE}."
+
+# Parameter test
+if [ $# -lt 2 ]; then
+	if [[ $1 == "" ]]; then
+		echo "- Searching for all the desktop files in $DesktopDir"
+		echo ""
+		echo "This will go fast..."
+		searchdesktop="searchallappdesktop"
+		else
+		echo "- Searching for $1.desktop in $DesktopDir"
+		searchdesktop="searchoneappdesktop"
+	fi
+else
+	searchdesktop="searchallappdesktop"
+fi
+
+# Remove the temp files if the user press Ctrl-C
+USER_INTERRUPT=13
+trap 'rm -f filelist filelist1; exit $USER_INTERRUPT' TERM INT
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Some functions
+
+# Create icons
+# createicon <commandname> <iconfile>
+createicon() {
+	RETVAL="no"; for j in ${FC_ICONEXIST}; do 
+	if [[ ! -z "`find ${j}/22x22 -name "$1.png"`" ]] && [[ ! -z "`find ${j}/32x32 -name "$1.png"`" ]] && [[ ! -z "`find ${j}/48x48 -name "$1.png"`" ]] ; then
+		# icons found
+		RETVAL="yes"
+	fi; done
+	if [[ $RETVAL == "yes" ]]; then
+		# fvwm-crystal icon exists, nothing to do (1)
+		echo "Icon for $1 exist, skip"
+		# but write the styles
+		echo "Style $1 MiniIcon ${MINIICONSIZE}/apps/"$1".png, Icon ${ICONSIZE}/apps/"$1".png" >> "${FC_STYLEBASE}/${ICONSTYLEFILE}"
+		echo "Style for $1 created."
+	else
+		if [[ "$2" != "$1" ]]; then
+			# use file hint pointed to by menu entry
+			# test if file don't exist
+			if [ ! -e "$2" ]; then
+				ICONSRCFILE=`find $SYSTEM_ICONDIRS -type f -iname "$2.*"`
+				if [[ "$ICONSRCFILE" == "" ]]; then
+					ICONSRCFILE=`find $SYSTEM_ICONDIRS -type f -iname "$2"`
+				fi
+			else
+				ICONSRCFILE="$2"
+			fi
+			if [ -z "$ICONSRCFILE" ]; then
+				ICONSRCFILE=`find $SYSTEM_ICONDIRS -type f -iname "$2.png" -or -iname "$2.xpm" -or -iname "$2.ico" -or -iname "$2.svg" -or -iname "$2.bmp" -or -iname "$2.gif" -or -iname "$2.jpg" -or -iname "$2.pcx" -or -iname "$2.ppm" -or -iname "$2.tga"`
+			fi
+		else
+			# try to find a suitable icon in the system directories
+			ICONSRCFILE=`find $SYSTEM_ICONDIRS -type f -iname "$1.png" -or -iname "$1.xpm" -or -iname "$1.ico" -or -iname "$1.svg" -or -iname "$2.bmp" -or -iname "$2.gif" -or -iname "$2.jpg" -or -iname "$2.pcx" -or -iname "$2.ppm" -or -iname "$2.tga"`
+		fi
+		if [[ "$ICONSRCFILE" != "" ]]; then
+			for i in $ICONSRCFILE; do
+				# convert the first found file to png of required sizes
+				for size in ${SIZES}; do
+#				echo	convert -resize ${size} "$i" "${FC_ICONBASE}/${size}/apps/$1.png"
+					convert -resize ${size} "$i" "${FC_ICONBASE}/${size}/apps/$1.png"
+					# if an icon file contain several pictures, several files are generated. Use the first one.
+					if [ -e "${FC_ICONBASE}/${size}/apps/$1-0.png" ]; then
+						mv "${FC_ICONBASE}/${size}/apps/$1-0.png" "${FC_ICONBASE}/${size}/apps/$1.png"
+					fi
+					
+					# fix the gAMA value; this remove warninngs and spped up fvwm
+					# fix the sRGB profile; this remove warninngs and spped up fvwm
+					convert "${FC_ICONBASE}/${size}/apps/$1.png" -strip -resize ${size} "${FC_ICONBASE}/${size}/apps/$1.png"
+					convert "${FC_ICONBASE}/${size}/apps/$1.png" -resize ${size} "${FC_ICONBASE}/${size}/apps/$1.png"
+					convert "${FC_ICONBASE}/${size}/apps/$1.png" -resize ${size} "${FC_ICONBASE}/${size}/apps/$1.png"
+					echo "Icon for $1 created as  ${FC_ICONBASE}/${size}/apps/$1.png"
+				done
+				# write the styles
+				echo "Style $1 MiniIcon ${MINIICONSIZE}/apps/"$1".png, Icon ${ICONSIZE}/apps/"$1".png" >> "${FC_STYLEBASE}/${ICONSTYLEFILE}"
+				echo "Style for $1 created."
+				break
+			done
+		else
+			echo "Original icon for $1 don't exist, skip."
+		fi
+	fi
+}
+
+# Search desktop files new format
+echo -n "" > filelist
+# Search for application type desktop file
+searchallappdesktop() {
+	echo "Initialization of the styles files."
+	echo "# This file is created by fvwm-crystal.generate-menu. Any modification of that file" > "${FC_STYLEBASE}/${ICONSTYLEFILE}"
+	echo "# will be lost when you generate the menu." >> "${FC_STYLEBASE}/${ICONSTYLEFILE}"
+	echo "# If you want to apply custom Styles, please write them into a ~/.fvwm-crystal/userconfig file." >> "${FC_STYLEBASE}/${ICONSTYLEFILE}"
+	echo "Style ** MiniIcon 22x22/apps/default, Icon 32x32/apps/default" >> "${FC_STYLEBASE}/${ICONSTYLEFILE}"
+	echo "Searching desktop files..."
+	echo -n "" > filelist1
+	DesktopFile="$(find ${DesktopDir} -iname ?*.desktop -type f)"
+	echo "$DesktopFile" >> filelist1
+	echo "Sorting out non application type desktop files."
+	echo "This will take a while..."
+	while read myline ; do
+		if [[ -n "${myline}" ]]; then
+			TestDeskType="$(grep -h '\<Type\>' "${myline}")"
+			OnlyShowIn="$(grep -h '\<OnlyShowIn\>' "${myline}")"
+			NotShowIn="$(grep -h '\<NotShowIn\>' "${myline}")"
+			NoDisplay="$(grep -h '\<NoDisplay\>' "${myline}")"
+			Hidden="$(grep -h '\<Hidden\>' "${myline}")"
+			if [[ "${TestDeskType}" == "${DESKTYPE}" ]] && [[ "${OnlyShowIn}" == "" ]] && [[ "${NotShowIn}" == "" ]] && [[ "${NoDisplay}" == "" ]] && [[ "${Hidden}" == "" ]]; then
+				echo "${myline}" >> filelist
+			fi
+		fi
+	done < filelist1
+	rm filelist1
+}
+
+searchoneappdesktop() {
+	echo -n "" > filelist1
+	DesktopFile="$(find ${DesktopDir} -iname $1.desktop -type f)"
+	echo "$DesktopFile" >> filelist1
+
+	while read myline ; do
+		if [[ -n "${myline}" ]]; then
+			TestDeskType="$(grep -h '\<Type\>' "${myline}")"
+			OnlyShowIn="$(grep -h '\<OnlyShowIn\>' "${myline}")"
+			NotShowIn="$(grep -h '\<NotShowIn\>' "${myline}")"
+			NoDisplay="$(grep -h '\<NoDisplay\>' "${myline}")"
+			Hidden="$(grep -h '\<Hidden\>' "${myline}")"
+			if [[ "${TestDeskType}" == "${DESKTYPE}" ]] && [[ "${OnlyShowIn}" == "" ]] && [[ "${NotShowIn}" == "" ]] && [[ "${NoDisplay}" == "" ]] && [[ "${Hidden}" == "" ]]; then
+				echo "${myline}" >> filelist
+			fi
+		fi
+		break
+	done < filelist1
+	rm filelist1
+}
+
+# Search TryExec in desktop file, Exec if not found
+searchexecname() {
+#	EXEC="$(cat "${1}" | sed -e '/Desktop Entry/,/Desktop Action/ !d' -e '/^\Exec=/!d' -e 's:^.\{0,3\}Exec=\([^ ]*\).*:\1:' -e 's:.*/::')"
+	EXEC="$(grep -m1 ^Exec= "${1}" | sed -e '/^\Exec=/!d' -e 's:^.\{0,3\}Exec=\([^ ]*\).*:\1:' -e 's:.*/::')"
+	export EXEC
+}
+
+# Search for icon name in desktop file
+searchiconname() {
+	ICONNAME="$(cat "${1}" | sed -e '/^Icon=/!d' -e 's/Icon=//')"
+	export ICONNAME
+}
+
+# Search for key strings in desktop file
+searchkeystrings() {
+	CATNAME="$(cat "${1}" | sed -e '/Desktop Entry/,/Desktop Action/ !d' -e '/Categories=/!d' -e 's/Categories=//' -e 's/;/ /g')"
+	export CATNAME
+#	echo "CATNAME = $CATNAME"
+	SOFTNAME=""
+	if [[ "$LOC" != "" ]]; then
+		SOFTNAME="$(cat "${1}" | grep -m 1 ^Name.${LOC}. | sed -e '/^\Name....=/!d' -e 's/Name....=//' -e 's/ /_/g' -e 's:/:-:')"
+		export SOFTNAME
+#	else
+	fi
+	if [[ "$SOFTNAME" == "" ]]; then
+		SOFTNAME="$(cat "${1}" | sed -e '/Desktop Entry/,/Desktop Action/ !d' -e '/^\Name=/!d' -e 's/Name=//' -e 's/ /_/g' -e 's:/:-:')"
+		export SOFTNAME
+	fi
+
+	COMMANDF="$(cat "${1}" | sed -e '/Desktop Entry/,/Desktop Action/ !d' -e '/^\Exec=/!d' -e 's/Exec=//' -e 's:.%.*::' -e 's/ -caption//')"
+	export COMMANDF
+
+	TERMINAL="$(cat "${1}" | sed -e '/Terminal=true/!d' -e 's/Terminal=//')"
+	export TERMINAL
+}
+
+# Search for existing menu entry
+searchexist() {
+	EntryExist="$(find ${FC_MENUEXIST} -iname *${2}~?* -type f)"
+	if [[ "${EntryExist}" != "" ]]; then
+		echo "${EntryExist} exist, skip"
+		EXIST="true"
+		export EXIST
+		createicon "${EXEC}" "${ICONNAME}"
+	else
+		echo "${EntryExist} dont exist"
+		EXIST="false"
+		export EXIST
+		createicon "${EXEC}" "${ICONNAME}"
+	fi
+}
+
+# Generate the category path for the menu
+# 1) search for main category
+# 2) search for sub-category
+# special cases: if both audio and audiovideo are in the desktop file,
+# audio will be preferred; if both audiovideo are in the desktop file,
+# video will be preferred.
+#
+# main categories
+maincategory() {
+MAINCAT=""
+export MAINCAT
+case "$1" in
+        Audio)
+                MAINCAT="/Multimedia/Audio"
+		export MAINCAT
+                ;;
+	AudioVideo | Multimedia)
+		MAINCAT="/Multimedia/Audio-Video"
+		export MAINCAT
+		;;
+	Development)
+		MAINCAT="/Development"
+		export MAINCAT
+		;;
+	Education)
+		MAINCAT="/Knowledge"
+		export MAINCAT
+		;;
+	Games | Game)
+		MAINCAT="/20~Games"
+		export MAINCAT
+		;;
+	Graphics)
+		MAINCAT="/Graphics"
+		export MAINCAT
+		;;
+	Internet | Network)
+		MAINCAT="/Network"
+		export MAINCAT
+		;;
+	Office)
+		MAINCAT="/Office"
+		export MAINCAT
+		;;
+	Science)
+		MAINCAT="/Development/Science"
+		export MAINCAT
+		;;
+	Settings)
+		MAINCAT="/Settings"
+		export MAINCAT
+		;;
+	System)
+		MAINCAT="/System"
+		export MAINCAT
+		;;
+	Utilities | Utility)
+		MAINCAT="/Utilities"
+		export MAINCAT
+		;;
+	Video)
+		MAINCAT="/Multimedia/Video"
+		export MAINCAT
+		;;
+#	*)
+#		MAINCAT="/Utilities"
+#		export MAINCAT
+#		;;
+esac
+}
+# sub categories
+category() {
+SUBCAT=""
+export SUBCAT
+case "$1" in
+	2DGraphics)
+		SUBCAT="/2D_Graphics"
+		export SUBCAT
+		;;
+	3DGraphics)
+		SUBCAT="/3D_Graphics"
+		export SUBCAT
+		;;
+	Accessibility)
+		SUBCAT="/Accessibility"
+		export SUBCAT
+		;;
+	ActionGame)
+		SUBCAT="/20~Action_Games"
+		export SUBCAT
+		;;
+	AdventureGame)
+		SUBCAT="/Adventure_Games"
+		export SUBCAT
+		;;
+	Adult)
+		SUBCAT="/Adult"
+		export SUBCAT
+		;;
+	ArcadeGame)
+		SUBCAT="/Arcade_Games"
+		export SUBCAT
+		;;
+	Amusement)
+		SUBCAT="/Amusement"
+		export SUBCAT
+		;;
+	Archiving)
+		SUBCAT="/Archiving"
+		export SUBCAT
+		;;
+	Art)
+		SUBCAT="/Art"
+		export SUBCAT
+		;;
+	ArtificialIntelligence)
+		SUBCAT="/Artificial_Intelligence"
+		export SUBCAT
+		;;
+	Astronomy)
+		SUBCAT="/Astronomy"
+		export SUBCAT
+		;;
+	AudioVideoEditing)
+		SUBCAT="/Audio-Video_Editing"
+		export SUBCAT
+		;;
+	Biology)
+		SUBCAT="/Biology"
+		export SUBCAT
+		;;
+	BlocksGame)
+		SUBCAT="/20~Blocks_Games"
+		export SUBCAT
+		;;
+	BoardGame)
+		SUBCAT="/Board_Games"
+		export SUBCAT
+		;;
+	Building)
+		SUBCAT="/Building"
+		export SUBCAT
+		;;
+	Calculator)
+		SUBCAT="/Calculators"
+		export SUBCAT
+		;;
+	Calendar)
+		SUBCAT="/Calendars"
+		export SUBCAT
+		;;
+	CardGame)
+		SUBCAT="/Card_Games"
+		export SUBCAT
+		;;
+	Chart)
+		SUBCAT="/Charts"
+		export SUBCAT
+		;;
+	Chat)
+		SUBCAT="/Chat"
+		export SUBCAT
+		;;
+	Chemistry)
+		SUBCAT="/Chemistry"
+		export SUBCAT
+		;;
+	Clock)
+		SUBCAT="/Clocks"
+		export SUBCAT
+		;;
+	Compression)
+		SUBCAT="/Compression"
+		export SUBCAT
+		;;
+	ComputerScience)
+		SUBCAT="/Computer_Science"
+		export SUBCAT
+		;;
+	ConsoleOnly)
+		SUBCAT="/Console_Only"
+		export SUBCAT
+		;;
+	Construction)
+		SUBCAT="/Construction"
+		export SUBCAT
+		;;
+	ContactManagement)
+		SUBCAT="/Contact_Management"
+		export SUBCAT
+		;;
+	Core)
+		SUBCAT="/Core"
+		export SUBCAT
+		;;
+	DataVisualization)
+		SUBCAT="/Data_Visualization"
+		export SUBCAT
+		;;
+	Database)
+		SUBCAT="/Databases"
+		export SUBCAT
+		;;
+	Dialup)
+		SUBCAT="/Dial-up"
+		export SUBCAT
+		;;
+	Debugger)
+		SUBCAT="/Debuggers"
+		export SUBCAT
+		;;
+	DesktopSettings)
+		SUBCAT="/Desktop_Settings"
+		export SUBCAT
+		;;
+	Dialup)
+		SUBCAT="/Dialup"
+		export SUBCAT
+		;;
+	Dictionary)
+		SUBCAT="/Dictionaries"
+		export SUBCAT
+		;;
+	DiscBurning)
+		SUBCAT="/Disc_Burning"
+		export SUBCAT
+		;;
+	Documentation)
+		SUBCAT="/Documentation"
+		export SUBCAT
+		;;
+	Economy)
+		SUBCAT="/Economy"
+		export SUBCAT
+		;;
+	Electricity)
+		SUBCAT="/Electricity"
+		export SUBCAT
+		;;
+	Electronics)
+		SUBCAT="/Electronics"
+		export SUBCAT
+		;;
+	Email)
+		SUBCAT="/13~Email"
+		export SUBCAT
+		;;
+	Emulator)
+		SUBCAT="/Emulators"
+		export SUBCAT
+		;;
+	Engineering)
+		SUBCAT="/Engineering"
+		export SUBCAT
+		;;
+	Feed)
+		SUBCAT="/Feed"
+		export SUBCAT
+		;;
+	FileManager)
+		SUBCAT="/File_Managers"
+		export SUBCAT
+		;;
+	FileSystem)
+		SUBCAT="/File_Systems"
+		export SUBCAT
+		;;
+	FileTools)
+		SUBCAT="/File_Tools"
+		export SUBCAT
+		;;
+	FileTransfer)
+		SUBCAT="/File_Transfer"
+		export SUBCAT
+		;;
+	Finance)
+		SUBCAT="/Finance"
+		export SUBCAT
+		;;
+	FlowChart)
+		SUBCAT="/Flow_Charts"
+		export SUBCAT
+		;;
+	Geography)
+		SUBCAT="/Geography"
+		export SUBCAT
+		;;
+	Geology)
+		SUBCAT="/Geology"
+		export SUBCAT
+		;;
+	Geoscience)
+		SUBCAT="/Geoscience"
+		export SUBCAT
+		;;
+	GNOME)
+		SUBCAT=""
+		export SUBCAT
+		;;
+	GTK)
+		SUBCAT=""
+		export SUBCAT
+		;;
+	GUIDesigner)
+		SUBCAT="/GUI_Designers"
+		export SUBCAT
+		;;
+	HamRadio)
+		SUBCAT="/Ham_Radio"
+		export SUBCAT
+		;;
+	HardwareSettings)
+		SUBCAT="/Hardware_Settings"
+		export SUBCAT
+		;;
+	History)
+		SUBCAT="/History"
+		export SUBCAT
+		;;
+	Humanities)
+		SUBCAT="/Humanities"
+		export SUBCAT
+		;;
+	IDE)
+		SUBCAT="/IDE"
+		export SUBCAT
+		;;
+	ImageProcessing)
+		SUBCAT="/Image_Processing"
+		export SUBCAT
+		;;
+	IRCClient)
+		SUBCAT="/IRC_Clients"
+		export SUBCAT
+		;;
+	InstantMessaging)
+		SUBCAT="/Instant_Messaging"
+		export SUBCAT
+		;;
+	Java)
+		SUBCAT="/Java"
+		export SUBCAT
+		;;
+	KDE)
+		SUBCAT=""
+		export SUBCAT
+		;;
+	KDE-settins-hardware)
+		SUBCAT=""
+		export SUBCAT
+		;;
+	KidsGame)
+		SUBCAT="/Kids_Games"
+		export SUBCAT
+		;;
+	Languages)
+		SUBCAT="/Languages"
+		export SUBCAT
+		;;
+	Literature)
+		SUBCAT="/Literature"
+		export SUBCAT
+		;;
+	LogicGame)
+		SUBCAT="/Logic_Games"
+		export SUBCAT
+		;;
+	Maps)
+		SUBCAT="/Maps"
+		export SUBCAT
+		;;
+	Math)
+		SUBCAT="/Math"
+		export SUBCAT
+		;;
+	MedicalSoftware)
+		SUBCAT="/Medical_Softwares"
+		export SUBCAT
+		;;
+	Midi)
+		SUBCAT="/MIDI"
+		export SUBCAT
+		;;
+	Mixer)
+		SUBCAT="/10~Mixers"
+		export SUBCAT
+		;;
+	Monitor)
+		SUBCAT="/Monitors"
+		export SUBCAT
+		;;
+	Motif)
+		SUBCAT="/Motif"
+		export SUBCAT
+		;;
+	Music)
+		SUBCAT="/Music"
+		export SUBCAT
+		;;
+	News)
+		SUBCAT="/7~News"
+		export SUBCAT
+		;;
+	NumericalAnalysis)
+		SUBCAT="/Numerical_Analysis"
+		export SUBCAT
+		;;
+	OCR)
+		SUBCAT="/OCR"
+		export SUBCAT
+		;;
+	P2P)
+		SUBCAT="/P2P"
+		export SUBCAT
+		;;
+	PackageManager)
+		SUBCAT="/Package_Managers"
+		export SUBCAT
+		;;
+	ParallelComputing)
+		SUBCAT="/Parallel_Computing"
+		export SUBCAT
+		;;
+	PDA)
+		SUBCAT="/PDA"
+		export SUBCAT
+		;;
+	Photography)
+		SUBCAT="/Photography"
+		export SUBCAT
+		;;
+	Physics)
+		SUBCAT="/Physics"
+		export SUBCAT
+		;;
+	Player)
+		SUBCAT="/Players"
+		export SUBCAT
+		;;
+	Presentation)
+		SUBCAT="/Presentations"
+		export SUBCAT
+		;;
+	Printing)
+		SUBCAT="/Printing"
+		export SUBCAT
+		;;
+	Profiling)
+		SUBCAT="/Profiling"
+		export SUBCAT
+		;;
+	ProjectManagement)
+		SUBCAT="/Project_Management"
+		export SUBCAT
+		;;
+	Publishing)
+		SUBCAT="/Publishing"
+		export SUBCAT
+		;;
+	QT)
+		SUBCAT=""
+		export SUBCAT
+		;;
+	RasterGraphics)
+		SUBCAT="/Raster_Graphics"
+		export SUBCAT
+		;;
+	Recorder)
+		SUBCAT="/Recorders"
+		export SUBCAT
+		;;
+	RemoteAccess)
+		SUBCAT="/Remote_Access"
+		export SUBCAT
+		;;
+	RevisionControl)
+		SUBCAT="/Revision_Control"
+		export SUBCAT
+		;;
+	Robotics)
+		SUBCAT="/Robotics"
+		export SUBCAT
+		;;
+	RolePlaying)
+		SUBCAT="/Role_Playing"
+		export SUBCAT
+		;;
+	Scanning)
+		SUBCAT="/Scanning"
+		export SUBCAT
+		;;
+	Security)
+		SUBCAT="/Security"
+		export SUBCAT
+		;;
+	Sequencer)
+		SUBCAT="/Sequencers"
+		export SUBCAT
+		;;
+	Shooter)
+		SUBCAT="/Shooter"
+		export SUBCAT
+		;;
+	Simulation)
+		SUBCAT="/Simulation"
+		export SUBCAT
+		;;
+	Spirituality)
+		SUBCAT="/Spirituality"
+		export SUBCAT
+		;;
+	Sports)
+		SUBCAT="/Sports"
+		export SUBCAT
+		;;
+	SportsGame)
+		SUBCAT="/Sports_Games"
+		export SUBCAT
+		;;
+	Spreadsheet)
+		SUBCAT="/Spreadsheets"
+		export SUBCAT
+		;;
+	StrategyGame)
+		SUBCAT="/Strategy_Games"
+		export SUBCAT
+		;;
+	Sun-Supported)
+		SUBCAT=""
+		export SUBCAT
+		;;
+	Telephony)
+		SUBCAT="/5~Telephony"
+		export SUBCAT
+		;;
+	TelephonyTools)
+		SUBCAT="/Telephony_Tools"
+		export SUBCAT
+		;;
+	TerminalEmulator)
+		SUBCAT="/Terminals"
+		export SUBCAT
+		;;
+	TextEditor)
+		SUBCAT="/Text_Editors"
+		export SUBCAT
+		;;
+	TextTools)
+		SUBCAT="/Text_Tools"
+		export SUBCAT
+		;;
+	Translation)
+		SUBCAT="/Translation"
+		export SUBCAT
+		;;
+	Tuner)
+		SUBCAT="/Tuners"
+		export SUBCAT
+		;;
+	TV)
+		SUBCAT="/TV"
+		export SUBCAT
+		;;
+	VectorGraphics)
+		SUBCAT="/Vector_Graphics"
+		export SUBCAT
+		;;
+	VideoConference)
+		SUBCAT="/Webcam"
+		export SUBCAT
+		;;
+	Viewer)
+		SUBCAT="/Viewers"
+		export SUBCAT
+		;;
+	WebBrowser)
+		SUBCAT="/10~Web_Browsers"
+		export SUBCAT
+		;;
+	WebDevelopment)
+		SUBCAT="/Web_Development"
+		export SUBCAT
+		;;
+	WordProcessor)
+		SUBCAT="/Word_Processors"
+		export SUBCAT
+		;;
+	XFCE)
+		SUBCAT=""
+		export SUBCAT
+		;;
+	X-KDE*)
+		SUBCAT=""
+		export SUBCAT
+		;;
+	X-Red-Hat*)
+		SUBCAT=""
+		export SUBCAT
+		;;
+	X-"$2")
+		SUBCAT="/$2"
+		export SUBCAT
+		;;
+	*)
+		SUBCAT=""
+		export SUBCAT
+		;;
+esac
+}
+
+gen_category() {
+# Test for X-Category
+	MAIN_CAT=""
+	SUB_CAT=""
+	if [[ "$1" != "" ]]; then	
+		for i in $1; do
+			XEXIST="$(echo "$i" | sed -e 's/.*X-.*/X-/')"
+			if [[ "$XEXIST" == "X-" ]]
+				then XCAT="$(echo "$i" | sed -e 's/X-//')"
+				category "$i" "$XCAT"
+				SUB_CAT="${SUB_CAT} ${SUBCAT}"
+				export SUB_CAT
+			else
+				maincategory "$i"
+				MAIN_CAT="${MAIN_CAT} ${MAINCAT}"
+				export MAIN_CAT
+				category "$i"
+				SUB_CAT="${SUB_CAT} ${SUBCAT}"
+				export SUB_CAT
+			fi
+		done
+	else
+		case "$2" in
+			/usr/share/applnk*)
+				CATNAME="$(echo ${2} | sed -e 's:/usr/share/applnk::' -e 's:/: :g')"
+				;;
+			/usr/share/gnome/apps*)
+				CATNAME="$(echo ${2} | sed -e 's:/usr/share/gnome/apps::' -e 's:/: :g')"
+				;;
+			/usr/kde/3.5/share/applnk*)
+				CATNAME="$(echo ${2} | sed -e 's:/usr/kde/3.5/share/applnk::' -e 's:/: :g')"
+				;;
+			/usr/kde/3.5/share/apps/kappfinder/apps*)
+				CATNAME="$(echo ${2} | sed -e 's:/usr/kde/3.5/share/apps/kappfinder/apps::' -e 's:/: :g')"
+				;;
+			*)
+				CATNAME=""
+				;;
+		esac
+		for i in $CATNAME; do
+			XEXIST="$(echo "$i" | sed -e 's/.*X-.*/X-/')"
+			if [[ "$XEXIST" == "X-" ]]
+				then XCAT="$(echo "$i" | sed -e 's/X-//')"
+				category "$i" "$XCAT"
+				SUB_CAT="${SUB_CAT} ${SUBCAT}"
+				export SUB_CAT
+			else
+				maincategory "$i"
+				MAIN_CAT="${MAIN_CAT} ${MAINCAT}"
+				export MAIN_CAT
+				category "$i"
+				SUB_CAT="${SUB_CAT} ${SUBCAT}"
+				export SUB_CAT
+			fi
+		done
+	fi
+}
+
+echo -n "" > non_valid_cat.log
+check_category() {
+# Check at it is only one main cat in the menu
+	TMP_CAT="$(echo $1 | sed -e 's/ //g')"
+	MAIN__CAT="${MAIN_CAT}"
+	if [[ "$TMP_CAT" != "" ]]; then
+		AV=""
+		A=""
+		V=""
+		for i in $1; do
+			if [[ "$i" == "/Multimedia/Audio-Video" ]]; then
+				AV="AV"
+			fi
+			if [[ "$i" == "/Multimedia/Audio" ]]; then
+				A="A"
+			fi
+			if [[ "$i" == "/Multimedia/Video" ]]; then
+				V="V"
+			fi
+		done
+		
+		if [[ "${AV}" == "AV" ]] && [[ "${A}" == "A" ]] && [[ "${V}" == "V" ]]; then
+			MAIN__CAT=""
+			echo "$2" >> non_valid_cat.log
+		else
+			if [[ "${AV}" == "AV" ]] && [[ "${A}" == "A" ]]; then
+				MAIN__CAT="/Multimedia/Audio"
+			fi
+			if [[ "${AV}" == "AV" ]] && [[ "${V}" == "V" ]]; then
+				MAIN__CAT="/Multimedia/Video"
+			fi
+		fi
+		
+	else
+		MAIN__CAT=""
+		echo "$2" >> non_valid_cat.log
+	fi
+	CATEGORY=""
+	for i in $MAIN__CAT; do
+		if [[ "$MAIN__CAT" != "" ]]; then
+			SUB_CAT2="$(echo $3 | sed -e 's/ //g')"
+			CATEGORY="$i$SUB_CAT2"
+		fi
+	break
+	done
+	
+	export CATEGORY
+}
+
+# Write a FVWM-Crystal menu entry
+# Usage: gen_entry <exec_name> <entry_name> <category> <command>
+# Usage: gen_consoleentry <exec_name> <entry_name> <category> <command>
+gen_entry() {
+	mkdir -p "${FC_MENUBASE}${3}"
+	FNAME="${FC_MENUBASE}$3/~$1~$2"
+	(
+	echo "#!/bin/sh"
+	echo
+	echo "exec $4 \$@" 2\>/dev/null
+	) > "${FNAME}"
+	chmod +x "${FNAME}"
+}
+gen_consoleentry() {
+	mkdir -p "${FC_MENUBASE}${3}"
+	FNAME="${FC_MENUBASE}$3/~$1~$2"
+	(
+	echo "#!/bin/sh"
+	echo
+	echo "exec FvwmCommand 'A $4 \$@ 2>/dev/null'"
+	) > "${FNAME}"
+	chmod +x "${FNAME}"
+}
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # #
+# Do something now
+
+$searchdesktop $1
+
+# Main loop
+while read myline ; do
+	searchexecname "${myline}"
+	searchiconname "${myline}"
+	searchexist "${myline}" "${EXEC}"
+	if [[ "$EXIST" == "false" ]]; then
+		searchkeystrings "${myline}" $USERLOC
+		gen_category "$CATNAME" "${myline}"
+		check_category "$MAIN_CAT" "${myline}" "$SUB_CAT"
+		if [[ "$MAIN__CAT" != "" ]]; then
+			echo "Generation of menu entry for ${EXEC}"
+			if [[ "$TERMINAL" == "true" ]]; then
+				gen_consoleentry "$EXEC" "$SOFTNAME" "$CATEGORY" "$COMMANDF"
+			else
+				gen_entry "$EXEC" "$SOFTNAME" "$CATEGORY" "$COMMANDF"
+			fi
+		fi
+	fi
+done < filelist
+rm filelist
+
+echo ""
+echo "All is done"
+echo ""
+
+if [ $# -ge 2 ]; then
+	rm non_valid_cat.log
+	DesktopDir=`awk -v ORS="" '!/(#|^$)/{print $0" "}' $USERPREFS/DesktopDirs`
+	echo "Saving the date of the last installed desktop file in ${FVWM_USERDIR}/preferences/DateLastApp"
+	echo "Reloading the menu..."
+	echo "SetEnv DateLastApp \"`stat --printf="%y\n" ${DesktopDir} | sort -n -r | head -1`\"" > ${FVWM_USERDIR}/preferences/DateLastApp
+	# When this script run at startup, no gvaranty can be done than the generated style file is loaded correctly,
+	# We want to load the updated styles anyway:
+	FvwmCommand 'Include components/styles/Generated-Application-Icons-22-32'
+	# Must be after because some software have wrong coherency between their ident names and icon name in the desktop file:
+	FvwmCommand 'Include components/styles/Application-Icons-22-32'
+	# Must be last because the prefered Music styles are loaded from here:
+	FvwmCommand 'ReloadRecipe'
+else
+	echo "You will find the list of the desktop files with non valid Main Category in non_valid_cat.log"
+fi
+# debug
+#read

@@ -1,0 +1,14 @@
+# Window warping using Alt+hjkl & Alt+Shift+hjkl
+
+# Horizontal+Vertical movement
+Key H	A $[Mod1] Window-Warp-LeftCenter
+Key J	A $[Mod1] Window-Warp-CenterBottom
+Key K	A $[Mod1] Window-Warp-CenterTop
+Key L	A $[Mod1] Window-Warp-RightCenter
+
+Key H	A $[Mod2] Window-Warp-LeftTop
+Key J	A $[Mod2] Window-Warp-LeftBottom
+Key K	A $[Mod2] Window-Warp-RightTop
+Key L	A $[Mod2] Window-Warp-RightBottom
+
+# vim:ft=fvwm

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+msgcat -s fvwm-crystal.po > fvwm-crystal.sort1.po
+mv fvwm-crystal.sort1.po fvwm-crystal.po

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kspread $@ 2>/dev/null
+

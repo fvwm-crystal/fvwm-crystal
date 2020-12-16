@@ -1,0 +1,14 @@
+# Basic window bindings
+
+Mouse 1 T	$[Mod] Window-Raise-RaiseMove
+Mouse 2 T	$[Mod] Window-Shade-Resize
+Mouse 3 T	$[Mod] Window-Lower-Move
+
+Mouse 1 WT	$[Mod1] Window-Raise-RaiseMove
+Mouse 1 WT	$[Mod1]2 Window-Raise-RaiseMove
+Mouse 2 WT	$[Mod1] Window-Resize-Opaque SE
+Mouse 2 WT	$[Mod1]2 Window-Resize-Opaque SE
+Mouse 3 WT	$[Mod1] Window-Lower-Move
+Mouse 3 WT	$[Mod1]2 Window-Lower-Move
+
+# vim:ft=fvwm

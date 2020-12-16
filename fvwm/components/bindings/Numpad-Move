@@ -1,0 +1,12 @@
+# Move windows using numpad keys
+Key KP_Home             A $[Mod2] Window-MPAnimatedMove w-100p	w-100p
+Key KP_Up               A $[Mod2] Window-MPAnimatedMove w0p	w-100p
+Key KP_Page_Up          A $[Mod2] Window-MPAnimatedMove w100p 	w-100p
+Key KP_Left             A $[Mod2] Window-MPAnimatedMove w-100p	w0p
+Key KP_Begin            A $[Mod2] -
+Key KP_Right            A $[Mod2] Window-MPAnimatedMove w100p	w0p
+Key KP_End              A $[Mod2] Window-MPAnimatedMove w-100p	w100p
+Key KP_Down             A $[Mod2] Window-MPAnimatedMove w0p	w100p
+Key KP_Page_Down        A $[Mod2] Window-MPAnimatedMove w100p	w100p
+
+# vim:ft=fvwm

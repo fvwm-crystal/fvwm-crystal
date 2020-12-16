@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec bluefish $@ 2>/dev/null
+

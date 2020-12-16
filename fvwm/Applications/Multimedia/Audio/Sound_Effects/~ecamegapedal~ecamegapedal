@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec ecamegapedal jack,mega_in jack,mega_out $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec k3b $@ 2>/dev/null
+

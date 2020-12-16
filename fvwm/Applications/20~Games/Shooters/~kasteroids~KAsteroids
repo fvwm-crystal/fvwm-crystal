@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kasteroids $@ 2>/dev/null
+

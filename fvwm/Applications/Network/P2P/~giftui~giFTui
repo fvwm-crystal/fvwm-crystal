@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec giftui $@ 2>/dev/null
+

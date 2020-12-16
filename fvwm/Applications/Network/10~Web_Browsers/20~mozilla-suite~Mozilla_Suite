@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec mozilla-suite $@ 2>/dev/null
+

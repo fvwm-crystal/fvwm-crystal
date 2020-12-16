@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Simple script that launch several alsamixer instances.
+# Usefull when it is more than one sound card into your system.
+# Written by Dominique Michel for the fvwm-crystal project.
+
+# It has the same name than a similar script that come with bmpdj, but it run alsamiser
+# instead of alsamixergui (this last software hang on both of my boxes).
+
+# It is very simple to adjust to your setting. It is just to put one line per sound card.
+# It use aterm here because it give me smaller windows than the other terminals in my system.
+# Other terminals will work too.
+
+# Don't change the title or it wukk not work with Show/hide mixer in Fvwm-Crystal
+
+#aterm -title "ALSA Mixer" -e alsamixer -c 0 &		# Default sound card
+#aterm -title "ALSA Mixer" -e alsamixer -c 1 &		# Second sound card
+# xterm -title "ALSA Mixer" -e alsamixer -c 2 &	# not used
+#aterm -title "ALSA Mixer" -e alsamixer -c 3 -V captue &	# Capture view for webcam
+
+# An alternative is to use the following:
+for i in $(ls /dev/mixer* | grep [0-9]) ; do
+	card=$(echo $i | sed -e 's:/dev/mixer::')
+	aterm -title "ALSA Mixer" -e alsamixer -c ${card} &
+done

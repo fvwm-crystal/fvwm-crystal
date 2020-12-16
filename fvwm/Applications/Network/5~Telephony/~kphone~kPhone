@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec kphone $@ 2>/dev/null
+

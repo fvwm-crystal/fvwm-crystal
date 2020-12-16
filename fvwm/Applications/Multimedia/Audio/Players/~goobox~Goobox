@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec goobox $@ 2>/dev/null
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec fallout $@ 2>/dev/null
+

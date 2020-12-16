@@ -1,0 +1,92 @@
+# Preferences functions - used for storing and loading user preferences
+
+# Crystal needs ~/.fvwm/preferences/ directory to store the preferences files.
+#
+Exec mkdir -p $[FVWM_USERDIR]/preferences
+
+# This function saves specified command in a file, in the user's preferences
+# directory (~/.fvwm/preferences/). It can be used to store FVWM commands, so
+# they can be executed at next startup, useful for saving user-configurable
+# preferences, like used colorset or window decoration.
+#
+# Usage:
+# SavePreferences <preferences-file> "<command>"
+#
+# Example:
+# SavePreferences PreferencesFile "Echo \"FVWM command\""
+#
+DestroyFunc SavePreferences
+AddToFunc SavePreferences
++ I Exec echo "$1" > $[FVWM_USERDIR]/preferences/$0
+
+# Modification of SavePreferences: add more lines to the preferences file
+# Must be used in conjonction with Schedule or the synchronization will be lost
+#
+# Exemple:
+# SavePreferences PreferencesFile "Echo \"FVWM command\""
+# Schedule 333 AppendPreferences PreferencesFile OtherCommand
+#
+DestroyFunc AppendPreferences
+AddToFunc AppendPreferences
++ I Exec touch $[FVWM_USERDIR]/preferences/$0
++ I Exec echo $1 >> $[FVWM_USERDIR]/preferences/$0
+
+# add or update one line into the preferences file
+#
+# UpdateAppendPreferences <preferences-file> "<command>" "<begining of the line>"
+# where <begining of the line> must be unique into the file.
+DestroyFunc UpdateAppendPreferences
+AddToFunc UpdateAppendPreferences
++ I Exec touch $[FVWM_USERDIR]/preferences/"$0"
++ I PipeRead 'mv $[FVWM_USERDIR]/preferences/"$0" $[FVWM_USERDIR]/preferences/"$0".tmp; \
+      sed "/^$2.*/d" $[FVWM_USERDIR]/preferences/"$0".tmp > $[FVWM_USERDIR]/preferences/"$0"; \
+      rm $[FVWM_USERDIR]/preferences/"$0".tmp; \
+      echo "$1" >> $[FVWM_USERDIR]/preferences/"$0"'
+
+# This function looks for saved preferences file and reads it. All directories
+# (user-wide, system-wide, package-wide) are searched, first file found is
+# loaded.
+#
+# Example:
+# LoadPreferences PreferencesFile
+#
+DestroyFunc LoadPreferences
+AddToFunc LoadPreferences
++ I Test (f $[FVWM_USERDIR]/preferences/$0) Read $[FVWM_USERDIR]/preferences/$0
++ I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/preferences/$0) Read $[FVWM_CONFIGDIR]/preferences/$0
++ I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/preferences/$0) Read $[FVWM_SYSTEMDIR]/preferences/$0
+
+# This function looks for specified preferences file, if it is present,
+# nothing is done. If it's not found, specified command is executed. This can
+# be used to check if there are "default" preferences, and in case they aren't
+# there, set a default ones.
+#
+# Usage:
+# CheckPreferences <preferences-file> "<command>"
+#
+# Example:
+# CheckPreferences PreferencesFile 'SavePreferences PreferencesFile "Echo \"FVWM command\""'
+#
+DestroyFunc CheckPreferences
+AddToFunc CheckPreferences
++ I Test (f $[FVWM_USERDIR]/preferences/$0) Break
++ I Test (f $[FVWM_CONFIGDIR]/preferences/$0) Break
++ I Test (f $[FVWM_SYSTEMDIR]/preferences/$0) Break
++ I $1
+
+# This function looks for specified preference file in the user-wide directory.
+# If it's found, nothing is done, if it's not found, the first file found
+# in the config-wide or system-wide directories is copied to the user-wide
+# directory.
+#
+# Example: See below.
+#
+DestroyFunc CopyPreferences
+AddToFunc CopyPreferences
++ I Test (f $[FVWM_USERDIR]/preferences/$0) Break
++ I Test (f $[FVWM_CONFIGDIR]/preferences/$0) Exec exec cp $[FVWM_CONFIGDIR]/preferences/$0 $[FVWM_USERDIR]/preferences/
++ I TestRC (NoMatch) Test (f $[FVWM_SYSTEMDIR]/preferences/$0) Exec exec cp $[FVWM_SYSTEMDIR]/preferences/$0 $[FVWM_USERDIR]/preferences/
+
+CopyPreferences ShowDirectories
+
+# vim:ft=fvwm

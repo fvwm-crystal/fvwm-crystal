@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec serpentine $@ 2>/dev/null
+

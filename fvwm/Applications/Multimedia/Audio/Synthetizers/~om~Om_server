@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec om $@ 2>/dev/null
+

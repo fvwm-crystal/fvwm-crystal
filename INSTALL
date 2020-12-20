@@ -145,10 +145,10 @@ Useful applications:
 
 Needed:
 -------
-- fvwm>=2.6.9 or fvwm3 with FvwmPrompt (with --enable-golang).
-- python3 - tested with 3.6, should work with any python3 version.
-    python2 is not supported anymore because upstream will end
-    its support at the end of that year (2019).
+- fvwm>=2.6.9 or fvwm3>=1.0.2 with FvwmPrompt (with --enable-golang).
+- python3 - tested with 3.6 and 3.7, should work with any python3 version.
+    python2 is not supported anymore because upstream ended
+    its support at the end of 2019.
 - ImageMagick (convert is used for application menu icons generation)
 - xwd for on the fly icon generation and expose function
 - coreutils

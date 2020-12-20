@@ -6,6 +6,10 @@
 # Must be first. L: caps lock; 2: num-lock; 5: scroll-lock
 # IgnoreModifiers L2
 
+# Functions starting scripts that send commands to fvwm using FvwmCommand or
+# FvwmPrompt must start their scripts using StartFunction at start/restart.
+InfoStoreAdd CRYSTAL_START 1
+
 # Hello World
 # Echo /--------- Welcome to Fvwm-Crystal ---------/
 
@@ -20,6 +24,9 @@ Test (!EnvisSet FVWM_SYSTEMDIR) SetEnv FVWM_SYSTEMDIR $.
 
 # Where the distribution specific menu is located
 Test (!EnvisSet FVWM_DISTROMENUDIR) SetEnv FVWM_DISTROMENUDIR /var/lib/fvwm-crystal
+
+# Where is FvwmMfl socket, use $DISPLAY in order to get unique names with Xephyr
+Test (EnvMatch FVWM_IS_FVWM3 1, !EnvIsSet FVWMMFL_SOCKET) SetEnv FVWMMFL_SOCKET $[FVWM_USERDIR]/fvwm_mfl_$[DISPLAY].sock
 
 # Name of the distribution menu
 Test (!EnvisSet FVWM_DISTROMENUNAME) SetEnv FVWM_DISTROMENUNAME debian

@@ -2,6 +2,9 @@
 # FVWM-Crystal helper script that check for mount changes
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/DesktopCheckMounts <delay [s]>
 
+# debug
+#env >> /tmp/examine_env.$$ 2>1&
+
 # the PID to kill if fvwm is interrupted
 TMPFILE="/tmp/crystal_desktopcheckmount_$$"
 touch ${TMPFILE}
@@ -14,16 +17,20 @@ cleanup() {
 trap cleanup INT QUIT TERM
 
 # the main loop
-CRC=$(cksum /proc/mounts|cut -d" " -f1)
+CRC=$(mount|cut -d" " -f1)
 while :
 do
 	sleep "$1"
 	# fvwm is started by exec; be sure it is running
-	pidof fvwm 1>/dev/null || cleanup
+	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
 
-	NEWCRC=$(cksum /proc/mounts|cut -d" " -f1)
+	NEWCRC=$(mount|cut -d" " -f1)
 	if [[ "$NEWCRC" != "$CRC" ]]; then
 		CRC="${NEWCRC}"
-		FvwmCommand LoadDesktopIcons
+		if [[ "${FVWM_IS_FVVWM3}" == "1" ]]; then
+			FvwmPrompt LoadDesktopIcons
+		else
+			FvwmCommand LoadDesktopIcons
+		fi
 	fi
 done

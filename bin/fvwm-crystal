@@ -57,7 +57,7 @@ if [ -z "${FVWM_DISTROMENUNAME}" ]; then
 fi
 # Where to write the log when fvwm3 is in debug mode
 if [ "${FVWM_EXEC}" = "fvwm3" ]; then
-	if [ "x${FVWM3_LOGFILE}" == "x" ]; then
+	if [ "x${FVWM3_LOGFILE}" = "x" ]; then
 	        FVWM3_LOGFILE="${HOME}/.fvwm-crystal.log"
 	        export FVWM3_LOGFILE
 	fi
@@ -81,25 +81,28 @@ fi
 cleanup() {
 	exitcode="0"
 	# remove orfaned fullscreen files
-	rm /tmp/fullscreen* 2>/dev/null
+	# TODO: check if this is still needed.
+	rm -f /tmp/fullscreen* 2>/dev/null
 	# check for old instances and PID orfaned files
+	# TODO: make it to work with Xephyr and fvwm3.
+	# 	normally not needed here because DesktopCheckMounts take care of it, check this.
 	for i in $(ls /tmp/crystal_desktopcheckmount_* 2>/dev/null); do
 		pid=$(echo $i | sed -e 's:/tmp/crystal_desktopcheckmount_::')
 		kill $pid 2>/dev/null
-		rm $i
+		rm -f $i
 		exitcode="1"
 	done
 	for i in $(ls /tmp/crystal_update_infoline_* 2>/dev/null); do
 		pid=$(echo $i | sed -e 's:/tmp/crystal_update_infoline_::')
 		kill $pid 2>/dev/null
-		rm $i
+		rm -f $i
 		exitcode="1"
 	done
 	for i in $(ls /tmp/crystal_mplayer_* 2>/dev/null); do
 		pid=$(echo $i | sed -e 's:/tmp/crystal_mplayer_::')
 		kill $pid 2>/dev/null
 		kill -9 $pid 2>/dev/null
-		rm $i
+		rm -f $i
 		exitcode="1"
 	done
 	# exit if not startup
@@ -118,6 +121,11 @@ trap cleanup INT QUIT TERM
 cleanup previous
 #echo "paramètres: $@"
 #echo "exec fvwm -f $configfile $@"
+
+# the log become huge with time, remove it
+if [ -f "${FVWM3_LOGFILE}" ]; then
+	rm -f "${FVWM3_LOGFILE}"
+fi
 
 #exec fvwm -f $configfile $@
 if [ "x${FVWMCRYSTAL_DEBUG}" = "x" ]; then

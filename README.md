@@ -7,7 +7,9 @@ Linux or other Unix-like operating systems with lots of eye-candy.
 
 It uses following programs:
 - FVWM as a window manager and "main core",
-- fvwm, ROX-Filer or Nautilus as desktop manager (manages icons on the desktop),
+- fvwm-crystal, ROX-Filer or Nautilus as desktop manager (manages icons on the desktop),
+  the fvwm-crystal desktop manager support network mount using http or
+  https (tested with webdav and davfs2),
 - gnome-terminal, xterm, aterm, mrxvt or urxvt as terminal emulators,
 - AlsaPlayer, mplayer, MPD, QuodLibet, XMMS2 and others as music players
   (there's built-in support for controlling these programs),

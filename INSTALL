@@ -193,7 +193,9 @@ Optional, but supported:
   'addons/session-management.README'. It is for Gnome 2, if you can get it to
    work with a current Gnome version, please consider to contribute with
   some kind of up-to-date explaination.
-- pmount-gui for mounting / unmounting of removable medias.
+- 'pmount-gui' for mounting / unmounting of removable medias.
+- 'davfs2' for webdav support. Other network protocols shoul works if using an entry
+  begining with 'http' or 'https' in fstab and configured for automatic login.
 
 Note:
 -----

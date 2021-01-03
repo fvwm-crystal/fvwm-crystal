@@ -1,0 +1,32 @@
+#!/bin/bash
+
+updatecmd="git-changelog"
+lastdate=`grep -m 1 ^*  ChangeLog | sed -e 's:\(^. \)\([:0-9:][:0-9:][:0-9:][:0-9:]-[:0-9:][:0-9:]-[:0-9:][:0-9:]\)\(.*\):\2:'`
+echo "$0 will update the ChangeLog file. It use ${updatecmd}."
+if ! command -v ${updatecmd} &>/dev/null ; then
+	echo "${updatecmd} could not be found"
+	exit
+fi
+echo "The date of the last commit in ChangeLog is ${lastdate}."
+echo "Commits from this date will be written into ChangeLog."
+echo "If you want to use that, press enter. Otherwise write the date you want to use and press enter."
+read keypress
+if [[ "x${keypress}" == "x" ]]; then
+	echo "use ${lastdate}"
+else
+	lastdate="${keypress}"
+	echo "use ${lastdate}"
+fi
+
+echo "The following changes will be added into ChangeLog:"
+echo ""
+git-changelog --since=${lastdate} | grep \*
+
+echo "If you want to add these changes into ChangeLog, press entrer. Ctrl-C or write anything and enter to abort."
+read keypress
+if [[ "x${keypress}" == "x" ]]; then
+	git-changelog --since=${lastdate} | grep \* >> ChangeLog.tmp
+	cat ChangeLog >> ChangeLog.tmp
+	mv -f ChangeLog.tmp ChangeLog
+	echo "Please review the changeLog file, remove possible doublons and make it to look consistant."
+fi

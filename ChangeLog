@@ -1,3 +1,13 @@
+* 2021-05-27 Update version to 3.7.2  
+* 2021-05-27 Remove BROWSER preference.  
+* 2021-05-27 Remove commented BROWSER line.  
+* 2021-05-27 Drop browser variable. Use xdg-open instead when needed.  
+* 2021-05-27 Feedback form: Use xdg-open everywhere.  
+* 2021-05-26 Move the IRC channel to irc.libera.chat due to hostile takeover of freenode; use xdg-open instead of $BROWSER.  
+* 2021-03-09 add gmtp into the file managers  
+* 2021-01-04 Automatize the ChangeLog process.  
+* 2021-01-01 Add a few words about the network protocols supported by the fvwm-crystal desktop icons manager.  
+* 2021-01-01 Add http and https mount support for protocols like webdav. Tested with webdav and davfs2.     davfs2 must be fully configured including the credentials into its &#39;secrets&#39; file.  
 * 2021-01-01 Add a few words about the network protocols supported by the fvwm-crystal desktop icons manager.
 * 2021-01-01 Add http and https mount support for protocols like webdav. Tested with webdav and davfs2.
     davfs2 must be fully configured including the credentials into its &#39;secrets&#39; file.

@@ -49,7 +49,7 @@ dist-minimal:
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)"
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/fvwm"
 	# Copy basic files
-	cp -r AUTHORS ChangeLog ChangeLog.old Contribute COPYING Export.README INSTALL Makefile NEWS README.md fvwm-crystal-minimal-$(RELEASE)/
+	cp -r AUTHORS ChangeLog ChangeLog.old Contribute LICENSE Export.README INSTALL Makefile NEWS README.md fvwm-crystal-minimal-$(RELEASE)/
 	cp -r fvwm/config fvwm-crystal-minimal-$(RELEASE)/fvwm/
 	# Copy addons/
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/addons"

@@ -22,8 +22,8 @@ Begin
     Set $FDIR = (GetOutput {echo "$FVWM_USERDIR"} 1 -1)
     Set $PDIR = $FDIR {/preferences/}
     # Load BROWSER variable
-    ChangeTitle 1 (GetOutput {cat $FVWM_USERDIR/preferences/BROWSER | sed -e 's:SetEnv BROWSER ::' -e 's:"::g'	} 1 -1)
-    Set $browser = (GetTitle 1)
+#    ChangeTitle 1 (GetOutput {cat $FVWM_USERDIR/preferences/BROWSER | sed -e 's:SetEnv BROWSER ::' -e 's:"::g'	} 1 -1)
+#    Set $browser = (GetTitle 1)
     # Load EDITOR variable
 #    ChangeTitle 2 (GetOutput {cat $FVWM_USERDIR/preferences/EDITOR | sed -e 's:SetEnv EDITOR ::' -e 's:"::g'	} 1 -1)
     ChangeTitle 2 (GetOutput {echo $EDITOR} 1 -1)
@@ -73,57 +73,20 @@ Begin
 End
 
 # Main {{{1
-# BROWSER {{{2
+# Titel
 Widget 1
-Property
-    Flags NoReliefString	
-    Position 130 5
-    Size 480 35
-    Type TextField
-    Title { }
-    #Value 1
-Main
-Case message of
- SingleClic :
- Begin
-    Set $browser = (GetTitle 1)
- End
- 1 :
- Begin
-    Set $browser = (GetTitle 1)
- End
-End
-
-# Browser label
-Widget 10
 Property
     Flags NoReliefString Center	
     Position 5 5
-    Size 120 35
+    Size 790 35
     Type ItemDraw
-    LocaleTitle {Browser}
+    LocaleTitle {Custom fvwm-crystal preferences}
 Main
 Case message of
  SingleClic :
  Begin
    Do Nop
  End
-End
-
-# Save browser
-Widget 11
-Property
- Flags NoReliefString
- Position 625 5
- Size 170 35
- Type PushButton
- LocaleTitle {Save}
-Main
- Case message of
-  SingleClic :
-  Begin
-      Do {SavePreferences BROWSER "SetEnv BROWSER \\\"}$browser{\\\""}
-  End
 End
 
 # Separation

@@ -48,11 +48,11 @@ DestroyModuleConfig UserFeedback-Dialog: *
 
 DestroyFunc MailDev
 AddToFunc MailDev
-+ I X $[BROWSER] mailto:dominique_libre@users.sourceforge.net
++ I X xdg-open mailto:dominique_libre@users.sourceforge.net
 
 DestroyFunc BrowseEmailList
 AddToFunc BrowseEmailList
-+ I X $[BROWSER] https://sourceforge.net/p/fvwm-crystal/mailman
++ I X xdg-open https://sourceforge.net/p/fvwm-crystal/mailman
 
 DestroyFunc CrystalIRC
 AddToFunc CrystalIRC

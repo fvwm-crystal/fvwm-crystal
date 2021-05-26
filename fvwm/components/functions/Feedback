@@ -1,12 +1,12 @@
 # User feedback for FVWM-Crystal
 #
-# Version:	1.0.0
+# Version:	1.0.1
 # License: 	GPL 3+
 #
 # Author:	Dominique Michel <dominique_libre@users.sourceforget.net>	
 #
 # Created:	<07/15/2013>
-# Changed:	<07/15/2013>
+# Changed:	<05/26/2021>
 #
 # Description:	Launch a form with information on how to send feedback or receive support.
 #		It will also look for $BROWSER and set it if needed
@@ -56,7 +56,7 @@ AddToFunc BrowseEmailList
 
 DestroyFunc CrystalIRC
 AddToFunc CrystalIRC
-+ I X $[BROWSER] irc://irc.freenode.net:6667/fvwm-crystal
++ I X xdg-open 'irc://irc.libera.chat:6667/fvwm-crystal'
 
 DestroyFunc SetBrowser
 AddToFunc SetBrowser

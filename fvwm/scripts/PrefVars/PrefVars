@@ -21,9 +21,6 @@ Init
 Begin
     Set $FDIR = (GetOutput {echo "$FVWM_USERDIR"} 1 -1)
     Set $PDIR = $FDIR {/preferences/}
-    # Load BROWSER variable
-#    ChangeTitle 1 (GetOutput {cat $FVWM_USERDIR/preferences/BROWSER | sed -e 's:SetEnv BROWSER ::' -e 's:"::g'	} 1 -1)
-#    Set $browser = (GetTitle 1)
     # Load EDITOR variable
 #    ChangeTitle 2 (GetOutput {cat $FVWM_USERDIR/preferences/EDITOR | sed -e 's:SetEnv EDITOR ::' -e 's:"::g'	} 1 -1)
     ChangeTitle 2 (GetOutput {echo $EDITOR} 1 -1)

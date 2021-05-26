@@ -39,7 +39,6 @@ AddToFunc CheckApplicationsDatabase
 CheckPrefFile MediaDirectories
 CheckPrefFile DesktopDirs
 CheckPrefFile IconDirs
-CheckPrefFile BROWSER
 CheckPrefFile EDITOR
 CheckPrefFile Startup
 CheckPrefFile FullScreenApps

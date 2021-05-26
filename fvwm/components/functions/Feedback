@@ -57,24 +57,3 @@ AddToFunc BrowseEmailList
 DestroyFunc CrystalIRC
 AddToFunc CrystalIRC
 + I X xdg-open 'irc://irc.libera.chat:6667/fvwm-crystal'
-
-DestroyFunc SetBrowser
-AddToFunc SetBrowser
-+ I SavePreferences BROWSER "SetEnv BROWSER $0"
-+ I SetEnv BROWSER "$0"
-
-# Set browser form {{{1
-All (SetBrowser-Dialog) Close
-DestroyModuleConfig SetBrowser-Dialog: *
-*SetBrowser-Dialog: Title "$[gt.Default browser]"
-*SetBrowser-Dialog: Text "$[gt.Enter the default browser]"
-*SetBrowser-Dialog: Line center
-*SetBrowser-Dialog: Input browser 40 "/usr/bin/firefox"
-*SetBrowser-Dialog: Line center
-*SetBrowser-Dialog: Line center
-*SetBrowser-Dialog: Button quit " $[gt.Save] " ^M
-*SetBrowser-Dialog: Command SetBrowser "$(browser)"
-*SetBrowser-Dialog: Line center
-
-# Check if $BROWSER exist, if not chek preference, if not set it.{{{1
-LoadPreferences BROWSER

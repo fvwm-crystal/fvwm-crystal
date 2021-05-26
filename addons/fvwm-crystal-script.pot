@@ -9,8 +9,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: fvwm-crystal 3.6.2\n"
-"POT-Creation-Date: 2020-02-26 16:43+0100\n"
+"Project-Id-Version: fvwm-crystal 3.7.2\n"
+"POT-Creation-Date: 2021-05-27 01:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,15 +33,15 @@ msgid "File"
 msgstr ""
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:122
-#: ../fvwm/scripts/PrefVars/PrefVars:614
+#: ../fvwm/scripts/PrefVars/PrefVars:574
 msgid "Help"
 msgstr ""
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:141
-#: ../fvwm/scripts/PrefVars/PrefVars:273
-#: ../fvwm/scripts/PrefVars/PrefVars:445
-#: ../fvwm/scripts/PrefVars/PrefVars:630
-#: ../fvwm/scripts/PrefVars/PrefVars:815
+#: ../fvwm/scripts/PrefVars/PrefVars:233
+#: ../fvwm/scripts/PrefVars/PrefVars:405
+#: ../fvwm/scripts/PrefVars/PrefVars:590
+#: ../fvwm/scripts/PrefVars/PrefVars:775
 msgid "Add line"
 msgstr ""
 
@@ -52,28 +52,27 @@ msgstr ""
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:510
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:620
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:730
-#: ../fvwm/scripts/PrefVars/PrefVars:120
-#: ../fvwm/scripts/PrefVars/PrefVars:187
-#: ../fvwm/scripts/PrefVars/PrefVars:294
-#: ../fvwm/scripts/PrefVars/PrefVars:466
-#: ../fvwm/scripts/PrefVars/PrefVars:651
-#: ../fvwm/scripts/PrefVars/PrefVars:836
+#: ../fvwm/scripts/PrefVars/PrefVars:147
+#: ../fvwm/scripts/PrefVars/PrefVars:254
+#: ../fvwm/scripts/PrefVars/PrefVars:426
+#: ../fvwm/scripts/PrefVars/PrefVars:611
+#: ../fvwm/scripts/PrefVars/PrefVars:796
 msgid "Save"
 msgstr ""
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:200
-#: ../fvwm/scripts/PrefVars/PrefVars:334
-#: ../fvwm/scripts/PrefVars/PrefVars:504
-#: ../fvwm/scripts/PrefVars/PrefVars:689
-#: ../fvwm/scripts/PrefVars/PrefVars:874
+#: ../fvwm/scripts/PrefVars/PrefVars:294
+#: ../fvwm/scripts/PrefVars/PrefVars:464
+#: ../fvwm/scripts/PrefVars/PrefVars:649
+#: ../fvwm/scripts/PrefVars/PrefVars:834
 msgid "Remove"
 msgstr ""
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:220
-#: ../fvwm/scripts/PrefVars/PrefVars:354
-#: ../fvwm/scripts/PrefVars/PrefVars:524
-#: ../fvwm/scripts/PrefVars/PrefVars:709
-#: ../fvwm/scripts/PrefVars/PrefVars:894
+#: ../fvwm/scripts/PrefVars/PrefVars:314
+#: ../fvwm/scripts/PrefVars/PrefVars:484
+#: ../fvwm/scripts/PrefVars/PrefVars:669
+#: ../fvwm/scripts/PrefVars/PrefVars:854
 msgid "Update"
 msgstr ""
 
@@ -135,15 +134,15 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: ../fvwm/scripts/FontSelector/FontSelector:857
+#: ../fvwm/scripts/FontSelector/FontSelector:858
 msgid ". Panel Font"
 msgstr ""
 
-#: ../fvwm/scripts/FontSelector/FontSelector:885
+#: ../fvwm/scripts/FontSelector/FontSelector:886
 msgid ". Title Font"
 msgstr ""
 
-#: ../fvwm/scripts/FontSelector/FontSelector:914
+#: ../fvwm/scripts/FontSelector/FontSelector:915
 msgid ". Menu Font"
 msgstr ""
 
@@ -151,68 +150,68 @@ msgstr ""
 msgid "Add to playlist"
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:98
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:119
 msgid " Folders "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:112
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:133
 msgid " Songs "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:126
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:147
 msgid " Close "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:141
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:162
 msgid " Dir: "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:155
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:121
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:176
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:140
 msgid " Up "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:181
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:201
 msgid " Add dir "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:204
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:224
 msgid " Song: "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:218
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:238
 msgid " Add "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:27
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:46
 msgid "MPD Playlist Editor"
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:104
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:123
 msgid "Move song:"
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:138
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:157
 msgid " Down "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:155
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:174
 msgid " Add song "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:177
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:196
 msgid " Remove song "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:191
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:210
 msgid " File|Quit "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:207
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:226
 msgid " Options|Toggle repeat|Toggle random|Crop|Clear "
 msgstr ""
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:229
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:248
 msgid " Database|Update "
 msgstr ""
 
@@ -256,37 +255,37 @@ msgstr ""
 msgid "FVWM-Crystal Variables Editor"
 msgstr ""
 
-#: ../fvwm/scripts/PrefVars/PrefVars:104
-msgid "Browser"
+#: ../fvwm/scripts/PrefVars/PrefVars:80
+msgid "Custom fvwm-crystal preferences"
 msgstr ""
 
-#: ../fvwm/scripts/PrefVars/PrefVars:171
+#: ../fvwm/scripts/PrefVars/PrefVars:131
 msgid "Editor"
 msgstr ""
 
-#: ../fvwm/scripts/PrefVars/PrefVars:242
+#: ../fvwm/scripts/PrefVars/PrefVars:202
 msgid "Desktop"
 msgstr ""
 
-#: ../fvwm/scripts/PrefVars/PrefVars:257
-#: ../fvwm/scripts/PrefVars/PrefVars:429
-#: ../fvwm/scripts/PrefVars/PrefVars:599
+#: ../fvwm/scripts/PrefVars/PrefVars:217
+#: ../fvwm/scripts/PrefVars/PrefVars:389
+#: ../fvwm/scripts/PrefVars/PrefVars:559
 msgid "Directories"
 msgstr ""
 
-#: ../fvwm/scripts/PrefVars/PrefVars:414
+#: ../fvwm/scripts/PrefVars/PrefVars:374
 msgid "Icons"
 msgstr ""
 
-#: ../fvwm/scripts/PrefVars/PrefVars:584
+#: ../fvwm/scripts/PrefVars/PrefVars:544
 msgid "Media"
 msgstr ""
 
-#: ../fvwm/scripts/PrefVars/PrefVars:769
+#: ../fvwm/scripts/PrefVars/PrefVars:729
 msgid "Full screen"
 msgstr ""
 
-#: ../fvwm/scripts/PrefVars/PrefVars:784
+#: ../fvwm/scripts/PrefVars/PrefVars:744
 msgid "Applications"
 msgstr ""
 

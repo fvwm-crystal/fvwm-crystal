@@ -9,8 +9,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: fvwm-crystal 3.6.2\n"
-"POT-Creation-Date: 2020-02-26 16:43+0100\n"
+"Project-Id-Version: fvwm-crystal 3.7.2\n"
+"POT-Creation-Date: 2021-05-27 01:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -687,6 +687,14 @@ msgstr ""
 msgid "Shooters"
 msgstr ""
 
+#: ../fvwm/Applications/20~Games/Simulation/
+msgid "Xsnow"
+msgstr ""
+
+#: ../fvwm/Applications/20~Games/Simulation/
+msgid "xPenguins"
+msgstr ""
+
 #: ../fvwm/Applications/Development/Electronics/
 msgid "Antennas"
 msgstr ""
@@ -725,7 +733,6 @@ msgid "DJ"
 msgstr ""
 
 #: ../fvwm/Applications/Multimedia/Audio/Engineering/
-#: ../fvwm/Applications/Multimedia/Audio/Tuners/
 msgid "Jack"
 msgstr ""
 
@@ -789,6 +796,10 @@ msgstr ""
 msgid "Vu-Meters"
 msgstr ""
 
+#: ../fvwm/Applications/Multimedia/Audio/Vu-Meters/
+msgid "JACK Audio Meter Collection"
+msgstr ""
+
 #: ../fvwm/Applications/Multimedia/Video/
 msgid "Video Effects"
 msgstr ""
@@ -810,7 +821,7 @@ msgid "OpenOffice.org"
 msgstr ""
 
 #: ../fvwm/components/apps/DesktopIcons:49
-#: ../fvwm/scripts/desktop_manager:180
+#: ../fvwm/scripts/desktop_manager:197
 msgid "Umount"
 msgstr ""
 
@@ -871,7 +882,6 @@ msgstr ""
 
 #: ../fvwm/components/apps/DesktopIcons:115
 #: ../fvwm/components/apps/DesktopIcons:136
-#: ../fvwm/components/functions/Feedback:75
 #: ../fvwm/components/functions/Music-audacious:57
 #: ../fvwm/components/functions/Music-mpd:79
 #: ../fvwm/components/functions/Music-xmms2:85
@@ -1561,14 +1571,6 @@ msgstr ""
 
 #: ../fvwm/components/functions/Feedback:41
 msgid "Go to the fvwm-crystal IRC channel"
-msgstr ""
-
-#: ../fvwm/components/functions/Feedback:69
-msgid "Default browser"
-msgstr ""
-
-#: ../fvwm/components/functions/Feedback:70
-msgid "Enter the default browser"
 msgstr ""
 
 #: ../fvwm/components/functions/Fvwm-Crystal-Menu:36
@@ -3092,31 +3094,31 @@ msgstr ""
 msgid "Button model"
 msgstr ""
 
-#: ../fvwm/scripts/desktop_manager:50
+#: ../fvwm/scripts/desktop_manager:66
 msgid "Mount"
 msgstr ""
 
-#: ../fvwm/scripts/desktop_manager:54
+#: ../fvwm/scripts/desktop_manager:70
 msgid "XDG user directories"
 msgstr ""
 
-#: ../fvwm/scripts/desktop_manager:55
+#: ../fvwm/scripts/desktop_manager:71
 msgid "Mounted partitions"
 msgstr ""
 
-#: ../fvwm/scripts/desktop_manager:56
+#: ../fvwm/scripts/desktop_manager:72
 msgid "Show directories"
 msgstr ""
 
-#: ../fvwm/scripts/desktop_manager:57
+#: ../fvwm/scripts/desktop_manager:73
 msgid "Actions"
 msgstr ""
 
-#: ../fvwm/scripts/desktop_manager:58
+#: ../fvwm/scripts/desktop_manager:74
 msgid "Emplacement"
 msgstr ""
 
-#: ../fvwm/scripts/desktop_manager:59
+#: ../fvwm/scripts/desktop_manager:75
 msgid "Show on top with panels"
 msgstr ""
 

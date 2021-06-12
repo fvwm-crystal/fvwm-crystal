@@ -967,9 +967,6 @@ gen_category() {
 		done
 	else
 		case "$2" in
-			/usr/share/gnome/apps*)
-				CATNAME="$(echo ${2} | sed -e 's:/usr/share/gnome/apps::' -e 's:/: :g')"
-				;;
 			*)
 				CATNAME=""
 				;;

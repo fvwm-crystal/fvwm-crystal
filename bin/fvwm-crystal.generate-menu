@@ -967,17 +967,8 @@ gen_category() {
 		done
 	else
 		case "$2" in
-			/usr/share/applnk*)
-				CATNAME="$(echo ${2} | sed -e 's:/usr/share/applnk::' -e 's:/: :g')"
-				;;
 			/usr/share/gnome/apps*)
 				CATNAME="$(echo ${2} | sed -e 's:/usr/share/gnome/apps::' -e 's:/: :g')"
-				;;
-			/usr/kde/3.5/share/applnk*)
-				CATNAME="$(echo ${2} | sed -e 's:/usr/kde/3.5/share/applnk::' -e 's:/: :g')"
-				;;
-			/usr/kde/3.5/share/apps/kappfinder/apps*)
-				CATNAME="$(echo ${2} | sed -e 's:/usr/kde/3.5/share/apps/kappfinder/apps::' -e 's:/: :g')"
 				;;
 			*)
 				CATNAME=""

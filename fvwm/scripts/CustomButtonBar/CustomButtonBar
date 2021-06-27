@@ -559,7 +559,7 @@ if [ "$9" != "off" ]; then
     echo "AddToFunc FvwmPagerWindow" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
     echo "+ I All (FvwmPager) Close" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
     echo "+ I DestroyModuleConfig FvwmPager: *" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
-    echo "+ I *FvwmPager: Geometry +100000+100000" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
+    echo "+ I *FvwmPager: Geometry $((${4}*${10}))x${4}+100000+100000" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
     echo "+ I *FvwmPager: MiniIcons" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
     echo "+ I *FvwmPager: Font none" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"
     echo "+ I *FvwmPager: WindowBorderWidth 1" >> "${FVWM_USERDIR}/tmp/CustomButtonBar"

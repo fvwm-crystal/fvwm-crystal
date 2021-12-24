@@ -1,3 +1,8 @@
+* 2021-07-13 Merge branch &#39;pinotree-legacy-desktop-dirs&#39; into main Drop support for outfated desktop directories.  
+* 2021-07-13 Merge branch &#39;legacy-desktop-dirs&#39; of https://github.com/pinotree/fvwm-crystal into pinotree-legacy-desktop-dirs Drop support for outdated desktop directories.  
+* 2021-06-27 Fix FvwmPager X11 geometry.  
+* 2021-06-12 Drop support for old GNOME dirs  
+* 2021-06-12 Drop support for old KDE dirs  
 * 2021-05-27 Update version to 3.7.2  
 * 2021-05-27 Remove BROWSER preference.  
 * 2021-05-27 Remove commented BROWSER line.  

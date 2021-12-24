@@ -56,13 +56,17 @@ echo "Scanning $1 for subdirectories."
 # scan for audio files
 # added ac3, 
 scanaudiomedia() {
-find -maxdepth 1 -regex ".*.[aA][cC][3]\|.*.[aA][pP][eE]\|.*.[fF][lL][aA][cC]\|.*.[mM][pP][3]\|.*.[mM][pP][cC]\|.*.[nN][rR][gG]\|.*.[oO][gG][gG]\|.*.[tT][sS]\|.*.[tT][tT][aA]\|.*.[wW][aA][vV]\|.*.[wW][mM][aA]\|.*.[wW][vV]"|sort
+# both commands are fine, use the one that is easier to read
+find -maxdepth 1 | grep -i  "\.ac3\|\.ape\|\.flac\|\.mp3\|\.mpc\|\.nrg\|\.ogg\|\.ts\|\.tta\|\.wav\|\.wma\|\.wv" | sort
+#find -maxdepth 1 -regex ".*[.][aA][cC][3]\|.*[.][aA][pP][eE]\|.*[.][fF][lL][aA][cC]\|.*[.][mM][pP][3]\|.*[.][mM][pP][cC]\|.*[.][nN][rR][gG]\|.*[.][oO][gG][gG]\|.*[.][tT][sS]\|.*[.][tT][tT][aA]\|.*[.][wW][aA][vV]\|.*[.][wW][mM][aA]\|.*[.][wW][vV]"|sort
 }
 
 # scan for video files
 # added flv, ts
 scanvideomedia() {
-find -maxdepth 1 -regex ".*.[aA][sS][fF]\|.*.[aA][vV][iI]\|.*.[dD][iI][vV][xX]\|.*.[fF][lL][vV]\|.*.[iI][mM][gG]\|.*.[mM][2][tT]\|.*.[mM][kK][vV]\|.*.[mM][oO][vV]\|.*.[mM][pP][4]\|.*.[mM][pP][eE][gG]\|.*.[mM][pP][gG]\|.*.[nN][rR][gG]\|.*.[oO][gG][mM]\|.*.[rR][aA][mM]\|.*.[rR][mM]\|.*.[rR][mM][vV][bB]\|.*.[tT][sS]\|.*.[wW][eE][bB][mM]\|.*.[vV][oO][bB]\|.*.[wW][mM][vV]"|sort
+# both commands are fine, use the one that is easier to read
+find -maxdepth 1 | grep -i "\.asf\|\.avi\|\.divx\|\.flv\|\.img\|\.m2t\|\.mkv\|\.mov\|\.mp4\|\.mpeg\|\.mpg\|\.nrg\|\.ogm\|\.ram\|\.rm\|\.rmvb\|\.ts\|\.webm\|\.vob\|\.wmv"|sort
+#find -maxdepth 1 -regex ".*[.][aA][sS][fF]\|.*[.][aA][vV][iI]\|.*[.][dD][iI][vV][xX]\|.*[.][fF][lL][vV]\|.*[.][iI][mM][gG]\|.*[.][mM][2][tT]\|.*[.][mM][kK][vV]\|.*[.][mM][oO][vV]\|.*[.][mM][pP][4]\|.*[.][mM][pP][eE][gG]\|.*[.][mM][pP][gG]\|.*[.][nN][rR][gG]\|.*[.][oO][gG][mM]\|.*[.][rR][aA][mM]\|.*[.][rR][mM]\|.*[.][rR][mM][vV][bB]\|.*[.][tT][sS]\|.*[.][wW][eE][bB][mM]\|.*[.][vV][oO][bB]\|.*[.][wW][mM][vV]"|sort
 }
 
 # write the audio files into the playlist
@@ -79,14 +83,14 @@ if [[ `scanaudiomedia` != "" ]]; then
   else
     # make sub-dirs
     mkdir -p ${subdir}
-    echo -n "" >> "${subdir}/`pwd| sed -e \"s,$1,,\"| sed -e 's,/,,'| sed -e \"s,',_,g\"|sed -e 's,[/"\*\^?\$],_,g'`".m3u
+    [[ -d "${subdir}" ]] && echo -n "" >> "${subdir}/`pwd| sed -e \"s,$1,,\"| sed -e 's,/,,'| sed -e \"s,',_,g\"|sed -e 's,[/"\*\^?\$],_,g'`".m3u 2>/dev/null
   fi
   # Append the audio files into the playlist
   while read line; do
   if [[ "$1" == `pwd` ]]; then
     echo "$(pwd)${line}" >> "${AudioPlaylists}/`echo \"$1\"| sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`.m3u"
   else
-    echo "$(pwd)${line}" >> "${subdir}/`pwd| sed -e \"s,$1,,\"|sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`".m3u
+    [[ -d "${subdir}" ]] && echo "$(pwd)${line}" >> "${subdir}/`pwd| sed -e \"s,$1,,\"|sed -e 's,/,,'| sed -e \"s,',_,g\"| sed -e 's,[/"\*\^?\$],_,g'`".m3u
   fi
   done <${MediaList}
   rm ${MediaList}

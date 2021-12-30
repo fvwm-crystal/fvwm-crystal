@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec jkmeter -C -type k12 -name "12 dB" $@ 2>/dev/null

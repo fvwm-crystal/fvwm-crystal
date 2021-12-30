@@ -1,8 +1,22 @@
+This changelog is auto-generated using git-changelog.
+See https://github.com/lkdjiin/git-changelog for more information.
+
+* 2021-12-24 make all playlists: fix in scan[audio|video]media commands to not get playlists with non audio|video  files, change these commands for a more readable and easier to maintain form; writeaudio: add test for subdir in order to remove some warnings.  
 * 2021-07-13 Merge branch &#39;pinotree-legacy-desktop-dirs&#39; into main Drop support for outfated desktop directories.  
 * 2021-07-13 Merge branch &#39;legacy-desktop-dirs&#39; of https://github.com/pinotree/fvwm-crystal into pinotree-legacy-desktop-dirs Drop support for outdated desktop directories.  
 * 2021-06-27 Fix FvwmPager X11 geometry.  
 * 2021-06-12 Drop support for old GNOME dirs  
+  Drop support for a legacy desktop location that GNOME has not been using
+  for many many years now.
 * 2021-06-12 Drop support for old KDE dirs  
+  applnk was the old pre-KDE 3 location for .kdelnk files. It has been
+  long deprecated in favour of XDG locations for desktop files, so the
+  support for these directories can be safely removed.
+  Drop also an old internal directory of kappfinder, which is not needed
+  anymore either.
+* 2021-05-27 Update French locale and pot files.  
+* 2021-05-27 Fix copying of LICENSE file in dist-minimal.  
+* 2021-05-27 Add xdg-open dependency into INSTALL.  
 * 2021-05-27 Update version to 3.7.2  
 * 2021-05-27 Remove BROWSER preference.  
 * 2021-05-27 Remove commented BROWSER line.  
@@ -13,21 +27,10 @@
 * 2021-01-04 Automatize the ChangeLog process.  
 * 2021-01-01 Add a few words about the network protocols supported by the fvwm-crystal desktop icons manager.  
 * 2021-01-01 Add http and https mount support for protocols like webdav. Tested with webdav and davfs2.     davfs2 must be fully configured including the credentials into its &#39;secrets&#39; file.  
-* 2021-01-01 Add a few words about the network protocols supported by the fvwm-crystal desktop icons manager.
-* 2021-01-01 Add http and https mount support for protocols like webdav. Tested with webdav and davfs2.
-    davfs2 must be fully configured including the credentials into its &#39;secrets&#39; file.
-
-* 2020-12-20 Makefile 	- fix README.md installation
-* 2020-12-20 INSTALL 	- Update fvwm3 dependency to >=1.0.2
-    - Fix the text for outdated python2 depend to be actual and future.
-* 2020-12-20 fvwm/scripts/DesktopCheckMounts
-    - fix portability using mount instead of /proc/mounts
-    - add fvwm3 support
-* 2020-12-20 fvwm/config:	-add infostore variable CRYSTAL_START to be able to control
-    if a given function must be started or not by StartFunction at Start/Restart.
-    - fix FvwmMfl socket with FVWMMFL-SOCKET="$[FVWM_USERDIR]/fvwm_mfl_$[DISPLAY]".
-* 2020-12-20 bin/fvwm-crystal: 	- fix FVWM*_LOGFILE test for use with dash
-    - fix removing of temporary files to not freeze the cleanup function
-
-* 2020-12-16 Initial fvwm-crystal commit on github
-* 2020-12-16 Initial commit
+* 2020-12-20 Makefile 	- fix README.md installation  
+* 2020-12-20 INSTALL 	- Update fvwm3 dependency to &gt;=1.0.2 	- Fix the text for outdated python2 depend to be actual and future.  
+* 2020-12-20 fvwm/scripts/DesktopCheckMounts 	- fix portability using mount instead of /proc/mounts 	- add fvwm3 support  
+* 2020-12-20 fvwm/config:	-add infostore variable CRYSTAL_START to be able to control if a given function must be started or not by StartFunction at Start/Restart 	- fix FvwmMfl socket with FVWMMFL-SOCKET=&quot;$[FVWM_USERDIR]/fvwm_mfl_$[DISPLAY].  
+* 2020-12-20 bin/fvwm-crystal: 	- fix FVWM*_LOGFILE test for use with dash 	- fix removing of temporary files to not freeze the cleanup function  
+* 2020-12-16 Initial fvwm-crystal commit on github  
+* 2020-12-16 Initial commit  

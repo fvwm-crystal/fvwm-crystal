@@ -1,0 +1,103 @@
+#!/bin/bash
+# Generate iptv playlists for FVWM-Crystal
+#
+# Version:	1.0.0
+# License: 	GPL 3+
+#
+# Author:	Dominuque Michel <dominique.c.michel@users.sourceforge.net>
+#
+# Description:
+# Download the IPTV playlists from iptv-org and generate the playlists
+# into $FVWMUSERDDIR/Playlists/IPTV. For use with mplayer for now.
+#
+# Syntax: just run it without argument when inside fvwm-crystal.
+
+#DEBUG_SCRIPT="echo"
+## Some checks {{{1
+has() {
+	case "$(command -v "$1" 2>/dev/null)" in
+		alias*|"") return 1
+	esac
+}
+
+# Print error message and exit.
+_errx() {
+	>&2 printf '\033[31;1merror :\033[m %s\n' "$1"
+	exit 1
+}
+
+# Check if the needed dependencies are installed
+for prog in sed grep wget; do
+	! has "$prog" && dependencies_not_installed="${dependencies_not_installed}${prog}, "
+done
+[ -n "${dependencies_not_installed}" ] && _errx "Missing dependencies, please install: ${dependencies_not_installed%??}."
+
+## variables {{{1
+WGET_CMD="wget -O"
+IPTV_ROOT_URI="https://iptv-org.github.io/iptv/"
+IPTV_URI_SUFFIX=".m3u"
+
+IPTV_CAT_DIR='categories'
+IPTV_TMP_DIR="${FVWM_USERDIR}"/tmp/iptv
+IPTV_PLAYLISTS_DIR="${FVWM_USERDIR}"/Playlists/IPTV
+
+source "${FVWM_CONFIGDIR}"/preferences/IPTV
+source "${FVWM_USERDIR}"/preferences/IPTV_CATEGORIES_PLAYLISTS
+# ${DEBUG_SCRIPT} IPTV_CAT ${IPTV_CATEGORIES_PLAYLISTS}
+
+# For an up-to-date list, see https://iptv-org.github.io/iptv/
+# We don't want the xxx category here, because otherwise it is
+# too easy to fool that script.
+IPTV_REF_CATEGORIES=( animation auto business classic comedy cooking culture
+	documentary education entertainment family general kids legislative
+	lifestyle local movies music news outdoor relax religious science
+	series shop sports travel weather other )
+# ${DEBUG_SCRIPT} IPTV_REF ${IPTV_REF_CATEGORIES[@]}
+
+## Set the wanted categoriess and download them {{{1
+for i in "${IPTV_REF_CATEGORIES[@]}" ; do
+	if [[ "$(echo ${IPTV_CATEGORIES_PLAYLISTS} | grep $i)" ]] ; then
+		IPTV_TMP_CAT="${IPTV_TMP_CAT} $i"
+	fi
+done
+# ${DEBUG_SCRIPT} TMP_CAT ${IPTV_TMP_CAT}
+
+IPTV_CAT_PLAYLISTS=( ${IPTV_TMP_CAT} ${IPTV_XXX_PLAYLISTS} )
+# ${DEBUG_SCRIPT} IPTV_CAT_PLAYLISTS ${IPTV_CAT_PLAYLISTS[@]}
+${DEBUG_SCRIPT} mkdir -p "${IPTV_TMP_DIR}"
+
+for i in "${IPTV_CAT_PLAYLISTS[@]}"; do
+	${DEBUG_SCRIPT} ${WGET_CMD} "${IPTV_TMP_DIR}/${i}${IPTV_URI_SUFFIX}" "${IPTV_ROOT_URI}${IPTV_CAT_DIR}/${i}${IPTV_URI_SUFFIX}"
+done
+
+## Do something {{{1
+write_playlists() {
+while read myline ; do
+	if [[ -n "${myline}" ]] ; then
+		# We ignore the lines that begin with #EXTM3U and #EXTVLCOPT for now
+		if [[ ! -n "$(echo ${myline} | grep -e ^#EXTM3U -e ^#EXTVLCOPT)" ]] ; then
+			if [[ -n "$(echo ${myline} | grep -e ^#EXTINF)" ]] ; then
+				TITLE="$(echo ${myline} | sed -e "s:^.*group-title=\"\(.*\)\",\(.*\):\2:" -e "s:/:-:g")"
+				#echo TITLE = $TITLE
+				GROUPTITLE="$(echo ${myline} | sed "s:^.*group-title=\"\(.*\)\",\(.*\):\1:")"
+				mkdir -p "${IPTV_PLAYLISTS_DIR}/${GROUPTITLE}"
+				# We don't want a too long file name, so keep only the first language
+				LANGUAGE="$(echo ${myline} | sed -e "s:^.*tvg-language=\"\(.*\)\" tvg-logo.*:\1:" -e "s:;.*::")"
+				#echo LANGUAGE = $LANGUAGE
+				COUNTRY="$(echo ${myline} | sed "s:^.*tvg-country=\"\(.*\)\" tvg-language.*:\1:")"
+				#echo COUNTRY = $COUNTRY
+				myfile="${IPTV_PLAYLISTS_DIR}/${GROUPTITLE}/${LANGUAGE}_${COUNTRY}_${TITLE}"
+			else
+				echo "ffmpeg://${myline}" > "${myfile}"
+				echo "Playlist written in ${myfile}"
+			fi
+		fi
+	fi
+done < ${1}
+}
+
+## Main function {{{1
+${DEBUG_SCRIPT} rm -rf "${IPTV_PLAYLISTS_DIR}"
+for i in "${IPTV_CAT_PLAYLISTS[@]}"; do
+	${DEBUG_SCRIPT} write_playlists "${IPTV_TMP_DIR}/${i}${IPTV_URI_SUFFIX}"
+done

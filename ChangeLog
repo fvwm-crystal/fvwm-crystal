@@ -1,6 +1,4 @@
-This changelog is auto-generated using git-changelog.
-See https://github.com/lkdjiin/git-changelog for more information.
-
+* 2021-12-30 Add jKmetter k12 in application menu  
 * 2021-12-24 make all playlists: fix in scan[audio|video]media commands to not get playlists with non audio|video  files, change these commands for a more readable and easier to maintain form; writeaudio: add test for subdir in order to remove some warnings.  
 * 2021-07-13 Merge branch &#39;pinotree-legacy-desktop-dirs&#39; into main Drop support for outfated desktop directories.  
 * 2021-07-13 Merge branch &#39;legacy-desktop-dirs&#39; of https://github.com/pinotree/fvwm-crystal into pinotree-legacy-desktop-dirs Drop support for outdated desktop directories.  

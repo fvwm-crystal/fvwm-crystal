@@ -1,3 +1,4 @@
 # We want a setting for the XXX category that only root can change.
-# Uncomment the following line if you want the xxx category.
+# Reverse the comment if you want the xxx IPTV playlist category.
 # IPTV_XXX_PLAYLISTS="xxx"
+IPTV_XXX_PLAYLISTS=""

@@ -1,3 +1,4 @@
+* 2022-01-15 add network check  
 * 2022-01-14 Add playlist script for IPTV support with mplayer  
 * 2021-12-30 Add jKmetter k12 in application menu  
 * 2021-12-24 make all playlists: fix in scan[audio|video]media commands to not get playlists with non audio|video  files, change these commands for a more readable and easier to maintain form; writeaudio: add test for subdir in order to remove some warnings.  

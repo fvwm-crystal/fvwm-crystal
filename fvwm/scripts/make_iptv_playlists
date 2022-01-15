@@ -86,14 +86,15 @@ while read myline ; do
 				TITLE="$(echo ${myline} | sed -e "s:^.*group-title=\"\(.*\)\",\(.*\):\2:" -e "s:/:-:g")"
 				#echo TITLE = $TITLE
 				GROUPTITLE="$(echo ${myline} | sed "s:^.*group-title=\"\(.*\)\",\(.*\):\1:")"
-				mkdir -p "${IPTV_PLAYLISTS_DIR}/${GROUPTITLE}"
 				# We don't want a too long file name, so keep only the first language
 				LANGUAGE="$(echo ${myline} | sed -e "s:^.*tvg-language=\"\(.*\)\" tvg-logo.*:\1:" -e "s:;.*::")"
 				#echo LANGUAGE = $LANGUAGE
 				COUNTRY="$(echo ${myline} | sed "s:^.*tvg-country=\"\(.*\)\" tvg-language.*:\1:")"
 				#echo COUNTRY = $COUNTRY
-				myfile="${IPTV_PLAYLISTS_DIR}/${GROUPTITLE}/${LANGUAGE}_${COUNTRY}_${TITLE}"
+				mydir="${IPTV_PLAYLISTS_DIR}/${GROUPTITLE}/${LANGUAGE}"
+				myfile="${mydir}/${COUNTRY}_${TITLE}${IPTV_URI_SUFFIX}"
 			else
+				mkdir -p "${mydir}"
 				echo "ffmpeg://${myline}" > "${myfile}"
 				echo "Playlist written in ${myfile}"
 			fi

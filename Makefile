@@ -12,12 +12,13 @@ all:
 
 install: correctpath install-doc
 	@echo Installing fvwm-crystal $(RELEASE) to $(prefix)
-	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm $(DESTDIR)$(prefix)/share/xsessions $(DESTDIR)/etc/X11/Sessions $(DESTDIR)/etc/sudoers.d
+	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm $(DESTDIR)$(prefix)/share/xsessions $(DESTDIR)/etc/X11/Sessions $(DESTDIR)/etc/X11/fvwm/fvwm-crystal/preferences $(DESTDIR)/etc/sudoers.d
 
 	install -m 755 bin/fvwm-crystal.apps bin/fvwm-crystal.wallpaper bin/fvwm-crystal bin/fvwm-crystal.infoline bin/fvwm-crystal.mplayer-wrapper bin/fvwm-crystal.play-movies bin/fvwm-crystal.videomodeswitch- bin/fvwm-crystal.videomodeswitch+ $(DESTDIR)$(prefix)/bin
 	install -m 755 tmp/fvwm-crystal.generate-menu $(DESTDIR)$(prefix)/bin
 	cp -d -r fvwm/* $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm/
 	cp tmp/fvwm-crystal $(DESTDIR)/etc/X11/Sessions
+	cp config/IPTV $(DESTDIR)/etc/X11/fvwm/fvwm-crystal/preferences
 	cp shared/fvwm-crystal.desktop $(DESTDIR)$(prefix)/share/xsessions
 	cp shared/fvwm-crystal.sudoers.d $(DESTDIR)/etc/sudoers.d/fvwm-crystal
 	chmod 440 $(DESTDIR)/etc/sudoers.d/fvwm-crystal
@@ -188,6 +189,10 @@ dist-minimal:
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/fvwm/preferences"
 	find fvwm/preferences -maxdepth 1 ! -name "." ! -name ".*" ! -name "preferences" \
 		-exec cp -R -P {} "fvwm-crystal-minimal-$(RELEASE)/fvwm/preferences/" \;
+	# Copy fvwm/config/
+	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/config"
+	find config -maxdepth 1 ! -name "." ! -name ".*" ! -name "config" \
+		-exec cp -R -P {} "fvwm-crystal-minimal-$(RELEASE)/config/" \;
 	# Copy fvwm/recipes/
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/fvwm/recipes"
 	cp -r fvwm/recipes/Default fvwm/recipes/LapRight fvwm/recipes/Light fvwm/recipes/Nebulae fvwm/recipes/TopLine fvwm-crystal-minimal-$(RELEASE)/fvwm/recipes

@@ -136,6 +136,9 @@ Requirements
   amixer (alsamixer, you will get volume control in dB with it), optional.
 - Some usual linux utilities like cut, sed and bc. (bc is needed for the speed
   control with AlsaPlayer and mplayer.)
+- wget is needed by the IPTV playlists support for mplayer. The nsfw
+  category is not enabled by default and only the root user can enable it
+  in $FVWM_CONFIGDIR.
 
 Instalation / Update
 --------------------

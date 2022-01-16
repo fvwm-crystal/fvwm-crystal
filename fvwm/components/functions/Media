@@ -99,6 +99,7 @@ AddToFunc Music-GUI
 AddToFunc Player-generator
 + I DestroyMenu recreate /Player
 + I AddToMenu /Player '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
++ I AddToMenu /Player '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.Recreate the IPTV Playlists]' Music-RecreateIPTVPlaylist
 + I AddToMenu /Player '%22x22/fvwm-crystal/audio-preferences-2.png%$[gt.Music player]' Popup /Preferences/MusicPlayer
 + I AddToMenu /Player '%22x22/fvwm-crystal/audio-preferences-2.png%$[gt.Icons in file browser]' Popup /Preferences/MediaFileMenuIcons
 + I AddToMenu /Player "" Nop
@@ -137,12 +138,7 @@ Include tmp/MenuMovieDirectory
 
 # Load Media Playlists (mplayer)
 AddToFunc FuncFvwmMenuMediaDirectory
-+ I PipeRead 'case \"$0\" in \
-	"$[infostore.AudioPlaylists]"*) myexec="fvwm-crystal.mplayer-wrapper list $[infostore.USERDIR]";; \
-	"$[infostore.UserManagedAudioPlaylists]"*) myexec="fvwm-crystal.mplayer-wrapper list $[infostore.USERDIR]";; \
-	"$[infostore.VideoPlaylists]"*) myexec="fvwm-crystal.mplayer-wrapper list $[infostore.USERDIR]";; \
-	"$[infostore.UserManagedVideoPlaylists]"*) myexec="fvwm-crystal.mplayer-wrapper list $[infostore.USERDIR]";; \
-    esac; \
++ I PipeRead 'myexec="fvwm-crystal.mplayer-wrapper list $[infostore.USERDIR]"; \
     test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
     test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
     fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \
@@ -155,15 +151,13 @@ AddToMenu /Music/LoadMediaPlaylist
 + MissingSubmenuFunction FuncFvwmMenuMediaDirectory
 + '%22x22/categories/video_movies_view.png%$[gt.Audio playlists]' Popup $[infostore.AudioPlaylists]
 + '%22x22/categories/video_movies_view.png%$[gt.Video playlists]' Popup $[infostore.VideoPlaylists]
++ '%22x22/categories/video_movies_view.png%$[gt.IPTV playlists]' Popup $[infostore.IPTVPlaylists]
 + '%22x22/categories/video_movies_view.png%$[gt.Personal audio playlists]' Popup $[infostore.UserManagedAudioPlaylists]
 + '%22x22/categories/video_movies_view.png%$[gt.Personal video playlists]' Popup $[infostore.UserManagedVideoPlaylists]
 
 # (alsaplayer, mplayer)
 AddToFunc FuncFvwmMenuRemovePlaylistDirectory
-+ I PipeRead 'case \"$0\" in \
-	"$[infostore.UserManagedAudioPlaylists]"*) myexec="rm -f";; \
-	"$[infostore.UserManagedVideoPlaylists]"*) myexec="rm -f";; \
-    esac; \
++ I PipeRead 'myexec="rm -f"; \
     test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
     test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
     fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \
@@ -179,10 +173,7 @@ AddToMenu /Music/RemovePlaylist
 
 # Copy playlist (alsaplayer, mplayer)
 AddToFunc FuncFvwmMenuCopyPlaylistDirectory
-+ I PipeRead 'case \"$0\" in \
-	"$[infostore.AudioPlaylists]"*) myexec="Exec cp -r \'%f\' \'$[infostore.UserManagedAudioPlaylists]\'";; \
-	"$[infostore.VideoPlaylists]"*) myexec="Exec cp -r \'%f\' \'$[infostore.UserManagedVideoPlaylists]\'";; \
-    esac; \
++ I PipeRead 'myexec="Exec cp -r \'%f\' \'$[infostore.UserManagedVideoPlaylists]\'"; \
     test -f \"$0\"/.icontitle.png && mytitle=\"$0\"/.icontitle.png; \
     test -f \"$0\"/.media.png && mypng=\"$0\"/.media.png; \
     fvwm-menu-directory --icon-title "${mytitle:-22x22/categories/directory.png}" \

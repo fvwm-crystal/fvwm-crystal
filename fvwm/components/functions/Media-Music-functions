@@ -10,6 +10,7 @@
 # playlists locations {{{2
 InfoStoreAdd AudioPlaylists "$[FVWM_USERDIR]/Playlists/Audio"
 InfoStoreAdd VideoPlaylists "$[FVWM_USERDIR]/Playlists/Video"
+InfoStoreAdd IPTVPlaylists "$[FVWM_USERDIR]/Playlists/IPTV"
 InfoStoreAdd UserManagedAudioPlaylists "$[HOME]/Playlists/Audio"
 InfoStoreAdd UserManagedVideoPlaylists "$[HOME]/Playlists/Video"
 
@@ -45,6 +46,10 @@ Include components/styles/MediaPlayers-Style
 DestroyFunc Music-RecreatePlaylist
 AddToFunc Music-RecreatePlaylist
 + I A $[FVWM_SYSTEMDIR]/scripts/make_all_playlists $[infostore.AudioPlaylists] $[infostore.VideoPlaylists] $[infostore.UserManagedAudioPlaylists] $[infostore.UserManagedVideoPlaylists]
+
+DestroyFunc Music-RecreateIPTVPlaylist
+AddToFunc Music-RecreateIPTVPlaylist
++ I A $[FVWM_SYSTEMDIR]/scripts/make_iptv_playlists
 
 # wrapper for cdcd
 DestroyFunc Music-cdcd

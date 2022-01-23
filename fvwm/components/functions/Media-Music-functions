@@ -46,10 +46,10 @@ Include components/styles/MediaPlayers-Style
 DestroyFunc Music-RecreatePlaylist
 AddToFunc Music-RecreatePlaylist
 + I A $[FVWM_SYSTEMDIR]/scripts/make_all_playlists $[infostore.AudioPlaylists] $[infostore.VideoPlaylists] $[infostore.UserManagedAudioPlaylists] $[infostore.UserManagedVideoPlaylists]
-
+# IPTV Playlists (mplayer)
 DestroyFunc Music-RecreateIPTVPlaylist
-AddToFunc Music-RecreateIPTVPlaylist
-+ I A $[FVWM_SYSTEMDIR]/scripts/make_iptv_playlists
+#AddToFunc Music-RecreateIPTVPlaylist
+#+ I A $[FVWM_SYSTEMDIR]/scripts/make_iptv_playlists
 
 # wrapper for cdcd
 DestroyFunc Music-cdcd
@@ -65,6 +65,7 @@ DestroyFunc Music-GUI
 # Button menu
 # (alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, quodlibet)
 DestroyFunc Player-generator
+DestroyFunc Player-generator-bottom
 # Button menu (all)
 DestroyMenu /Player
 # mouse 2 Music-GUI : allready here {{{2
@@ -142,11 +143,12 @@ DestroyFunc FuncFvwmMenuCopyPlaylistDirectory
 DestroyMenu /Music/CopyPlaylist
 # button menu (alsaplayer, audacious, mocp, mpd, mplayer, xmms2)
 DestroyFunc Playlist-generator-button
+DestroyFunc Playlist-generator-button-bottom
 DestroyMenu /Playlist-button
 DestroyMenu /Playlist
 #DestroyMenu /Playlist-bot
 DestroyFunc /Playlist-generator
-#DestroyFunc /Playlist-generator-bot
+DestroyFunc /Playlist-generator-bottom
 DestroyFunc Music-WatchDVB
 # DVD channels {{{2
 DestroyFunc Music-ChannelSet
@@ -197,6 +199,7 @@ DestroyFunc Music-Shuffle
 # button menu
 # (alsaplayer, audacious, cdcd, cmus, mocp, mpd, mplayer, mocp, mpd, mplayer, quodlibet, xmms2)
 DestroyFunc Playback-generator
+DestroyFunc Playback-generator-bottom
 # button menu (all)
 DestroyMenu /Playback
 # mouse 3 Menu /Mixer : in components/Mixer {{{2
@@ -231,6 +234,8 @@ DestroyFunc Music-Speed-Down
 DestroyFunc Music-Speed
 # button menu (alsaplayer, mplayer)
 # speed_set <0.01 to 100>
+DestroyFumc Menu-speed-generator-button
+DestroyFumc Menu-speed-generator-button-bottom
 DestroyMenu /Speed
 # mouse 4 Button-Seek-+ {{{2
 # mouse 5 Button-Seek--
@@ -240,6 +245,7 @@ DestroyFunc Button-Seek--
 # Music menus {{{1
 # main music menu (alsaplayer, audacious, mocp) {{{2
 DestroyFunc Music-generator
+DestroyFunc Music-generator-bottom
 DestroyMenu /Music
 
 # Tooltip (alsaplayer, mplayer*) {{{1

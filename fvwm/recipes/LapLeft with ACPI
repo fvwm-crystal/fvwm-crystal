@@ -27,6 +27,7 @@ Include components/functions/FocusOnGotoPage
 LoadPreferences IconsType
 
 # Media player {{{2
+InfoStoreAdd CustomBarLocation Bottom
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1
@@ -39,7 +40,7 @@ HideGeometryWindow		Move, Resize
 OpaqueMoveSize			100
 
 # Change desktop with mouse wheel
-Include components/bindings/Desktop-PageSwitch-Horizontal
+IncludeMouseBinding components/bindings/Desktop-PageSwitch-Horizontal
 
 # Pager {{{1
 All (FvwmPager) Close
@@ -180,28 +181,28 @@ Action (Mouse 3) SendToModule *FvwmScript-Clock SendString 1 1 str)
 
 # Main music button , with some menus {{{2
 *FvwmButtons-Bottom: (1x1, Size 22 22, Icon "22x22/categories/Multimedia.png", \
-	Action (Mouse 1) Menu /Player $[MenuPosition_E], \
+	Action (Mouse 1) Menu /Player $[MenuPosition_EN], \
 	Action (Mouse 2) Music-GUI, \
 	Action (Mouse 3) Music-QJackGUI, \
 	Action (Mouse 4) Change-Volume-Up $[infostore.Vol_Step], \
 	Action (Mouse 5) Change-Volume-Down $[infostore.Vol_Step])
 # music controls button {{{2
 *FvwmButtons-Bottom: (1x1, Size 22 22, Icon "22x22/fvwm-crystal/media-eject.png", \
-	Action (Mouse 1) Menu /Playlist-button $[MenuPosition_E], \
-	Action (Mouse 2) Menu /Music/Volume $[MenuPosition_E], \
-	Action (Mouse 3) Menu /Mixer $[MenuPosition_E], \
+	Action (Mouse 1) Menu /Playlist-button $[MenuPosition_EN], \
+	Action (Mouse 2) Menu /Music/Volume $[MenuPosition_EN], \
+	Action (Mouse 3) Menu /Mixer $[MenuPosition_EN], \
 	Action (Mouse 4) Music-Next, \
 	Action (Mouse 5) Music-Prev)
 # music  controls button {{{2
 *FvwmButtons-Bottom: (1x1, Size 22 22, Icon "22x22/fvwm-crystal/media-playback-start.png", \
     Action (Mouse 1) Music-Play, \
     Action (Mouse 2) Music-Pause, \
-    Action (Mouse 3) Menu /Playback $[MenuPosition_E], \
+    Action (Mouse 3) Menu /Playback $[MenuPosition_EN], \
 	Action (Mouse 4) Music-Speed-Up, \
 	Action (Mouse 5) Music-Speed-Down)
 # music controls button 4 {{{2
 *FvwmButtons-Bottom: (1x1, Size 22 22, Icon "22x22/fvwm-crystal/media-skip-forward.png", \
-	Action (Mouse 1) Menu /Speed $[MenuPosition_E], \
+	Action (Mouse 1) Menu /Speed $[MenuPosition_EN], \
 	Action (Mouse 4) Button-Seek-+, \
 	Action (Mouse 5) Button-Seek--)
 

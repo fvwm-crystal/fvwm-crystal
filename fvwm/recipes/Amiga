@@ -54,13 +54,14 @@ PipeRead 'echo InfoStoreAdd Your_Id `id -un | sed "s/\\\<./\\\u&/"`'
 Include components/functions/Window-Autohide
 Include components/functions/MakePanel
 Include components/functions/FocusOnGotoPage
-Include components/bindings/Desktop-MMB-ToggleTopBar
+IncludeMouseBinding components/bindings/Desktop-MMB-ToggleTopBar
 
 # Icons on the desktop {{{2
 # Type of icons on the desktop {{{2
 LoadPreferences IconsType
 
 # Media player {{{2
+InfoStoreAdd CustomBarLocation Bottom
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 #############################
@@ -75,7 +76,7 @@ HideGeometryWindow		Move, Resize
 OpaqueMoveSize			100
 
 ## Change desktop with mouse wheel
-Include components/bindings/Desktop-PageSwitch-Horizontal
+IncludeMouseBinding components/bindings/Desktop-PageSwitch-Horizontal
 
 ## pager's dimension
 #InfoStoreAdd Desk_Pages_X "8"
@@ -496,7 +497,7 @@ PipeRead 'echo "*FvwmButtons-Bottom: Geometry $(((($[infostore.bottom_panel_heig
 *FvwmButtons-Bottom: (1x1, Size $[infostore.bottom_panel_height] $[infostore.bottom_panel_height], Icon "22x22/fvwm-crystal/media-skip-forward.png", \
 	Action (Mouse 1) Menu /Speed $[MenuPosition_NE], \
 	Action (Mouse 4) Button-Seek-+, \
-	Action (Mouse 5) Button-Seek--) 
+	Action (Mouse 5) Button-Seek--)
 
 # Notification aera {{{2
 # Settings of stalonetray

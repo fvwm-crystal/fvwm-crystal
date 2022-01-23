@@ -20,6 +20,7 @@ InfoStoreAdd EWMH_CBB_Bottom 3
 LoadPreferences IconsType
 
 # Media player {{{2
+InfoStoreAdd CustomBarLocation Bottom
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1
@@ -66,9 +67,9 @@ PipeRead 'echo "*FvwmButtons-MainPanel: Columns $(($[vp.width]/24))"'
 
 # Diamond {{{2
 PipeRead 'echo "*FvwmButtons-MainPanel: (4x1, Size 101 $(($(($[panel_font_size]*3))/2)), Title (Side) Crystal, Icon 22x22/fvwm-crystal/fvwm-crystal.png, \
-	Action (Mouse 1) Menu /StartMenu $[MenuPosition_N], \
-	Action (Mouse 3) Menu /FVWM-Crystal $[MenuPosition_N], \
-	Action (Mouse 2) Menu /Random-Wallpaper $[MenuPosition_N])"'
+	Action (Mouse 1) Menu /StartMenu ${MenuPosition_NE}, \
+	Action (Mouse 3) Menu /FVWM-Crystal ${MenuPosition_NE}, \
+	Action (Mouse 2) Menu /Random-Wallpaper ${MenuPosition_NE})"'
 	
 # Applications menu generator {{{2
 # This creates the main "Start Menu", upside down because it's located on the
@@ -86,28 +87,28 @@ SetEnv DesktopMenu /StartMenu
 
 # Main music button, with some menus {{{2
 PipeRead 'echo "*FvwmButtons-MainPanel: (1x1, Size 22 $(($(($[panel_font_size]*3))/2)), Icon 22x22/categories/Multimedia.png, \
-	Action (Mouse 1) Menu /Player $[MenuPosition_N], \
+	Action (Mouse 1) Menu /Player ${MenuPosition_NE}, \
 	Action (Mouse 2) Music-GUI, \
 	Action (Mouse 3) Music-QJackGUI, \
 	Action (Mouse 4) Change-Volume-Up $[infostore.Vol_Step], \
 	Action (Mouse 5) Change-Volume-Down $[infostore.Vol_Step])"'
 # music controls button {{{2
 PipeRead 'echo "*FvwmButtons-MainPanel: (1x1, Size 22 $(($(($[panel_font_size]*3))/2)), Icon 22x22/fvwm-crystal/media-eject.png, \
-	Action (Mouse 1) Menu /Playlist-button $[MenuPosition_N], \
-	Action (Mouse 2) Menu /Music/Volume $[MenuPosition_N], \
-	Action (Mouse 3) Menu /Mixer $[MenuPosition_N], \
+	Action (Mouse 1) Menu /Playlist-button ${MenuPosition_NE}, \
+	Action (Mouse 2) Menu /Music/Volume ${MenuPosition_NE}, \
+	Action (Mouse 3) Menu /Mixer ${MenuPosition_NE}, \
 	Action (Mouse 4) Music-Next, \
 	Action (Mouse 5) Music-Prev)"'
 # music controls button {{{2
 PipeRead 'echo "*FvwmButtons-MainPanel: (1x1, Size 22 $(($(($[panel_font_size]*3))/2)), Icon 22x22/fvwm-crystal/media-playback-start.png, \
         Action (Mouse 1) Music-Play, \
         Action (Mouse 2) Music-Pause, \
-        Action (Mouse 3) Menu /Playback $[MenuPosition_N], \
+        Action (Mouse 3) Menu /Playback ${MenuPosition_NE}, \
 	Action (Mouse 4) Music-Speed-Up, \
 	Action (Mouse 5) Music-Speed-Down)"'
 # music controls button 4 {{{2
 PipeRead 'echo "*FvwmButtons-MainPanel: (1x1, Size 22 $(($(($[panel_font_size]*3))/2)), Icon 22x22/fvwm-crystal/media-skip-forward.png, \
-	Action (Mouse 1) Menu /Speed $[MenuPosition_N], \
+	Action (Mouse 1) Menu /Speed ${MenuPosition_NE}, \
 	Action (Mouse 4) Button-Seek-+, \
 	Action (Mouse 5) Button-Seek--)"'
 # }}}2

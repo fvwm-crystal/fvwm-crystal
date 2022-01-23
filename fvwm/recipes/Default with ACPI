@@ -19,9 +19,10 @@ InfoStoreAdd EWMH_CBB_Top 3
 InfoStoreAdd EWMH_CBB_Bottom 3
 
 # Includes and FVWM modules {{{1
-Include components/bindings/Desktop-MMB-EdgeScroll
+IncludeMouseBinding components/bindings/Desktop-MMB-EdgeScroll
 
 # Media player {{{2
+InfoStoreAdd CustomBarLocation Top
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1

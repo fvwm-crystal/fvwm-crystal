@@ -20,6 +20,7 @@ InfoStoreAdd EWMH_CBB_Bottom 3
 LoadPreferences IconsType
 
 # Media player {{{2
+InfoStoreAdd CustomBarLocation Top
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1

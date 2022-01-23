@@ -24,6 +24,7 @@ ImagePath $[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]:$[FVWM_SYSTEMDIR]/icons/
 LoadPreferences IconsType
 
 # Media player {{{2
+InfoStoreAdd CustomBarLocation Top
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1

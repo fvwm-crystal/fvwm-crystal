@@ -16,11 +16,12 @@ InfoStoreAdd EWMH_CBB_Top 3
 InfoStoreAdd EWMH_CBB_Bottom 3
 
 # Includes and FVWM modules {{{1
-Include components/bindings/Desktop-MMB-ToggleTopBar
+IncludeMouseBinding components/bindings/Desktop-MMB-ToggleTopBar
 # Type of icons on the desktop {{{2
 LoadPreferences IconsType
 
 # Media player {{{2
+InfoStoreAdd CustomBarLocation Top
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1

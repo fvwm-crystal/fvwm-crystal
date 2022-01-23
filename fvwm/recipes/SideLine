@@ -25,6 +25,7 @@ Include components/functions/Window-Autohide
 LoadPreferences IconsType
 
 # Media player {{{2
+InfoStoreAdd CustomBarLocation Bottom
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1

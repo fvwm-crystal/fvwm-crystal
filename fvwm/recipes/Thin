@@ -32,6 +32,7 @@ Include components/functions/Window-Autohide
 LoadPreferences IconsType
 
 # Media player {{{2
+InfoStoreAdd CustomBarLocation Bottom
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1
@@ -64,7 +65,7 @@ Test (EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(
 Test (!EnvMatch DefaultDesktopManager Crystal) PipeRead 'echo "Style * IconBox $(($[vp.width]-6))x$(($[vp.height]-50))+3+3, IconFill left bottom, IconGrid 30 30"'
 
 # Change desktop with mouse wheel
-Include components/bindings/Desktop-PageSwitch-Horizontal
+IncludeMouseBinding components/bindings/Desktop-PageSwitch-Horizontal
 
 # Main panel {{{1
 All (FvwmButtons-Panel) Close
@@ -118,28 +119,28 @@ PipeRead 'if [ "$[infostore.NotificationAreaManager]" = "stalonetray" ]; then ec
 # Music panel {{{1
 # Main music button, with some menus {{{2
 PipeRead 'echo "*FvwmButtons-Panel: (1x1, Size 24 $(((($[panel_font_size]*3))/2)), Icon 22x22/categories/Multimedia.png, \
-	Action (Mouse 1) Menu /Player $[MenuPosition_NE], \
+	Action (Mouse 1) Menu /Player ${MenuPosition_NE}, \
 	Action (Mouse 2) Music-GUI, \
 	Action (Mouse 3) Music-QJackGUI, \
 	Action (Mouse 4) Change-Volume-Up $[infostore.Vol_Step], \
 	Action (Mouse 5) Change-Volume-Down $[infostore.Vol_Step])"'
 # music controls button {{{2
 PipeRead 'echo "*FvwmButtons-Panel: (1x1, Size 24 $(((($[panel_font_size]*3))/2)), Icon 22x22/fvwm-crystal/media-eject.png, \
-	Action (Mouse 1) Menu /Playlist-button $[MenuPosition_NE], \
-	Action (Mouse 2) Menu /Music/Volume $[MenuPosition_NE], \
-	Action (Mouse 3) Menu /Mixer $[MenuPosition_NE], \
+	Action (Mouse 1) Menu /Playlist-button ${MenuPosition_NE}, \
+	Action (Mouse 2) Menu /Music/Volume ${MenuPosition_NE}, \
+	Action (Mouse 3) Menu /Mixer ${MenuPosition_NE}, \
 	Action (Mouse 4) Music-Next, \
 	Action (Mouse 5) Music-Prev)"'
 # music controls button {{{2
 PipeRead 'echo "*FvwmButtons-Panel: (1x1, Size 24 $(((($[panel_font_size]*3))/2)), Icon 22x22/fvwm-crystal/media-playback-start.png, \
         Action (Mouse 1) Music-Play, \
         Action (Mouse 2) Music-Pause, \
-        Action (Mouse 3) Menu /Playback $[MenuPosition_NE], \
+        Action (Mouse 3) Menu /Playback ${MenuPosition_NE}, \
 	Action (Mouse 4) Music-Speed-Up, \
 	Action (Mouse 5) Music-Speed-Down)"'
 # music controls button 4 {{{2
 PipeRead 'echo "*FvwmButtons-Panel: (1x1, Size 24 $(((($[panel_font_size]*3))/2)), Icon 22x22/fvwm-crystal/media-skip-forward.png, \
-	Action (Mouse 1) Menu /Speed $[MenuPosition_NE], \
+	Action (Mouse 1) Menu /Speed ${MenuPosition_NE}, \
 	Action (Mouse 4) Button-Seek-+, \
 	Action (Mouse 5) Button-Seek--)"'
 # }}}2

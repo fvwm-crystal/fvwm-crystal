@@ -18,9 +18,17 @@ InfoStoreAdd EWMH_CBB_Top 3
 InfoStoreAdd EWMH_CBB_Bottom 3
 
 # Includes and FVWM modules {{{1
-Include components/bindings/Desktop-MMB-EdgeScroll
+IncludeMouseBinding components/bindings/Desktop-MMB-EdgeScroll
 
 # Media player {{{2
+# That preference is used to set the order of the player menus items.
+# It must be set on a per recipe basis before to load the player.
+# If set to Bottom, the menus assumes they are called from the
+# bottom of the screen; anything else assumes they are not called
+# from the bottom of the screen.
+# For compatibility with possible future evolution, valid values are:
+#     Top, Bottom, Right and Left.
+InfoStoreAdd CustomBarLocation Top
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1

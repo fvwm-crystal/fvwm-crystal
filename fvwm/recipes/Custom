@@ -8,11 +8,15 @@ Echo Custom recipe loading from $.
 InfoStoreAdd Recipe "Custom"
 
 # Includes and FVWM modules {{{1
-Include components/bindings/Desktop-MMB-EdgeScroll
+IncludeMouseBinding components/bindings/Desktop-MMB-EdgeScroll
 # Type of icons on the desktop {{{2
 LoadPreferences IconsType
 
 # Media player {{{2
+# The player control need to know that pref for its main menu;
+# FIXME: don't work when we change the button location, the player
+# control must be reloaded.
+LoadPreferences CustomButtonBarLocation
 Include components/functions/Music-$[infostore.MusicPlayer]
 
 # Desktop settings {{{1
@@ -46,6 +50,7 @@ SetEnv DesktopMenu /Applications
 
 # The buttons {{{1
 # The magic button first
+# Its menu
 Include components/functions/CustomButtonBar-Menu
 # use one of the two following lines:
 # safer, just use it

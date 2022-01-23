@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# MPlayer wrapper for FVWM-Crystal
+
+USER_ROOT="$(id -un)"
+EXEC="/usr/bin/fvwm-crystal.mplayer-wrapper list $USER_ROOT"
+CURD="$(pwd)"
+
+for i in *
+do
+    FILETOPLAY="${CURD}/${i%%}"
+    $EXEC "${FILETOPLAY}"
+    sleep 1
+done

@@ -8,5 +8,5 @@ CURD="$(pwd)"
 
 for i in *
 do
-    $EXEC "${CURD}"/"${i%%}"
+    $EXEC \""${CURD}"/"${i%%}"\"
 done

@@ -1,0 +1,42 @@
+All (MPlayerParams-Help) Close
+DestroyModuleConfig MPlayerParams-Help: *
+*MPlayerParams-Help: Title "$[gt.MPlayer extra parameters]"
+*MPlayerParams-Help: Text "$[gt.This form let you edit mplayer's extra parameters.]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.The \"SetEnv MPlayerParams\" at the beginning is mandatory.]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.You can put any parameter you want to pass to mplayer.]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.Consult mplayer documentation to know what You are doing.]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.If you need quoting, please use \"\" only.]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.As example, for IPTV watching, you need the following:]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "SetEnv MPlayerParams \"-cache 8092\""
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.where the exact value of cache (8092 here)]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.will depend on many factors including the network connection.]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.If unsure, just click on the Cancel button.]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.For no extra parameters, just put the following line:]"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "SetEnv MPlayerParams \"\""
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Button quit " $[gt.OK] " ^[
+*MPlayerParams-Help: Command Nop
+*MPlayerParams-Help: Line center

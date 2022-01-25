@@ -1,3 +1,9 @@
+* 2022-01-25 Change disposition of music menu  
+* 2022-01-24 Add the new functions.  
+* 2022-01-24 Fix nasty echo statements to a pipe file that could block fvwm when the player is not runing. Add menu layouts for top or bottom placement.  
+* 2022-01-24 Add settings for media player menu layout; fix menus placement.  
+* 2022-01-24 Quoting and empty value fixes  
+* 2022-01-24 bin/fvwm-crystal.play-movies: fix quoting. Add function to add playlists into mplayer.  
 * 2022-01-18 Fix playing of linear streams like many IPTV streams  
 * 2022-01-16 add IPTV FVWM_CONFIGDIR preferences for nsfw category  
 * 2022-01-15 make language subcategories  

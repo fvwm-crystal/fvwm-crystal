@@ -1,3 +1,4 @@
+* 2022-01-25 Add mplayer extra parameters help form.  
 * 2022-01-25 Change disposition of music menu  
 * 2022-01-24 Add the new functions.  
 * 2022-01-24 Fix nasty echo statements to a pipe file that could block fvwm when the player is not runing. Add menu layouts for top or bottom placement.  

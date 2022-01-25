@@ -1,0 +1,179 @@
+#!/bin/bash
+# Generate a single line text editing FvwmScript for fvwm-crystal.
+# It is for editing and updating of single line preferences files.
+# We want it to look like:
+#
+#   ================================================================
+#   |                            Title                             |
+#   ================================================================
+#   | Some text to edit                                            |
+#   ================================================================
+#   |  Help  |                                     | Save | Cancel |
+#   ================================================================
+#
+# Usage: Exec exec /path/to/DoFvwmTextInputField <script file> <script titel> <pref file> <help name> <position> <some text>
+#
+# where $1 <script file> is the name of the generated FvwmScript wuth path related to FVWM_USERDIR/tmp/
+#       $2 <script title> is the title of the script window
+#       $3 <pref file> is the name of the preference file related to FVWM_USERDIR/preferences/
+#       $4 <help name> is the name of both the help FvwmForm and the file that contain it.
+#       $5 <position> is the window script Position as in `man FvwmScript`
+#       $6 <some text> is the text to edit if <pref file> don't exist or is empty;
+#          <pref file> will be (re)created whem saved.
+# followed by
+#        Script <script file>
+#        Exec exec rm -f <script file>
+# Note than the FvwmForm with the help text in <help name> must have the same name: as in 'Module FvwmForm <help name>'.
+# Don't forget the quoting. I.e.:
+#   Exec exec $[FVWM_SYSTEMDIR]/scripts/HelperScripts/DoFvwmTextInputField TestScript "MPlayer extra parameters" \
+#             MPlayerParams MPlayerParams-Help "300 300" "SetEnv MPlayerParams \"-cache 8092\""
+
+if [[ $# -ne 6 ]]; then
+	echo "Illegal number of parameters!"
+	exit 1
+fi
+
+# Initialisation {{{1
+TmpDir="${FVWM_USERDIR}/tmp/"
+if [[ -f "${FVWM_SYSTEMDIR}/preferences/$3" ]]; then
+	PrefDir="${FVWM_SYSTEMDIR}/preferences/"
+	if [[ -f "${FVWM_USERDIR}/preferences/$3" ]]; then
+		PrefDir="${FVWM_USERDIR}/preferences/"
+	fi
+else
+	PrefDir="${FVWM_USERDIR}/preferences/"
+fi
+mkdir -p ${TmpDir} ${PrefDir}
+# be sure the string is not empty
+OriginalString="`cat ${PrefDir}$3`"
+if [[ "x${OriginalString}" == "x" ]]; then
+	OriginalString="$6"
+fi
+if [[ "x${OriginalString}" == "x" ]]; then
+	OriginalString='Hello Kitty!'
+fi
+
+# The text field will have a width of at least 40 pixels more than the text initial size;
+# add 10 more pixels for the borders.
+# The minimum width must be enough for the 3 push buttons ( 3 * 120 + 4 * 5 = 380 ).
+TextWidth=$((((${#OriginalString} * ${panel_font_size} * 3) / 2) + 40))
+WidgetWidth=$((${TextWidth} + 10))
+if [[ "${TextWidth}" < "370" ]]; then
+	TextWidth=370
+fi
+if [[ "${WidgetWidth}" < "380" ]]; then
+	WidgetWidth=380
+fi
+TextHeight=$(((${panel_font_size} * 5) / 2))
+WidgetHeight=$((${TextHeight} + ${TextHeight} + 15))
+PosXW3=$((${WidgetWidth} - 125))
+PosXW2=$((${PosXW3} - 125))
+PosYW=$((${TextHeight} + 10))
+
+cat <<EOF > ${TmpDir}$1
+# Header ̣{{{1
+UseGettext {$FVWM_USERDIR/locale;fvwm-crystal-script:$FVWM_SYSTEMDIR/locale;fvwm-crystal-script:+}
+WindowTitle {$2}
+
+WindowSize ${WidgetWidth} ${WidgetHeight}
+WindowPosition $5
+Colorset	1
+# Dont change it or the text titles will be shorted: 
+Font	"xft:\$[panel_font]:pixelsize:\$[panel_font_size]:style:\$[panel_font_style]"
+
+# Initialisation {{{1
+Init
+Begin
+    Set \$FDIR = (GetOutput {echo ${FVWM_USERDIR}} 1 -1)
+    Set \$PDIR = \$FDIR {/preferences/}
+    Set \$preffile = \$PDIR {$3}
+End
+
+# Periodic Tasks {{{1
+PeriodicTasks
+Begin
+    # use a timer for flickering {{{2
+    If (RemainderOfDiv (GetTime) 1) == 0 Then
+    Begin
+	# faster if we do nothing here
+	Do Nop
+    End
+End
+
+# Quit Function {{{1
+QuitFunc
+Begin
+  Do Nop
+End
+
+# Main {{{1
+Widget 1
+Property
+    Flags NoReliefString
+    Position 5 5
+    Size ${TextWidth} ${TextHeight}
+    Type TextField
+    Title {${OriginalString}}
+Main
+Case message of
+ SingleClic :
+ Begin
+    Set \$Mstring = (GetTitle 1)
+ End
+ 1 :
+ Begin
+    Set \$Mstring = (GetTitle 1)
+ End
+End
+
+Widget 2
+Property
+ Flags NoReliefString
+ Position 5 ${PosYW}
+ Size 120 ${TextHeight}
+ Type PushButton
+ LocaleTitle {Help}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set \$cmd = {Include scripts/HelperScripts/}$4
+    Do \$cmd
+    Set \$cmd = {Module FvwmForm }$4
+    Do \$cmd
+  End
+End
+
+Widget 3
+Property
+ Flags NoReliefString
+ Position ${PosXW2} ${PosYW}
+ Size 120 ${TextHeight}
+ Type PushButton
+ LocaleTitle {Save}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Set \$Mstring = (GetTitle 1)
+    Set \$cmd = {Exec exec echo '}\$Mstring{' > }\$preffile
+    Do \$cmd
+  End
+End
+
+Widget 4
+Property
+ Flags NoReliefString
+ Position ${PosXW3} ${PosYW}
+ Size 120 ${TextHeight}
+ Type PushButton
+ LocaleTitle {Cancel}
+Main
+ Case message of
+  SingleClic :
+  Begin
+    Quit
+  End
+End
+
+EOF

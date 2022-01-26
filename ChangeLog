@@ -1,3 +1,4 @@
+* 2022-01-26 Remove not neeeded ffmpeg:// when starting mplayer with &#39;-slave 8092&#39;.  
 * 2022-01-26 Add a FvwmScript generator to edit single line preference files.  
 * 2022-01-25 Add mplayer extra parameters help form.  
 * 2022-01-25 Change disposition of music menu  

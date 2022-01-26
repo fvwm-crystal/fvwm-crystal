@@ -95,7 +95,10 @@ while read myline ; do
 				myfile="${mydir}/${COUNTRY}_${TITLE}${IPTV_URI_SUFFIX}"
 			else
 				mkdir -p "${mydir}"
-				echo "ffmpeg://${myline}" > "${myfile}"
+				# ffmpeg:// doesn't works with all channels without '-cache 8092'
+				#echo "ffmpeg://${myline}" > "${myfile}"
+				# To use just '-cache 8092' works better
+				echo "${myline}" > "${myfile}"
 				echo "Playlist written in ${myfile}"
 			fi
 		fi

@@ -96,9 +96,8 @@ while read myline ; do
 			else
 				mkdir -p "${mydir}"
 				# ffmpeg:// doesn't works with all channels without '-cache 8092'
-				#echo "ffmpeg://${myline}" > "${myfile}"
-				# To use just '-cache 8092' works better
-				echo "${myline}" > "${myfile}"
+				# '-cache 8092' works faster with some channel, but doesn't work without 'ffmpeg://' with other channels.
+				echo "ffmpeg://${myline}" > "${myfile}"
 				echo "Playlist written in ${myfile}"
 			fi
 		fi

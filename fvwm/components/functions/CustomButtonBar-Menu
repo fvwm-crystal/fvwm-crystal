@@ -185,12 +185,12 @@ AddToFunc ToggleButtonBarAuto
 
 DestroyFunc GenerateCustomButtonBar
 AddToFunc GenerateCustomButtonBar
-+ I ToggleButtonBarAuto
 + I PipeRead "$[FVWM_SYSTEMDIR]/scripts/CustomButtonBar/CustomButtonBar $[vp.width] $[vp.height] $[infostore.CustomBarLocation] $[infostore.CustomButtonSize] \
 	$[infostore.CustomButtonClock] $[infostore.CustomButtonCpuTemp] $[infostore.CustomButtonAcpiBatt] $[infostore.CustomButtonCpuFreq] \
 	$[infostore.CustomButtonPager] $[infostore.Desk_Pages_X] $[infostore.NotificationAreaManager] \
 	$[infostore.EWMH_DI_Left] $[infostore.EWMH_DI_Right] $[infostore.EWMH_DI_Top] $[infostore.EWMH_DI_Bottom]"
 + I Include tmp/CustomButtonBar
++ I ToggleButtonBarAuto
 
 All (CustomButtonBar-Dialog) Close
 DestroyModuleConfig CustomButtonBar-Dialog: *
@@ -286,10 +286,11 @@ AddToMenu /FVWM-CustomButtonMenu
 + "" Nop
 + '$[gt.Choose a menu entry to add it as a button:]
 + "" Nop
-+ '%32x32/fvwm-crystal/audio-x-generic.png%$[gt.Music]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/audio-x-generic.png%$[gt.Music]%Popup /Music
-+ "" Nop
 + '%32x32/categories/help.png%$[gt.FVWM-Crystal documentation]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/categories/help.png%$[gt.FVWM-Crystal documentation]%Popup /Developer/FVWM-Crystal-Documentation
 + "" Nop
++ '%32x32/fvwm-crystal/audio-x-generic.png%$[gt.Music]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/audio-x-generic.png%$[gt.Music]%Popup /Music
++ "" Nop
+Test (x xrandr) + '%32x32/fvwm-crystal/handles.png%$[gt.Screen resolution]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/handles.png%$[gt.Screen resolution]%Popup /ScreenResolution
 + '%32x32/fvwm-crystal/preferences-desktop-screensaver.png%$[gt.Screensaver]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/preferences-desktop-screensaver.png%$[gt.Screensaver]%Popup /Screensaver
 + '%32x32/fvwm-crystal/camera-photo.png%$[gt.Screenshot]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/camera-photo.png%$[gt.Screenshot]%Popup /Screenshot
 + "" Nop
@@ -301,7 +302,7 @@ AddToMenu /FVWM-CustomButtonMenu
 + '%32x32/fvwm-crystal/applications-development.png%$[gt.Developer menu]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/applications-development.png%$[gt.Developer menu]%Popup /Developer
 + '%32x32/fvwm-crystal/Jewel.png%$[gt.About FVWM-Crystal]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/Jewel.png%$[gt.About FVWM-Crystal]%Include components/functions/About
 #+ MissingSubmenuFunction FuncFvwmMenuXephyrDirectory
-#+ '%32x32/fvwm-crystal/gdm-xnest.png%$[gt.Nested sessions]' Popup /usr/share/xsessions
+#+ '%32x32/fvwm-crystal/gdm-xnest.png%$[gt.Nested sessions]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/gdm-xnest.png%$[gt.Nested sessions]%Popup /usr/share/xsessions
 + '%32x32/fvwm-crystal/system-log-out.png%$[gt.Exit]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/fvwm-crystal/system-log-out.png%$[gt.Exit]%Popup /Exit
 + '%32x32/fvwm-crystal/applications.png%$[gt.Applications]' Popup /CustomBarMenu
 

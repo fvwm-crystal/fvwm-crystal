@@ -30,11 +30,13 @@ AddToFunc FvwmStalonePanel
 + I *FvwmStalonePanel: (1x1, Padding 0 0, Swallow (NoClose) "stalonetray" 'Exec exec stalonetray \
 --decorations none \
 --window-type dock \
---transparent true \
+--window-layer bottom \
 --tint-color \'$[TrayerTintS]\' \
 --tint-level $[TrayerAlphaS] \
+--transparent true \
+--parent-bg true \
 --no-shrink true \
---kludges force_icons_size \
+--kludges fix_window_pos,force_icons_size \
 --icon-size $[0] \
 --geometry $[1]x$[2]$[3]$[4] \
 --icon-gravity $[5] $[infostore.SILENT]')
@@ -43,6 +45,7 @@ AddToFunc FvwmStalonePanel
 + I Style stalonetray !Title, !Borders, !Icon
 # Debug
 #+ I Echo NotifArea stalone $*
-#--parent-bg true \
+##--transparent false \
+#--parent-bg false \
 
 # vim:ft=fvwm

@@ -1,0 +1,7 @@
+# This file is sourced by fvwm-crystal_makeiptvplaylists
+
+IPTV_CATEGORIES_PLAYLISTS="animation \
+	auto business classic comedy cooking culture \
+	documentary education entertainment family general kids legislative \
+	lifestyle local movies music news outdoor relax religious science \
+	series shop sports travel weather other"

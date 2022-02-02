@@ -1,3 +1,7 @@
+* 2022-02-02 Change the default stalonetray options  
+* 2022-02-02 Some reordering  
+* 2022-02-02 Fix Fullscreen and Window-AutoFS functions with browsers for fvwm3; this should work with fvwm2 too; cleanup.  
+* 2022-01-31 Restore ffmpeg:// which is needed by some channels.  
 * 2022-01-26 Remove not neeeded ffmpeg:// when starting mplayer with &#39;-slave 8092&#39;.  
 * 2022-01-26 Add a FvwmScript generator to edit single line preference files.  
 * 2022-01-25 Add mplayer extra parameters help form.  

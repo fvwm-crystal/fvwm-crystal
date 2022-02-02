@@ -19,40 +19,45 @@
 # The other window size functions are into Window-Buttons.
 
 # Fullscreen functions {{{1
-# Workaround: We need a wrapper because of buggy browser windowss which think they know better than the window manager.
-# 	TODO: make a preference setting for which window(s) to trick.
+# "State 4" is used by Icon-Thumbnails.
+# Browser Workaround: We need a wrapper for the "modern" browser windows, because we want fvwm-crystal
+#     Fullscreen function to have a higher priority than the browwser F11 key or FS video mode.
+#     We use "State 6" for that. We must insure 2 conditions:
+#       1) When a browser window is put in FS by fvwm-crysstal, it must remain in that state or visualy fake this behavior.
+#       2) It must be no screen flickering when the browser interfere with "Maximize Fullscreen". For that,
+#          we need to manage the title bar and borders with State 6.
+# Some other software begun to use the F11 fulscreen mode, so we generalize that workaround to all wwindows,
+# which anyway is simpler to do and imply less maintenancee, than to test each individual software window.
 
+# Fullscreen {{{1
 DestroyFunc Fullscreen
 AddToFunc Fullscreen
 + I ThisWindow (!FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) ToggleFullscreen
-#+ I ThisWindow (!FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) Maximize Fullscreeen
 
 DestroyFunc PutInFSProp
 AddToFunc PutInFSProp
-# Needed by browsers on youtube
 + I WindowStyle !Borders, !Title
 + I UpdateStyles
 + I State 6 True
-+ I Schedule Periodic 1000 $[w.id] ThisWindow (State 4, !Fullscreen) Maximize FullScreen True
++ I Maximize FullScreen True
 
 DestroyFunc PutOutFSProp
 AddToFunc PutOutFSProp
 + I WindowStyle Borders, Title
 + I UpdateStyles
 + I State 6 False
-+ I Deschedule $[w.id]
++ I Maximize FullScreen False
 
 DestroyFunc ToggleFullscreen
 AddToFunc ToggleFullscreen
-+ I ThisWindow (Fullscreen, "Navigator|Firefox*|Netscape*|Vivaldi*|Konqueror*|Mozilla*|Brave-*") PutOutFSProp
-+ I KeepRc Maximize Fullscreen
-+ I TestRc (NoMatch) ThisWindow ("Navigator|Firefox*|Netscape*|Vivaldi*|Konqueror*|Mozilla*|Brave-*") PutInFSProp
++ I ThisWindow (State 6) PutOutFSProp
++ I TestRc (NoMatch) PutInFSProp
 
 # Disapear functions {{{1
 DestroyFunc Disappear
 AddToFunc Disappear
-+ I Next (CurrentPage, Fullscreen, Iconic) Disappear-Off
-+ I TestRc (NoMatch) All (CurrentPage, Fullscreen) Disappear-On
++ I Next (CurrentPage, State 6, Iconic) Disappear-Off
++ I TestRc (NoMatch) All (CurrentPage, State 6) Disappear-On
 
 DestroyFunc Disappear-On
 AddToFunc Disappear-On
@@ -70,18 +75,15 @@ AddToFunc Disappear-Off
 DestroyFunc Fullscreen-Rearrange
 AddToFunc Fullscreen-Rearrange
 + I All (CurrentPage, !Iconic, !FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) ToggleFullscreen
-#+ I All (CurrentPage, !Iconic, !FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) Maximize Fullscreen
 
 # Start in full screen at application statup {{{1
-DestroyFunc Window-AutoFS
-AddToFunc Window-AutoFS
+# Generate the Window-AutoFS function from the user preferences:
 PipeRead '$[FVWM_SYSTEMDIR]/scripts/FSApps'
 
-# Event {{{1
+# Event {{{2
 DestroyModuleConfig FvwmEvent-Window-Fullscreen-Auto: *
+*FvwmEvent-Window-FullScreen-Auto: PassId
 *FvwmEvent-Window-FullScreen-Auto: add_window Window-AutoFS
-*FvwmEvent-Window-FullScreen-Auto: destroy_window Current Deschedule  $[w.id]
-#*FvwmEvent-Window-FullScreen-Auto: destroy_window "Echo FE Current Deschedule  $[w.id]"
 Module FvwmEvent FvwmEvent-Window-Fullscreen-Auto
 
 # vim:ft=fvwm

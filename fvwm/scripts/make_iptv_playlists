@@ -48,6 +48,9 @@ if [[ $(wget -q --spider "${GOAL}"; echo $?) != 0 ]]; then
 fi
 
 source "${FVWM_CONFIGDIR}"/preferences/IPTV
+if [[ ! -e "${FVWM_USERDIR}"/preferences/IPTV_CATEGORIES_PLAYLISTS ]]; then
+	cp "${FVWM_SYSTEMDIR}"/preferences/IPTV_CATEGORIES_PLAYLISTS "${FVWM_USERDIR}"/preferences
+fi
 source "${FVWM_USERDIR}"/preferences/IPTV_CATEGORIES_PLAYLISTS
 # ${DEBUG_SCRIPT} IPTV_CAT ${IPTV_CATEGORIES_PLAYLISTS}
 

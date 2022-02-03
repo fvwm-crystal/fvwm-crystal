@@ -1,3 +1,10 @@
+* 2022-02-03 Reload the Fullscreen functions at Quit.  
+* 2022-02-03 New application launchers  
+* 2022-02-03 Update French locale strings.  
+* 2022-02-03 Update pot files with new locale strings.  
+* 2022-02-02 fix IPTV categories preference at initial playlist generation  
+* 2022-02-02 oops, add forgotten IPTV categories preference file  
+* 2022-02-02 update ChangeLog  
 * 2022-02-02 Change the default stalonetray options  
 * 2022-02-02 Some reordering  
 * 2022-02-02 Fix Fullscreen and Window-AutoFS functions with browsers for fvwm3; this should work with fvwm2 too; cleanup.  

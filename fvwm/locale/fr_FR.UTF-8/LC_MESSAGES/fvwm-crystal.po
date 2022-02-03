@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fvwm-crystal 3.7.2\n"
 "POT-Creation-Date: 2021-05-27 01:03+0200\n"
-"PO-Revision-Date: 2021-05-27 01:11+0200\n"
+"PO-Revision-Date: 2022-02-03 12:59+0100\n"
 "Last-Translator: Dominique Michel <dominique_libre@users.sourceforge.net>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -1036,7 +1036,7 @@ msgstr "Documentation de FVWM-Crystal"
 
 #: ../fvwm/components/functions/Feedback:34
 msgid "FVWM-Crystal users email list, or the"
-msgstr "liste d’émail des utilisateurs de FVWM-Crystal, ou le"
+msgstr "Liste d’émail des utilisateurs de FVWM-Crystal, ou le"
 
 #: ../fvwm/components/functions/Preferences-Menu:628
 msgid "FVWM-Crystal with raise"

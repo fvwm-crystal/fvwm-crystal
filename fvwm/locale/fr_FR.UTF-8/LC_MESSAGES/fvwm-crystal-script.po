@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fvwm-crystal 3.7.2\n"
-"POT-Creation-Date: 2021-05-27 01:03+0200\n"
-"PO-Revision-Date: 2021-05-27 01:07+0200\n"
+"POT-Creation-Date: 2022-02-03 12:50+0100\n"
+"PO-Revision-Date: 2022-02-03 12:56+0100\n"
 "Last-Translator: Dominique Michel <dominique_libre@users.sourceforge.net>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -20,78 +20,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3.1\n"
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:238
-msgid " Add "
-msgstr " Ajouter "
+#: ../fvwm/components/scripts/FvwmScript-CpuTemp:19
+#: ../fvwm/components/scripts/FvwmScript-CpuTemp:29
+msgid "°C"
+msgstr "°C"
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:201
-msgid " Add dir "
-msgstr " Ajouter un réperoire "
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:19
+msgid "FVWM-Crystal File Editor"
+msgstr "Éditeur de fichier FVWM-Crystal"
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:174
-msgid " Add song "
-msgstr " Ajouter un morceau "
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:106
+msgid "File"
+msgstr "Fichier"
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:147
-msgid " Close "
-msgstr " Fermer "
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:248
-msgid " Database|Update "
-msgstr " Base de données|Mettre à jour "
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:162
-msgid " Dir: "
-msgstr " Répertoire : "
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:157
-msgid " Down "
-msgstr " En bas "
-
-#: ../fvwm/scripts/FontSelector/FontSelector:691
-msgid " Edit me:"
-msgstr " Modifiez moi :"
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:210
-msgid " File|Quit "
-msgstr " Fichier|Quitter "
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:119
-msgid " Folders "
-msgstr " Répertoires "
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:226
-msgid " Options|Toggle repeat|Toggle random|Crop|Clear "
-msgstr " Options|Répéter oui/non|Lecture aléatoire oui/non|Couper|Effacer "
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:196
-msgid " Remove song "
-msgstr " Enlever le morceau "
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:224
-msgid " Song: "
-msgstr " Morceau : "
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:133
-msgid " Songs "
-msgstr " Morceaux "
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:176
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:140
-msgid " Up "
-msgstr " En haut "
-
-#: ../fvwm/scripts/FontSelector/FontSelector:915
-msgid ". Menu Font"
-msgstr ". Police de menu"
-
-#: ../fvwm/scripts/FontSelector/FontSelector:858
-msgid ". Panel Font"
-msgstr ". Police de panneau"
-
-#: ../fvwm/scripts/FontSelector/FontSelector:886
-msgid ". Title Font"
-msgstr ". Police de titre"
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:122
+#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:135
+#: ../fvwm/scripts/PrefVars/PrefVars:574
+msgid "Help"
+msgstr "Aide"
 
 #
 # It is better to sort them
@@ -102,90 +48,194 @@ msgstr ". Police de titre"
 msgid "Add line"
 msgstr "Nouvelle ligne"
 
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:5
-msgid "Add to playlist"
-msgstr "Ajouter à la liste de lecture"
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:162
+#: ../fvwm/scripts/FontSelector/FontSelector:815
+#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:153
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:289
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:400
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:510
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:620
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:730
+#: ../fvwm/scripts/PrefVars/PrefVars:147 ../fvwm/scripts/PrefVars/PrefVars:254
+#: ../fvwm/scripts/PrefVars/PrefVars:426 ../fvwm/scripts/PrefVars/PrefVars:611
+#: ../fvwm/scripts/PrefVars/PrefVars:796
+msgid "Save"
+msgstr "Sauver"
 
-#: ../fvwm/scripts/PrefVars/PrefVars:744
-msgid "Applications"
-msgstr "Applications"
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:200
+#: ../fvwm/scripts/PrefVars/PrefVars:294 ../fvwm/scripts/PrefVars/PrefVars:464
+#: ../fvwm/scripts/PrefVars/PrefVars:649 ../fvwm/scripts/PrefVars/PrefVars:834
+msgid "Remove"
+msgstr "Enlever"
 
-#: ../fvwm/scripts/FontSelector/FontSelector:783
-msgid "Apply"
-msgstr "Appliquer"
+#: ../fvwm/scripts/FileEditors/FileEditWithHelp:220
+#: ../fvwm/scripts/PrefVars/PrefVars:314 ../fvwm/scripts/PrefVars/PrefVars:484
+#: ../fvwm/scripts/PrefVars/PrefVars:669 ../fvwm/scripts/PrefVars/PrefVars:854
+msgid "Update"
+msgstr "Mise à jour"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:8
+msgid "FVWM-Crystal Font Selector"
+msgstr "Sélecteur de police FVWM-Crystal"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:83
+#: ../fvwm/scripts/FontSelector/FontSelector:606
+#: ../fvwm/scripts/FontSelector/FontSelector:623
+#: ../fvwm/scripts/FontSelector/FontSelector:640
+#: ../fvwm/scripts/FontSelector/FontSelector:657
+#: ../fvwm/scripts/FontSelector/FontSelector:674
+#: ../fvwm/scripts/FontSelector/FontSelector:710
+msgid "abijk ABIJK éç ÀÉ O09 你好"
+msgstr "abijk ABIJK éç ÀÉ O09 你好"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:387
+#: ../fvwm/scripts/FontSelector/FontSelector:411
+msgid "Regular"
+msgstr "Régulier"
 
 #: ../fvwm/scripts/FontSelector/FontSelector:427
 #: ../fvwm/scripts/FontSelector/FontSelector:451
 msgid "Bold"
 msgstr "Gras"
 
-#: ../fvwm/scripts/FontSelector/FontSelector:507
-#: ../fvwm/scripts/FontSelector/FontSelector:531
-msgid "Bold Italic"
-msgstr "Gras italique"
-
-#: ../fvwm/scripts/PrefVars/PrefVars:80
-msgid "Custom fvwm-crystal preferences"
-msgstr "Préférences particulières de fvwm-crystal"
-
-#: ../fvwm/scripts/PrefVars/PrefVars:202
-msgid "Desktop"
-msgstr "Bureau"
-
-#: ../fvwm/scripts/PrefVars/PrefVars:217 ../fvwm/scripts/PrefVars/PrefVars:389
-#: ../fvwm/scripts/PrefVars/PrefVars:559
-msgid "Directories"
-msgstr "Répertoires"
-
-#: ../fvwm/scripts/PrefVars/PrefVars:131
-msgid "Editor"
-msgstr "Editeur"
-
-#: ../fvwm/scripts/FileEditors/FileEditWithHelp:19
-msgid "FVWM-Crystal File Editor"
-msgstr "Éditeur de fichier FVWM-Crystal"
-
-#: ../fvwm/scripts/FontSelector/FontSelector:8
-msgid "FVWM-Crystal Font Selector"
-msgstr "Sélecteur de police FVWM-Crystal"
-
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:10
-msgid "FVWM-Crystal Keyboard Modifiers Editor"
-msgstr "Sélecteur des modifieurs de clavier FVWM-Crystal"
-
-#: ../fvwm/scripts/PrefVars/PrefVars:10
-msgid "FVWM-Crystal Variables Editor"
-msgstr "Sélecteur des variables FVWM-Crystal"
-
-#: ../fvwm/scripts/FileEditors/FileEditWithHelp:106
-msgid "File"
-msgstr "Fichier"
-
-#: ../fvwm/scripts/PrefVars/PrefVars:729
-msgid "Full screen"
-msgstr "Plein écran"
-
-#: ../fvwm/scripts/FileEditors/FileEditWithHelp:122
-#: ../fvwm/scripts/PrefVars/PrefVars:574
-msgid "Help"
-msgstr "Aide"
-
-#: ../fvwm/scripts/PrefVars/PrefVars:374
-msgid "Icons"
-msgstr "Icônes"
-
 #: ../fvwm/scripts/FontSelector/FontSelector:467
 #: ../fvwm/scripts/FontSelector/FontSelector:491
 msgid "Italic"
 msgstr "Italique"
 
+#: ../fvwm/scripts/FontSelector/FontSelector:507
+#: ../fvwm/scripts/FontSelector/FontSelector:531
+msgid "Bold Italic"
+msgstr "Gras italique"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:571
+msgid "With"
+msgstr "Avec"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:691
+msgid " Edit me:"
+msgstr " Modifiez moi :"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:727
+msgid "Save editing"
+msgstr "Enregistrer l’édition"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:743
+msgid "Reset editing"
+msgstr "Réinitialiser l’édition"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:767
+msgid "Quit"
+msgstr "Quitter"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:783
+msgid "Apply"
+msgstr "Appliquer"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:858
+msgid ". Panel Font"
+msgstr ". Police de panneau"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:886
+msgid ". Title Font"
+msgstr ". Police de titre"
+
+#: ../fvwm/scripts/FontSelector/FontSelector:915
+msgid ". Menu Font"
+msgstr ". Police de menu"
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:5
+msgid "Add to playlist"
+msgstr "Ajouter à la liste de lecture"
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:119
+msgid " Folders "
+msgstr " Répertoires "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:133
+msgid " Songs "
+msgstr " Morceaux "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:147
+msgid " Close "
+msgstr " Fermer "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:162
+msgid " Dir: "
+msgstr " Répertoire : "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:176
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:140
+msgid " Up "
+msgstr " En haut "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:201
+msgid " Add dir "
+msgstr " Ajouter un réperoire "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:224
+msgid " Song: "
+msgstr " Morceau : "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdAddSong:238
+msgid " Add "
+msgstr " Ajouter "
+
 #: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:46
 msgid "MPD Playlist Editor"
 msgstr "Éditeur de iste de lecture de MPD"
 
-#: ../fvwm/scripts/PrefVars/PrefVars:544
-msgid "Media"
-msgstr "Media"
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:123
+msgid "Move song:"
+msgstr "Déplacer le morceau :"
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:157
+msgid " Down "
+msgstr " En bas "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:174
+msgid " Add song "
+msgstr " Ajouter un morceau "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:196
+msgid " Remove song "
+msgstr " Enlever le morceau "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:210
+msgid " File|Quit "
+msgstr " Fichier|Quitter "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:226
+msgid " Options|Toggle repeat|Toggle random|Crop|Clear "
+msgstr " Options|Répéter oui/non|Lecture aléatoire oui/non|Couper|Effacer "
+
+#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:248
+msgid " Database|Update "
+msgstr " Base de données|Mettre à jour "
+
+#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:170
+msgid "Cancel"
+msgstr "Annuler"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:10
+msgid "FVWM-Crystal Keyboard Modifiers Editor"
+msgstr "Sélecteur des modifieurs de clavier FVWM-Crystal"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:221
+msgid "N=none, A=any (0 or more), M=Meta (Alt_L), S=Shift_L, C=Control_L, 4=Super_L (Win_L)"
+msgstr "N=aucun, A=n’importe (0 ou plus), M=Meta (Alt_L), S=Shift_L, C=Control_L, 4=Super_L (Win_L)"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:252
+msgid "Mod: any modifier (0 or more)"
+msgstr "Mod : n’importe lequel (0 ou plus)"
+
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:331
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:441
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:551
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:661
+#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:771
+msgid "Restore"
+msgstr "Restorer"
 
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:363
 msgid "Mod0: no modifier"
@@ -199,94 +249,46 @@ msgstr "Mod1 : en général Meta"
 msgid "Mod2: second mode"
 msgstr "Mod2 : deuxième mode"
 
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:252
-msgid "Mod: any modifier (0 or more)"
-msgstr "Mod : n’importe lequel (0 ou plus)"
-
-#: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:123
-msgid "Move song:"
-msgstr "Déplacer le morceau :"
-
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:221
-msgid ""
-"N=none, A=any (0 or more), M=Meta (Alt_L), S=Shift_L, C=Control_L, 4=Super_L "
-"(Win_L)"
-msgstr ""
-"N=aucun, A=n’importe (0 ou plus), M=Meta (Alt_L), S=Shift_L, C=Control_L, "
-"4=Super_L (Win_L)"
-
-#: ../fvwm/scripts/FontSelector/FontSelector:767
-msgid "Quit"
-msgstr "Quitter"
-
-#: ../fvwm/scripts/FontSelector/FontSelector:387
-#: ../fvwm/scripts/FontSelector/FontSelector:411
-msgid "Regular"
-msgstr "Régulier"
-
-#: ../fvwm/scripts/FileEditors/FileEditWithHelp:200
-#: ../fvwm/scripts/PrefVars/PrefVars:294 ../fvwm/scripts/PrefVars/PrefVars:464
-#: ../fvwm/scripts/PrefVars/PrefVars:649 ../fvwm/scripts/PrefVars/PrefVars:834
-msgid "Remove"
-msgstr "Enlever"
-
-#: ../fvwm/scripts/FontSelector/FontSelector:743
-msgid "Reset editing"
-msgstr "Réinitialiser l’édition"
-
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:331
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:441
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:551
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:661
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:771
-msgid "Restore"
-msgstr "Restorer"
-
-#: ../fvwm/scripts/FileEditors/FileEditWithHelp:162
-#: ../fvwm/scripts/FontSelector/FontSelector:815
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:289
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:400
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:510
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:620
-#: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:730
-#: ../fvwm/scripts/PrefVars/PrefVars:147 ../fvwm/scripts/PrefVars/PrefVars:254
-#: ../fvwm/scripts/PrefVars/PrefVars:426 ../fvwm/scripts/PrefVars/PrefVars:611
-#: ../fvwm/scripts/PrefVars/PrefVars:796
-msgid "Save"
-msgstr "Sauver"
-
-#: ../fvwm/scripts/FontSelector/FontSelector:727
-msgid "Save editing"
-msgstr "Enregistrer l’édition"
-
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:693
 msgid "SelectOnRelease: for WindowLists"
 msgstr "SelectOnRelease : pour les listes de tâches"
 
-#: ../fvwm/scripts/FileEditors/FileEditWithHelp:220
-#: ../fvwm/scripts/PrefVars/PrefVars:314 ../fvwm/scripts/PrefVars/PrefVars:484
-#: ../fvwm/scripts/PrefVars/PrefVars:669 ../fvwm/scripts/PrefVars/PrefVars:854
-msgid "Update"
-msgstr "Mise à jour"
+#: ../fvwm/scripts/PrefVars/PrefVars:10
+msgid "FVWM-Crystal Variables Editor"
+msgstr "Sélecteur des variables FVWM-Crystal"
 
-#: ../fvwm/scripts/FontSelector/FontSelector:571
-msgid "With"
-msgstr "Avec"
+#: ../fvwm/scripts/PrefVars/PrefVars:80
+msgid "Custom fvwm-crystal preferences"
+msgstr "Préférences particulières de fvwm-crystal"
 
-#: ../fvwm/scripts/FontSelector/FontSelector:83
-#: ../fvwm/scripts/FontSelector/FontSelector:606
-#: ../fvwm/scripts/FontSelector/FontSelector:623
-#: ../fvwm/scripts/FontSelector/FontSelector:640
-#: ../fvwm/scripts/FontSelector/FontSelector:657
-#: ../fvwm/scripts/FontSelector/FontSelector:674
-#: ../fvwm/scripts/FontSelector/FontSelector:710
-msgid "abijk ABIJK éç ÀÉ O09 你好"
-msgstr "abijk ABIJK éç ÀÉ O09 你好"
+#: ../fvwm/scripts/PrefVars/PrefVars:131
+msgid "Editor"
+msgstr "Editeur"
 
-#: ../fvwm/components/scripts/FvwmScript-CpuTemp:19
-#: ../fvwm/components/scripts/FvwmScript-CpuTemp:29
-msgid "°C"
-msgstr "°C"
+#: ../fvwm/scripts/PrefVars/PrefVars:202
+msgid "Desktop"
+msgstr "Bureau"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:217 ../fvwm/scripts/PrefVars/PrefVars:389
+#: ../fvwm/scripts/PrefVars/PrefVars:559
+msgid "Directories"
+msgstr "Répertoires"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:374
+msgid "Icons"
+msgstr "Icônes"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:544
+msgid "Media"
+msgstr "Media"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:729
+msgid "Full screen"
+msgstr "Plein écran"
+
+#: ../fvwm/scripts/PrefVars/PrefVars:744
+msgid "Applications"
+msgstr "Applications"
 
 #~ msgid "Browser"
 #~ msgstr "Navigateur"

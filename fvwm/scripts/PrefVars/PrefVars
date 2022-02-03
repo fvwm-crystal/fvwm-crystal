@@ -82,7 +82,7 @@ Main
 Case message of
  SingleClic :
  Begin
-   Do Nop
+   Do { Include components/functions/Fullscreen }
  End
 End
 

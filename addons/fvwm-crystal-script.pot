@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fvwm-crystal 3.7.2\n"
-"POT-Creation-Date: 2021-05-27 01:16+0200\n"
+"POT-Creation-Date: 2022-02-03 12:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,7 @@ msgid "File"
 msgstr ""
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:122
+#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:135
 #: ../fvwm/scripts/PrefVars/PrefVars:574
 msgid "Help"
 msgstr ""
@@ -47,6 +48,7 @@ msgstr ""
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:162
 #: ../fvwm/scripts/FontSelector/FontSelector:815
+#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:153
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:289
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:400
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:510
@@ -213,6 +215,10 @@ msgstr ""
 
 #: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:248
 msgid " Database|Update "
+msgstr ""
+
+#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:170
+msgid "Cancel"
 msgstr ""
 
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:10

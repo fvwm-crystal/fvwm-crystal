@@ -4,7 +4,10 @@ DestroyModuleConfig MPlayerParams-Help: *
 *MPlayerParams-Help: Text "$[gt.This form let you edit mplayer's extra parameters.]"
 *MPlayerParams-Help: Line center
 *MPlayerParams-Help: Line center
-*MPlayerParams-Help: Text "$[gt.The \"SetEnv MPlayerParams\" at the beginning is mandatory.]"
+*MPlayerParams-Help: Text "SetEnv MPlayerParams"
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Line center
+*MPlayerParams-Help: Text "$[gt.at the beginning is mandatory.]"
 *MPlayerParams-Help: Line center
 *MPlayerParams-Help: Line center
 *MPlayerParams-Help: Text "$[gt.You can put any parameter you want to pass to mplayer.]"
@@ -13,7 +16,7 @@ DestroyModuleConfig MPlayerParams-Help: *
 *MPlayerParams-Help: Text "$[gt.Consult mplayer documentation to know what You are doing.]"
 *MPlayerParams-Help: Line center
 *MPlayerParams-Help: Line center
-*MPlayerParams-Help: Text "$[gt.If you need quoting, please use \"\" only.]"
+*MPlayerParams-Help: Text "$[gt.If you need quoting, please use double quotes only.]"
 *MPlayerParams-Help: Line center
 *MPlayerParams-Help: Line center
 *MPlayerParams-Help: Text "$[gt.As example, for IPTV watching, you need the following:]"

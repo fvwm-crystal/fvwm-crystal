@@ -65,7 +65,7 @@ IPTV_REF_CATEGORIES=( animation auto business classic comedy cooking culture
 
 ## Set the wanted categoriess and download them {{{1
 for i in "${IPTV_REF_CATEGORIES[@]}" ; do
-	if [[ "$(echo ${IPTVCatPlaylists} | grep $i)" ]] ; then
+	if [[ "$(echo ${IPTV_CATEGORIES_PLAYLISTS} | grep $i)" ]] ; then
 		IPTV_TMP_CAT="${IPTV_TMP_CAT} $i"
 	fi
 done

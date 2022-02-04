@@ -13,7 +13,10 @@ DestroyModuleConfig IPTVCatPlaylists-Dialog: *
 *IPTVCatPlaylists-Dialog: Text "$[gt.is separated by a space from the following category.]"
 *IPTVCatPlaylists-Dialog: Line center
 *IPTVCatPlaylists-Dialog: Line center
-*IPTVCatPlaylists-Dialog: Text "$[gt.Into the list, the backslash at the end of a line is mandatory.]"
+*IPTVCatPlaylists-Dialog: Text "$[gt.Into the list, the backslash at the end of a line is mandatory,]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[gt.with the exception of the last line.]"
 *IPTVCatPlaylists-Dialog: Line center
 *IPTVCatPlaylists-Dialog: Line center
 *IPTVCatPlaylists-Dialog: Text "$[gt.For an up-to-date and complete list of categories,]"

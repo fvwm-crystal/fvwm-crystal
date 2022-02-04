@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fvwm-crystal 3.7.2\n"
-"POT-Creation-Date: 2022-02-04 17:02+0100\n"
+"POT-Creation-Date: 2022-02-04 19:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1027,7 +1027,7 @@ msgstr ""
 #: ../fvwm/components/functions/Preferences-Menu:190
 #: ../fvwm/components/functions/Preferences-Menu:577
 #: ../fvwm/components/functions/Preferences-Menu:727
-#: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:40
+#: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:43
 #: ../fvwm/scripts/FileEditors/ShowDirectories-Help:40
 #: ../fvwm/scripts/HelperScripts/MPlayerParams-Help:43
 msgid "OK"
@@ -3237,26 +3237,30 @@ msgid "is separated by a space from the following category."
 msgstr ""
 
 #: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:16
-msgid "Into the list, the backslash at the end of a line is mandatory."
+msgid "Into the list, the backslash at the end of a line is mandatory,"
 msgstr ""
 
 #: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:19
-msgid "For an up-to-date and complete list of categories,"
+msgid "with the exception of the last line."
 msgstr ""
 
 #: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:22
+msgid "For an up-to-date and complete list of categories,"
+msgstr ""
+
+#: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:25
 msgid "please take a look at:"
 msgstr ""
 
-#: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:28
+#: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:31
 msgid "If you want the xxx category, ask your system administrator"
 msgstr ""
 
-#: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:31
+#: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:34
 msgid "to enable it into"
 msgstr ""
 
-#: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:37
+#: ../fvwm/scripts/FileEditors/IPTVCatPlaylists-Help:40
 msgid "The first line is a comment and can be ignored."
 msgstr ""
 

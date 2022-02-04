@@ -40,4 +40,3 @@ DestroyModuleConfig ShowDirectories-Dialog: *
 *ShowDirectories-Dialog: Button quit " $[gt.OK] " ^[
 *ShowDirectories-Dialog: Command Nop
 *ShowDirectories-Dialog: Line center
-’

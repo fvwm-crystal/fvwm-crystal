@@ -1,0 +1,42 @@
+All (IPTVCatPlaylists-Dialog) Close
+DestroyModuleConfig IPTVCatPlaylists-Dialog: *
+*IPTVCatPlaylists-Dialog: Title "$[gt.IPTV Categories Playlists]"
+*IPTVCatPlaylists-Dialog: Text "$[gt.You are editing the file]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[FVWM_USERDIR]/Preferences/IPTVCatPlaylists"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[gt.It consists of a list between \"\", each category]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[gt.is separated by a space from the following category.]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[gt.Into the list, '\\' at the end of a line is mandatory.]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[gt.For an up-to-date and complete list of categories,]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[gt.please take a look at:]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "https://iptv-org.github.io/iptv/"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[gt.If you want the xxx category, ask your system administrator]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[gt.to enable it into]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[FVWM_CONFIGDIR]/preferences/IPTV"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Text "$[gt.The first line is a comment and can be ignored.]"
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Line center
+*IPTVCatPlaylists-Dialog: Button quit " $[gt.OK] " ^[
+*IPTVCatPlaylists-Dialog: Command Nop
+*IPTVCatPlaylists-Dialog: Line center

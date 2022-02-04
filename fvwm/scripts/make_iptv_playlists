@@ -48,11 +48,11 @@ if [[ $(wget -q --spider "${GOAL}"; echo $?) != 0 ]]; then
 fi
 
 source "${FVWM_CONFIGDIR}"/preferences/IPTV
-if [[ ! -e "${FVWM_USERDIR}"/preferences/IPTV_CATEGORIES_PLAYLISTS ]]; then
-	cp "${FVWM_SYSTEMDIR}"/preferences/IPTV_CATEGORIES_PLAYLISTS "${FVWM_USERDIR}"/preferences
+if [[ ! -e "${FVWM_USERDIR}"/preferences/IPTVCatPlaylists ]]; then
+	cp "${FVWM_SYSTEMDIR}"/preferences/IPTVCatPlaylists "${FVWM_USERDIR}"/preferences
 fi
-source "${FVWM_USERDIR}"/preferences/IPTV_CATEGORIES_PLAYLISTS
-# ${DEBUG_SCRIPT} IPTV_CAT ${IPTV_CATEGORIES_PLAYLISTS}
+source "${FVWM_USERDIR}"/preferences/IPTVCatPlaylists
+# ${DEBUG_SCRIPT} IPTV_CAT ${IPTVCatPlaylists}
 
 # For an up-to-date list, see https://iptv-org.github.io/iptv/
 # We don't want the xxx category here, because otherwise it is
@@ -65,7 +65,7 @@ IPTV_REF_CATEGORIES=( animation auto business classic comedy cooking culture
 
 ## Set the wanted categoriess and download them {{{1
 for i in "${IPTV_REF_CATEGORIES[@]}" ; do
-	if [[ "$(echo ${IPTV_CATEGORIES_PLAYLISTS} | grep $i)" ]] ; then
+	if [[ "$(echo ${IPTVCatPlaylists} | grep $i)" ]] ; then
 		IPTV_TMP_CAT="${IPTV_TMP_CAT} $i"
 	fi
 done

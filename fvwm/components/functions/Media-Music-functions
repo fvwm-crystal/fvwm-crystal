@@ -234,8 +234,8 @@ DestroyFunc Music-Speed-Down
 DestroyFunc Music-Speed
 # button menu (alsaplayer, mplayer)
 # speed_set <0.01 to 100>
-DestroyFumc Menu-speed-generator-button
-DestroyFumc Menu-speed-generator-button-bottom
+DestroyFunc Menu-speed-generator-button
+DestroyFunc Menu-speed-generator-button-bottom
 DestroyMenu /Speed
 # mouse 4 Button-Seek-+ {{{2
 # mouse 5 Button-Seek--

@@ -167,7 +167,7 @@ Property
  Position ${PosXW3} ${PosYW}
  Size 120 ${TextHeight}
  Type PushButton
- LocaleTitle {Cancel}
+ LocaleTitle {Quit}
 Main
  Case message of
   SingleClic :

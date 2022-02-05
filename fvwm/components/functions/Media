@@ -53,6 +53,10 @@
 #	per-path-element basis into the users locale.
 #	TODO: 	centralize here the paths
 
+# MPlayer extra parameters {{{1
+Include preferences/MPlayerParams
+Include scripts/SingleLineEdit/MPlayerParamsPref
+
 # Media Music functions {{{1
 Include components/functions/Media-Music-functions
 # Mixer
@@ -102,6 +106,7 @@ AddToFunc Player-generator
 + I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic-2.png%$[gt.Start player]' Popup /Music/Start
 + I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic-1.png%$[gt.Stop MPlayer]' Music-Kill
 + I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic-1.png%$[gt.Destroy MPlayer]' Music-Kill -9
++ I AddToMenu /Player '%22x22/fvwm-crystal/preferences-desktop.png%$[gt.MPlayer extra parameters]' EditMPlayerParams
 + I Test (X qjackctl) AddToMenu /Player "" Nop
 + I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
 + I Test (X qjackctl) AddToMenu /Player '%22x22/apps/qjackctl.png%$[gt.Start QJackCtl]' Exec exec qjackctl
@@ -119,6 +124,7 @@ AddToFunc Player-generator-bottom
 + I Test (X qjackctl) AddToMenu /Player '%22x22/apps/qjackctl.png%$[gt.Start QJackCtl]' Exec exec qjackctl
 + I TestRc (NoMatch) Test (X cadence) AddToMenu /Player "" Nop
 + I Test (X qjackctl) AddToMenu /Player "" Nop
++ I AddToMenu /Player '%22x22/fvwm-crystal/preferences-desktop.png%$[gt.MPlayer extra parameters]' EditMPlayerParams
 + I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic-1.png%$[gt.Destroy MPlayer]' Music-Kill -9
 + I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic-1.png%$[gt.Stop MPlayer]' Music-Kill
 + I AddToMenu /Player '%22x22/fvwm-crystal/audio-x-generic-2.png%$[gt.Start player]' Popup /Music/Start

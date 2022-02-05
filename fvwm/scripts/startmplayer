@@ -8,7 +8,8 @@
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/startmplayer mplayer|mplayer2 $[infostore.USERDIR] $[infostore.SILENT]
 
 # -cache needed for IPTV and other linear network streams.
-$1 -ao jack, -fs -fixed-vo -slave -idle -cache 8092 -capture -input file=/home/$2/.mplayer/pipe $3 &
+#$1 -ao jack, -fs -fixed-vo -slave -idle -cache 8092 -capture -input file=/home/$2/.mplayer/pipe $3 &
+$1 -ao jack, -fs -fixed-vo -slave -idle ${MPlayerParams} -capture -input file=/home/$2/.mplayer/pipe $3 &
 
 FvwmCommand "InfoStoreAdd MplayerPid $!"
 touch /tmp/crystal_mplayer_$!

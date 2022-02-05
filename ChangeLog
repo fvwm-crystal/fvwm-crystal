@@ -1,3 +1,10 @@
+* 2022-02-04 Update French locale.  
+* 2022-02-04 Fix typo.  
+* 2022-02-04 Clarify the help text.  
+* 2022-02-04 Fix variable name  
+* 2022-02-04 Add last strings into the pot files.  
+* 2022-02-04 Fix locale strings.  
+* 2022-02-04 Introduce IPTV category playlist preference; change the name of thee user preference file to satisfy FvwmForm that dont like _ in the name of the form; remove typo in ShowDirectories-Help  
 * 2022-02-03 Reload the Fullscreen functions at Quit.  
 * 2022-02-03 New application launchers  
 * 2022-02-03 Update French locale strings.  

@@ -1,7 +1,7 @@
 DestroyFunc MakeMPlayerParamsScript
 AddToFunc MakeMPlayerParamsScript
-+ I Exec exec $[FVWM_USERDIR]/scripts/SingleLineEdit/DoSingleLineEdit MPlayerParams "$[gt.MPlayer extra parameters]" \
-	MPlayerParams MPlayerParams-Help "300 300" "SetEnv MPlayerParams \"-cache 1024\""
++ I Exec exec $[FVWM_SYSTEMDIR]/scripts/SingleLineEdit/DoSingleLineEdit MPlayerParams "$[gt.MPlayer extra parameters]" \
+	MPlayerParams MPlayerParams-Help "300 300" "Include components/functions/Music-$[infostore.MusicPlayer]" "SetEnv MPlayerParams \"-cache 1024\""
 
 DestroyFunc LaunchMPlayerParamsScript
 AddToFunc LaunchMPlayerParamsScript

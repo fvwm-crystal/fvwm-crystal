@@ -18,7 +18,8 @@
 #       $3 <pref file> is the name of the preference file related to FVWM_USERDIR/preferences/
 #       $4 <help name> is the name of both the help FvwmForm and the file that contain it.
 #       $5 <position> is the window script Position as in `man FvwmScript`
-#       $6 <some text> is the text to edit if <pref file> don't exist or is empty;
+#       $6 <fvwm command> is the Quit command of the script
+#       $7 <some text> is the text to edit if <pref file> don't exist or is empty;
 #          <pref file> will be (re)created whem saved.
 # followed by
 #        Script <script file>
@@ -28,7 +29,7 @@
 #   Exec exec $[FVWM_SYSTEMDIR]/scripts/HelperScripts/DoFvwmTextInputField TestScript "MPlayer extra parameters" \
 #             MPlayerParams MPlayerParams-Help "300 300" "SetEnv MPlayerParams \"-cache 8092\""
 
-if [[ $# -ne 6 ]]; then
+if [[ $# -ne 7 ]]; then
 	echo "Illegal number of parameters!"
 	exit 1
 fi
@@ -47,7 +48,7 @@ mkdir -p ${TmpDir} ${PrefDir}
 # be sure the string is not empty
 OriginalString="`cat ${PrefDir}$3`"
 if [[ "x${OriginalString}" == "x" ]]; then
-	OriginalString="$6"
+	OriginalString="$7"
 fi
 if [[ "x${OriginalString}" == "x" ]]; then
 	OriginalString='Hello Kitty!'
@@ -103,7 +104,7 @@ End
 # Quit Function {{{1
 QuitFunc
 Begin
-  Do Nop
+  Do {$6}
 End
 
 # Main {{{1

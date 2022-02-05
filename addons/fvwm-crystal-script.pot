@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fvwm-crystal 3.7.2\n"
-"POT-Creation-Date: 2022-02-04 19:25+0100\n"
+"POT-Creation-Date: 2022-02-05 15:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,8 +33,8 @@ msgid "File"
 msgstr ""
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:122
-#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:135
 #: ../fvwm/scripts/PrefVars/PrefVars:574
+#: ../fvwm/scripts/SingleLineEdit/DoSingleLineEdit:136
 msgid "Help"
 msgstr ""
 
@@ -48,7 +48,6 @@ msgstr ""
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:162
 #: ../fvwm/scripts/FontSelector/FontSelector:815
-#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:153
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:289
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:400
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:510
@@ -59,6 +58,7 @@ msgstr ""
 #: ../fvwm/scripts/PrefVars/PrefVars:426
 #: ../fvwm/scripts/PrefVars/PrefVars:611
 #: ../fvwm/scripts/PrefVars/PrefVars:796
+#: ../fvwm/scripts/SingleLineEdit/DoSingleLineEdit:154
 msgid "Save"
 msgstr ""
 
@@ -129,6 +129,7 @@ msgid "Reset editing"
 msgstr ""
 
 #: ../fvwm/scripts/FontSelector/FontSelector:767
+#: ../fvwm/scripts/SingleLineEdit/DoSingleLineEdit:171
 msgid "Quit"
 msgstr ""
 
@@ -215,10 +216,6 @@ msgstr ""
 
 #: ../fvwm/scripts/FvwmMPD/FvwmApplet-MpdPlEd:248
 msgid " Database|Update "
-msgstr ""
-
-#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:170
-msgid "Cancel"
 msgstr ""
 
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:10

@@ -1,3 +1,8 @@
+* 2022-02-06 Fix the help path and text.  
+* 2022-02-05 We dont know how the user will do things, so Crystal need a Mplayer extra paramters pref file for the IPTV. Add it.  
+* 2022-02-05 New locale strings  
+* 2022-02-05 Use Quit function to relaod the mplayer control.  
+* 2022-02-05 Add MPlayer extra paramteers preferenceS  
 * 2022-02-04 Update French locale.  
 * 2022-02-04 Fix typo.  
 * 2022-02-04 Clarify the help text.  

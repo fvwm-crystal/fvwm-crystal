@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fvwm-crystal 3.7.2\n"
-"POT-Creation-Date: 2022-02-03 12:50+0100\n"
+"POT-Creation-Date: 2022-02-05 15:48+0100\n"
 "PO-Revision-Date: 2022-02-03 12:56+0100\n"
 "Last-Translator: Dominique Michel <dominique_libre@users.sourceforge.net>\n"
 "Language-Team: French\n"
@@ -34,8 +34,8 @@ msgid "File"
 msgstr "Fichier"
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:122
-#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:135
 #: ../fvwm/scripts/PrefVars/PrefVars:574
+#: ../fvwm/scripts/SingleLineEdit/DoSingleLineEdit:136
 msgid "Help"
 msgstr "Aide"
 
@@ -50,7 +50,6 @@ msgstr "Nouvelle ligne"
 
 #: ../fvwm/scripts/FileEditors/FileEditWithHelp:162
 #: ../fvwm/scripts/FontSelector/FontSelector:815
-#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:153
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:289
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:400
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:510
@@ -59,6 +58,7 @@ msgstr "Nouvelle ligne"
 #: ../fvwm/scripts/PrefVars/PrefVars:147 ../fvwm/scripts/PrefVars/PrefVars:254
 #: ../fvwm/scripts/PrefVars/PrefVars:426 ../fvwm/scripts/PrefVars/PrefVars:611
 #: ../fvwm/scripts/PrefVars/PrefVars:796
+#: ../fvwm/scripts/SingleLineEdit/DoSingleLineEdit:154
 msgid "Save"
 msgstr "Sauver"
 
@@ -125,6 +125,7 @@ msgid "Reset editing"
 msgstr "Réinitialiser l’édition"
 
 #: ../fvwm/scripts/FontSelector/FontSelector:767
+#: ../fvwm/scripts/SingleLineEdit/DoSingleLineEdit:171
 msgid "Quit"
 msgstr "Quitter"
 
@@ -213,10 +214,6 @@ msgstr " Options|Répéter oui/non|Lecture aléatoire oui/non|Couper|Effacer "
 msgid " Database|Update "
 msgstr " Base de données|Mettre à jour "
 
-#: ../fvwm/scripts/HelperScripts/DoFvwmTextInputField:170
-msgid "Cancel"
-msgstr "Annuler"
-
 #: ../fvwm/scripts/KeyModifiersEditor/KeyModifiersEditor:10
 msgid "FVWM-Crystal Keyboard Modifiers Editor"
 msgstr "Sélecteur des modifieurs de clavier FVWM-Crystal"
@@ -289,6 +286,9 @@ msgstr "Plein écran"
 #: ../fvwm/scripts/PrefVars/PrefVars:744
 msgid "Applications"
 msgstr "Applications"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
 
 #~ msgid "Browser"
 #~ msgstr "Navigateur"

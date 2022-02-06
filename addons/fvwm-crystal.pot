@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fvwm-crystal 3.7.2\n"
-"POT-Creation-Date: 2022-02-05 15:49+0100\n"
+"POT-Creation-Date: 2022-02-06 01:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3344,7 +3344,7 @@ msgid "will depend on many factors including the network connection."
 msgstr ""
 
 #: ../fvwm/scripts/SingleLineEdit/MPlayerParams-Help:34
-msgid "If unsure, just click on the Cancel button."
+msgid "If unsure, just click on the Quit button."
 msgstr ""
 
 #: ../fvwm/scripts/SingleLineEdit/MPlayerParams-Help:37

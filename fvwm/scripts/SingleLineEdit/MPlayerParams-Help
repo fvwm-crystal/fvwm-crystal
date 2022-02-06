@@ -31,7 +31,7 @@ DestroyModuleConfig MPlayerParams-Help: *
 *MPlayerParams-Help: Text "$[gt.will depend on many factors including the network connection.]"
 *MPlayerParams-Help: Line center
 *MPlayerParams-Help: Line center
-*MPlayerParams-Help: Text "$[gt.If unsure, just click on the Cancel button.]"
+*MPlayerParams-Help: Text "$[gt.If unsure, just click on the Quit button.]"
 *MPlayerParams-Help: Line center
 *MPlayerParams-Help: Line center
 *MPlayerParams-Help: Text "$[gt.For no extra parameters, just put the following line:]"

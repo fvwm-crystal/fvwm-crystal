@@ -10,5 +10,5 @@ AddToFunc LaunchMPlayerParamsScript
 DestroyFunc EditMPlayerParams
 AddToFunc EditMPlayerParams
 + I MakeMPlayerParamsScript
-+ I LaunchMPlayerParamsScript
++ I Schedule 1000 LaunchMPlayerParamsScript
 #+ I Exec exec rm -f $[FVWM_USERDIR]/tmp/TestScript

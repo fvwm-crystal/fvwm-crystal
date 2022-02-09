@@ -1,3 +1,54 @@
+Version 3.7.5
+-------------
+
+Fvwm Crystal 3.7.5 is out.
+
+This release remove the Piperead that load FvwmMFL in StartFuction
+when using fvwm3. Need fvwm3>=1.04.
+
+Enjoy!
+Dominique Michel
+
+
+Version 3.7.4
+-------------
+
+Fvwm Crystal 3.7.4 is out.
+
+This release add an extra mplayer parameters preference.
+It is mainly useful for IPTV wathcing to set the cache value of mplayer.
+
+Enjoy!
+Dominique Michel
+
+
+Version 3.7.2
+-------------
+
+Fvwm Crystal 3.7.2 is out.
+
+This release is an important bug fix and new features release.
+
+- Initial IPTV support for mplayer.
+  From the playlist menu, fvwwm-crystal can download the playlists from the internet
+  and will incorporate them into the playliste menu.
+
+  By default, all IPTV categories are supported, but the nsfw
+  cateegory is disabled. Its preference file is into FVWM_CONFIGDIR/preferences,
+  so that only a sysadmin can change it. For the other categories,
+  a preference setting is provided into the playlist menu.
+
+- Fix nasty Piperead calls into the mplayer control that could freeze fvwm.
+
+- Fix the Fullscreen functions for use with fvwm3. That should also work with fvwm2
+  and fix these functions for the browser windows and other windows using
+  the F11 Fullscreen mode or similar Fullscreen functions.
+
+- Various improvements, fixes and cleanup. See ChangeLog for details.
+
+Power to the people,
+Dominique Michel
+
 Version 3.7.1
 -------------
 

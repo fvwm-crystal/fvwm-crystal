@@ -18,14 +18,13 @@ InfoStoreAdd Icon_Theme "Default"
 ImagePath $[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]
 
 # Includes and FVWM modules {{{1
-DestroyFunc StartCommandPipe
-AddToFunc StartCommandPipe
-+ I Test (Version >= 2.6.9) Module FvwmCommandS
-+ I TestRc (NoMatch) Module FvwmMFL
-StartCommandPipe
+# Should be before everything else
+Include components/functions/Clear-FVWM-Settings
+AddToFunc StartFunction
++ I Test (EnvMatch FVWM_IS_FVWM3 1) AddToFunc StartFunction I Module FvwmMFL
++ I Test (!EnvMatch FVWM_IS_FVWM3 1) PipeRead "echo 'Module FvwmCommandS'"
 
 # Default FVWM-Crystal functions, initialization {{{2
-Include components/functions/Clear-FVWM-Settings
 Include components/desktop/FVWM-Crystal_Functions
 Include components/desktop/FVWM-Crystal_Preferences
 Include components/functions/Feedback

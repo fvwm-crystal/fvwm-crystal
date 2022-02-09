@@ -145,7 +145,7 @@ Useful applications:
 
 Needed:
 -------
-- fvwm>=2.6.9 or fvwm3>=1.0.2 with FvwmPrompt (with --enable-golang).
+- fvwm>=2.6.9 or fvwm3>=1.0.4 with FvwmPrompt (with --enable-golang).
 - python3 - tested with 3.6 and 3.7, should work with any python3 version.
     python2 is not supported anymore because upstream ended
     its support at the end of 2019.

@@ -107,12 +107,12 @@ AddToFunc Exit-Menu-sysctl
 + I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
 + I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
 + I AddToMenu /Exit '' Nop
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' A $0 suspend -i
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' A $0 hybrid-sleep -i
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Suspend to disk]' A $0 hibernate -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' Exec $0 suspend -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' Exec $0 hybrid-sleep -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Suspend to disk]' Exec $0 hibernate -i
 + I AddToMenu /Exit "" Nop
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/system-reboot.png%$[gt.Reboot computer]' A $0 reboot -i
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/system-shutdown.png%$[gt.Turn off computer]' A $0 poweroff -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/system-reboot.png%$[gt.Reboot computer]' Exec $0 reboot -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/system-shutdown.png%$[gt.Turn off computer]' Exec $0 poweroff -i
 
 DestroyFunc Exit-SelectLogoutManager
 AddToFunc Exit-SelectLogoutManager

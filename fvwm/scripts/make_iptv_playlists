@@ -65,7 +65,7 @@ IPTV_REF_CATEGORIES=( animation auto business classic comedy cooking culture
 
 ## Set the wanted categoriess and download them {{{1
 for i in "${IPTV_REF_CATEGORIES[@]}" ; do
-	if [[ "$(echo ${IPTV_CATEGORIES_PLAYLISTS} | grep $i)" ]] ; then
+	if [[ "$(grep $i <<< ${IPTV_CATEGORIES_PLAYLISTS})" ]] ; then
 		IPTV_TMP_CAT="${IPTV_TMP_CAT} $i"
 	fi
 done
@@ -74,7 +74,6 @@ done
 IPTV_CAT_PLAYLISTS=( ${IPTV_TMP_CAT} ${IPTV_XXX_PLAYLISTS} )
 # ${DEBUG_SCRIPT} IPTV_CAT_PLAYLISTS ${IPTV_CAT_PLAYLISTS[@]}
 ${DEBUG_SCRIPT} mkdir -p "${IPTV_TMP_DIR}"
-
 for i in "${IPTV_CAT_PLAYLISTS[@]}"; do
 	${DEBUG_SCRIPT} ${WGET_CMD} "${IPTV_TMP_DIR}/${i}${IPTV_URI_SUFFIX}" "${IPTV_ROOT_URI}${IPTV_CAT_DIR}/${i}${IPTV_URI_SUFFIX}"
 done
@@ -84,15 +83,16 @@ write_playlists() {
 while read myline ; do
 	if [[ -n "${myline}" ]] ; then
 		# We ignore the lines that begin with #EXTM3U and #EXTVLCOPT for now
-		if [[ ! -n "$(echo ${myline} | grep -e ^#EXTM3U -e ^#EXTVLCOPT)" ]] ; then
-			if [[ -n "$(echo ${myline} | grep -e ^#EXTINF)" ]] ; then
-				TITLE="$(echo ${myline} | sed -e "s:^.*group-title=\"\(.*\)\",\(.*\):\2:" -e "s:/:-:g")"
+		if [[ ! -n "$(grep -e ^#EXTM3U -e ^#EXTVLCOPT <<< "${myline}")" ]] ; then
+			if [[ -n "$(grep -e ^#EXTINF <<< "${myline}")" ]] ; then
+				TITLE="$(sed -e "s:^.*group-title=\"\(.*\)\",\(.*\):\2:" -e "s:/:-:g" <<< "${myline}")"
 				#echo TITLE = $TITLE
-				GROUPTITLE="$(echo ${myline} | sed "s:^.*group-title=\"\(.*\)\",\(.*\):\1:")"
+				GROUPTITLE="$(sed -e 's:^.*group-title="\(.*\)\(".*\):\1:' -e 's:\" user-agent.*::' <<< "${myline}")"
+				#echo "GROUPTITLE = ${GROUPTITLE}"
 				# We don't want a too long file name, so keep only the first language
-				LANGUAGE="$(echo ${myline} | sed -e "s:^.*tvg-language=\"\(.*\)\" tvg-logo.*:\1:" -e "s:;.*::")"
+				LANGUAGE="$(sed -e "s:^.*tvg-language=\"\(.*\)\" tvg-logo.*:\1:" -e "s:;.*::" <<< "${myline}")"
 				#echo LANGUAGE = $LANGUAGE
-				COUNTRY="$(echo ${myline} | sed "s:^.*tvg-country=\"\(.*\)\" tvg-language.*:\1:")"
+				COUNTRY="$(sed "s:^.*tvg-country=\"\(.*\)\" tvg-language.*:\1:" <<< "${myline}")"
 				#echo COUNTRY = $COUNTRY
 				mydir="${IPTV_PLAYLISTS_DIR}/${GROUPTITLE}/${LANGUAGE}"
 				myfile="${mydir}/${COUNTRY}_${TITLE}${IPTV_URI_SUFFIX}"

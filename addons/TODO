@@ -1,0 +1,3 @@
+TODO list for fvwm-crystal addons directory
+
+- Merge the Xdefaults files into the Xresources files as Xresources is a generic replacement for Xdefault (see 'man xrdb').

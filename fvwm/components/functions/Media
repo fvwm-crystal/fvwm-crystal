@@ -206,6 +206,7 @@ AddToMenu /Music/CopyPlaylist
 + MissingSubmenuFunction FuncFvwmMenuCopyPlaylistDirectory
 + '%22x22/categories/video_movies_view.png%$[gt.Browse Medias]' Popup $[infostore.AudioPlaylists]
 + '%22x22/categories/video_movies_view.png%$[gt.Browse Medias]' Popup $[infostore.VideoPlaylists]
++ '%22x22/categories/video_movies_view.png%$[gt.Browse Medias]' Popup $[infostore.IPTVPlaylists]
 
 AddToFunc Music-RecreateIPTVPlaylist
 + I A $[FVWM_SYSTEMDIR]/scripts/make_iptv_playlists

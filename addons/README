@@ -85,6 +85,10 @@ Xdefaults.no_transparency: same than Xdefault, but with setup
 
 Xresources: Xressources example file to use with FVWM-Crystal.
     Read INSTALL in main Crystal folder.
+    For programs not using Xft, xfontsel can be used to determine a
+    proper Xfs fontspec for a given font.
+    The 'editres' program can be used to determine and set
+    the resources of a given running program.
 
 Xresources.no_transparency: same than Xressources, but with setup
     for non transparent virtual terminals.

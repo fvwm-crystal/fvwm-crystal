@@ -696,7 +696,7 @@ AddToFunc UnsetPrivilegedTerminals
 DestroyFunc GenerateApplicationMenu
 AddToFunc GenerateApplicationMenu
 + I A fvwm-crystal.generate-menu $[FVWM_SYSTEMDIR] $[FVWM_USERDIR]
-+ I Test (Version > 2.6.5) Test (EnvMatch XDGMenu yes) A $[FVWM_SYSTEMDIR]/scripts/XDG-Menu
++ I Test (EnvMatch XDGMenu yes) A $[FVWM_SYSTEMDIR]/scripts/XDG-Menu
 
 All (Menu-Restart-Dialog) Close
 DestroyModuleConfig Menu-Restart-Dialog: *

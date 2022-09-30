@@ -59,7 +59,6 @@ Include scripts/SingleLineEdit/MPlayerParamsPref
 
 # Media Music functions {{{1
 Include components/functions/Media-Music-functions
-# Mixer
 Include components/functions/Mixer
 
 # Variables {{{1

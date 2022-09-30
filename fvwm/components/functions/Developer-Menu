@@ -2,6 +2,7 @@
 
 DestroyMenu /Developer
 AddToMenu /Developer '$[gt.Developer menu]' Title
+Test (EnvIsSet FVWM_IS_FVWM3) + '$[gt.Toggle fvwm3 debug log into ]$[FVWM3_LOGFILE]' Exec kill -s USR2 $(pidof fvwm3)
 + '$[gt.Reload current recipe]' ReloadRecipe
 + '$[gt.Identify window]' Pick Module FvwmIdent
 + '$[gt.Toggle FvwmConsole]' FvwmMiniConsole

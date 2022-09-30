@@ -9,8 +9,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: fvwm-crystal 3.7.2\n"
-"POT-Creation-Date: 2022-02-06 01:34+0100\n"
+"Project-Id-Version: fvwm-crystal 3.7.6-svn\n"
+"POT-Creation-Date: 2022-09-30 20:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1177,7 +1177,7 @@ msgstr ""
 
 #: ../fvwm/components/functions/CustomButtonBar-Menu:289
 #: ../fvwm/components/functions/CustomButtonBar-Menu:289
-#: ../fvwm/components/functions/Developer-Menu:19
+#: ../fvwm/components/functions/Developer-Menu:20
 #: ../fvwm/components/functions/Fvwm-Crystal-Menu:32
 #: ../fvwm/recipes/Light:58
 #: ../fvwm/recipes/TopDown:67
@@ -1271,13 +1271,13 @@ msgid "Exit"
 msgstr ""
 
 #: ../fvwm/components/functions/Debug-Functions:52
-#: ../fvwm/components/functions/Developer-Menu:6
+#: ../fvwm/components/functions/Developer-Menu:7
 msgid "Identify window"
 msgstr ""
 
 #: ../fvwm/components/functions/Debug-Functions:53
-#: ../fvwm/components/functions/Developer-Menu:29
-#: ../fvwm/components/functions/Developer-Menu:159
+#: ../fvwm/components/functions/Developer-Menu:30
+#: ../fvwm/components/functions/Developer-Menu:160
 msgid "WindowStyle"
 msgstr ""
 
@@ -1296,90 +1296,94 @@ msgid "Destroy"
 msgstr ""
 
 #: ../fvwm/components/functions/Developer-Menu:5
+msgid "Toggle fvwm3 debug log into "
+msgstr ""
+
+#: ../fvwm/components/functions/Developer-Menu:6
 msgid "Reload current recipe"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:7
+#: ../fvwm/components/functions/Developer-Menu:8
 msgid "Toggle FvwmConsole"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:8
+#: ../fvwm/components/functions/Developer-Menu:9
 msgid "Open debug window"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:20
+#: ../fvwm/components/functions/Developer-Menu:21
 msgid "FVWM manpages"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:21
+#: ../fvwm/components/functions/Developer-Menu:22
 msgid "X.org documentation"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:25
+#: ../fvwm/components/functions/Developer-Menu:26
 msgid "Browse Info pages with EMacs"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:26
+#: ../fvwm/components/functions/Developer-Menu:27
 msgid "Browse Info pages with pinfo"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:27
+#: ../fvwm/components/functions/Developer-Menu:28
 msgid "Browse Info pages with tkinfo"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:34
+#: ../fvwm/components/functions/Developer-Menu:35
 msgid "Keyboard bindings"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:35
+#: ../fvwm/components/functions/Developer-Menu:36
 msgid "Mouse bindings"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:36
+#: ../fvwm/components/functions/Developer-Menu:37
 msgid "FAQ"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:37
+#: ../fvwm/components/functions/Developer-Menu:38
 msgid "Tips"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:38
+#: ../fvwm/components/functions/Developer-Menu:39
 msgid "Crystal Rox! HOWTO"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:39
+#: ../fvwm/components/functions/Developer-Menu:40
 msgid "Application database"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:48
+#: ../fvwm/components/functions/Developer-Menu:49
 msgid "Main documentation"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:49
+#: ../fvwm/components/functions/Developer-Menu:50
 msgid "Decorations and colorsets"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:50
+#: ../fvwm/components/functions/Developer-Menu:51
 msgid "Modules used in FVWM-Crystal"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:52
+#: ../fvwm/components/functions/Developer-Menu:53
 msgid "Interface look and feel"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:53
+#: ../fvwm/components/functions/Developer-Menu:54
 msgid "Programming and debugging"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:54
+#: ../fvwm/components/functions/Developer-Menu:55
 msgid "External scripts and applications"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:126
+#: ../fvwm/components/functions/Developer-Menu:127
 msgid "X.Org documentation"
 msgstr ""
 
-#: ../fvwm/components/functions/Developer-Menu:128
+#: ../fvwm/components/functions/Developer-Menu:129
 msgid "X.Org-Xserver documentation"
 msgstr ""
 
@@ -1592,30 +1596,30 @@ msgstr ""
 msgid "Nested sessions"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:106
-#: ../fvwm/components/functions/Media:130
+#: ../fvwm/components/functions/Media:105
+#: ../fvwm/components/functions/Media:129
 msgid "Start player"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:107
-#: ../fvwm/components/functions/Media:129
+#: ../fvwm/components/functions/Media:106
+#: ../fvwm/components/functions/Media:128
 msgid "Stop MPlayer"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:108
-#: ../fvwm/components/functions/Media:128
+#: ../fvwm/components/functions/Media:107
+#: ../fvwm/components/functions/Media:127
 msgid "Destroy MPlayer"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:109
-#: ../fvwm/components/functions/Media:127
+#: ../fvwm/components/functions/Media:108
+#: ../fvwm/components/functions/Media:126
 #: ../fvwm/scripts/SingleLineEdit/MPlayerParams-Help:3
 #: ../fvwm/scripts/SingleLineEdit/MPlayerParamsPref:3
 msgid "MPlayer extra parameters"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:112
-#: ../fvwm/components/functions/Media:124
+#: ../fvwm/components/functions/Media:111
+#: ../fvwm/components/functions/Media:123
 #: ../fvwm/components/functions/Music-alsaplayer:45
 #: ../fvwm/components/functions/Music-alsaplayerdaemon:43
 #: ../fvwm/components/functions/Music-audacious:30
@@ -1635,8 +1639,8 @@ msgstr ""
 msgid "Start QJackCtl"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:113
-#: ../fvwm/components/functions/Media:123
+#: ../fvwm/components/functions/Media:112
+#: ../fvwm/components/functions/Media:122
 #: ../fvwm/components/functions/Music-alsaplayer:46
 #: ../fvwm/components/functions/Music-alsaplayerdaemon:44
 #: ../fvwm/components/functions/Music-audacious:31
@@ -1656,8 +1660,8 @@ msgstr ""
 msgid "Start Cadence"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:115
-#: ../fvwm/components/functions/Media:121
+#: ../fvwm/components/functions/Media:114
+#: ../fvwm/components/functions/Media:120
 #: ../fvwm/components/functions/Music-alsaplayer:43
 #: ../fvwm/components/functions/Music-alsaplayerdaemon:41
 #: ../fvwm/components/functions/Music-audacious:28
@@ -1677,39 +1681,40 @@ msgstr ""
 msgid "Music player"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:116
-#: ../fvwm/components/functions/Media:120
+#: ../fvwm/components/functions/Media:115
+#: ../fvwm/components/functions/Media:119
 msgid "Icons in file browser"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:172
+#: ../fvwm/components/functions/Media:171
 #: ../fvwm/components/functions/Music:118
 msgid "Audio playlists"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:173
+#: ../fvwm/components/functions/Media:172
 msgid "Video playlists"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:174
+#: ../fvwm/components/functions/Media:173
 msgid "IPTV playlists"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:175
+#: ../fvwm/components/functions/Media:174
 #: ../fvwm/components/functions/Music:119
 msgid "Personal audio playlists"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:176
+#: ../fvwm/components/functions/Media:175
 msgid "Personal video playlists"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:189
+#: ../fvwm/components/functions/Media:188
 msgid "Choose playlist to remove"
 msgstr ""
 
+#: ../fvwm/components/functions/Media:190
 #: ../fvwm/components/functions/Media:191
-#: ../fvwm/components/functions/Media:192
+#: ../fvwm/components/functions/Media:206
 #: ../fvwm/components/functions/Media:207
 #: ../fvwm/components/functions/Media:208
 #: ../fvwm/components/functions/Music:112
@@ -1717,7 +1722,7 @@ msgstr ""
 msgid "Browse Medias"
 msgstr ""
 
-#: ../fvwm/components/functions/Media:205
+#: ../fvwm/components/functions/Media:204
 msgid "Choose playlist to copy"
 msgstr ""
 

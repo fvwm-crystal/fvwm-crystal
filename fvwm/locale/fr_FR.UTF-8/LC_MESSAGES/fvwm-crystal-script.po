@@ -9,7 +9,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fvwm-crystal 3.7.2\n"
+"Project-Id-Version: fvwm-crystal 3.7.6-svn\n"
 "POT-Creation-Date: 2022-02-05 15:48+0100\n"
 "PO-Revision-Date: 2022-02-03 12:56+0100\n"
 "Last-Translator: Dominique Michel <dominique_libre@users.sourceforge.net>\n"

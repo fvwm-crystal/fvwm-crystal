@@ -54,13 +54,13 @@ fi
 source "${FVWM_USERDIR}"/preferences/IPTVCatPlaylists
 # ${DEBUG_SCRIPT} IPTV_CAT ${IPTVCatPlaylists}
 
-# For an up-to-date list, see https://iptv-org.github.io/iptv/
+# For an up-to-date list, see https://github.com/iptv-org/iptv/
 # We don't want the xxx category here, because otherwise it is
 # too easy to fool that script.
 IPTV_REF_CATEGORIES=( animation auto business classic comedy cooking culture
 	documentary education entertainment family general kids legislative
-	lifestyle local movies music news outdoor relax religious science
-	series shop sports travel weather other )
+	lifestyle movies music news outdoor relax religious science
+	series shop sports travel weather undefined )
 # ${DEBUG_SCRIPT} IPTV_REF ${IPTV_REF_CATEGORIES[@]}
 
 ## Set the wanted categoriess and download them {{{1
@@ -74,8 +74,10 @@ done
 IPTV_CAT_PLAYLISTS=( ${IPTV_TMP_CAT} ${IPTV_XXX_PLAYLISTS} )
 # ${DEBUG_SCRIPT} IPTV_CAT_PLAYLISTS ${IPTV_CAT_PLAYLISTS[@]}
 ${DEBUG_SCRIPT} mkdir -p "${IPTV_TMP_DIR}"
+mkdir -p "${IPTV_TMP_DIR}"
 for i in "${IPTV_CAT_PLAYLISTS[@]}"; do
 	${DEBUG_SCRIPT} ${WGET_CMD} "${IPTV_TMP_DIR}/${i}${IPTV_URI_SUFFIX}" "${IPTV_ROOT_URI}${IPTV_CAT_DIR}/${i}${IPTV_URI_SUFFIX}"
+	#${WGET_CMD} "${IPTV_TMP_DIR}/${i}${IPTV_URI_SUFFIX}" "${IPTV_ROOT_URI}${IPTV_CAT_DIR}/${i}${IPTV_URI_SUFFIX}"
 done
 
 ## Do something {{{1
@@ -90,12 +92,15 @@ while read myline ; do
 				GROUPTITLE="$(sed -e 's:^.*group-title="\(.*\)\(".*\):\1:' -e 's:\" user-agent.*::' <<< "${myline}")"
 				#echo "GROUPTITLE = ${GROUPTITLE}"
 				# We don't want a too long file name, so keep only the first language
-				LANGUAGE="$(sed -e "s:^.*tvg-language=\"\(.*\)\" tvg-logo.*:\1:" -e "s:;.*::" <<< "${myline}")"
+				# FIXIT: LANGUAGE is country now. Maybe change the whole script to add support for the databse csv files
+				#        pro: more flexible; con: slower... maybe, who knows without trying
+#				LANGUAGE="$(sed -e "s:^.*tvg-id=\"\(.*\)\" tvg-logo.*:\1:" -e "s:;.*::" <<< "${myline}")"
+				LANGUAGE="$(sed -e "s:^.*tvg-id=\"\(.*\)\" tvg-logo.*:\1:" -e "s:.*[.]::" <<< "${myline}")"
 				#echo LANGUAGE = $LANGUAGE
-				COUNTRY="$(sed "s:^.*tvg-country=\"\(.*\)\" tvg-language.*:\1:" <<< "${myline}")"
+				#COUNTRY="$(sed "s:^.*tvg-id=\"\(.*\)\" tvg-language.*:\1:" <<< "${myline}")"
 				#echo COUNTRY = $COUNTRY
 				mydir="${IPTV_PLAYLISTS_DIR}/${GROUPTITLE}/${LANGUAGE}"
-				myfile="${mydir}/${COUNTRY}_${TITLE}${IPTV_URI_SUFFIX}"
+				myfile="${mydir}/${COUNTRY}${TITLE}${IPTV_URI_SUFFIX}"
 			else
 				mkdir -p "${mydir}"
 				# ffmpeg:// doesn't works with all channels without '-cache 8092'
@@ -110,6 +115,8 @@ done < ${1}
 
 ## Main function {{{1
 ${DEBUG_SCRIPT} rm -rf "${IPTV_PLAYLISTS_DIR}"
+rm -rf "${IPTV_PLAYLISTS_DIR}"
 for i in "${IPTV_CAT_PLAYLISTS[@]}"; do
 	${DEBUG_SCRIPT} write_playlists "${IPTV_TMP_DIR}/${i}${IPTV_URI_SUFFIX}"
+#	write_playlists "${IPTV_TMP_DIR}/${i}${IPTV_URI_SUFFIX}"
 done

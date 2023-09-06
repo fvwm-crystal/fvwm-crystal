@@ -273,7 +273,9 @@ searchoneappdesktop() {
 			NotShowIn="$(grep -h '\<NotShowIn\>' "${myline}")"
 			NoDisplay="$(grep -h '\<NoDisplay\>' "${myline}")"
 			Hidden="$(grep -h '\<Hidden\>' "${myline}")"
-			if [[ "${TestDeskType}" == "${DESKTYPE}" ]] && [[ "${OnlyShowIn}" == "" ]] && [[ "${NotShowIn}" == "" ]] && [[ "${NoDisplay}" == "" ]] && [[ "${Hidden}" == "" ]]; then
+			# NotShowIn is a string, so we introduce a possible bug by not testing it
+			#  && [[ "${NotShowIn}" == "" ]]
+			if [[ "${TestDeskType}" == "${DESKTYPE}" ]] && [[ "${OnlyShowIn}" == "" ]] && [[ "${NoDisplay}" == "" ]] && [[ "${Hidden}" == "" ]]; then
 				echo "${myline}" >> filelist
 			fi
 		fi

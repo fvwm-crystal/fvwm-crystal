@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: fvwm-crystal 3.7.6-svn\n"
-"POT-Creation-Date: 2022-09-30 20:08+0200\n"
-"PO-Revision-Date: 2022-09-30 22:30+0200\n"
+"POT-Creation-Date: 2024-06-27 16:02+0200\n"
+"PO-Revision-Date: 2024-06-27 16:17+0200\n"
 "Last-Translator: Dominique Michel <dominique_libre@users.sourceforge.net>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -23,381 +23,381 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: ../bin/fvwm-crystal.generate-menu:350 ../fvwm/Applications/Multimedia/
+#: ../bin/fvwm-crystal.generate-menu:354 ../fvwm/Applications/Multimedia/
 msgid "Audio"
 msgstr "Audio"
 
-#: ../bin/fvwm-crystal.generate-menu:354 ../fvwm/Applications/Multimedia/
+#: ../bin/fvwm-crystal.generate-menu:358 ../fvwm/Applications/Multimedia/
 msgid "Audio-Video"
 msgstr "Audio-vidéo"
 
-#: ../bin/fvwm-crystal.generate-menu:358 ../fvwm/Applications/
+#: ../bin/fvwm-crystal.generate-menu:362 ../fvwm/Applications/
 msgid "Development"
 msgstr "Développement"
 
-#: ../bin/fvwm-crystal.generate-menu:362 ../fvwm/Applications/
+#: ../bin/fvwm-crystal.generate-menu:366 ../fvwm/Applications/
 msgid "Knowledge"
 msgstr "Connaissance"
 
-#: ../bin/fvwm-crystal.generate-menu:366 ../fvwm/Applications/
+#: ../bin/fvwm-crystal.generate-menu:370 ../fvwm/Applications/
 msgid "Games"
 msgstr "Jeux"
 
-#: ../bin/fvwm-crystal.generate-menu:370 ../fvwm/Applications/
+#: ../bin/fvwm-crystal.generate-menu:374 ../fvwm/Applications/
 msgid "Graphics"
 msgstr "Graphisme"
 
-#: ../bin/fvwm-crystal.generate-menu:374 ../fvwm/Applications/
+#: ../bin/fvwm-crystal.generate-menu:378 ../fvwm/Applications/
 msgid "Network"
 msgstr "Réseau"
 
-#: ../bin/fvwm-crystal.generate-menu:378 ../fvwm/Applications/
+#: ../bin/fvwm-crystal.generate-menu:382 ../fvwm/Applications/
 msgid "Office"
 msgstr "Bureautique"
 
-#: ../bin/fvwm-crystal.generate-menu:382
+#: ../bin/fvwm-crystal.generate-menu:386
 msgid "Science"
 msgstr "Science"
 
-#: ../bin/fvwm-crystal.generate-menu:386 ../fvwm/Applications/
+#: ../bin/fvwm-crystal.generate-menu:390 ../fvwm/Applications/
 msgid "Settings"
 msgstr "Réglages"
 
-#: ../bin/fvwm-crystal.generate-menu:390 ../fvwm/Applications/
+#: ../bin/fvwm-crystal.generate-menu:394 ../fvwm/Applications/
 #: ../fvwm/components/functions/Colorsets:24
 #: ../fvwm/components/functions/Preferences-Menu:55
 #: ../fvwm/components/functions/Window-Decorations:26
 msgid "System"
 msgstr "Système"
 
-#: ../bin/fvwm-crystal.generate-menu:394 ../fvwm/Applications/
+#: ../bin/fvwm-crystal.generate-menu:398 ../fvwm/Applications/
 msgid "Utilities"
 msgstr "Utilitaires"
 
-#: ../bin/fvwm-crystal.generate-menu:398 ../fvwm/Applications/Multimedia/
+#: ../bin/fvwm-crystal.generate-menu:402 ../fvwm/Applications/Multimedia/
 msgid "Video"
 msgstr "Vidéo"
 
-#: ../bin/fvwm-crystal.generate-menu:413 ../fvwm/Applications/Graphics/
+#: ../bin/fvwm-crystal.generate-menu:417 ../fvwm/Applications/Graphics/
 msgid "2D Graphics"
 msgstr "Graphisme 2D"
 
-#: ../bin/fvwm-crystal.generate-menu:417 ../fvwm/Applications/Graphics/
+#: ../bin/fvwm-crystal.generate-menu:421 ../fvwm/Applications/Graphics/
 msgid "3D Graphics"
 msgstr "Graphisme 3D"
 
-#: ../bin/fvwm-crystal.generate-menu:421
+#: ../bin/fvwm-crystal.generate-menu:425
 msgid "Accessibility"
 msgstr "Accessibilité"
 
-#: ../bin/fvwm-crystal.generate-menu:425 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:429 ../fvwm/Applications/20~Games/
 msgid "Action Games"
 msgstr "Jeux d’action"
 
-#: ../bin/fvwm-crystal.generate-menu:429
+#: ../bin/fvwm-crystal.generate-menu:433
 msgid "Adventure Games"
 msgstr "Jeux d’aventure"
 
-#: ../bin/fvwm-crystal.generate-menu:433
+#: ../bin/fvwm-crystal.generate-menu:437
 msgid "Adult"
 msgstr "Adulte"
 
-#: ../bin/fvwm-crystal.generate-menu:437 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:441 ../fvwm/Applications/20~Games/
 msgid "Arcade Games"
 msgstr "Jeux d’arcade"
 
-#: ../bin/fvwm-crystal.generate-menu:441
+#: ../bin/fvwm-crystal.generate-menu:445
 msgid "Amusement"
 msgstr "Amusement"
 
-#: ../bin/fvwm-crystal.generate-menu:445 ../fvwm/Applications/Utilities/
+#: ../bin/fvwm-crystal.generate-menu:449 ../fvwm/Applications/Utilities/
 msgid "Archiving"
 msgstr "Archivage"
 
-#: ../bin/fvwm-crystal.generate-menu:449
+#: ../bin/fvwm-crystal.generate-menu:453
 msgid "Art"
 msgstr "Art"
 
-#: ../bin/fvwm-crystal.generate-menu:453
+#: ../bin/fvwm-crystal.generate-menu:457
 msgid "Artificial Intelligence"
 msgstr "Intelligence artificielle"
 
-#: ../bin/fvwm-crystal.generate-menu:457 ../fvwm/Applications/Knowledge/
+#: ../bin/fvwm-crystal.generate-menu:461 ../fvwm/Applications/Knowledge/
 msgid "Astronomy"
 msgstr "Astronomie"
 
-#: ../bin/fvwm-crystal.generate-menu:461 ../fvwm/Applications/Multimedia/Audio/
+#: ../bin/fvwm-crystal.generate-menu:465 ../fvwm/Applications/Multimedia/Audio/
 #: ../fvwm/Applications/Multimedia/Audio-Video/
 #: ../fvwm/Applications/Multimedia/Video/
 msgid "Audio-Video Editing"
 msgstr "Édition audio-vidéo"
 
-#: ../bin/fvwm-crystal.generate-menu:465
+#: ../bin/fvwm-crystal.generate-menu:469
 msgid "Biology"
 msgstr "Biologie"
 
-#: ../bin/fvwm-crystal.generate-menu:469
+#: ../bin/fvwm-crystal.generate-menu:473
 msgid "Blocks Games"
 msgstr "Jeux de blocs"
 
-#: ../bin/fvwm-crystal.generate-menu:473 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:477 ../fvwm/Applications/20~Games/
 msgid "Board Games"
 msgstr "Jeux de plateau"
 
-#: ../bin/fvwm-crystal.generate-menu:477
+#: ../bin/fvwm-crystal.generate-menu:481
 msgid "Building"
 msgstr "Compilation"
 
-#: ../bin/fvwm-crystal.generate-menu:481 ../fvwm/Applications/Utilities/
+#: ../bin/fvwm-crystal.generate-menu:485 ../fvwm/Applications/Utilities/
 msgid "Calculators"
 msgstr "Calculatrices"
 
-#: ../bin/fvwm-crystal.generate-menu:485 ../fvwm/Applications/Office/
+#: ../bin/fvwm-crystal.generate-menu:489 ../fvwm/Applications/Office/
 msgid "Calendars"
 msgstr "Calendriers"
 
-#: ../bin/fvwm-crystal.generate-menu:489 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:493 ../fvwm/Applications/20~Games/
 msgid "Card Games"
 msgstr "Jeux de cartes"
 
-#: ../bin/fvwm-crystal.generate-menu:493
+#: ../bin/fvwm-crystal.generate-menu:497
 msgid "Charts"
 msgstr "Cartes"
 
-#: ../bin/fvwm-crystal.generate-menu:497
+#: ../bin/fvwm-crystal.generate-menu:501
 msgid "Chat"
 msgstr "Chat"
 
-#: ../bin/fvwm-crystal.generate-menu:501
+#: ../bin/fvwm-crystal.generate-menu:505
 msgid "Chemistry"
 msgstr "Chimie"
 
-#: ../bin/fvwm-crystal.generate-menu:505
+#: ../bin/fvwm-crystal.generate-menu:509
 msgid "Clocks"
 msgstr "Horloges"
 
-#: ../bin/fvwm-crystal.generate-menu:509
+#: ../bin/fvwm-crystal.generate-menu:513
 msgid "Compression"
 msgstr "Compression"
 
-#: ../bin/fvwm-crystal.generate-menu:513
+#: ../bin/fvwm-crystal.generate-menu:517
 msgid "Computer Science"
 msgstr "Informatique"
 
-#: ../bin/fvwm-crystal.generate-menu:517
+#: ../bin/fvwm-crystal.generate-menu:521
 msgid "Console Only"
 msgstr "Console"
 
-#: ../bin/fvwm-crystal.generate-menu:521
+#: ../bin/fvwm-crystal.generate-menu:525
 msgid "Construction"
 msgstr "Construction"
 
-#: ../bin/fvwm-crystal.generate-menu:525 ../fvwm/Applications/Office/
+#: ../bin/fvwm-crystal.generate-menu:529 ../fvwm/Applications/Office/
 msgid "Contact Management"
 msgstr "Gestion des contacts"
 
-#: ../bin/fvwm-crystal.generate-menu:529
+#: ../bin/fvwm-crystal.generate-menu:533
 msgid "Core"
 msgstr "Cœur"
 
 # D {{{1
-#: ../bin/fvwm-crystal.generate-menu:533
+#: ../bin/fvwm-crystal.generate-menu:537
 msgid "Data Visualization"
 msgstr "Visualisation de donnée"
 
-#: ../bin/fvwm-crystal.generate-menu:537
+#: ../bin/fvwm-crystal.generate-menu:541
 #: ../fvwm/Applications/Multimedia/Audio-Video/
 msgid "Databases"
 msgstr "Bases de donnée"
 
-#: ../bin/fvwm-crystal.generate-menu:541 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:545 ../fvwm/Applications/Network/
 msgid "Dial-up"
 msgstr "Connexion"
 
-#: ../bin/fvwm-crystal.generate-menu:545 ../fvwm/Applications/Development/
+#: ../bin/fvwm-crystal.generate-menu:549 ../fvwm/Applications/Development/
 msgid "Debuggers"
 msgstr "Débogueurs"
 
-#: ../bin/fvwm-crystal.generate-menu:549 ../fvwm/Applications/Settings/
+#: ../bin/fvwm-crystal.generate-menu:553 ../fvwm/Applications/Settings/
 msgid "Desktop Settings"
 msgstr "Réglage du bureau"
 
-#: ../bin/fvwm-crystal.generate-menu:553
+#: ../bin/fvwm-crystal.generate-menu:557
 msgid "Dialup"
 msgstr "Connexion"
 
-#: ../bin/fvwm-crystal.generate-menu:557 ../fvwm/Applications/Office/
+#: ../bin/fvwm-crystal.generate-menu:561 ../fvwm/Applications/Office/
 msgid "Dictionaries"
 msgstr "Dictionnaires"
 
-#: ../bin/fvwm-crystal.generate-menu:561
+#: ../bin/fvwm-crystal.generate-menu:565
 #: ../fvwm/Applications/Multimedia/Audio-Video/
 msgid "Disc Burning"
 msgstr "Gravure de disque"
 
-#: ../bin/fvwm-crystal.generate-menu:565 ../fvwm/Applications/Development/
+#: ../bin/fvwm-crystal.generate-menu:569 ../fvwm/Applications/Development/
 #: ../fvwm/Applications/System/
 msgid "Documentation"
 msgstr "Documentation"
 
-#: ../bin/fvwm-crystal.generate-menu:569
+#: ../bin/fvwm-crystal.generate-menu:573
 msgid "Economy"
 msgstr "Économie"
 
-#: ../bin/fvwm-crystal.generate-menu:573
+#: ../bin/fvwm-crystal.generate-menu:577
 msgid "Electricity"
 msgstr "Électricité"
 
-#: ../bin/fvwm-crystal.generate-menu:577 ../fvwm/Applications/Development/
+#: ../bin/fvwm-crystal.generate-menu:581 ../fvwm/Applications/Development/
 msgid "Electronics"
 msgstr "Électronique"
 
-#: ../bin/fvwm-crystal.generate-menu:581 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:585 ../fvwm/Applications/Network/
 msgid "Email"
 msgstr "Courrier"
 
-#: ../bin/fvwm-crystal.generate-menu:585 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:589 ../fvwm/Applications/20~Games/
 #: ../fvwm/Applications/System/
 msgid "Emulators"
 msgstr "Émulateurs"
 
-#: ../bin/fvwm-crystal.generate-menu:589 ../fvwm/Applications/Graphics/
+#: ../bin/fvwm-crystal.generate-menu:593 ../fvwm/Applications/Graphics/
 #: ../fvwm/Applications/Multimedia/Audio/
 msgid "Engineering"
 msgstr "Ingénierie"
 
-#: ../bin/fvwm-crystal.generate-menu:593
+#: ../bin/fvwm-crystal.generate-menu:597
 msgid "Feed"
 msgstr "Réseaux abonnés"
 
-#: ../bin/fvwm-crystal.generate-menu:597 ../fvwm/Applications/System/
+#: ../bin/fvwm-crystal.generate-menu:601 ../fvwm/Applications/System/
 msgid "File Managers"
 msgstr "Gestionnaires de fichiers"
 
-#: ../bin/fvwm-crystal.generate-menu:601
+#: ../bin/fvwm-crystal.generate-menu:605
 msgid "File Systems"
 msgstr "Systèmes de fichiers"
 
-#: ../bin/fvwm-crystal.generate-menu:605 ../fvwm/Applications/Utilities/
+#: ../bin/fvwm-crystal.generate-menu:609 ../fvwm/Applications/Utilities/
 msgid "File Tools"
 msgstr "Outils de fichiers"
 
-#: ../bin/fvwm-crystal.generate-menu:609 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:613 ../fvwm/Applications/Network/
 msgid "File Transfer"
 msgstr "Transfert de fichier"
 
-#: ../bin/fvwm-crystal.generate-menu:613 ../fvwm/Applications/Office/
+#: ../bin/fvwm-crystal.generate-menu:617 ../fvwm/Applications/Office/
 msgid "Finance"
 msgstr "Finance"
 
-#: ../bin/fvwm-crystal.generate-menu:617
+#: ../bin/fvwm-crystal.generate-menu:621
 msgid "Flow Charts"
 msgstr "Organigrammes"
 
-#: ../bin/fvwm-crystal.generate-menu:621
+#: ../bin/fvwm-crystal.generate-menu:625
 msgid "Geography"
 msgstr "Géographie"
 
-#: ../bin/fvwm-crystal.generate-menu:625
+#: ../bin/fvwm-crystal.generate-menu:629
 msgid "Geology"
 msgstr "Géologie"
 
-#: ../bin/fvwm-crystal.generate-menu:629
+#: ../bin/fvwm-crystal.generate-menu:633
 msgid "Geoscience"
 msgstr "Géoscience"
 
 # G {{{1
-#: ../bin/fvwm-crystal.generate-menu:641 ../fvwm/Applications/Multimedia/Audio/
+#: ../bin/fvwm-crystal.generate-menu:645 ../fvwm/Applications/Multimedia/Audio/
 msgid "GUI Designers"
 msgstr "Dessin d’IHM"
 
 # H {{{1
-#: ../bin/fvwm-crystal.generate-menu:645
+#: ../bin/fvwm-crystal.generate-menu:649
 msgid "Ham Radio"
 msgstr "Radio amateur"
 
-#: ../bin/fvwm-crystal.generate-menu:649 ../fvwm/Applications/Settings/
+#: ../bin/fvwm-crystal.generate-menu:653 ../fvwm/Applications/Settings/
 msgid "Hardware Settings"
 msgstr "Réglages matériel"
 
-#: ../bin/fvwm-crystal.generate-menu:653
+#: ../bin/fvwm-crystal.generate-menu:657
 msgid "History"
 msgstr "Histoire"
 
-#: ../bin/fvwm-crystal.generate-menu:657
+#: ../bin/fvwm-crystal.generate-menu:661
 msgid "Humanities"
 msgstr "Sciences humaines"
 
-#: ../bin/fvwm-crystal.generate-menu:661 ../fvwm/Applications/Development/
+#: ../bin/fvwm-crystal.generate-menu:665 ../fvwm/Applications/Development/
 msgid "IDE"
 msgstr "EDI"
 
-#: ../bin/fvwm-crystal.generate-menu:665
+#: ../bin/fvwm-crystal.generate-menu:669
 msgid "Image Processing"
 msgstr "Traitement d’image"
 
-#: ../bin/fvwm-crystal.generate-menu:669 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:673 ../fvwm/Applications/Network/
 msgid "IRC Clients"
 msgstr "Clients IRC"
 
-#: ../bin/fvwm-crystal.generate-menu:673 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:677 ../fvwm/Applications/Network/
 msgid "Instant Messaging"
 msgstr "Messageries instantanées"
 
-#: ../bin/fvwm-crystal.generate-menu:677 ../fvwm/Applications/Development/
+#: ../bin/fvwm-crystal.generate-menu:681 ../fvwm/Applications/Development/
 msgid "Java"
 msgstr "Java"
 
-#: ../bin/fvwm-crystal.generate-menu:689 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:693 ../fvwm/Applications/20~Games/
 msgid "Kids Games"
 msgstr "Jeux d’enfants"
 
 # L {{{1
-#: ../bin/fvwm-crystal.generate-menu:693 ../fvwm/Applications/Knowledge/
+#: ../bin/fvwm-crystal.generate-menu:697 ../fvwm/Applications/Knowledge/
 msgid "Languages"
 msgstr "Langues"
 
-#: ../bin/fvwm-crystal.generate-menu:697
+#: ../bin/fvwm-crystal.generate-menu:701
 msgid "Literature"
 msgstr "Littérature"
 
-#: ../bin/fvwm-crystal.generate-menu:701 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:705 ../fvwm/Applications/20~Games/
 msgid "Logic Games"
 msgstr "Jeux de logique"
 
-#: ../bin/fvwm-crystal.generate-menu:705
+#: ../bin/fvwm-crystal.generate-menu:709
 msgid "Maps"
 msgstr "Cartes"
 
-#: ../bin/fvwm-crystal.generate-menu:709 ../fvwm/Applications/Knowledge/
+#: ../bin/fvwm-crystal.generate-menu:713 ../fvwm/Applications/Knowledge/
 msgid "Math"
 msgstr "Mathématique"
 
-#: ../bin/fvwm-crystal.generate-menu:713
+#: ../bin/fvwm-crystal.generate-menu:717
 msgid "Medical Softwares"
 msgstr "Programmes médicaux"
 
-#: ../bin/fvwm-crystal.generate-menu:717
+#: ../bin/fvwm-crystal.generate-menu:721
 #: ../fvwm/Applications/Multimedia/Audio/Engineering/
 #: ../fvwm/Applications/Multimedia/Audio/
 msgid "MIDI"
 msgstr "MIDI"
 
-#: ../bin/fvwm-crystal.generate-menu:721 ../fvwm/Applications/Multimedia/Audio/
+#: ../bin/fvwm-crystal.generate-menu:725 ../fvwm/Applications/Multimedia/Audio/
 #: ../fvwm/components/functions/Media:575
 #: ../fvwm/components/functions/Media:580
 msgid "Mixers"
 msgstr "Mixage"
 
-#: ../bin/fvwm-crystal.generate-menu:725 ../fvwm/Applications/System/
+#: ../bin/fvwm-crystal.generate-menu:729 ../fvwm/Applications/System/
 msgid "Monitors"
 msgstr "Moniteurs"
 
-#: ../bin/fvwm-crystal.generate-menu:729
+#: ../bin/fvwm-crystal.generate-menu:733
 msgid "Motif"
 msgstr "Motif"
 
-#: ../bin/fvwm-crystal.generate-menu:733
+#: ../bin/fvwm-crystal.generate-menu:737
 #: ../fvwm/components/functions/CustomButtonBar-Menu:291
 #: ../fvwm/components/functions/Fvwm-Crystal-Menu:34 ../fvwm/recipes/Amiga:420
 #: ../fvwm/recipes/Corner:163 ../fvwm/recipes/LapLeft:99
@@ -407,189 +407,189 @@ msgstr "Motif"
 msgid "Music"
 msgstr "Musique"
 
-#: ../bin/fvwm-crystal.generate-menu:737 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:741 ../fvwm/Applications/Network/
 msgid "News"
 msgstr "Nouvelles"
 
-#: ../bin/fvwm-crystal.generate-menu:741
+#: ../bin/fvwm-crystal.generate-menu:745
 msgid "Numerical Analysis"
 msgstr "Analyse numérique"
 
 # O {{{1
-#: ../bin/fvwm-crystal.generate-menu:745
+#: ../bin/fvwm-crystal.generate-menu:749
 msgid "OCR"
 msgstr "ROC"
 
-#: ../bin/fvwm-crystal.generate-menu:749 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:753 ../fvwm/Applications/Network/
 msgid "P2P"
 msgstr "Point à point"
 
 # P {{{1
-#: ../bin/fvwm-crystal.generate-menu:753 ../fvwm/Applications/Settings/
+#: ../bin/fvwm-crystal.generate-menu:757 ../fvwm/Applications/Settings/
 msgid "Package Managers"
 msgstr "Gestion des programmes"
 
-#: ../bin/fvwm-crystal.generate-menu:757
+#: ../bin/fvwm-crystal.generate-menu:761
 msgid "Parallel Computing"
 msgstr "Calcul parallèle"
 
-#: ../bin/fvwm-crystal.generate-menu:761 ../fvwm/Applications/Office/
+#: ../bin/fvwm-crystal.generate-menu:765 ../fvwm/Applications/Office/
 msgid "PDA"
 msgstr "Assistant personnel"
 
-#: ../bin/fvwm-crystal.generate-menu:765 ../fvwm/Applications/Graphics/
+#: ../bin/fvwm-crystal.generate-menu:769 ../fvwm/Applications/Graphics/
 msgid "Photography"
 msgstr "Photographie"
 
-#: ../bin/fvwm-crystal.generate-menu:769 ../fvwm/Applications/Knowledge/
+#: ../bin/fvwm-crystal.generate-menu:773 ../fvwm/Applications/Knowledge/
 msgid "Physics"
 msgstr "Physique"
 
-#: ../bin/fvwm-crystal.generate-menu:773 ../fvwm/Applications/Multimedia/Audio/
+#: ../bin/fvwm-crystal.generate-menu:777 ../fvwm/Applications/Multimedia/Audio/
 #: ../fvwm/Applications/Multimedia/Video/
 msgid "Players"
 msgstr "Lecteurs"
 
-#: ../bin/fvwm-crystal.generate-menu:777
+#: ../bin/fvwm-crystal.generate-menu:781
 msgid "Presentations"
 msgstr "Présentations"
 
-#: ../bin/fvwm-crystal.generate-menu:781 ../fvwm/Applications/Settings/
+#: ../bin/fvwm-crystal.generate-menu:785 ../fvwm/Applications/Settings/
 #: ../fvwm/Applications/Utilities/
 msgid "Printing"
 msgstr "Impression"
 
-#: ../bin/fvwm-crystal.generate-menu:785
+#: ../bin/fvwm-crystal.generate-menu:789
 msgid "Profiling"
 msgstr "Profilage"
 
-#: ../bin/fvwm-crystal.generate-menu:789
+#: ../bin/fvwm-crystal.generate-menu:793
 msgid "Project Management"
 msgstr "Gestion de projet"
 
-#: ../bin/fvwm-crystal.generate-menu:793 ../fvwm/Applications/Office/
+#: ../bin/fvwm-crystal.generate-menu:797 ../fvwm/Applications/Office/
 msgid "Publishing"
 msgstr "Publication"
 
-#: ../bin/fvwm-crystal.generate-menu:801
+#: ../bin/fvwm-crystal.generate-menu:805
 msgid "Raster Graphics"
 msgstr "Images matricielles"
 
-#: ../bin/fvwm-crystal.generate-menu:805
+#: ../bin/fvwm-crystal.generate-menu:809
 msgid "Recorders"
 msgstr "Enregistreurs"
 
-#: ../bin/fvwm-crystal.generate-menu:809 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:813 ../fvwm/Applications/Network/
 msgid "Remote Access"
 msgstr "Accès distant"
 
-#: ../bin/fvwm-crystal.generate-menu:813 ../fvwm/Applications/Development/
+#: ../bin/fvwm-crystal.generate-menu:817 ../fvwm/Applications/Development/
 msgid "Revision Control"
 msgstr "Gestion de versions"
 
-#: ../bin/fvwm-crystal.generate-menu:817
+#: ../bin/fvwm-crystal.generate-menu:821
 msgid "Robotics"
 msgstr "Robotique"
 
-#: ../bin/fvwm-crystal.generate-menu:821 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:825 ../fvwm/Applications/20~Games/
 msgid "Role Playing"
 msgstr "Jeux de rôle"
 
-#: ../bin/fvwm-crystal.generate-menu:825 ../fvwm/Applications/Graphics/
+#: ../bin/fvwm-crystal.generate-menu:829 ../fvwm/Applications/Graphics/
 msgid "Scanning"
 msgstr "Numérisation d’images"
 
-#: ../bin/fvwm-crystal.generate-menu:829 ../fvwm/Applications/System/
+#: ../bin/fvwm-crystal.generate-menu:833 ../fvwm/Applications/System/
 msgid "Security"
 msgstr "Sécurité"
 
-#: ../bin/fvwm-crystal.generate-menu:833 ../fvwm/Applications/Multimedia/Audio/
+#: ../bin/fvwm-crystal.generate-menu:837 ../fvwm/Applications/Multimedia/Audio/
 msgid "Sequencers"
 msgstr "Séquenceurs"
 
-#: ../bin/fvwm-crystal.generate-menu:837
+#: ../bin/fvwm-crystal.generate-menu:841
 msgid "Shooter"
 msgstr "Jeux de tir"
 
-#: ../bin/fvwm-crystal.generate-menu:841 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:845 ../fvwm/Applications/20~Games/
 msgid "Simulation"
 msgstr "Simulation"
 
-#: ../bin/fvwm-crystal.generate-menu:845
+#: ../bin/fvwm-crystal.generate-menu:849
 msgid "Spirituality"
 msgstr "Spiritualité"
 
-#: ../bin/fvwm-crystal.generate-menu:849
+#: ../bin/fvwm-crystal.generate-menu:853
 msgid "Sports"
 msgstr "Sport"
 
-#: ../bin/fvwm-crystal.generate-menu:853
+#: ../bin/fvwm-crystal.generate-menu:857
 msgid "Sports Games"
 msgstr "Jeux de sport"
 
-#: ../bin/fvwm-crystal.generate-menu:857 ../fvwm/Applications/Office/
+#: ../bin/fvwm-crystal.generate-menu:861 ../fvwm/Applications/Office/
 msgid "Spreadsheets"
 msgstr "Tableurs"
 
-#: ../bin/fvwm-crystal.generate-menu:861 ../fvwm/Applications/20~Games/
+#: ../bin/fvwm-crystal.generate-menu:865 ../fvwm/Applications/20~Games/
 msgid "Strategy Games"
 msgstr "Jeux de stratégie"
 
-#: ../bin/fvwm-crystal.generate-menu:869 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:873 ../fvwm/Applications/Network/
 msgid "Telephony"
 msgstr "Téléphonie"
 
-#: ../bin/fvwm-crystal.generate-menu:873
+#: ../bin/fvwm-crystal.generate-menu:877
 msgid "Telephony Tools"
 msgstr "Outils de téléphonie"
 
-#: ../bin/fvwm-crystal.generate-menu:877 ../fvwm/Applications/System/
+#: ../bin/fvwm-crystal.generate-menu:881 ../fvwm/Applications/System/
 msgid "Terminals"
 msgstr "Terminaux"
 
-#: ../bin/fvwm-crystal.generate-menu:881 ../fvwm/Applications/Utilities/
+#: ../bin/fvwm-crystal.generate-menu:885 ../fvwm/Applications/Utilities/
 msgid "Text Editors"
 msgstr "Éditeurs de texte"
 
-#: ../bin/fvwm-crystal.generate-menu:885 ../fvwm/Applications/Utilities/
+#: ../bin/fvwm-crystal.generate-menu:889 ../fvwm/Applications/Utilities/
 msgid "Text Tools"
 msgstr "Outils pour texte"
 
-#: ../bin/fvwm-crystal.generate-menu:889
+#: ../bin/fvwm-crystal.generate-menu:893
 msgid "Translation"
 msgstr "Traduction"
 
-#: ../bin/fvwm-crystal.generate-menu:893 ../fvwm/Applications/Multimedia/Audio/
+#: ../bin/fvwm-crystal.generate-menu:897 ../fvwm/Applications/Multimedia/Audio/
 msgid "Tuners"
 msgstr "Accordeurs"
 
-#: ../bin/fvwm-crystal.generate-menu:897 ../fvwm/Applications/Multimedia/Video/
+#: ../bin/fvwm-crystal.generate-menu:901 ../fvwm/Applications/Multimedia/Video/
 msgid "TV"
 msgstr "TV"
 
 # V {{{1
-#: ../bin/fvwm-crystal.generate-menu:901 ../fvwm/Applications/Graphics/
+#: ../bin/fvwm-crystal.generate-menu:905 ../fvwm/Applications/Graphics/
 msgid "Vector Graphics"
 msgstr "Graphisme vectoriel"
 
-#: ../bin/fvwm-crystal.generate-menu:905 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:909 ../fvwm/Applications/Network/
 msgid "Webcam"
 msgstr "Webcam"
 
-#: ../bin/fvwm-crystal.generate-menu:909 ../fvwm/Applications/Graphics/
+#: ../bin/fvwm-crystal.generate-menu:913 ../fvwm/Applications/Graphics/
 #: ../fvwm/Applications/Office/
 msgid "Viewers"
 msgstr "Visionneuses"
 
-#: ../bin/fvwm-crystal.generate-menu:913 ../fvwm/Applications/Network/
+#: ../bin/fvwm-crystal.generate-menu:917 ../fvwm/Applications/Network/
 msgid "Web Browsers"
 msgstr "Navigateurs"
 
-#: ../bin/fvwm-crystal.generate-menu:917 ../fvwm/Applications/Development/
+#: ../bin/fvwm-crystal.generate-menu:921 ../fvwm/Applications/Development/
 msgid "Web Development"
 msgstr "Développement internet"
 
-#: ../bin/fvwm-crystal.generate-menu:921 ../fvwm/Applications/Office/
+#: ../bin/fvwm-crystal.generate-menu:925 ../fvwm/Applications/Office/
 msgid "Word Processors"
 msgstr "Traitements de texte"
 
@@ -661,6 +661,10 @@ msgstr "DJ"
 #: ../fvwm/Applications/Multimedia/Audio/Engineering/
 msgid "Jack"
 msgstr "Jack"
+
+#: ../fvwm/Applications/Multimedia/Audio/
+msgid "Looping"
+msgstr "Boucle"
 
 #: ../fvwm/Applications/Multimedia/Audio/
 msgid "Mp3"
@@ -861,7 +865,7 @@ msgid "Activate"
 msgstr "Activer"
 
 #: ../fvwm/components/apps/XScreenSaver:25
-#: ../fvwm/components/functions/Exit:127
+#: ../fvwm/components/functions/Exit:123
 #: ../fvwm/components/functions/Exit-Safe:9
 msgid "Lock screen"
 msgstr "Verrouiller"
@@ -1288,84 +1292,88 @@ msgstr "Documentation de X.org"
 msgid "X.Org-Xserver documentation"
 msgstr "Documentation de X.org-Xserver"
 
-#: ../fvwm/components/functions/Exit:29 ../fvwm/components/functions/Exit:42
+#: ../fvwm/components/functions/Exit:43
 msgid " 1 %"
 msgstr " 1 %"
 
-#: ../fvwm/components/functions/Exit:30 ../fvwm/components/functions/Exit:43
+#: ../fvwm/components/functions/Exit:44
 msgid " 2 %"
 msgstr " 2 %"
 
-#: ../fvwm/components/functions/Exit:31 ../fvwm/components/functions/Exit:44
+#: ../fvwm/components/functions/Exit:45
 msgid " 3 %"
 msgstr " 3 %"
 
-#: ../fvwm/components/functions/Exit:32 ../fvwm/components/functions/Exit:45
+#: ../fvwm/components/functions/Exit:46
 msgid " 5 %"
 msgstr " 5 %"
 
-#: ../fvwm/components/functions/Exit:33 ../fvwm/components/functions/Exit:46
+#: ../fvwm/components/functions/Exit:47
 msgid "10 %"
 msgstr "10 %"
 
-#: ../fvwm/components/functions/Exit:34 ../fvwm/components/functions/Exit:47
+#: ../fvwm/components/functions/Exit:48
 msgid "15 %"
 msgstr "15 %"
 
-#: ../fvwm/components/functions/Exit:35 ../fvwm/components/functions/Exit:48
+#: ../fvwm/components/functions/Exit:49
 msgid "20 %"
 msgstr "20 %"
 
-#: ../fvwm/components/functions/Exit:36 ../fvwm/components/functions/Exit:49
+#: ../fvwm/components/functions/Exit:50
 msgid "25 %"
 msgstr "25 %"
 
-#: ../fvwm/components/functions/Exit:37 ../fvwm/components/functions/Exit:50
+#: ../fvwm/components/functions/Exit:51
 msgid "50 %"
 msgstr "50 %"
 
-#: ../fvwm/components/functions/Exit:38 ../fvwm/components/functions/Exit:51
+#: ../fvwm/components/functions/Exit:52
 msgid "75 %"
 msgstr "75 %"
 
-#: ../fvwm/components/functions/Exit:57
+#: ../fvwm/components/functions/Exit:58
 msgid "Stop"
 msgstr "Arrêter"
 
-#: ../fvwm/components/functions/Exit:59 ../fvwm/components/functions/Exit:60
+#: ../fvwm/components/functions/Exit:59
 msgid "Start when battery is as low as"
 msgstr "Démarre quand la batterie est aussi basse que"
 
-#: ../fvwm/components/functions/Exit:82
+#: ../fvwm/components/functions/Exit:80
 msgid "No resume hybride with screen lid"
-msgstr "Pas de veille puis hibernation lors de la fermeture de l’écran"
+msgstr "Pas de veille et hibernation lors de la fermeture de l’écran"
 
-#: ../fvwm/components/functions/Exit:84 ../fvwm/components/functions/Exit:85
-#: ../fvwm/components/functions/Exit:97 ../fvwm/components/functions/Exit:108
+#: ../fvwm/components/functions/Exit:81 ../fvwm/components/functions/Exit:92
+#: ../fvwm/components/functions/Exit:103
 msgid "Resume hybride with screen lid"
-msgstr "Veille puis hibernation lors de la fermeture de l’écran"
+msgstr "Veille et hibernation lors de la fermeture de l’écran"
 
-#: ../fvwm/components/functions/Exit:96 ../fvwm/components/functions/Exit:107
+#: ../fvwm/components/functions/Exit:91 ../fvwm/components/functions/Exit:102
 msgid "Automatic suspend to disk"
 msgstr "Hibernation automatique"
 
-#: ../fvwm/components/functions/Exit:99 ../fvwm/components/functions/Exit:110
+#: ../fvwm/components/functions/Exit:94 ../fvwm/components/functions/Exit:105
 msgid "Resume to RAM"
 msgstr "Veille en mémoire vive"
 
-#: ../fvwm/components/functions/Exit:100 ../fvwm/components/functions/Exit:111
+#: ../fvwm/components/functions/Exit:95 ../fvwm/components/functions/Exit:106
 msgid "Resume hybride"
-msgstr "Veille puis hibernation"
+msgstr "Veille et hibernation"
 
-#: ../fvwm/components/functions/Exit:101 ../fvwm/components/functions/Exit:112
+#: ../fvwm/components/functions/Exit:96 ../fvwm/components/functions/Exit:108
 msgid "Suspend to disk"
 msgstr "Hibernation"
 
-#: ../fvwm/components/functions/Exit:102
+#: ../fvwm/components/functions/Exit:97
 msgid "Powersave"
 msgstr "Économie d’énergie"
 
-#: ../fvwm/components/functions/Exit:114
+#: ../fvwm/components/functions/Exit:107
+msgid "Resume to RAM then disk"
+msgstr "Veille puis hibernation"
+
+#: ../fvwm/components/functions/Exit:110
 #: ../fvwm/components/functions/Exit-Safe-gdm:13
 #: ../fvwm/components/functions/Exit-Safe-sudo:6
 #: ../fvwm/components/functions/Exit-gdm:13
@@ -1373,7 +1381,7 @@ msgstr "Économie d’énergie"
 msgid "Reboot computer"
 msgstr "Redémarrer la machine"
 
-#: ../fvwm/components/functions/Exit:115
+#: ../fvwm/components/functions/Exit:111
 #: ../fvwm/components/functions/Exit-Safe-gdm:17
 #: ../fvwm/components/functions/Exit-Safe-sudo:7
 #: ../fvwm/components/functions/Exit-gdm:17
@@ -1381,7 +1389,7 @@ msgstr "Redémarrer la machine"
 msgid "Turn off computer"
 msgstr "Arrêter"
 
-#: ../fvwm/components/functions/Exit:126
+#: ../fvwm/components/functions/Exit:122
 #: ../fvwm/components/functions/Exit-Safe:8
 #: ../fvwm/components/functions/Preferences-Menu:78
 #: ../fvwm/components/functions/Preferences-Menu:369
@@ -1390,18 +1398,18 @@ msgstr "Arrêter"
 msgid "Restart"
 msgstr "Redémarrer"
 
-#: ../fvwm/components/functions/Exit:128 ../fvwm/components/functions/Exit:129
+#: ../fvwm/components/functions/Exit:124 ../fvwm/components/functions/Exit:125
 #: ../fvwm/components/functions/Exit-Safe:10
 #: ../fvwm/components/functions/Preferences-Menu:314
 #: ../fvwm/components/functions/Preferences-Menu:328
 msgid "Logout"
 msgstr "Quitter"
 
-#: ../fvwm/components/functions/Exit:133
+#: ../fvwm/components/functions/Exit:129
 msgid "Save session"
 msgstr "Sauver la session"
 
-#: ../fvwm/components/functions/Exit:134
+#: ../fvwm/components/functions/Exit:130
 msgid "Manage session"
 msgstr "Manager la session"
 

@@ -4,15 +4,29 @@
 # session managers as gnome-session (its old and outdated now)
 # + pm-utils and systemd supports - anyway, hibernation is much better
 # than session management because it just work and is fast.
+# + pm-utils was removed from gentoo, add loginctl support and
+# cleanup of executables testing.
 
 # We don't know how fvwm-crystal is started and what its PATH is
 InfoStoreAdd sysctl no
+# Use pm-utils, then loginctl, then sysctl
+## Fallbacks
 Test (x systemctl) InfoStoreAdd sysctl systemctl
-# Fallbacks
+Test (x loginctl) InfoStoreAdd sysctl loginctl
+Test (x pm-suspend-hybrid) InfoStoreAdd sysctl pm-suspend-hybrid
+## With full paths
 Test (x /usr/bin/systemctl) InfoStoreAdd sysctl /usr/bin/systemctl
 Test (x /bin/systemctl) InfoStoreAdd sysctl /bin/systemctl
 Test (x /usr/sbin/systemctl) InfoStoreAdd sysctl /usr/sbin/systemctl
 Test (x /sbin/systemctl) InfoStoreAdd sysctl /sbin/systemctl
+Test (x /usr/bin/loginctl) InfoStoreAdd sysctl /usr/bin/loginctl
+Test (x /bin/loginctl) InfoStoreAdd sysctl /bin/loginctl
+Test (x /usr/sbin/loginctl) InfoStoreAdd sysctl /usr/sbin/loginctl
+Test (x /sbin/loginctl) InfoStoreAdd sysctl /sbin/loginctl
+Test (x /usr/bin/pm-suspend-hybrid) InfoStoreAdd sysctl /usr/bin/pm-suspend-hybrid
+Test (x /bin/pm-suspend-hybrid) InfoStoreAdd sysctl /bin/pm-suspend-hybrid
+Test (x /usr/sbin/pm-suspend-hybrid) InfoStoreAdd sysctl /usr/sbin/pm-suspend-hybrid
+Test (x /sbin/pm-suspend-hybrid) InfoStoreAdd sysctl /sbin/pm-suspend-hybrid
 
 # ps -C ... truncate the command name (see man 5 proc); use pgrep -f ...
 DestroyFunc KillAutoHibernate
@@ -24,41 +38,25 @@ AddToFunc EndAutoHibernate
 + I KillAutoHibernate
 + I SavePreferences AutoHibernation Nop
 
-DestroyMenu /AutoHibernatePMValue
-AddToMenu /AutoHibernatePMValue
-+ "$[gt. 1 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 1 pm
-+ "$[gt. 2 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 2 pm
-+ "$[gt. 3 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 3 pm
-+ "$[gt. 5 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 5 pm
-+ "$[gt.10 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 10 pm
-+ "$[gt.15 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 15 pm
-+ "$[gt.20 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 20 pm
-+ "$[gt.25 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 25 pm
-+ "$[gt.50 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 50 pm
-+ "$[gt.75 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 75 pm
-
-DestroyMenu /AutoHibernateSysValue
-AddToMenu /AutoHibernateSysValue
-+ "$[gt. 1 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 1 sys
-+ "$[gt. 2 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 2 sys
-+ "$[gt. 3 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 3 sys
-+ "$[gt. 5 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 5 sys
-+ "$[gt.10 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 10 sys
-+ "$[gt.15 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 15 sys
-+ "$[gt.20 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 20 sys
-+ "$[gt.25 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 25 sys
-+ "$[gt.50 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 50 sys
-+ "$[gt.75 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 75 sys
+DestroyMenu /AutoHibernateValue
+AddToMenu /AutoHibernateValue
++ "$[gt. 1 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 1 $[infostore.sysctl]
++ "$[gt. 2 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 2 $[infostore.sysctl]
++ "$[gt. 3 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 3 $[infostore.sysctl]
++ "$[gt. 5 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 5 $[infostore.sysctl]
++ "$[gt.10 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 10 $[infostore.sysctl]
++ "$[gt.15 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 15 $[infostore.sysctl]
++ "$[gt.20 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 20 $[infostore.sysctl]
++ "$[gt.25 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 25 $[infostore.sysctl]
++ "$[gt.50 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 50 $[infostore.sysctl]
++ "$[gt.75 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 75 $[infostore.sysctl]
 
 DestroyFunc AutoHibernate-generator
 AddToFunc AutoHibernate-generator
 + I DestroyMenu recreate /AutoHibernate
-+ I Piperead "if test `pkill -0 AutoHibernate`; \
-	then AddToMenu /AutoHibernate \\'$[gt.Stop]\\' EndAutoHibernate; \
-	else if [ $[infostore.sysctl] = no ]; \
-	     then echo AddToMenu /AutoHibernate \\'$[gt.Start when battery is as low as]\\' Popup /AutoHibernatePMValue; \
-	     else echo AddToMenu /AutoHibernate \\'$[gt.Start when battery is as low as]\\' Popup /AutoHibernateSysValue; \
-	     fi; \
++ I Piperead "if [ $(pgrep AutoHibernate) ]; \
+	then echo AddToMenu /AutoHibernate \\'$[gt.Stop]\\' EndAutoHibernate; \
+	else echo AddToMenu /AutoHibernate \\'$[gt.Start when battery is as low as]\\' Popup /AutoHibernateValue; \
 	fi"
 
 DestroyMenu /AutoHibernate
@@ -80,10 +78,7 @@ AddToFunc ScreenLidSuspend-generator
 + I DestroyMenu recreate /ScreenLidSuspend
 + I Piperead "if [ `pgrep -c ScreenLidSuspen` -gt 0 ]; \
 	then echo AddToMenu /ScreenLidSuspend \\'$[gt.No resume hybride with screen lid]\\' NoScreenLidSuspend; \
-	else if [ $[infostore.sysctl] = no ]; \
-	     then echo AddToMenu /ScreenLidSuspend \\'$[gt.Resume hybride with screen lid]\\' ScreenLidSuspend pm; \
-	     else echo AddToMenu /ScreenLidSuspend \\'$[gt.Resume hybride with screen lid]\\' ScreenLidSuspend sys; \
-	     fi; \
+	else echo AddToMenu /ScreenLidSuspend \\'$[gt.Resume hybride with screen lid]\\' ScreenLidSuspend $[infostore.sysctl]; \
 	fi"
 
 DestroyMenu /ScreenLidSuspend
@@ -93,8 +88,8 @@ AddToMenu /ScreenLidSuspend
 DestroyFunc Exit-Menu-pm
 AddToFunc Exit-Menu-pm
 + I AddToMenu /Exit '' Nop
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
++ I Test (X /sys/class/power_supply/BAT0) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
++ I Test (X /proc/acpi/button/lid) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
 + I AddToMenu /Exit '' Nop
 + I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' S pm-suspend
 + I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' S pm-suspend-hybrid
@@ -104,11 +99,12 @@ AddToFunc Exit-Menu-pm
 DestroyFunc Exit-Menu-sysctl
 AddToFunc Exit-Menu-sysctl
 + I AddToMenu /Exit '' Nop
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
++ I Test (X /sys/class/power_supply/BAT0) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
++ I Test (X /proc/acpi/button/lid) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
 + I AddToMenu /Exit '' Nop
 + I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' Exec $0 suspend -i
 + I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' Exec $0 hybrid-sleep -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM then disk]' Exec $0 suspend-then-hibernate -i
 + I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Suspend to disk]' Exec $0 hibernate -i
 + I AddToMenu /Exit "" Nop
 + I AddToMenu /Exit '%22x22/fvwm-crystal/system-reboot.png%$[gt.Reboot computer]' Exec $0 reboot -i

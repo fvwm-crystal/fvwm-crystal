@@ -1,4 +1,5 @@
 #!/bin/bash
+# On laptop, suspend hybrid from components/functions/Exit
 
 lidsleeppm() {
 	while :
@@ -6,14 +7,25 @@ lidsleeppm() {
 	    sleep 5
 	    grep -q closed /proc/acpi/button/lid/*/state
 	    if [ $? = 0 ]; then
-		if [[ $1 == pm ]]; then
-		    sudo /usr/sbin/pm-suspend-hybrid
+		if [[ $2 == pm ]]; then
+		    sudo $1
 		fi
-		if [[ $1 == sys ]]; then
-		    systemctl hybrid-sleep -i
+		if [[ $2 == log ]]; then
+		    $1 hybrid-sleep
+		fi
+		if [[ $2 == sys ]]; then
+		    $1 hybrid-sleep -i
 		fi
 	    fi
 	done
 }
 
-lidsleeppm $1
+if [[ $1 == *pm* ]] ; then
+	PMV=pm
+elif [[ $1 == *sysctl ]] ; then
+	PMV=sys
+elif [[ $1 == *loginctl ]] ; then
+	PMV=log
+fi
+
+lidsleeppm $1 "${PMV}"

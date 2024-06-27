@@ -1,9 +1,11 @@
 #!/bin/bash
 # FVWM-Crystal helper script that put the omputer in hibernation
 # when the battery is low
-# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate <rate [%]> <init [pm|sd]
+# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate <rate [%]> $[infostore.sysctl]
+#        launched from components/functions/Exit
 
 cleanup() {
+	echo cleanup
 	exit 0
 }
 
@@ -14,7 +16,7 @@ if [[ ! "$2" ]]; then
 fi
 
 # write the preference file
-echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/AutoHibernate $1" > ${FVWM_USERDIR}/preferences/AutoHibernation
+echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/AutoHibernate $1 $2" > ${FVWM_USERDIR}/preferences/AutoHibernation
 
 # check for battery file
 if [ -e /sys/class/power_supply/BAT0/energy_now ]
@@ -34,7 +36,7 @@ while :
 do
 	sleep "5"
 	# fvwm is started by exec; be sure it is running
-	pidof fvwm 1>/dev/null || cleanup
+	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
 
 	if [[ "$CurrentCharge" -lt "$MinCharge" ]]; then
 		# avoid hibernation loop
@@ -42,9 +44,9 @@ do
 			# mplayer doesn't like hibernation
 			${FVWM_SYSTEMDIR}/scripts/killmplayer 9
 			killall -9 mplayer 2>/dev/null
-			if [[ "${2}" == "pm" ]] ; then
+			if [[ "${2}" == "no" ]] ; then
 				sudo pm-hibernate
-			else	systemctl hibernate -i
+			else	"${2}" hibernate -i
 			fi
 			# we must kill that script after rebbot to avoid loop
 			Resumed="1"

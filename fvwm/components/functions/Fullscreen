@@ -30,9 +30,16 @@
 # which anyway is simpler to do and imply less maintenancee, than to test each individual software window.
 
 # Fullscreen {{{1
+# TODO: system to add windows we don't want in Fullscreen
+# ex: firefox download window: 	Name: Bibliothèque
+#				Icon Name: Bibliothèque
+#				Class: firefox
+#				Resource: Places
+# => variable with preference
+# also used down in Fullscreen-Rearrange
 DestroyFunc Fullscreen
 AddToFunc Fullscreen
-+ I ThisWindow (!FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) ToggleFullscreen
++ I ThisWindow (!FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !Places, !MPlayer) ToggleFullscreen
 
 DestroyFunc PutInFSProp
 AddToFunc PutInFSProp
@@ -74,7 +81,7 @@ AddToFunc Disappear-Off
 # Rearrange in fullscreen {{{1
 DestroyFunc Fullscreen-Rearrange
 AddToFunc Fullscreen-Rearrange
-+ I All (CurrentPage, !Iconic, !FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !MPlayer) ToggleFullscreen
++ I All (CurrentPage, !Iconic, !FvwmButtons, !FvwmPager, !FvwmMiniConsoleNeedsUniqueName, !QuakeConsoleNeedsUniqueName, !FvwmIconMan, !Places, !MPlayer) ToggleFullscreen
 
 # Start in full screen at application statup {{{1
 # Generate the Window-AutoFS function from the user preferences:

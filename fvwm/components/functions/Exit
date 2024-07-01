@@ -31,7 +31,7 @@ Test (x /sbin/pm-suspend-hybrid) InfoStoreAdd sysctl /sbin/pm-suspend-hybrid
 # ps -C ... truncate the command name (see man 5 proc); use pgrep -f ...
 DestroyFunc KillAutoHibernate
 AddToFunc KillAutoHibernate
-+ I Piperead 'for i in `pgrep -f AutoHibernate` ; do kill $i $[infostore.SILENT]; done'
++ I Piperead 'pgrep -f AutoHibernate 1>/dev/null && killall -9 AutoHibernate $[infostore.SILENT]'
 
 DestroyFunc EndAutoHibernate
 AddToFunc EndAutoHibernate

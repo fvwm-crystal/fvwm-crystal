@@ -42,8 +42,8 @@ do
 		# avoid hibernation loop
 		if [[ "${Resumed}" == "0" ]] ; then
 			# mplayer doesn't like hibernation
-			${FVWM_SYSTEMDIR}/scripts/killmplayer 9
-			killall -9 mplayer 2>/dev/null
+#			${FVWM_SYSTEMDIR}/scripts/killmplayer 9
+#			killall -9 mplayer 2>/dev/null
 			if [[ "${2}" == "no" ]] ; then
 				sudo pm-hibernate
 			else	"${2}" hibernate -i
@@ -56,7 +56,7 @@ do
 	else
 		CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now)/(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100))))
 		# return to normal loop after resuming when CurrentCharge > $1
-		if [[ "$CurrentCharge" -gt "$MinCharge" ]]; then
+		if [[ "$((1+${CurrentCharge}))" -gt "${MinCharge}" ]]; then
 			Resumed="0"
 		fi
 	fi

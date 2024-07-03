@@ -494,4 +494,8 @@ Style Zita-at1		MiniIcon 22x22/apps/zita-at1.png, Icon 32x32/apps/zita-at1.png
 Style zita*		UseStyle Zita-at1
 Style zsafe		MiniIcon 22x22/apps/zsafe.png, Icon 32x32/apps/zsafe.png
 
+# Must be to the end. Otherwise it can be overwrittent by the terminal icon
+# on some computers.
+Style "ALSA Mixer*"	NoIcon
+
 # vim:ft=fvwm

@@ -172,13 +172,21 @@ AddToFunc Mixer-Mute-Toggle
 	if [ $[infostore.MixerMute] = 0 ]; then echo "InfoStoreAdd MixerMute 1"; tmpval=`aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]'q | sed -e "s:.*, ::"`; echo "InfoStoreAdd CurrentVolume $tmpval"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' 0 > /dev/null; else echo "InfoStoreAdd MixerMute 0"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' $[infostore.CurrentVolume] > /dev/null; fi; fi'
 
 # Show/Hide the GUI {{{2
+# The quoting is broken in FvwmPrompt, so put the alsamixer into a separated function.
+# That new function will de|iconify the alsamixer window,
+# which restore its last state (maximized|fullscreen|...) and position.
+DestroyFunc Mixer-GUI-amixer
+AddToFunc Mixer-GUI-amixer
++ I All ("ALSA Mixer card $[infostore.SoundCard]", !Iconic) ThisWindow Iconify True
++ I TestRc (Match) Break
++ I TestRc (NoMatch) All ("ALSA Mixer card $[infostore.SoundCard]", Iconic) ThisWindow Iconify False
++ I TestRc (NoMatch) None ("ALSA Mixer card $[infostore.SoundCard]") AT "ALSA Mixer card $[infostore.SoundCard]" "alsamixer -c $[infostore.SoundCard]"
+
+#
 DestroyFunc Mixer-GUI
 AddToFunc Mixer-GUI
 PipeRead 'case $[infostore.Mixer] in \\
-	amixer)		echo "+ I All (\\\"ALSA Mixer\\\") Close" ; \\
-			echo "+ I TestRc (Match) Break" ; \\
-			echo "+ I TestRc (NoMatch) None (\\\"ALSA Mixer\\\") Test (x alsamixerguis) X alsamixerguis" ; \\
-			echo "+ I TestRc (Match) None (\\\"ALSA Mixer\\\") AT \\\"ALSA Mixer\\\" \\\"alsamixer -c $[infostore.SoundCard]\\\"" ;; \\
+	amixer)		echo "+ I Mixer-GUI-amixer" ;; \\
 	aumix)		echo "+ I All (aumix) Close" ; \\
 			echo "+ I TestRc (NoMatch) X aumix -d /dev/mixer$[infostore.SoundCard] -I" ;; \\
 	audacious)	echo "+ I Nop" ;; \\
@@ -189,6 +197,8 @@ PipeRead 'case $[infostore.Mixer] in \\
 	xmms2)		echo "+ I Nop" ;; \\
 	*)		echo "+ I Nop" ;; \\
 esac'
+#	amixer)		echo "+ I All (\\\"ALSA Mixer*\\\") Close" ; \\
+#			echo "+ I TestRc (Match) None (\\\"ALSA Mixer\\\") AT \\\"ALSA Mixer card $[infostore.SoundCard]\\\" \\\"alsamixer -c $[infostore.SoundCard]\\\"" ;; \\
 
 # Menus {{{1
 # Mixer menu {{{2

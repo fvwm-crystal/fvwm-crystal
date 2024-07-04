@@ -12,7 +12,7 @@ all:
 
 install: correctpath install-doc
 	@echo Installing fvwm-crystal $(RELEASE) to $(prefix)
-	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm $(DESTDIR)$(prefix)/share/xsessions $(DESTDIR)/etc/X11/Sessions $(DESTDIR)/etc/X11/fvwm/fvwm-crystal/preferences $(DESTDIR)/etc/sudoers.d
+	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm $(DESTDIR)$(prefix)/share/xsessions $(DESTDIR)/etc/X11/Sessions $(DESTDIR)/etc/sudoers.d
 
 	install -m 755 bin/fvwm-crystal.apps bin/fvwm-crystal.wallpaper bin/fvwm-crystal bin/fvwm-crystal.infoline bin/fvwm-crystal.mplayer-wrapper bin/fvwm-crystal.play-movies bin/fvwm-crystal.play-playlists bin/fvwm-crystal.videomodeswitch- bin/fvwm-crystal.videomodeswitch+ $(DESTDIR)$(prefix)/bin
 	install -m 755 tmp/fvwm-crystal.generate-menu $(DESTDIR)$(prefix)/bin

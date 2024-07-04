@@ -58,7 +58,7 @@ set_loopwp() {
 		set_uniquewp
 		sleep $1
 		# fvwm is started with exec, be sure it is running
-		pidof fvwm 1>/dev/null || cleanup
+		pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
 	done
 }
 

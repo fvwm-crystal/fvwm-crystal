@@ -18,7 +18,6 @@ install: correctpath install-doc
 	install -m 755 tmp/fvwm-crystal.generate-menu $(DESTDIR)$(prefix)/bin
 	cp -d -r fvwm/* $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm/
 	cp tmp/fvwm-crystal $(DESTDIR)/etc/X11/Sessions
-	cp config/IPTV $(DESTDIR)/etc/X11/fvwm/fvwm-crystal/preferences
 	cp shared/fvwm-crystal.desktop $(DESTDIR)$(prefix)/share/xsessions
 	cp shared/fvwm-crystal.sudoers.d $(DESTDIR)/etc/sudoers.d/fvwm-crystal
 	chmod 440 $(DESTDIR)/etc/sudoers.d/fvwm-crystal

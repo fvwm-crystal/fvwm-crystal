@@ -47,7 +47,7 @@ if [[ $(wget -q --spider "${GOAL}"; echo $?) != 0 ]]; then
 	_errx "No connection to ${GOAL}. Check it and re-run this script when ${GOAL} is avaible via internet."
 fi
 
-source "${FVWM_CONFIGDIR}"/preferences/IPTV
+#source "${FVWM_CONFIGDIR}"/preferences/IPTV
 if [[ ! -e "${FVWM_USERDIR}"/preferences/IPTVCatPlaylists ]]; then
 	cp "${FVWM_SYSTEMDIR}"/preferences/IPTVCatPlaylists "${FVWM_USERDIR}"/preferences
 fi
@@ -71,7 +71,8 @@ for i in "${IPTV_REF_CATEGORIES[@]}" ; do
 done
 # ${DEBUG_SCRIPT} TMP_CAT ${IPTV_TMP_CAT}
 
-IPTV_CAT_PLAYLISTS=( ${IPTV_TMP_CAT} ${IPTV_XXX_PLAYLISTS} )
+IPTV_CAT_PLAYLISTS=( ${IPTV_TMP_CAT} )
+#IPTV_CAT_PLAYLISTS=( ${IPTV_TMP_CAT} ${IPTV_XXX_PLAYLISTS} )
 # ${DEBUG_SCRIPT} IPTV_CAT_PLAYLISTS ${IPTV_CAT_PLAYLISTS[@]}
 ${DEBUG_SCRIPT} mkdir -p "${IPTV_TMP_DIR}"
 mkdir -p "${IPTV_TMP_DIR}"
@@ -99,7 +100,8 @@ while read myline ; do
 				#echo LANGUAGE = $LANGUAGE
 				#COUNTRY="$(sed "s:^.*tvg-id=\"\(.*\)\" tvg-language.*:\1:" <<< "${myline}")"
 				#echo COUNTRY = $COUNTRY
-				mydir="${IPTV_PLAYLISTS_DIR}/${GROUPTITLE}/${LANGUAGE}"
+#				mydir="${IPTV_PLAYLISTS_DIR}/${GROUPTITLE}/${LANGUAGE}"
+				mydir="${IPTV_PLAYLISTS_DIR}/${LANGUAGE}/${GROUPTITLE}"
 				myfile="${mydir}/${COUNTRY}${TITLE}${IPTV_URI_SUFFIX}"
 			else
 				mkdir -p "${mydir}"

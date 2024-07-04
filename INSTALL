@@ -156,6 +156,7 @@ Needed:
 - pidof
 - awk (tested with gawk)
 - bc if mplayer or alsaplayer are installed (used for speed control)
+- file (used by the wallpaper thumbnailer)
 - xdg-user-dirs for localized xdg desktop user directories and icons
 - xdg-open
 

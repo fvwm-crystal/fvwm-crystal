@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Wallpaper thumbnailer
+# syntax: Wallpaper <path> $[infostore.WallpaperThumbSize]
+
+OrigDir="$(pwd)"
+test -d "$1" && cd "$1" || exit 1
+mkdir -p "${WallpaperThumbnails}$1"
+for i in *; do
+	test -f "${WallpaperThumbnails}$1/${i}" -a  "${WallpaperThumbnails}$1/${i}" -nt "${i}" || \
+		file --mime-type -b "${i}" | grep image/* 2>/dev/null && \
+		convert -quality 0 -sample $2 "${i}" "png:${WallpaperThumbnails}$1/${i}" 2>/dev/null
+done
+cd "${OrigDir}"

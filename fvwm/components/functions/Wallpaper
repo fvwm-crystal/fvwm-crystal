@@ -49,13 +49,8 @@ Test (f /usr/share/wallpapers) + "%22x22/categories/directory.png%/usr/share/wal
 
 # Wallpapaer menu generator
 DestroyFunc Wallpaper-Browser
-AddToFunc Wallpaper-Browser I PipeRead 'for i in "$0/"*; do \
-                test -d "${i}" && continue; \
-                mkdir -p "$[WallpaperThumbnails]${i%/*}"; \
-                test -f "$[WallpaperThumbnails]${i}" -a  "$[WallpaperThumbnails]${i}" -nt "${i}" || \
-                convert -quality 0 -sample $[infostore.WallpaperThumbSize] "${i}" "png:$[WallpaperThumbnails]${i}" 2>/dev/null &  \
-        done; \
-    wait && fvwm-menu-directory --title "$[gt.Random]" --icon-title "" --icon-file __PIXMAP__ \
+AddToFunc Wallpaper-Browser I PipeRead '$[FVWM_SYSTEMDIR]/scripts/Wallpaper-Thumbnailer "$0" $[infostore.WallpaperThumbSize]; \
+    fvwm-menu-directory --title "$[gt.Random]" --icon-title "" --icon-file __PIXMAP__ \
     --icon-dir "22x22/categories/directory.png" --dir "$0" --links --command-file "Wallpaper-Set \'\\"%f\\"\'" \
     --command-t="Wallpaper-Random $0" | sed -e "s#FuncFvwmMenuDirectory#Wallpaper-Browser#g" \
     -e "s#__PIXMAP__\\(.*\\)\\\"\\(.*/\\)\\(.*\\)\\\"#$[WallpaperThumbnails]/\\2\\3\\1\\2\\3#g"'

@@ -150,6 +150,8 @@ DestroyMenu /Playlist
 DestroyFunc /Playlist-generator
 DestroyFunc /Playlist-generator-bottom
 DestroyFunc Music-WatchDVB
+# IPTV
+DestroyFunc LaunchIPTVPref
 # DVD channels {{{2
 DestroyFunc Music-ChannelSet
 DestroyFunc Channels-generator1

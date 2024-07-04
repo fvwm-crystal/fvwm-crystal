@@ -28,15 +28,6 @@ DestroyModuleConfig IPTVCatPlaylists-Dialog: *
 *IPTVCatPlaylists-Dialog: Text "https://iptv-org.github.io/iptv/"
 *IPTVCatPlaylists-Dialog: Line center
 *IPTVCatPlaylists-Dialog: Line center
-*IPTVCatPlaylists-Dialog: Text "$[gt.If you want the xxx category, ask your system administrator]"
-*IPTVCatPlaylists-Dialog: Line center
-*IPTVCatPlaylists-Dialog: Line center
-*IPTVCatPlaylists-Dialog: Text "$[gt.to enable it into]"
-*IPTVCatPlaylists-Dialog: Line center
-*IPTVCatPlaylists-Dialog: Line center
-*IPTVCatPlaylists-Dialog: Text "$[FVWM_CONFIGDIR]/preferences/IPTV"
-*IPTVCatPlaylists-Dialog: Line center
-*IPTVCatPlaylists-Dialog: Line center
 *IPTVCatPlaylists-Dialog: Text "$[gt.The first line is a comment and can be ignored.]"
 *IPTVCatPlaylists-Dialog: Line center
 *IPTVCatPlaylists-Dialog: Line center

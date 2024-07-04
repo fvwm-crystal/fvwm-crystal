@@ -210,6 +210,11 @@ AddToMenu /Music/CopyPlaylist
 AddToFunc Music-RecreateIPTVPlaylist
 + I A $[FVWM_SYSTEMDIR]/scripts/make_iptv_playlists
 
+AddToFunc LaunchIPTVPref
++ I AT "FVWM-Crystal IPTV categories editor" ${EDITOR} $[FVWM_USERDIR]/preferences/IPTVCatPlaylists
++ I Include scripts/FileEditors/IPTVCatPlaylists-Help
++ I Module FvwmForm IPTVCatPlaylists-Dialog
+
 # button menu (alsaplayer, audacious, mocp, mpd, mplayer, xmms2)
 AddToFunc Playlist-generator-button
 + I DestroyMenu recreate /Playlist-button
@@ -230,14 +235,14 @@ Test (F /dev/dvb/adapter3/frontend0) + I AddToMenu /Playlist-button '$[gt.Channe
 + I AddToMenu /Playlist-button '' Nop
 + I AddToMenu /Playlist-button '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
 + I AddToMenu /Playlist-button '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.Recreate the IPTV Playlists]' Music-RecreateIPTVPlaylist
-+ I AddToMenu /Playlist-button '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.IPTV categories preference]' LaunchFileWithHelp IPTVCatPlaylists
++ I AddToMenu /Playlist-button '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.IPTV categories preference]' LaunchIPTVPref
 Test (F /dev/dvb/adapter0/frontend0) + I AddToMenu /Playlist-button '$[gt.Select channel list]' PopUp /Preferences/MplayerChannelList
 
 AddToFunc Playlist-generator-button-bottom
 + I DestroyMenu recreate /Playlist-button
 + I AddToMenu /Playlist-button '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
 + I AddToMenu /Playlist-button '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.Recreate the IPTV Playlists]' Music-RecreateIPTVPlaylist
-+ I AddToMenu /Playlist-button '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.IPTV categories preference]' LaunchFileWithHelp IPTVCatPlaylists
++ I AddToMenu /Playlist-button '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.IPTV categories preference]' LaunchIPTVPref
 Test (F /dev/dvb/adapter0/frontend0) + I AddToMenu /Playlist-button '$[gt.Select channel list]' PopUp /Preferences/MplayerChannelList
 + I AddToMenu /Playlist-button '' Nop
 + I AddToMenu /Playlist-button '$[gt.Remove playlist]' Popup /Music/RemovePlaylist
@@ -285,7 +290,7 @@ Test (F /dev/dvb/adapter3/frontend0) + I AddToMenu /Playlist '$[gt.Channels] DVB
 + I AddToMenu /Playlist '' Nop
 + I AddToMenu /Playlist '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.Recreate the Playlists]' Music-RecreatePlaylist
 + I AddToMenu /Playlist '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.Recreate the IPTV Playlists]' Music-RecreateIPTVPlaylist
-+ I AddToMenu /Playlist '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.IPTV categories preference]' LaunchFileWithHelp IPTVCatPlaylists
++ I AddToMenu /Playlist '%22x22/fvwm-crystal/audio-preferences-1.png%$[gt.IPTV categories preference]' LaunchIPTVPref
 Test (F /dev/dvb/adapter0/frontend0) + I AddToMenu /Playlist '$[gt.Select channel list]' PopUp /Preferences/MplayerChannelList
 
 AddToMenu /Playlist

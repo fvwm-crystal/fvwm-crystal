@@ -5,4 +5,7 @@ IPTV_CATEGORIES_PLAYLISTS="animation \
 	documentary education entertainment family \
 	general kids legislative lifestyle local \
 	movies music news outdoor relax religious science \
-	series shop sports travel weather other"
+	series shop sports travel weather undefined"
+
+# You can move the non wanted categories here as a comment:
+#

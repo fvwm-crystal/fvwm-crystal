@@ -1,4 +1,4 @@
 #!/bin/sh
 
-exec FvwmCommand 'A mc -a $@ 2>/dev/null'
+exec FvwmCommand 'A mc $@ 2>/dev/null'
 

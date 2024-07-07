@@ -16,7 +16,7 @@ Key semicolon A $[Mod1]2 FvwmMiniConsole
 #Key F A $[Mod1]2 FvwmMiniConsole
 
 # Screenshot
-# Print an error and I don't know on which keyboard this key is
+# Print an error and I do not know on which keyboard this key is
 #Key Print A $[Mod]1]2 Screenshot
 
 # Screen blanker

@@ -11,7 +11,7 @@
 # one mandatory for $HOME, the other are optional and are divided into 2 ranges:
 # the XDG user directories and the mounted partitions.
 # A left click will launch Thunar into the corresponding mount point.
-# A middle click will do the same with mc (Thunar doesn't heve a built-in shell).
+# A middle click will do the same with mc (Thunar does not heve a built-in shell).
 # A right click on the $HOME icon open the preferences.
 #
 # Requirement: gawk, sort, at least one file manager like Thunar or mc, mount, and /proc/mounts.

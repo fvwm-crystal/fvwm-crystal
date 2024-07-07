@@ -11,7 +11,7 @@
 # Description:	provide the FVWM-Crystal system menu common to a all recipes.
 # It can be redefined into the recipes
 
-# Replace I by H to close and app menu and open crystall app menu, don't work with current xorg
+# Replace I by H to close and app menu and open crystall app menu, do not work with current xorg
 DestroyFunc DekstopMenu
 AddToFunc DesktopMenu
 + I Test (EnvMatch DesktopMenu /FVWM-Crystal) Menu /FVWM-Crystal $[MenuPosition_BelowLeft]

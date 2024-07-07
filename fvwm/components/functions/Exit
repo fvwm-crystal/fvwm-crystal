@@ -7,7 +7,7 @@
 # + pm-utils was removed from gentoo, add loginctl support and
 # cleanup of executables testing.
 
-# We don't know how fvwm-crystal is started and what its PATH is
+# We do not know how fvwm-crystal is started and what its PATH is
 InfoStoreAdd sysctl no
 # Use pm-utils, then loginctl, then sysctl
 ## Fallbacks

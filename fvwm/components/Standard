@@ -1,9 +1,9 @@
 # You can find here some basic FVWM-Crystal functions
 
-# This function looks for specified file in the user's directory (~/.fvwm/),
+# This function looks for specified file in the user directory (~/.fvwm/),
 # then system-wide directory (/etc/X11/fvwm/fvwm-crystal/), then "package"
 # directory (/usr/[local]/share/fvwm-crystal/fvwm) and loads the first one it
-# finds. It's useful for files that should be changed/replaced as a whole, ex.
+# finds. It is useful for files that should be changed/replaced as a whole, ex.
 # functions or scripts.
 #
 DestroyFunc Include
@@ -34,7 +34,7 @@ AddToFunc KillScript
 # This function looks for specified file in package-wide directory, then
 # system-wide directory and the user-wide directory at the end, loading any
 # that is found (all of them can be loaded one after another, if present).
-# It's useful for files which holds the general settings, like window styles.
+# It is useful for files which holds the general settings, like window styles.
 #
 DestroyFunc Append
 AddToFunc Append

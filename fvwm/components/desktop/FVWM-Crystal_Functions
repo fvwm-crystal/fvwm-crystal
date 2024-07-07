@@ -3,7 +3,7 @@
 
 # We need to load the colorset and WindowDecoration preferences first,
 # otherwise the styles of FvwmForm and FvwmIdent need a restart to not be scruved.
-# In order to be safe, we load here all the preferences they doesn't need
+# In order to be safe, we load here all the preferences they does not need
 # some of the fvwm-crystal functions.
 
 # Load the "well know" user directories (locale aware)

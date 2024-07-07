@@ -31,11 +31,10 @@ AddToFunc QuakeConsole_Init
 
 # If you want to change QuakeConsole command, do it here!
 + I Exec exec $[infostore.QuakeConsoleTerminal] -name QuakeConsoleNeedsUniqueName -geometry +0+0
-# If you want to change QuakeConsole command, do it here!
 
 + I Wait QuakeConsoleNeedsUniqueName
 + I All (QuakeConsoleNeedsUniqueName) Maximize 100 $[QuakeConsole_Height]
-# The folowing line imply a horizontal shift, don't know why it is here:
+# The folowing line imply a horizontal shift, I do not know why it is here:
 #+ I All (QuakeConsoleNeedsUniqueName) Piperead 'echo Move `expr $[vp.width] / 2 - $[w.width] / 2`p w0'
 + I Style QuakeConsoleNeedsUniqueName FixedPosition
 + I All (QuakeConsoleNeedsUniqueName) MoveToDesk 0 666 

@@ -34,7 +34,7 @@ Test (!EnvisSet FVWM_DISTROMENUNAME) SetEnv FVWM_DISTROMENUNAME debian
 # Where are the locales
 LocalePath $[FVWM_USERDIR]/locale;fvwm-crystal:$[FVWM_SYSTEMDIR]/locale;fvwm-crystal:+
 
-# Load the standard functions (Include function doesn't work yet)
+# Load the standard functions (Include function does not work yet)
 Read $[FVWM_SYSTEMDIR]/components/Standard
 
 # Look if there is a recipe selected. If not, select the default
@@ -50,7 +50,7 @@ Include components/functions/LoadCommonStuffs
 # Load the recipe
 Read "$[infostore.Fvwm_Crystal_Recipe]"
 
-# Load user configuration file, if it's present
+# Load user configuration file, if it is present
 Include userconfig
 
 # Debug line - uncomment to see it in the ~/.xsession-errors

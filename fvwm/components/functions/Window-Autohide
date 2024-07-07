@@ -14,7 +14,7 @@
 
 # <alias>	alias for the FvwmAuto module, must be different for each window,
 #		and cannot contain spaces
-# <window-name>	name of a window to use; haven't been tested with names
+# <window-name>	name of a window to use; have not been tested with names
 # 		containing spaces
 # <show-time>	time between entering a window and showing it
 # <hide-time>	time between leaving a window and hiding it

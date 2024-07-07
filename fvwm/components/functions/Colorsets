@@ -3,7 +3,7 @@
 
 SetEnv Colorsets_Suffix ".cs"
 
-# Set default colorset if user haven't choosed it himself
+# Set default colorset if user have not choosed it himself
 CheckPreferences LastChoosenColorset 'SavePreferences LastChoosenColorset "Colorsets-Set $[Colorsets_Path]/DarkDesktop.cs"'
 
 DestroyFunc Colorsets-Set

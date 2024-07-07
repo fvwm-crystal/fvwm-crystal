@@ -191,7 +191,7 @@ AddToFunc Music-generator
 + I PipeRead 'mpc volume | sed -e "s/volume://" | sed -e "s:%:%%:" | sed -e "s:[ \t]::g" | sed -e "s:^.\\+$:AddToMenu\ /Music \'$[gt.Volume] \(&\)\' Popup /Mixer:"'
 + I AddToMenu /Music '$[gt.Toggle random]' 		Music-ToggleRandom
 + I AddToMenu /Music '$[gt.Toggle repeat]' 		Exec mpc repeat
-# Function below doesn't work for me (harnir), if it does for you, conatct me
+# Function below does not work for me (harnir), if it does for you, conatct me
 # (harnir@post.pl).
 + I PipeRead 'mpc | sed -ne "s=.*repeat: \(on\|off\).*random: \(on\|off\).*=AddToMenu\ \/Music \'Toggle repeat (\1)\' Exec mpc repeat\nAddToMenu \/Music \'Toggle random (\2)\' Exec mpc random=gp"'
 + I AddToMenu /Music "" Nop

@@ -6,7 +6,7 @@
 # This function call launch Window-Decoration-set, which include
 # an Include components/styles/Window-Decorations, which
 # read those 3 files.
-# If we don't read all the files here, the panels get screwed.
+# If we do not read all the files here, the panels get screwed.
 Include components/styles/FVWM
 Append components/styles/Applications
 Include components/styles/QuakeConsole

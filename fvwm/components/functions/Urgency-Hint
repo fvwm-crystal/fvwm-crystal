@@ -1,4 +1,4 @@
-# Urgency hint makes windows go wild, let's get rid of it! ;-)
+# Urgency hint makes windows go wild, lets get rid of it! ;-)
 # Especially for gajim users
 
 DestroyFunc UrgencyFunc

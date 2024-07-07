@@ -43,6 +43,10 @@ make.pot: make the pot files or update already translated files.
 
 makecrystalicon: make fvwm-crystal icons from arbitrary image file.
 
+oddchars: Search for lines with an even number of a given character into a file.
+    Output the filename and the line, each at a time. It is mean to search
+    for missing quoting.
+
 oo4.tar.bz2: files to get oofice4 into the application menu.
 
 README: this file
@@ -52,6 +56,8 @@ searchstring: a script I use when I search in which file is (are) a given
     current directory and its subdirectory, and is very basic, so be carefull.
     It will not write in any file.
     Usage:	searchstring "string"
+
+searchoddchars: Recursive oddchars. It depend on it.
 
 searchvartofix: when updating from fvwm-crystal<=3.0.5
     you need to run this script.

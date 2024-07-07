@@ -15,7 +15,7 @@
 # ------------------------------
 # These functions will move you one page in selected direction. Difference
 # between usual FVWM "GotoPage" function is that you cannot specify how much
-# pages you can go, it's always 1 page, and that you can go "around" your
+# pages you can go, it is always 1 page, and that you can go "around" your
 # desktop, ie. from Page 0 to the left, to the last page on your current
 # desktop. Functions are scalable, so you can make any desk you want, example
 # 12x5, and they should work.
@@ -23,7 +23,7 @@
 # MoveToPage-Focus
 # -----------------
 # This is a small wrapper for the "MoveToPage" function. By default,
-# MoveToPage will move a window to the selected page, and leave it's focus
+# MoveToPage will move a window to the selected page, and leave its focus
 # unchanged. This wrapper, after moving a window to selected page, will focus
 # next window on the current page. If on the current page there is no other
 # window, moved window stays focused.

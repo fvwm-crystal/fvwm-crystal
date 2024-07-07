@@ -1,5 +1,5 @@
 # File used by Window-Decorations functions to set back old styles on windows
-# which can be affected by changed decoration. You don't need to use it
+# which can be affected by changed decoration. You do not need to use it
 # directly
 
 Include components/style/FVWM

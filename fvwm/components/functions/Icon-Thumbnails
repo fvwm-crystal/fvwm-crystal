@@ -4,7 +4,7 @@
 SetEnv ThumbWidth 128
 SetEnv ThumbHeight 128
 
-# Icons don't have titles
+# Icons do not have titles
 Style * !NoIcon
 Style * NoIconTitle
 Style * IconSize 128 128
@@ -67,9 +67,9 @@ AddToFunc CreateThumbnail
 # 'RemoveThumbnail' is called, it does:
 # (first FvwmEvent instance)
 # - check if State 5 is set, if yes, then try to de-iconify and focus a window
-# (currently impossible because of the window's Styles)
+# (currently impossible because of the window_s Styles)
 # - check if State 4 is set, if yes, then remove the thumbnail and reset
-# window's Syles
+# window_s Syles
 # - unset State 4
 # (second FvwmEvent instance)
 # - check if State 5 is set, if yes, then try to de-iconify and focus a window

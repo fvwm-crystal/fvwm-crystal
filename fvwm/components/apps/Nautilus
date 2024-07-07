@@ -9,7 +9,7 @@ AddToFunc ExitFunction
 + I Test (Restart) Test (x nautilus) PipeRead 'echo SetEnv nautilus_wallpaper "`gconftool-2 -g /desktop/gnome/background/picture_filename`"'
 + I SavePreferences LastChoosenWallpaper "Wallpaper-Set \\'$[nautilus_wallpaper]\\'"
 
-# Set the specified wallpaper using ROX-Filer's pinboard
+# Set the specified wallpaper using ROX-Filer pinboard
 DestroyFunc Wallpaper-Set
 AddToFunc Wallpaper-Set
 + I Test (x gconftool-2) Exec gconftool-2 -t str -s /desktop/gnome/background/picture_filename "$*"

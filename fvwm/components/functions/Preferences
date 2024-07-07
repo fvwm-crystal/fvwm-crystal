@@ -4,7 +4,7 @@
 #
 Exec mkdir -p $[FVWM_USERDIR]/preferences
 
-# This function saves specified command in a file, in the user's preferences
+# This function saves specified command in a file, in the user preferences
 # directory (~/.fvwm/preferences/). It can be used to store FVWM commands, so
 # they can be executed at next startup, useful for saving user-configurable
 # preferences, like used colorset or window decoration.
@@ -57,8 +57,8 @@ AddToFunc LoadPreferences
 + I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/preferences/$0) Read $[FVWM_SYSTEMDIR]/preferences/$0
 
 # This function looks for specified preferences file, if it is present,
-# nothing is done. If it's not found, specified command is executed. This can
-# be used to check if there are "default" preferences, and in case they aren't
+# nothing is done. If it is not found, specified command is executed. This can
+# be used to check if there are "default" preferences, and in case they are not
 # there, set a default ones.
 #
 # Usage:
@@ -75,7 +75,7 @@ AddToFunc CheckPreferences
 + I $1
 
 # This function looks for specified preference file in the user-wide directory.
-# If it's found, nothing is done, if it's not found, the first file found
+# If it is found, nothing is done, if it is not found, the first file found
 # in the config-wide or system-wide directories is copied to the user-wide
 # directory.
 #

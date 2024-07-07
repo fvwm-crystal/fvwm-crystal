@@ -1,6 +1,6 @@
 # Debug functions
 
-# It's a set of functions and panels useful for developing or debugging FVWM-Crystal
+# It is a set of functions and panels useful for developing or debugging FVWM-Crystal
 
 # Window list
 All (FvwmIconMan-Debug-WindowList) Close

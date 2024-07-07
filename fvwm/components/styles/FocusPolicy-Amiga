@@ -2,7 +2,7 @@
 
 # - click to focus
 # - windows are not raised upon focusing, can be raised by click on the
-#   window's titlebar or border
+#   windows titlebar or border
 # - new windows are automatically being focused
 
 Style * !FPEnterToFocus, !FPLeaveToUnfocus, FPClickToFocus, FPClickDecorToFocus

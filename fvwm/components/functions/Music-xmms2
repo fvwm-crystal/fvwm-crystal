@@ -18,7 +18,7 @@ Schedule 1 StyleMediaPlayer
 
 InfoStoreAdd fvwm_audio_exec "xmms2 add -P"
 
-# at startup, we cannot de sure of the window's name
+# at startup, we cannot de sure of the window_s name
 PipeRead 'if pkill -0 xmms2d; \
 				then echo "" 1>/dev/null; \
 				else echo AT XMMS2 xmms2d; fi'
@@ -98,9 +98,9 @@ AddToFunc Music-RemovePlaylist-generator
 + I AddToMenu /Music/RemovePlaylist '$[gt.Choose a playlist to remove]' Nop
 + I PipeRead 'xmms2 playlist list | sed -e "s:^\\(* *\\)\\(.*\\):\\2:" | sed -e "s:^\\( *\\)\\(.*\\):\\2:" | sed -e "s:^.*$:AddToMenu /Music/RemovePlaylist \'&\' Exec xmms2 playlist remove \'&\':"'
 
-# From Taviso's configuration
-# 22x22/categories/Audio-Video.png will be used for all the files that doesn't have a .media.png inside their directory
-# 22x22/categories/directory.png will be used for all the directories that doesn't have a .icontitle.png file
+# From Taviso configuration
+# 22x22/categories/Audio-Video.png will be used for all the files that does not have a .media.png inside their directory
+# 22x22/categories/directory.png will be used for all the directories that does not have a .icontitle.png file
 
 # /Music/LoadPlaylist
 AddToFunc FuncFvwmMenuAudioDirectory

@@ -5,7 +5,7 @@
 CheckPreferences LastChoosenButtonModel 'SavePreferences LastChoosenButtonModel "SetEnv Window_Decorations_ButtonModel Theme.fvwm-crystal"'
 LoadPreferences LastChoosenButtonModel
 
-# Set default decoration if user haven't choosed it himself
+# Set default decoration if user have not choosed it himself
 CheckPreferences LastChoosenWindowDecoration 'SavePreferences LastChoosenWindowDecoration "Window-Decorations-Set $[FVWM_SYSTEMDIR]/decorations/Crystal/DarkDesktop"'
 
 DestroyFunc Window-Decorations-Set

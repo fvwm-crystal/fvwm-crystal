@@ -24,7 +24,7 @@ SetEnv Mod2 MS
 #SetEnv Mod2 4S
 
 # SelectOnRelease is used in WindowLists. If you run WindowLists from another
-# key than Meta, you should change it to that key's name:
+# key than Meta, you should change it to that key name:
 SetEnv SelectOnReleaseKey Alt_L
 #SetEnv SelectOnReleaseKey Super_L
 

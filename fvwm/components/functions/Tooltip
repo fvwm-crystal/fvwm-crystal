@@ -31,7 +31,7 @@ AddToFunc Fvwm-Tooltip
 + I Style FvwmButtons-Tooltip-$0 Layer $4
 + I Module FvwmButtons FvwmButtons-Tooltip-$0
 
-# It doesn't work well when Schedule is in the same function
+# It does not work well when Schedule is in the same function
 # Usage: Kill-FvwmTooltip <name>
 # 
 # where <name> is the same than in Fvwm-Tooltip

@@ -36,7 +36,7 @@
 #	 - Find something to do with mouse 2 and 3 on button 4
 
 # Amixer and Mplayer are selected as default mixer and player if the user
-# didn't changed it. We keep them or the user settings.
+# did not changed it. We keep them or the user settings.
 
 # The playlists are now in 4 places:
 # 	$[FVWM_USERDIR]/Playlists/Audio for the playlists of audio files
@@ -46,7 +46,7 @@
 #
 # 'Recreate the playlist' will manage the playlists in $[FVWM_USERDIR] in a
 # very simple way: delete all and recreate all. At the same time, it will
-# create the user managed directories if they don't exist.
+# create the user managed directories if they do not exist.
 #
 # Note: according to /etc/xdg/user-dirs.defaults, the default medias paths
 #	are $HOME/Music and $HOME/Videos and will be translated on a
@@ -65,15 +65,15 @@ Include components/functions/Mixer
 # speed control (alsaplayer, mplayer) {{{2
 InfoStoreAdd speed 1
 # We must start mplayer in slave mode and send the commands via a pipe;
-# don't use Piperead "echo ..." to this pipe or fvwm will just wait if the player is not started.
-# Create the pipe if it doesn't exist:
+# do not use Piperead "echo ..." to this pipe or fvwm will just wait if the player is not started.
+# Create the pipe if it does not exist:
 Piperead 'echo InfoStoreAdd USERDIR `id -un`'
 Piperead 'mkdir -p /home/$[infostore.USERDIR]/.mplayer'
 Test (!F /home/$[infostore.USERDIR]/.mplayer/pipe) PipeRead 'mkfifo /home/$[infostore.USERDIR]/.mplayer/pipe'
 
 ############################################################
-### We don't want player specific functions lying around ###
-### otherwise, we put here the functions that doesn't    ###
+### We do not want player specific functions lying around ###
+### otherwise, we put here the functions that does not    ###
 ### change between the audio-video players.              ###
 ############################################################
 

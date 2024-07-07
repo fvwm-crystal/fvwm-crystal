@@ -33,11 +33,11 @@ InfoStoreRemove fvwm_audio_exec
 # Styles for media players windows {{{1
 Include components/styles/MediaPlayers-Style
 
-############################################################
-### We don't want player specific functions lying around ###
-### otherwise, we put here the functions that doesn't    ###
-### change between the players.                          ###
-############################################################
+#############################################################
+### We do not want player specific functions lying around ###
+### otherwise, we put here the functions that does not    ###
+### change between the players.                           ###
+#############################################################
 
 # First button {{{1
 # Player controls and prefs

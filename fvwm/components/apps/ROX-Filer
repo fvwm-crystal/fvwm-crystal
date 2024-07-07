@@ -1,7 +1,7 @@
 # Launch the pinboard
 Test (Init) Test (x rox) Exec exec rox --pinboard=Default
 
-# Set the specified wallpaper using ROX-Filer's pinboard
+# Set the specified wallpaper using ROX-Filer pinboard
 DestroyFunc Wallpaper-Set
 AddToFunc Wallpaper-Set
 + I Test (x rox) Exec echo "<?xml version=\"1.0\"?><env:Envelope xmlns:env=\"http://www.w3.org/2001/12/soap-envelope\"><env:Body xmlns=\"http://rox.sourceforge.net/SOAP/ROX-Filer\"><SetBackdrop><Filename>$*</Filename><Style>Stretch</Style></SetBackdrop></env:Body></env:Envelope>" | rox -R

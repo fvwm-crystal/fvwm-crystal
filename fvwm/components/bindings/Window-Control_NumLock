@@ -1,4 +1,4 @@
-# Subset of window control functions in case you don't have numpad
+# Subset of window control functions in case you do not have numpad
 Key minus	A $[Mod1]2 Raise
 Key minus	A $[Mod2]2 Lower
 Key equal	A $[Mod1]2 Maximize

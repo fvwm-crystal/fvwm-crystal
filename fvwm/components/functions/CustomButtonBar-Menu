@@ -275,7 +275,7 @@ AddToMenu /FVWM-CustomButtonMenu
 + '%32x32/categories/Settings.png%$[gt.Generate the custom buttons bar]' GenerateCustomButtonBar
 + "" Nop
 + "" Nop
-+ '$[gt.Choose an applet to add:]
++ '$[gt.Choose an applet to add:]'
 + "" Nop
 + '%32x32/fvwm-crystal/applications.png%$[gt.Clock]' Popup /CustomButtonClock
 + '%32x32/fvwm-crystal/applications.png%$[gt.ACPI battery]' Popup /CustomButtonAcpiBatt
@@ -284,7 +284,7 @@ AddToMenu /FVWM-CustomButtonMenu
 + '%32x32/fvwm-crystal/applications.png%$[gt.Pager]' Popup /CustomButtonPager
 + "" Nop
 + "" Nop
-+ '$[gt.Choose a menu entry to add it as a button:]
++ '$[gt.Choose a menu entry to add it as a button:]'
 + "" Nop
 + '%32x32/categories/help.png%$[gt.FVWM-Crystal documentation]' AddCustomButton $[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]/categories/help.png%$[gt.FVWM-Crystal documentation]%Popup /Developer/FVWM-Crystal-Documentation
 + "" Nop

@@ -1,0 +1,19 @@
+#!/bin/bash
+# Return the font list to the findindex.sh helper script.
+
+PrecedingF=""
+
+fc-list : family | sort | while read -r myline
+do
+	if [[ "${myline}" != "Noto"* ]] ; then
+		echo "${myline}"
+		PrecedingF="${myline}"
+	else
+		# Remove the Noto font variants
+		CurrentF="${myline%%,*}"
+		if [[ "${CurrentF}" != "${PrecedingF}" ]] ; then
+			echo "${CurrentF}"
+			PrecedingF="${CurrentF}"
+		fi
+	fi
+done

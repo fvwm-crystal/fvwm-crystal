@@ -1,0 +1,30 @@
+#!/bin/bash
+# Return the font list to the font List widget of the FontSelector FvwmScript
+
+PrecedingF=""
+
+# We don't want a trailing | at the end of the list
+listcount=$(fc-list : family | sort | wc -l)
+counter=1
+
+fc-list : family | sort | while read -r myline
+do
+	if [[ "${myline}" != "Noto"* ]] ; then
+		printf "${myline}"
+		if [ "${counter}" -ne "${listcount}" ] ; then
+			printf '|'
+		fi
+		PrecedingF="${myline}"
+	else
+		# Remove the Noto font variants
+		CurrentF="${myline%%,*}"
+		if [[ "${CurrentF}" != "${PrecedingF}" ]] ; then
+			printf "${CurrentF}"
+			if [ "${counter}" -ne "${listcount}" ] ; then
+			printf '|'
+			fi
+			PrecedingF="${CurrentF}"
+		fi
+	fi
+	((counter++))
+done

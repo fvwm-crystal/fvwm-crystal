@@ -70,8 +70,9 @@ Begin
    ChangeFont 100 $EditFont
 
    # Get the font list
-   ChangeTitle 1 (GetOutput {exec fc-list : family 2>/dev/null | sort | tr '\n' '|' } 1 -1)
-   
+   Set $cmd = (GetOutput {echo \$FVWM_SYSTEMDIR/scripts/FontSelector/getlist} 1 -1)
+   ChangeTitle 1 (GetOutput $cmd 1 -1)
+  
    # Set example default font
    Set $FontString = $SelectorFont
    

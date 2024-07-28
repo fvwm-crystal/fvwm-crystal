@@ -5,7 +5,8 @@
 
 # references: https://fr.wikipedia.org/wiki/Gamme_temp%C3%A9r%C3%A9e
 #	The A 429.62 Hz is based on universal phasical constants and on the mass of the water molecule H2O;
-#	See https://www.preprints.org/manuscript/202401.1231/v1
+#	See Henry,M.; Bridoux,S. Symmetry, Music and Water, Preprints 2024, 2024011231
+#		https://www.preprints.org/manuscript/202401.1231/v1
 
 speed="$3"
 

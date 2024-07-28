@@ -490,10 +490,9 @@ AddToFunc Music-Speed
 
 # button menu (alsaplayer, mplayer)
 # speed_set <0.01 to 100>
-AddToFunc Menu-speed-generator-button-bottom
+AddToFunc Menu-speed-generator
 + I DestroyMenu recreate /Speed
 + I AddToMenu /Speed '$[gt.Speed control]' Nop
-+ I AddToMenu /Speed "" Nop
 + I AddToMenu /Speed '$[gt.Max]' Music-Speed 'max'
 + I AddToMenu /Speed '$[gt.+ 1 &octave]' Music-Speed '+1octave'
 + I AddToMenu /Speed '$[gt.+ 1 s&eventh]' Music-Speed '+1septieme'
@@ -503,41 +502,14 @@ AddToFunc Menu-speed-generator-button-bottom
 + I AddToMenu /Speed '$[gt.+ 1 t&hird]' Music-Speed '+1tierce'
 + I AddToMenu /Speed '$[gt.+ &1 tone]' Music-Speed '+1ton'
 + I AddToMenu /Speed '$[gt.+ ½ &tone]' Music-Speed '+1/2ton'
-+ I AddToMenu /Speed "" Nop
-+ I AddToMenu /Speed '$[gt.- ½ &tone]' Music-Speed '-1/2ton'
-+ I AddToMenu /Speed '$[gt.- &1 tone]' Music-Speed '-1ton'
-+ I AddToMenu /Speed '$[gt.- 1 t&hird]' Music-Speed '-1tierce'
-+ I AddToMenu /Speed '$[gt.- 1 f&ourth]' Music-Speed '-1quarte'
-+ I AddToMenu /Speed '$[gt.- 1 &fifth]' Music-Speed '-1quinte'
-+ I AddToMenu /Speed '$[gt.- 1 &sixth]' Music-Speed '-1sixte'
-+ I AddToMenu /Speed '$[gt.- 1 s&eventh]' Music-Speed '-1septieme'
-+ I AddToMenu /Speed '$[gt.- 1 &octave]' Music-Speed '-1octave'
-+ I AddToMenu /Speed '$[gt.Min]' Music-Speed 'min'
-+ I AddToMenu /Speed "" Nop
-+ I AddToMenu /Speed '$[gt.Normal]' Music-Speed 'normal'
 + I AddToMenu /Speed '$[gt.+ 1 &comma]' Music-Speed '+1comma'
++ I AddToMenu /Speed "" Nop
 + I AddToMenu /Speed '$[gt.Pause]' Music-Pause
-+ I AddToMenu /Speed '$[gt.- 1 &comma]' Music-Speed '-1comma'
-
-AddToFunc Menu-speed-generator-button
-+ I DestroyMenu recreate /Speed
-+ I AddToMenu /Speed '$[gt.Speed control]' Nop
++ I AddToMenu /Speed '$[gt.Normal]' Music-Speed 'normal'
++ I AddToMenu /Speed '$[gt.A 429.62 Hz]' Music-Speed '429.62'
++ I AddToMenu /Speed '$[gt.A 432 Hz]' Music-Speed '432'
 + I AddToMenu /Speed "" Nop
 + I AddToMenu /Speed '$[gt.- 1 &comma]' Music-Speed '-1comma'
-+ I AddToMenu /Speed '$[gt.Pause]' Music-Pause
-+ I AddToMenu /Speed '$[gt.+ 1 &comma]' Music-Speed '+1comma'
-+ I AddToMenu /Speed '$[gt.Normal]' Music-Speed 'normal'
-+ I AddToMenu /Speed "" Nop
-+ I AddToMenu /Speed '$[gt.Max]' Music-Speed 'max'
-+ I AddToMenu /Speed '$[gt.+ 1 &octave]' Music-Speed '+1octave'
-+ I AddToMenu /Speed '$[gt.+ 1 s&eventh]' Music-Speed '+1septieme'
-+ I AddToMenu /Speed '$[gt.+ 1 &sixth]' Music-Speed '+1sixte'
-+ I AddToMenu /Speed '$[gt.+ 1 &fifth]' Music-Speed '+1quinte'
-+ I AddToMenu /Speed '$[gt.+ 1 f&ourth]' Music-Speed '+1quarte'
-+ I AddToMenu /Speed '$[gt.+ 1 t&hird]' Music-Speed '+1tierce'
-+ I AddToMenu /Speed '$[gt.+ &1 tone]' Music-Speed '+1ton'
-+ I AddToMenu /Speed '$[gt.+ ½ &tone]' Music-Speed '+1/2ton'
-+ I AddToMenu /Speed "" Nop
 + I AddToMenu /Speed '$[gt.- ½ &tone]' Music-Speed '-1/2ton'
 + I AddToMenu /Speed '$[gt.- &1 tone]' Music-Speed '-1ton'
 + I AddToMenu /Speed '$[gt.- 1 t&hird]' Music-Speed '-1tierce'
@@ -549,8 +521,7 @@ AddToFunc Menu-speed-generator-button
 + I AddToMenu /Speed '$[gt.Min]' Music-Speed 'min'
 
 AddToMenu /Speed
-Test (!EnvMatch infostore.CustomBarLocation Bottom) + DynamicPopupAction Function Menu-speed-generator-button
-Test (EnvMatch infostore.CustomBarLocation Bottom) + DynamicPopupAction Function Menu-speed-generator-button-bottom
++ DynamicPopupAction Function Menu-speed-generator
 
 # mouse 4 Button-Seek-+ {{{2
 # mouse 5 Button-Seek--

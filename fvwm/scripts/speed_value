@@ -3,6 +3,10 @@
 # pause +- value will not work.
 # No music + or - 1 octave is always no music.
 
+# references: https://fr.wikipedia.org/wiki/Gamme_temp%C3%A9r%C3%A9e
+#	The A 429.62 Hz is based on universal phasical constants and on the mass of the water molecule H2O;
+#	See https://www.preprints.org/manuscript/202401.1231/v1
+
 speed="$3"
 
 speedcalc() {
@@ -20,6 +24,16 @@ speedcalc() {
 	echo $speed
 }
 
+# Change the default speed to another/default A tuning,
+# ie: 440, 432, 429.62
+#     speedref <frequency of the A note> <alsaplayer|mplayer>
+# Note than normal restore the A 440ħz = speed 1;
+#	the other value are cummulatives.
+speedref() {
+	SpeedRef=$(echo $1/440|bc -l)
+	speedcalc $SpeedRef $2
+}
+
 speedcase() {
 case "$1" in
 	max)
@@ -31,6 +45,12 @@ case "$1" in
 		;;
 	normal)
 		echo 1
+		;;
+	432)
+		speedref 432 "$2"
+		;;
+	429.62)
+		speedref 429.62 "$2"
 		;;
 	pause)
 		echo 0
@@ -44,9 +64,6 @@ case "$1" in
 		else
 		speedcalc 0.01 "$2"
 		fi
-		;;
-	+6octave)
-		speedcalc 64 "$2"
 		;;
 	+5octave)
 		speedcalc 32 "$2"
@@ -136,5 +153,3 @@ esac
 }
 
 speedcase $1 $2
-
-# references: http://fr.wikipedia.org/wiki/Gamme_temp%C3%A9r%C3%A9e

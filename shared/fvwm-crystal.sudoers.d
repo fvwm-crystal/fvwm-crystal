@@ -8,3 +8,4 @@
 %fvwm-crystal ALL=(ALL) NOPASSWD: /usr/sbin/pm-suspend-hybrid
 %fvwm-crystal ALL=(ALL) NOPASSWD: /usr/sbin/pm-powersave
 %fvwm-crystal ALL=(ALL) NOPASSWD: /usr/bin/systemctl
+%fvwm-crystal ALL=(ALL) NOPASSWD: /bin/loginctl

@@ -7,15 +7,20 @@ lidsleeppm() {
 	    sleep 5
 	    grep -q closed /proc/acpi/button/lid/*/state
 	    if [ $? = 0 ]; then
-		if [[ $2 == pm ]]; then
-		    sudo $1
-		fi
-		if [[ $2 == log ]]; then
-		    $1 hybrid-sleep
-		fi
-		if [[ $2 == sys ]]; then
-		    $1 hybrid-sleep -i
-		fi
+		case $2 in
+		    pm)
+			sudo $1
+			;;
+		    log)
+			$1 hybrid-sleep
+			;;
+		    sys)
+			$1 hybrid-sleep -i
+			;;
+		    *)
+			exit 1
+			;;
+		esac
 	    fi
 	done
 }

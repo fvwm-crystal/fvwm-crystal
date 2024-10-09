@@ -8,6 +8,8 @@
 # choosed a preffered command.
 
 # Functions:
+# In several places, the functions call a sub function. This is to separate
+# the quoting in fvwm from the quoting of the prefered terminal.
 
 # A
 # Launches a terminal with optional program as an argument. Terminal settings
@@ -22,11 +24,12 @@
 # AT
 # As 'A' function, but give a Title to the window terminal.
 
-# ATG
+# AGT
 # As 'AT' function, but give a geometry to the window terminal.
+# Use FvwmConsoleTerminal and is not used anymore.
 
 # C
-# Launches a the fvwm console terminal with optional program as an argument.
+# Launches a fvwm console terminal with optional program as an argument.
 # Terminal settings should be set using ~/.Xresources file or (in Eterm) theme file.
 
 # X
@@ -45,7 +48,17 @@
 # it uses graphical client called 'gksudo' to execute a command. Unfortunately
 # this variant is only usable with graphical applications.
 
-# TODO: check the --title and -e options for all terms, gnome-terminal have a new syntyx !?????! with -- command
+# Testing:
+# See components/functions/Preferences-Menu for the up-to-date terminal list.
+# multi-gnome-terinal and eterm are not in gentoo anymore.
+# x-terminal-emulator is Debian specific and is its default terminal.
+# Do all the test in at least gentoo (sh=bash) and Debian (sh=dash).
+# If it work with Debian and its default sh dash shell, it should work
+# on everything that use a sh compatible default shell.
+
+# Testing:
+# A; AA; AT; AGT; C; X; S: OK on gentoo
+# SX: not used; gksudo don't exist on gentoo.
 
 CheckPreferences DefaultTerminal "SavePreferences DefaultTerminal 'FindCommand DefaultTerminal urxvt aterm xterm x-terminal-emulator'"
 LoadPreferences DefaultTerminal
@@ -62,25 +75,25 @@ AddToFunc StartUrxvtc
 
 DestroyFunc StartTerminal
 AddToFunc StartTerminal
-+ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch DefaultTerminal multi-gnome-terminal, !EnvMatch DefaultTerminal terminator, !EnvMatch DefaultTerminal x-terminal-emulator, !EnvMatch DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] -e $*  $[infostore.SILENT]
++ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch infostore.DefaultTerminal multi-gnome-terminal, !EnvMatch infostore.DefaultTerminal terminator, !EnvMatch infostore.DefaultTerminal x-terminal-emulator, !EnvMatch infostore.DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] -e $*  $[infostore.SILENT]
++ I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal gnome-terminal) Exec exec $[infostore.DefaultTerminal] -- $* $[infostore.SILENT]
++ I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] -x $* $[infostore.SILENT]
 + I TestRc (NoMatch) Exec exec $[infostore.DefaultTerminal] -e "$*" $[infostore.SILENT]
 
 DestroyFunc StartTitledTerminal
 AddToFunc StartTitledTerminal
-+ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch DefaultTerminal multi-gnome-terminal, !EnvMatch DefaultTerminal terminator, !EnvMatch DefaultTerminal x-terminal-emulator, !EnvMatch DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] --title "$0" -e $[1-]  $[infostore.SILENT]
++ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch infostore.DefaultTerminal multi-gnome-terminal, !EnvMatch infostore.DefaultTerminal terminator, !EnvMatch infostore.DefaultTerminal x-terminal-emulator, !EnvMatch infostore.DefaultTerminal xfce4-terminal, !EnvMatch infostore.DefaultTerminal xterm) Exec exec $[infostore.DefaultTerminal] --title "$0" -e $[1-]  $[infostore.SILENT]
++ I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal gnome-terminal) Exec exec $[infostore.DefaultTerminal] --title "$0" -- $[1-] $[infostore.SILENT]
++ I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] --title "$0" -x $[1-] $[infostore.SILENT]
++ I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal xterm) Exec exec $[infostore.DefaultTerminal] -title "$0" -e $[1-] $[infostore.SILENT]
 + I TestRc (NoMatch) Exec exec $[infostore.DefaultTerminal] --title "$0" -e "$[1-]" $[infostore.SILENT]
-
-DestroyFunc StartGTitledTerminal
-AddToFunc StartGTitledTerminal
-+ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch DefaultTerminal multi-gnome-terminal, !EnvMatch DefaultTerminal terminator, !EnvMatch DefaultTerminal x-terminal-emulator, !EnvMatch DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] --title "$0" --geometry "$1" -e $[2-]  $[infostore.SILENT]
-+ I TestRc (NoMatch) Exec exec $[infostore.DefaultTerminal] --title "$0" --geometry "$1" -e "$[2-]" $[infostore.SILENT]
 
 # Usage: A [command] [command options]
 DestroyFunc A
 AddToFunc A
 + I Window-SetPlacementPolicy
 + I Test (EnvMatch infostore.DefaultTerminal urxvtc) StartUrxvtc -e $*
-+ I TestRc (NoMatch) StartTerminal "$*"
++ I TestRc (NoMatch) StartTerminal $*
 
 DestroyFunc AA
 AddToFunc AA
@@ -98,13 +111,13 @@ AddToFunc AT
 + I TestRc (NoMatch) StartTitledTerminal "$0" $[1-]
 
 # Usage: AGT [title] [geometry] [command] (Use quotes if you want command options or title with spaces)
-DestroyFunc AGT
-AddToFunc AGT
-+ I Window-SetPlacementPolicy
-+ I Test (EnvMatch infostore.DefaultTerminal urxvtc) StartUrxvtc --title "$0" -name "$0" --geometry "$1" -e $[2-]
-+ I TestRc (NoMatch) StartGTitledTerminal "$0" "$1" "$[2-]"
+#DestroyFunc AGT
+#AddToFunc AGT
+#+ I Window-SetPlacementPolicy
+#+ I Exec exec $[infostore.FvwmConsoleTerminal] -title "$0" -geometry "$1" -e $[2-]
 
 # Usage: C [command] [command options]
+
 DestroyFunc C
 AddToFunc C
 + I	Window-SetPlacementPolicy

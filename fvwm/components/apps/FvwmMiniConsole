@@ -16,6 +16,23 @@ AddToFunc FvwmMiniConsole
 + I All (FvwmMiniConsoleNeedsUniqueName, CurrentDesk, Focused) FvwmMiniConsole_Hide
 + I TestRc (0) FvwmMiniConsole_Show
 
+DestroyFunc FvwmMiniConsole_Style
+AddToFunc FvwmMiniConsole_Style
++ I Wait FvwmMiniConsoleNeedsUniqueName
++ I Style FvwmMiniConsoleNeedsUniqueName FixedPosition
++ I All (FvwmMiniConsoleNeedsUniqueName) MoveToDesk 0 666
++ I Prev (CurrentPage) Focus
+
+DestroyFunc FvwmMiniConsole_Fvwm2
+AddToFunc FvwmMiniConsole_Fvwm2
++ I Module FvwmConsole -terminal $[infostore.FvwmConsoleTerminal] -geometry 80x5+0-0 -title FvwmMiniConsoleNeedsUniqueName
++ I FvwmMiniConsole_Style
+
+DestroyFunc FvwmMiniConsole_Fvwm3
+AddToFunc FvwmMiniConsole_Fvwm3
++ I Exec exec $[infostore.FvwmConsoleTerminal] -geometry 80x5+0-0 -title FvwmMiniConsoleNeedsUniqueName -e FvwmPrompt $[infostore.SILENT]
++ I FvwmMiniConsole_Style
+
 DestroyFunc FvwmMiniConsole_Init
 AddToFunc FvwmMiniConsole_Init
 + I Style FvwmMiniConsoleNeedsUniqueName !Title, !Borders, SkipMapping,  WindowListSkip, \
@@ -25,13 +42,9 @@ AddToFunc FvwmMiniConsole_Init
 + I Style FvwmMiniConsoleNeedsUniqueName WindowShadeShrinks
 + I Style FvwmMiniConsoleNeedsUniqueName TitleAtBottom
 # fvwm3 with golang support
-+ I Test (X FvwmPrompt) AGT FvwmMiniConsoleNeedsUniqueName 80x5+0-0 FvwmPrompt
++ I Test (X FvwmPrompt) FvwmMiniConsole_Fvwm3
 # fvwm2 (or fvwm3 without golang support at that time of writing 15.12-2020)
-+ I TestRc (NoMatch)  Module FvwmConsole -terminal $[infostore.FvwmConsoleTerminal] -geometry 80x5+0-0 -title FvwmMiniConsoleNeedsUniqueName
-+ I Wait FvwmMiniConsoleNeedsUniqueName
-+ I Style FvwmMiniConsoleNeedsUniqueName FixedPosition
-+ I All (FvwmMiniConsoleNeedsUniqueName) MoveToDesk 0 666
-+ I Prev (CurrentPage) Focus
++ I TestRc (NoMatch) FvwmMiniConsole_Fvwm2
 
 DestroyFunc FvwmMiniConsole_Show
 AddToFunc FvwmMiniConsole_Show

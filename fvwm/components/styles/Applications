@@ -6,8 +6,9 @@
 Style XTerm ResizeOutline
 Style URxvt ResizeOutline
 
-# Xephyr does not support the EWMH hints but wee want it in fullscreen
-Style Xephyr !Title, !Borders
+# Xephyr does not support the EWMH hints but we want it in fullscreen
+# Outdated, use docker or x11docker instead.
+#Style Xephyr !Title, !Borders
 
 # ---------------------------------------------------------------------------
 # Other applications

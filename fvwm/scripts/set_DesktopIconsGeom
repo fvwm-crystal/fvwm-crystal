@@ -10,8 +10,9 @@
 deskmanfile="${FVWM_USERDIR}/tmp/DesktopIcons"
 echo "" > "${deskmanfile}"
 
-# unique temporary file
-tmpdrivefile="/tmp/Icon-Drives_$((`dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -d' ' -f1` % 32768))"
+# unique temporary file, as the rm command is run in /tmp, use a file name that no other software will use
+rm -f /tmp/fvwm-crystal_Icon-Drives_*
+tmpdrivefile="/tmp/fvwm-crystal_Icon-Drives_$((`dd if=/dev/urandom count=1 2> /dev/null | cksum | cut -d' ' -f1` % 32768))"
 echo "InfoStoreAdd tmpdrivefile ${tmpdrivefile}"
 
 # We must calculate the size of the button box {{{1

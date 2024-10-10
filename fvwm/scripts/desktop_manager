@@ -22,8 +22,8 @@ if [[ "${ShowXDG}" == "yes" ]]; then IconNumber=9; fi
 if [[ "${ShowPartitions}" == "yes" ]]
 	then	mount | gawk -v sq="'" '/^\/.*|^(simple-mtpfs|http).*\// { print "" sq "" $3 "" sq ""; }' |sort > ${7} #| sed -e 's:\\:\\\\:g' 
 		IconNumber="$((${IconNumber}+`wc -l < ${7}`))"
-		IconNumber="$((${IconNumber}+`wc -l < ${HOME}/.fvwm-crystal/preferences/ShowDirectories`))"
 fi
+IconNumber="$((${IconNumber}+`wc -l < ${HOME}/.fvwm-crystal/preferences/ShowDirectories`))"
 # Available number of icons on the EWMH screen height: {{{2
 if [ "${10}" -gt "${15}" ]
 	then EWMHTop="${10}"

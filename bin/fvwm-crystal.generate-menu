@@ -518,7 +518,7 @@ case "$1" in
 		export SUBCAT
 		;;
 	ConsoleOnly)
-		SUBCAT="/Console_Only"
+		SUBCAT=""
 		export SUBCAT
 		;;
 	Construction)
@@ -533,6 +533,10 @@ case "$1" in
 		SUBCAT="/Core"
 		export SUBCAT
 		;;
+	COSMIC)
+		SUBCAT=""
+		export SUBCAT
+		;;
 	DataVisualization)
 		SUBCAT="/Data_Visualization"
 		export SUBCAT
@@ -541,8 +545,8 @@ case "$1" in
 		SUBCAT="/Databases"
 		export SUBCAT
 		;;
-	Dialup)
-		SUBCAT="/Dial-up"
+	DDE)
+		SUBCAT=""
 		export SUBCAT
 		;;
 	Debugger)
@@ -554,7 +558,7 @@ case "$1" in
 		export SUBCAT
 		;;
 	Dialup)
-		SUBCAT="/Dialup"
+		SUBCAT="/Dial-up"
 		export SUBCAT
 		;;
 	Dictionary)
@@ -678,7 +682,7 @@ case "$1" in
 		export SUBCAT
 		;;
 	Java)
-		SUBCAT="/Java"
+		SUBCAT=""
 		export SUBCAT
 		;;
 	KDE)
@@ -730,7 +734,7 @@ case "$1" in
 		export SUBCAT
 		;;
 	Motif)
-		SUBCAT="/Motif"
+		SUBCAT=""
 		export SUBCAT
 		;;
 	Music)

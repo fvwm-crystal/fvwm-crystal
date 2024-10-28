@@ -402,14 +402,10 @@ case "$1" in
 		MAINCAT="/Multimedia/Video"
 		export MAINCAT
 		;;
-	*)
-		MAINCAT="/Utilities"
-		export MAINCAT
-		;;
+#	Fot the catch all, see gen_category
 esac
+
 }
-# FIXME: The catch all cat is a terrible hack that need to be fixed into
-#        bin/fvwm-crystal.apps and the recipes.
 
 # sub categories
 category() {
@@ -999,6 +995,13 @@ gen_category() {
 			fi
 		done
 	fi
+# We do not want the catch all to be added to existing main cats, so put it here:
+# FIXME: The catch all cat is a terrible hack that need to be fixed into
+#        bin/fvwm-crystal.apps and the recipes.
+	if [[ "$MAIN_CAT" == " " ]]
+		then MAIN_CAT="/Utilities"
+		export MAIN_CAT
+	fi
 }
 
 echo -n "" > non_valid_cat.log
@@ -1023,8 +1026,7 @@ check_category() {
 		done
 		
 		if [[ "${AV}" == "AV" ]] && [[ "${A}" == "A" ]] && [[ "${V}" == "V" ]]; then
-			MAIN__CAT=""
-			echo "$2" >> non_valid_cat.log
+			MAIN__CAT="/Multimedia/Audio"
 		else
 			if [[ "${AV}" == "AV" ]] && [[ "${A}" == "A" ]]; then
 				MAIN__CAT="/Multimedia/Audio"
@@ -1048,6 +1050,7 @@ check_category() {
 	done
 	
 	export CATEGORY
+	echo cat = $CATEGORY
 }
 
 # Write a FVWM-Crystal menu entry

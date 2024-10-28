@@ -402,12 +402,15 @@ case "$1" in
 		MAINCAT="/Multimedia/Video"
 		export MAINCAT
 		;;
-#	*)
-#		MAINCAT="/Utilities"
-#		export MAINCAT
-#		;;
+	*)
+		MAINCAT="/Utilities"
+		export MAINCAT
+		;;
 esac
 }
+# FIXME: The catch all cat is a terrible hack that need to be fixed into
+#        bin/fvwm-crystal.apps and the recipes.
+
 # sub categories
 category() {
 SUBCAT=""

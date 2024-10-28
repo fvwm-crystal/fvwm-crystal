@@ -998,7 +998,8 @@ gen_category() {
 # We do not want the catch all to be added to existing main cats, so put it here:
 # FIXME: The catch all cat is a terrible hack that need to be fixed into
 #        bin/fvwm-crystal.apps and the recipes.
-	if [[ "$MAIN_CAT" == " " ]]
+	TMP_CAT="$(echo $MAIN_CAT | sed -e 's/ //g')"
+	if [[ "$TMP_CAT" == "" ]]
 		then MAIN_CAT="/Utilities"
 		export MAIN_CAT
 	fi

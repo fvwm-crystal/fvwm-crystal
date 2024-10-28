@@ -324,7 +324,7 @@ searchkeystrings() {
 
 # Search for existing menu entry
 searchexist() {
-	EntryExist="$(find ${FC_MENUEXIST} -iname *${2}~?* -type f)"
+	EntryExist="$(find ${FC_MENUEXIST} -iname *~${2}~?* -type f)"
 	if [[ "${EntryExist}" != "" ]]; then
 		echo "${EntryExist} exist, skip"
 		EXIST="true"

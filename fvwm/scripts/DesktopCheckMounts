@@ -22,17 +22,30 @@ cleanup() {
 
 trap cleanup INT QUIT TERM
 
+# We only want the partitions the user have access to => use their path
+MountedP=$(mount|cut -d" " -f3)
+check_access() {
+	AccTo=""
+	for part in $1 ; do
+		if [[ $(ls $part 2>/dev/null) ]] ; then
+			AccTo="${AccTo} $part"
+		fi
+	done
+	echo "${AccTo}"
+}
+AMountedP="$(check_access "$MountedP")"
+
 # the main loop
-CRC=$(mount|cut -d" " -f1)
 while :
 do
 	sleep "$1"
 	# fvwm is started by exec; be sure it is running
 	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
 
-	NEWCRC=$(mount|cut -d" " -f1)
-	if [[ "$NEWCRC" != "$CRC" ]]; then
-		CRC="${NEWCRC}"
+	NMountedP=$(mount|cut -d" " -f3)
+	NAMountedP="$(check_access "$NMountedP")"
+	if [[ "$NAMountedP" != "$AMountedP" ]]; then
+		AMountedP="${NAMountedP}"
 		if [[ "${FVWM_IS_FVWM3}" == "1" ]]; then
 			FvwmPrompt LoadDesktopIcons
 		else

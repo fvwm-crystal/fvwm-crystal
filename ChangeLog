@@ -1,73 +1,227 @@
-* 2022-02-09 StartFunction cleanup of FvwmMFL loading. Need fvwm3>=1.0.4  
-* 2022-02-06 Update ChangeLog  
-* 2022-02-06 Fix the help path and text.  
-* 2022-02-05 We dont know how the user will do things, so Crystal need a Mplayer extra paramters pref file for the IPTV. Add it.  
-* 2022-02-05 New locale strings  
-* 2022-02-05 Use Quit function to relaod the mplayer control.  
-* 2022-02-05 Add MPlayer extra paramteers preferenceS  
-* 2022-02-04 Update French locale.  
-* 2022-02-04 Fix typo.  
-* 2022-02-04 Clarify the help text.  
-* 2022-02-04 Fix variable name  
-* 2022-02-04 Add last strings into the pot files.  
-* 2022-02-04 Fix locale strings.  
-* 2022-02-04 Introduce IPTV category playlist preference; change the name of thee user preference file to satisfy FvwmForm that dont like _ in the name of the form; remove typo in ShowDirectories-Help  
-* 2022-02-03 Reload the Fullscreen functions at Quit.  
-* 2022-02-03 New application launchers  
-* 2022-02-03 Update French locale strings.  
-* 2022-02-03 Update pot files with new locale strings.  
-* 2022-02-02 fix IPTV categories preference at initial playlist generation  
-* 2022-02-02 oops, add forgotten IPTV categories preference file  
-* 2022-02-02 update ChangeLog  
-* 2022-02-02 Change the default stalonetray options  
-* 2022-02-02 Some reordering  
-* 2022-02-02 Fix Fullscreen and Window-AutoFS functions with browsers for fvwm3; this should work with fvwm2 too; cleanup.  
-* 2022-01-31 Restore ffmpeg:// which is needed by some channels.  
-* 2022-01-26 Remove not neeeded ffmpeg:// when starting mplayer with &#39;-slave 8092&#39;.  
-* 2022-01-26 Add a FvwmScript generator to edit single line preference files.  
-* 2022-01-25 Add mplayer extra parameters help form.  
-* 2022-01-25 Change disposition of music menu  
-* 2022-01-24 Add the new functions.  
-* 2022-01-24 Fix nasty echo statements to a pipe file that could block fvwm when the player is not runing. Add menu layouts for top or bottom placement.  
-* 2022-01-24 Add settings for media player menu layout; fix menus placement.  
-* 2022-01-24 Quoting and empty value fixes  
-* 2022-01-24 bin/fvwm-crystal.play-movies: fix quoting. Add function to add playlists into mplayer.  
-* 2022-01-18 Fix playing of linear streams like many IPTV streams  
-* 2022-01-16 add IPTV FVWM_CONFIGDIR preferences for nsfw category  
-* 2022-01-15 make language subcategories  
-* 2022-01-15 add network check  
-* 2022-01-14 Add playlist script for IPTV support with mplayer  
-* 2021-12-30 Add jKmetter k12 in application menu  
-* 2021-12-24 make all playlists: fix in scan[audio|video]media commands to not get playlists with non audio|video  files, change these commands for a more readable and easier to maintain form; writeaudio: add test for subdir in order to remove some warnings.  
-* 2021-07-13 Merge branch &#39;pinotree-legacy-desktop-dirs&#39; into main Drop support for outfated desktop directories.  
-* 2021-07-13 Merge branch &#39;legacy-desktop-dirs&#39; of https://github.com/pinotree/fvwm-crystal into pinotree-legacy-desktop-dirs Drop support for outdated desktop directories.  
-* 2021-06-27 Fix FvwmPager X11 geometry.  
-* 2021-06-12 Drop support for old GNOME dirs  
+Changelog
+=========
+
+
+(unreleased)
+------------
+- Desktop icons: remove the partitions icons for which the user do not
+  have access permission to. [Dominique Michel]
+- Be sure no  other instances are running. [Dominique Michel]
+- Remove typo to fix DesktopCheckMounts with fvwm3. [Dominique Michel]
+- App menu: Fix possible bug with space in catch all cat. [Dominique
+  Michel]
+- App menu: move and fix the catch all to not be added to existing main
+  cat; Audio and Video are not exclusive, fix it and make an arbitrary
+  choice when both are present, Audio is prefered. [Dominique Michel]
+- Hack: use Utilities as catch all application menu main category. Need
+  to be fixed into bin/fvwm-crystal.apps and the recipes. [Dominique
+  Michel]
+- Additional categories cleanup and update. [Dominique Michel]
+- Fix application exec name in existing menu entry search. [Dominique
+  Michel]
+- Fvwmminiconsole cleanup. [Dominique Michel]
+- Remove Xephyr style, it collide with docker. [Dominique Michel]
+- Desktop manager: remove possible outdated temporary files. [Dominique
+  Michel]
+- Fix severe bug that confuse the desktop manager when Show partitions
+  is off. [Dominique Michel]
+- Fix exec accelerators. [Dominique Michel]
+- Add loginctl in fvwm-crystal.sudoers.d. [Dominique Michel]
+- Fix hybrid sleep with screenlid. [Dominique Michel]
+- Bump alsaplayer icons to current one. [Dominique Michel]
+- Add transparent icons for claws-mail, hexchat and wpa_gui. [Dominique
+  Michel]
+- Speed_value: Fix citation reference. [Dominique Michel]
+- Speed control: introduce speed shif by A=432 and 429.62 Hz. That
+  introduce universal physical constants in fvwm-crystal. Cleanup.
+  [Dominique Michel]
+- FontSelector: workaround some fvwm limitation when the Noto fonts are
+  installed by removing their vatiants from  the font list. [Dominique
+  Michel]
+- CustomButtonBar-Menu: fix missing quoting. [Dominique Michel]
+- Addons: searchoddchars initial commit; fix quoting in comments.
+  [Dominique Michel]
+- Applications database: add st - Suckless / Simple Terminal. [Dominique
+  Michel]
+- Applications/*/mc: remove the -a option for consistency with the other
+  mc calls; it alos look better. [Dominique Michel]
+- Custom recipe: Add the main FVWM-Crystal menu into the Application
+  menu. [Dominique Michel]
+- IPTV: fvwm script do not like to edit special characters; use
+  /bin/nano to edit the category preferences. [Dominique Michel]
+- IPTV: category change other to undefined; add comment. [Dominique
+  Michel]
+- IPTV: remove system config dir. [Dominique Michel]
+- IPTV: remove nsfw category. [Dominique Michel]
+- Wallpaper: fix the wallpaper thumnails menu generation with non image
+  files. [Dominique Michel]
+- Random-wallpaper: fix exit with fvwm3. [Dominique Michel]
+- Mixer: fix quoting with FvwmPrompt; restore alsamixer window last
+  position and state- [Dominique Michel]
+- Fix alsamixer icon with Music menu. [Dominique Michel]
+- Fullscreen: we do not want firefox Places windows in fullscreen.
+  [Dominique Michel]
+- Exit: clenup KillAutoHibernate. [Dominique Michel]
+- AutoHibernate: Fix resume loop. [Dominique Michel]
+- Add new locale strings and French string translations; fix a couple of
+  French strings. [Dominique Michel]
+- Add loginctl support in Exit menu; cleanup. [Dominique Michel]
+- Fix non runing FvwmMFL module: StartFunction: Check for and remove old
+  lying FvwmMFL sock and pid files when they exists before starting that
+  module. [Dominique Michel]
+- Fix aliki launcher for ALSA; add aliki launcher for JACK. [Dominique
+  Michel]
+- Add x42-meter and x42-mixtri icons. [Dominique Michel]
+- According to freedesktop desktop entry spec, NotShowIn is a string, so
+  we introduce a possible bug by not setting aside desktop files with
+  that key when searching for wanted applications. As fvwm-crystal is
+  not into the regitered values for that key, it should be fine anyway.
+  [Dominique Michel]
+- According to freedesktop desktop entry spec, NotShowIn is a string, so
+  we introduce a possible bug by not setting aside desktop files with
+  that key when searching for wanted applications. [Dominique Michel]
+- Fix examples path for jconvolver. [Dominique Michel]
+- Fix jconvolver call to last version. [Dominique Michel]
+- Use long name for jaaa and japa; add jaaa icons. [Dominique Michel]
+- Add new apps and icons. [Dominique Michel]
+- Fix IPTV playlist generation and categories. [Dominique Michel]
+- Add tuxguitar icons. [Dominique Michel]
+- Application menu: add looping/lupp; move sooperlooper into looping.
+  [Dominique Michel]
+- Remove non needed comment. [Dominique Michel]
+- Developer menu: add toggle debug fvwm3 logging. [Dominique Michel]
+- Fix XDG menu generation call; add words about Xft and Xfs fonts.
+  [Dominique Michel]
+- Add addons/TODO about the Xresources files. [Dominique Michel]
+- Add/fix forgotten fvwm-crystal.play-playlists executable file.
+  [Dominique Michel]
+- Add IPTV playlist copy menu. [Dominique Michel]
+- Fix directory names in IPTV playlist creation; cleanup. [Dominique
+  Michel]
+- Add zitaa-avc1 launcher and icon. [Dominique Michel]
+- Bump Version to git. [domichel]
+- Fix Exit menu with systemd, tested with Debian 11.2. [domichel]
+- Upadte CgangeLog. [domichel]
+- StartFunction cleanup of FvwmMFL loading. Need fvwm3>=1.0.4.
+  [domichel]
+- Update ChangeLog. [domichel]
+
+
+3.7.3 (2022-02-06)
+------------------
+- Version 2.7.3. [domichel]
+- Fix the help path and text. [domichel]
+- We dont know how the user will do things, so Crystal need a Mplayer
+  extra paramters pref file for the IPTV. Add it. [domichel]
+- New locale strings. [domichel]
+- Use Quit function to relaod the mplayer control. [domichel]
+- Add MPlayer extra paramteers preferenceS. [domichel]
+- Update French locale. [domichel]
+- Fix typo. [domichel]
+- Clarify the help text. [domichel]
+- Fix variable name. [domichel]
+- Add last strings into the pot files. [domichel]
+- Fix locale strings. [domichel]
+- Introduce IPTV category playlist; change the name of thee user
+  preference file to satisfy FvwmForm that doesn't like _ in the name of
+  the form; remove typo in ShowDirectories-Help. [domichel]
+- Update ChangeLog. [domichel]
+- Reload the Fullscreen functions at Quit. [domichel]
+- New application launchers. [domichel]
+- Update French locale strings. [domichel]
+- Update pot files with new locale strings. [domichel]
+- Fix IPTV categories preference at initial playlist generation.
+  [domichel]
+- Oops, add forgotten IPTV categories preference file. [domichel]
+- Update ChangeLog. [domichel]
+- Change the default stalonetray options. [domichel]
+- Some reordering. [domichel]
+- Fix Fullscreen and Window-AutoFS functions with browsers for fvwm3;
+  this should work with fvwm2 too; cleanup. [domichel]
+- Restore ffmpeg:// which is needed by some channels. [domichel]
+- Update ChangeLog. [domichel]
+- Remove not neeeded ffmpeg:// when starting mplayer with '-slave 8092'.
+  [domichel]
+- Add a FvwmScript generator to edit single line preference files.
+  [domichel]
+- Add mplayer extra parameters help form. [domichel]
+- Change disposition of music menu. [domichel]
+- Add the new functions. [domichel]
+- Fix nasty echo statements to a pipe file that could block fvwm when
+  the player is not runing. Add menu layouts for top or bottom
+  placement. [domichel]
+- Add settings for media player menu layout; fix menus placement.
+  [domichel]
+- Quoting and empty value fixes. [domichel]
+- Bin/fvwm-crystal.play-movies: fix quoting. Add function to add
+  playlists into mplayer. [domichel]
+- Fix playing of linear streams like many IPTV streams. [domichel]
+- Add a word about the IPTV mplyer support. [domichel]
+- Add support for IPTV playlists into the mplayer menu. [domichel]
+- Better to initialize the variable so than an environment variable will
+  not work wwith the script. [domichel]
+- Add IPTV FVWM_CONFIGDIR preferences for nsfw category. [domichel]
+- Make language subcategories. [domichel]
+- Add network check. [domichel]
+- Add playlist script for IPTV support with mplayer. [domichel]
+- Add jKmetter k12 in application menu. [domichel]
+- Make all playlists: fix in scan[audio|video]media commands to not get
+  playlists with non audio|video  files, change these commands for a
+  more readable and easier to maintain form; writeaudio: add test for
+  subdir in order to remove some warnings. [domichel]
+- Merge branch 'pinotree-legacy-desktop-dirs' into main Drop support for
+  outfated desktop directories. [domichel]
+- Merge branch 'legacy-desktop-dirs' of
+  https://github.com/pinotree/fvwm-crystal into pinotree-legacy-desktop-
+  dirs Drop support for outdated desktop directories. [domichel]
+- Drop support for old GNOME dirs. [Pino Toscano]
+
   Drop support for a legacy desktop location that GNOME has not been using
   for many many years now.
-* 2021-06-12 Drop support for old KDE dirs  
+- Drop support for old KDE dirs. [Pino Toscano]
+
   applnk was the old pre-KDE 3 location for .kdelnk files. It has been
   long deprecated in favour of XDG locations for desktop files, so the
   support for these directories can be safely removed.
+
   Drop also an old internal directory of kappfinder, which is not needed
   anymore either.
-* 2021-05-27 Update French locale and pot files.  
-* 2021-05-27 Fix copying of LICENSE file in dist-minimal.  
-* 2021-05-27 Add xdg-open dependency into INSTALL.  
-* 2021-05-27 Update version to 3.7.2  
-* 2021-05-27 Remove BROWSER preference.  
-* 2021-05-27 Remove commented BROWSER line.  
-* 2021-05-27 Drop browser variable. Use xdg-open instead when needed.  
-* 2021-05-27 Feedback form: Use xdg-open everywhere.  
-* 2021-05-26 Move the IRC channel to irc.libera.chat due to hostile takeover of freenode; use xdg-open instead of $BROWSER.  
-* 2021-03-09 add gmtp into the file managers  
-* 2021-01-04 Automatize the ChangeLog process.  
-* 2021-01-01 Add a few words about the network protocols supported by the fvwm-crystal desktop icons manager.  
-* 2021-01-01 Add http and https mount support for protocols like webdav. Tested with webdav and davfs2.     davfs2 must be fully configured including the credentials into its &#39;secrets&#39; file.  
-* 2020-12-20 Makefile 	- fix README.md installation  
-* 2020-12-20 INSTALL 	- Update fvwm3 dependency to &gt;=1.0.2 	- Fix the text for outdated python2 depend to be actual and future.  
-* 2020-12-20 fvwm/scripts/DesktopCheckMounts 	- fix portability using mount instead of /proc/mounts 	- add fvwm3 support  
-* 2020-12-20 fvwm/config:	-add infostore variable CRYSTAL_START to be able to control if a given function must be started or not by StartFunction at Start/Restart 	- fix FvwmMfl socket with FVWMMFL-SOCKET=&quot;$[FVWM_USERDIR]/fvwm_mfl_$[DISPLAY].  
-* 2020-12-20 bin/fvwm-crystal: 	- fix FVWM*_LOGFILE test for use with dash 	- fix removing of temporary files to not freeze the cleanup function  
-* 2020-12-16 Initial fvwm-crystal commit on github  
-* 2020-12-16 Initial commit  
+- Fix FvwmPager X11 geometry. [domichel]
+- Update French locale and pot files. [domichel]
+- Fix copying of LICENSE file in dist-minimal. [domichel]
+- Add xdg-open dependency into INSTALL. [domichel]
+- Update version to 3.7.2. [domichel]
+- Remove BROWSER preference. [domichel]
+- Remove commented BROWSER line. [domichel]
+- Drop browser variable. Use xdg-open instead when needed. [domichel]
+- Feedback form: Use xdg-open everywhere. [domichel]
+- Move the IRC channel to irc.libera.chat due to hostile takeover of
+  freenode; use xdg-open instead of $BROWSER. [domichel]
+- Add gmtp into the file managers. [domichel]
+- Automatize the ChangeLog process. [domichel]
+- Add a few words about the network protocols supported by the fvwm-
+  crystal desktop icons manager. [domichel]
+- Add http and https mount support for protocols like webdav. Tested
+  with webdav and davfs2.     davfs2 must be fully configured including
+  the credentials into its 'secrets' file. [domichel]
+- Makefile        - fix README.md installation. [domichel]
+- INSTALL         - Update fvwm3 dependency to >=1.0.2    - Fix the text
+  for outdated python2 depend to be actual and future. [domichel]
+- Fvwm/scripts/DesktopCheckMounts         - fix portability using mount
+  instead of /proc/mounts   - add fvwm3 support. [domichel]
+- Fvwm/config:    -add infostore variable CRYSTAL_START to be able to
+  control if a given function must be started or not by StartFunction at
+  Start/Restart        - fix FvwmMfl socket with FVWMMFL-
+  SOCKET="$[FVWM_USERDIR]/fvwm_mfl_$[DISPLAY]. [domichel]
+- Bin/fvwm-crystal:       - fix FVWM*_LOGFILE test for use with dash
+  - fix removing of temporary files to not freeze the cleanup function.
+  [domichel]
+- Initial fvwm-crystal commit on github. [domichel]
+
+
+3.7.1 (2020-12-16)
+------------------
+- Initial commit. [Dominique Michel]
+
+
+For mode details, run 'git log'.

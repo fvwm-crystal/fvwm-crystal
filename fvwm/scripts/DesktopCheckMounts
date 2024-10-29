@@ -27,7 +27,7 @@ do
 	NEWCRC=$(mount|cut -d" " -f1)
 	if [[ "$NEWCRC" != "$CRC" ]]; then
 		CRC="${NEWCRC}"
-		if [[ "${FVWM_IS_FVVWM3}" == "1" ]]; then
+		if [[ "${FVWM_IS_FVWM3}" == "1" ]]; then
 			FvwmPrompt LoadDesktopIcons
 		else
 			FvwmCommand LoadDesktopIcons

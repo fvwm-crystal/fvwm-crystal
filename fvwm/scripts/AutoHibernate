@@ -4,6 +4,11 @@
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate <rate [%]> $[infostore.sysctl]
 #        launched from components/functions/Exit
 
+# Be sure no old instance is running
+for i in $(pgrep AutoHibernate) ; do
+	kill $i
+done
+
 cleanup() {
 	echo cleanup
 	exit 0

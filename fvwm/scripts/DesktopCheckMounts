@@ -5,6 +5,12 @@
 # debug
 #env >> /tmp/examine_env.$$ 2>1&
 
+# be sure no old instance are runninng
+for i in $(pgrep DesktopCheckMounts) ; do
+	kill $i
+done
+rm /tmp/crystal_desktopcheckmount_*
+
 # the PID to kill if fvwm is interrupted
 TMPFILE="/tmp/crystal_desktopcheckmount_$$"
 touch ${TMPFILE}

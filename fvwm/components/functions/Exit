@@ -9,11 +9,12 @@
 
 # We do not know how fvwm-crystal is started and what its PATH is
 InfoStoreAdd sysctl no
+InfoStoreAdd pmquit no
 # Use pm-utils, then loginctl, then sysctl
 ## Fallbacks
 Test (x systemctl) InfoStoreAdd sysctl systemctl
 Test (x loginctl) InfoStoreAdd sysctl loginctl
-Test (x pm-suspend-hybrid) InfoStoreAdd sysctl pm-suspend-hybrid
+Test (x pm-suspend-hybrid) InfoStoreAdd pmquit pm-suspend-hybrid
 ## With full paths
 Test (x /usr/bin/systemctl) InfoStoreAdd sysctl /usr/bin/systemctl
 Test (x /bin/systemctl) InfoStoreAdd sysctl /bin/systemctl
@@ -23,10 +24,10 @@ Test (x /usr/bin/loginctl) InfoStoreAdd sysctl /usr/bin/loginctl
 Test (x /bin/loginctl) InfoStoreAdd sysctl /bin/loginctl
 Test (x /usr/sbin/loginctl) InfoStoreAdd sysctl /usr/sbin/loginctl
 Test (x /sbin/loginctl) InfoStoreAdd sysctl /sbin/loginctl
-Test (x /usr/bin/pm-suspend-hybrid) InfoStoreAdd sysctl /usr/bin/pm-suspend-hybrid
-Test (x /bin/pm-suspend-hybrid) InfoStoreAdd sysctl /bin/pm-suspend-hybrid
-Test (x /usr/sbin/pm-suspend-hybrid) InfoStoreAdd sysctl /usr/sbin/pm-suspend-hybrid
-Test (x /sbin/pm-suspend-hybrid) InfoStoreAdd sysctl /sbin/pm-suspend-hybrid
+Test (x /usr/bin/pm-suspend-hybrid) InfoStoreAdd pmquit /usr/bin/
+Test (x /bin/pm-suspend-hybrid) InfoStoreAdd pmquit /bin/
+Test (x /usr/sbin/pm-suspend-hybrid) InfoStoreAdd pmquit /usr/sbin/
+Test (x /sbin/pm-suspend-hybrid) InfoStoreAdd pmquit /sbin/
 
 # ps -C ... truncate the command name (see man 5 proc); use pgrep -f ...
 DestroyFunc KillAutoHibernate
@@ -91,10 +92,10 @@ AddToFunc Exit-Menu-pm
 + I Test (X /sys/class/power_supply/BAT0) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
 + I Test (X /proc/acpi/button/lid) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
 + I AddToMenu /Exit '' Nop
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' S pm-suspend
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' S pm-suspend-hybrid
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Suspend to disk]' S pm-hibernate
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Powersave]' S pm-powersave
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' S $[pmquit]pm-suspend
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' S $[pmquit]pm-suspend-hybrid
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Suspend to disk]' S $[pmquit]pm-hibernate
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Powersave]' S $[pmquit]pm-powersave
 
 DestroyFunc Exit-Menu-sysctl
 AddToFunc Exit-Menu-sysctl
@@ -102,13 +103,13 @@ AddToFunc Exit-Menu-sysctl
 + I Test (X /sys/class/power_supply/BAT0) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
 + I Test (X /proc/acpi/button/lid) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
 + I AddToMenu /Exit '' Nop
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' Exec $0 suspend -i
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' Exec $0 hybrid-sleep -i
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM then disk]' Exec $0 suspend-then-hibernate -i
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Suspend to disk]' Exec $0 hibernate -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' S $0 suspend -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' S $0 hybrid-sleep -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM then disk]' S $0 suspend-then-hibernate -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Suspend to disk]' S $0 hibernate -i
 + I AddToMenu /Exit "" Nop
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/system-reboot.png%$[gt.Reboot computer]' Exec $0 reboot -i
-+ I AddToMenu /Exit '%22x22/fvwm-crystal/system-shutdown.png%$[gt.Turn off computer]' Exec $0 poweroff -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/system-reboot.png%$[gt.Reboot computer]' S $0 reboot -i
++ I AddToMenu /Exit '%22x22/fvwm-crystal/system-shutdown.png%$[gt.Turn off computer]' S $0 poweroff -i
 
 DestroyFunc Exit-SelectLogoutManager
 AddToFunc Exit-SelectLogoutManager
@@ -123,7 +124,7 @@ AddToFunc Exit-Menu
 + I Test (x /usr/bin/xscreensaver) AddToMenu /Exit '%22x22/fvwm-crystal/system-lock-screen.png%$[gt.Lock screen]' X xscreensaver-command -lock
 + I Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/system-log-out.png%$[gt.Logout]' QuitSession
 + I Test (!EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/system-log-out.png%$[gt.Logout]' Quit
-+ I Test (EnvMatch infostore.sysctl no) KeepRc Test (x /usr/sbin/pm-hibernate) Exit-Menu-pm
++ I Test (!EnvMatch infostore.pmquit no) Exit-Menu-pm
 + I TestRc (NoMatch) Test (x $[infostore.sysctl]) Exit-Menu-sysctl $[infostore.sysctl]
 + I Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '' Nop
 Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Save session]' Exec exec gnome-session-save --gui

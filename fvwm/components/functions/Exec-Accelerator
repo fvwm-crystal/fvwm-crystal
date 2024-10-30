@@ -50,7 +50,7 @@
 
 # Testing:
 # See components/functions/Preferences-Menu for the up-to-date terminal list.
-# multi-gnome-terinal and eterm are not in gentoo anymore.
+# multi-gnome-terminal and eterm are not in gentoo anymore.
 # x-terminal-emulator is Debian specific and is its default terminal.
 # Do all the test in at least gentoo (sh=bash) and Debian (sh=dash).
 # If it work with Debian and its default sh dash shell, it should work
@@ -75,14 +75,14 @@ AddToFunc StartUrxvtc
 
 DestroyFunc StartTerminal
 AddToFunc StartTerminal
-+ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch infostore.DefaultTerminal multi-gnome-terminal, !EnvMatch infostore.DefaultTerminal terminator, !EnvMatch infostore.DefaultTerminal x-terminal-emulator, !EnvMatch infostore.DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] -e $*  $[infostore.SILENT]
++ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch infostore.DefaultTerminal multi-gnome-terminal, !EnvMatch infostore.DefaultTerminal terminator, !EnvMatch infostore.DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] -e $*  $[infostore.SILENT]
 + I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal gnome-terminal) Exec exec $[infostore.DefaultTerminal] -- $* $[infostore.SILENT]
 + I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] -x $* $[infostore.SILENT]
 + I TestRc (NoMatch) Exec exec $[infostore.DefaultTerminal] -e "$*" $[infostore.SILENT]
 
 DestroyFunc StartTitledTerminal
 AddToFunc StartTitledTerminal
-+ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch infostore.DefaultTerminal multi-gnome-terminal, !EnvMatch infostore.DefaultTerminal terminator, !EnvMatch infostore.DefaultTerminal x-terminal-emulator, !EnvMatch infostore.DefaultTerminal xfce4-terminal, !EnvMatch infostore.DefaultTerminal xterm) Exec exec $[infostore.DefaultTerminal] --title "$0" -e $[1-]  $[infostore.SILENT]
++ I Test (!EnvMatch infostore.DefaultTerminal gnome-terminal, !EnvMatch infostore.DefaultTerminal multi-gnome-terminal, !EnvMatch infostore.DefaultTerminal terminator, !EnvMatch infostore.DefaultTerminal xfce4-terminal, !EnvMatch infostore.DefaultTerminal xterm) Exec exec $[infostore.DefaultTerminal] --title "$0" -e $[1-]  $[infostore.SILENT]
 + I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal gnome-terminal) Exec exec $[infostore.DefaultTerminal] --title "$0" -- $[1-] $[infostore.SILENT]
 + I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal xfce4-terminal) Exec exec $[infostore.DefaultTerminal] --title "$0" -x $[1-] $[infostore.SILENT]
 + I TestRc (NoMatch) Test (EnvMatch infostore.DefaultTerminal xterm) Exec exec $[infostore.DefaultTerminal] -title "$0" -e $[1-] $[infostore.SILENT]
@@ -101,7 +101,7 @@ AddToFunc AA
 + I Test (EnvMatch infostore.DefaultTerminal urxvtc) StartUrxvtc -name urxvt
 + I TestRc (NoMatch) Exec exec $[infostore.DefaultTerminal] $[infostore.SILENT]
 
-# Usage: AT [title] [command] (Use quotes if you want command options or title with spaces)
+# Usage: AT [title] [command] (Use quotes if you want a title with spaces)
 # !: doesn't work anymore with gnome-terminal due to a bug in gnome-terminal (doesn't honor anymore it's own --title option (and --name and --class too)).
 # The preceding similar bug tooks years to be fixed, and a new one was introduced only a few months later, better just choose another terminal
 DestroyFunc AT

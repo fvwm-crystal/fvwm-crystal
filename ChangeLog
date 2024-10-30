@@ -4,6 +4,9 @@ Changelog
 
 (unreleased)
 ------------
+- Exec-Accelerator: fix debian x-terminal-emulator. [Dominique Michel]
+- Use gitchangelog to update the ChangeLog and update it. [Dominique
+  Michel]
 - Desktop icons: remove the partitions icons for which the user do not
   have access permission to. [Dominique Michel]
 - Be sure no  other instances are running. [Dominique Michel]

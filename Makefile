@@ -19,7 +19,8 @@ install: correctpath install-doc
 	cp -d -r fvwm/* $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm/
 	cp tmp/fvwm-crystal $(DESTDIR)/etc/X11/Sessions
 	cp shared/fvwm-crystal.desktop $(DESTDIR)$(prefix)/share/xsessions
-	cp shared/fvwm-crystal.sudoers.d $(DESTDIR)/etc/sudoers.d/fvwm-crystal
+	sh ./makesudoers.sh
+	cp fvwm-crystal.sudoers.d $(DESTDIR)/etc/sudoers.d/fvwm-crystal
 	chmod 440 $(DESTDIR)/etc/sudoers.d/fvwm-crystal
 
 	mkdir -p $(DESTDIR)$(prefix)/share/man/man1
@@ -49,7 +50,7 @@ dist-minimal:
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)"
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/fvwm"
 	# Copy basic files
-	cp -r AUTHORS ChangeLog ChangeLog.old Contribute LICENSE Export.README INSTALL Makefile NEWS README.md fvwm-crystal-minimal-$(RELEASE)/
+	cp -r AUTHORS ChangeLog ChangeLog.old Contribute LICENSE Export.README INSTALL Makefile NEWS README.md	makesudoers.sh fvwm-crystal-minimal-$(RELEASE)/
 	cp -r fvwm/config fvwm-crystal-minimal-$(RELEASE)/fvwm/
 	# Copy addons/
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/addons"
@@ -188,10 +189,10 @@ dist-minimal:
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/fvwm/preferences"
 	find fvwm/preferences -maxdepth 1 ! -name "." ! -name ".*" ! -name "preferences" \
 		-exec cp -R -P {} "fvwm-crystal-minimal-$(RELEASE)/fvwm/preferences/" \;
-	# Copy fvwm/config/
-	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/config"
-	find config -maxdepth 1 ! -name "." ! -name ".*" ! -name "config" \
-		-exec cp -R -P {} "fvwm-crystal-minimal-$(RELEASE)/config/" \;
+	# Copy fvwm/config/ # What is that?
+	#mkdir -p "fvwm-crystal-minimal-$(RELEASE)/config"
+	#find config -maxdepth 1 ! -name "." ! -name ".*" ! -name "config" \
+	#	-exec cp -R -P {} "fvwm-crystal-minimal-$(RELEASE)/config/" \;
 	# Copy fvwm/recipes/
 	mkdir -p "fvwm-crystal-minimal-$(RELEASE)/fvwm/recipes"
 	cp -r fvwm/recipes/Default fvwm/recipes/LapRight fvwm/recipes/Light fvwm/recipes/Nebulae fvwm/recipes/TopLine fvwm-crystal-minimal-$(RELEASE)/fvwm/recipes

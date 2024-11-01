@@ -5,4 +5,4 @@
 
 CurrentDir=`pwd|sed -e "s:\(.*fvwm-crystal\)\(.*\):\2:"`
 
-diff -u ${HOME}/Developement/FVWM-Crystal/sourceforge/fvwm-crystal-code/fvwm"${CurrentDir}/${1}" "${1}"
+diff -u ${HOME}/Developement/FVWM-Crystal/github/fvwm-crystal/fvwm"${CurrentDir}/${1}" "${1}"

@@ -6,24 +6,26 @@
 # than session management because it just work and is fast.
 # + pm-utils was removed from gentoo, add loginctl support and
 # cleanup of executables testing.
+# The loginctl support is for elogind, not for systemd. That imply when
+# systemctl is present, we use it.
 
 # We do not know how fvwm-crystal is started and what its PATH is
 InfoStoreAdd sysctl no
 InfoStoreAdd pmquit no
 # Use pm-utils, then loginctl, then sysctl
 ## Fallbacks
-Test (x systemctl) InfoStoreAdd sysctl systemctl
 Test (x loginctl) InfoStoreAdd sysctl loginctl
+Test (x systemctl) InfoStoreAdd sysctl systemctl
 Test (x pm-suspend-hybrid) InfoStoreAdd pmquit pm-suspend-hybrid
 ## With full paths
-Test (x /usr/bin/systemctl) InfoStoreAdd sysctl /usr/bin/systemctl
-Test (x /bin/systemctl) InfoStoreAdd sysctl /bin/systemctl
-Test (x /usr/sbin/systemctl) InfoStoreAdd sysctl /usr/sbin/systemctl
-Test (x /sbin/systemctl) InfoStoreAdd sysctl /sbin/systemctl
 Test (x /usr/bin/loginctl) InfoStoreAdd sysctl /usr/bin/loginctl
 Test (x /bin/loginctl) InfoStoreAdd sysctl /bin/loginctl
 Test (x /usr/sbin/loginctl) InfoStoreAdd sysctl /usr/sbin/loginctl
 Test (x /sbin/loginctl) InfoStoreAdd sysctl /sbin/loginctl
+Test (x /usr/bin/systemctl) InfoStoreAdd sysctl /usr/bin/systemctl
+Test (x /bin/systemctl) InfoStoreAdd sysctl /bin/systemctl
+Test (x /usr/sbin/systemctl) InfoStoreAdd sysctl /usr/sbin/systemctl
+Test (x /sbin/systemctl) InfoStoreAdd sysctl /sbin/systemctl
 Test (x /usr/bin/pm-suspend-hybrid) InfoStoreAdd pmquit /usr/bin/
 Test (x /bin/pm-suspend-hybrid) InfoStoreAdd pmquit /bin/
 Test (x /usr/sbin/pm-suspend-hybrid) InfoStoreAdd pmquit /usr/sbin/
@@ -100,8 +102,10 @@ AddToFunc Exit-Menu-pm
 DestroyFunc Exit-Menu-sysctl
 AddToFunc Exit-Menu-sysctl
 + I AddToMenu /Exit '' Nop
-+ I Test (X /sys/class/power_supply/BAT0) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
-+ I Test (X /proc/acpi/button/lid) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]' Popup /ScreenLidSuspend
++ I Test (R /sys/class/power_supply/BAT0) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Automatic suspend to disk]' Popup /AutoHibernate
++ I Test (R /proc/acpi/button/lid) Test (R /etc/elogind/logind.conf) Piperead \
+	"if [ $(grep ^HandleLidSwitch=ignore /etc/elogind/logind.conf) ] ; then \
+		echo AddToMenu /Exit \\'%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride with screen lid]\\' Popup /ScreenLidSuspend ; fi"
 + I AddToMenu /Exit '' Nop
 + I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume to RAM]' S $0 suspend -i
 + I AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Resume hybride]' S $0 hybrid-sleep -i
@@ -124,8 +128,8 @@ AddToFunc Exit-Menu
 + I Test (x /usr/bin/xscreensaver) AddToMenu /Exit '%22x22/fvwm-crystal/system-lock-screen.png%$[gt.Lock screen]' X xscreensaver-command -lock
 + I Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/system-log-out.png%$[gt.Logout]' QuitSession
 + I Test (!EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/system-log-out.png%$[gt.Logout]' Quit
-+ I Test (!EnvMatch infostore.pmquit no) Exit-Menu-pm
-+ I TestRc (NoMatch) Test (x $[infostore.sysctl]) Exit-Menu-sysctl $[infostore.sysctl]
++ I Test Test (x $[infostore.sysctl]) Exit-Menu-sysctl $[infostore.sysctl]
++ I TestRc (NoMatch) (!EnvMatch infostore.pmquit no) Exit-Menu-pm
 + I Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '' Nop
 Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Save session]' Exec exec gnome-session-save --gui
 Test (EnvIsSet SESSION_MANAGER) AddToMenu /Exit '%22x22/fvwm-crystal/gdm.png%$[gt.Manage session]' Exec exec gnome-session-properties

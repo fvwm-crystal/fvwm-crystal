@@ -47,6 +47,12 @@ Key features
   can also play movies with it), mplayer2 (mplayer fork), Quodlibet and XMMS2
   are supported.
 
+- The alsaplayer and mplayer support include a speed control. This include
+  the possibilty to change the pitch of the playing to A=432 Hz (because peoples
+  prefer it) and 429.62 Hz - Very serious scientific work, see
+  "Symmetry, Music and Water" by Marc Henry and Sylvain Bridoux at
+  https://www.preprints.org/manuscript/202401.1231/v1
+
 - Advanced support of the terminal windows: special "Quake Console" terminal
   accessible by an Alt+` (grave) keystroke similar to the console found in FPP
   games; terminals can be opened using RMB on the desktop; terminal windows

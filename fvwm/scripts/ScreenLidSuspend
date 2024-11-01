@@ -12,10 +12,10 @@ lidsleeppm() {
 			sudo $1
 			;;
 		    log)
-			$1 hybrid-sleep
+			sudo $1 hybrid-sleep
 			;;
 		    sys)
-			$1 hybrid-sleep -i
+			sudo $1 hybrid-sleep -i
 			;;
 		    *)
 			exit 1

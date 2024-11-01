@@ -172,7 +172,9 @@ Strongly recommended:
 - A file manager to use with the icons on the desktop. Anything will go.
 - mount, umount, pmount for mounting/unmounting of partitions and remouvable medias.
 - fuse for simple-mtpfs support (a.o. some mobile phones mounting/unmounting).
-- pm-utils or systemd for resume/hibernate support.
+- pm-utils, systemd or elogind for resume/hibernate support.
+  When both systemctl and loginctl are present, fvwm-crystal will use systemd's
+  systemctl, when only loginctl is present, it will use elogind's loginctl.
 - A recent version of sudo (configuration files in /etc/sudoers.d).
 
 Optional, but supported:

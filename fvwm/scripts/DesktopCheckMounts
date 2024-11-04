@@ -6,7 +6,7 @@
 #env >> /tmp/examine_env.$$ 2>1&
 
 # be sure no old instance are runninng
-for i in $(pgrep DesktopCheckMounts) ; do
+for i in $(pgrep -f DesktopCheckMounts) ; do
 	kill $i
 done
 rm /tmp/crystal_desktopcheckmount_*

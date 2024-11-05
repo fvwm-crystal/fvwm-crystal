@@ -7,9 +7,9 @@
 
 # be sure no old instance are runninng
 for i in $(pgrep -f DesktopCheckMounts) ; do
-	kill $i
+	[ "$i" != "$$" ] && kill $i
 done
-rm /tmp/crystal_desktopcheckmount_*
+rm /tmp/crystal_desktopcheckmount_* 2>/dev/null
 
 # the PID to kill if fvwm is interrupted
 TMPFILE="/tmp/crystal_desktopcheckmount_$$"

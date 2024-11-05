@@ -1,9 +1,9 @@
 # You can find here some basic FVWM-Crystal functions
 
-# This function looks for specified file in the user directory (~/.fvwm/),
+# This function looks for specified file in the user's directory (~/.fvwm/),
 # then system-wide directory (/etc/X11/fvwm/fvwm-crystal/), then "package"
 # directory (/usr/[local]/share/fvwm-crystal/fvwm) and loads the first one it
-# finds. It is useful for files that should be changed/replaced as a whole, ex.
+# finds. It's useful for files that should be changed/replaced as a whole, ex.
 # functions or scripts.
 #
 DestroyFunc Include
@@ -29,12 +29,54 @@ AddToFunc KillScript
 + I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/$*) KillModule FvwmScript $[FVWM_CONFIGDIR]/$*
 + I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/$*) KillModule FvwmScript $[FVWM_SYSTEMDIR]/$*
 
+# Helper function for IncludeKeyBinding
+# File to store the list of bindings files
+InfoStoreAdd KeyBindingsList $[FVWM_USERDIR]/tmp/KeyBindingsList
+Piperead "mkdir -p $[FVWM_USERDIR]/tmp; \
+	echo -n '' >$[infostore.KeyBindingsList]"
 
+DestroyFunc IncludeStoreKeyBindings
+AddToFunc IncludeStoreKeyBindings
++ I Read $*
+#+ I InfoStoreAdd LoadedKeyBindings "$[infostore.LoadedKeyBindings] $*"
+#+ I SetEnv LoadedKeyBindings "$[LoadedKeyBindings] $*"
++ I PipeRead "echo $* >>$[infostore.KeyBindingsList]"
+
+# This function work like Include, and add the file into the infostore.
+# It must be used for all keybindings because the bindings editor must know
+# what bindings files are loaded into fvwm in order to work properly.
+DestroyFunc IncludeKeyBinding
+AddToFunc IncludeKeyBinding
++ I Test (f $[FVWM_USERDIR]/$*) IncludeStoreKeyBindings $[FVWM_USERDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/$*) IncludeStoreKeyBindings $[FVWM_CONFIGDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/$*) IncludeStoreKeyBindings $[FVWM_SYSTEMDIR]/$*
+
+# Helper function for IncludeMouseBinding
+# File to store the list of bindings files
+InfoStoreAdd MouseBindingsList $[FVWM_USERDIR]/tmp/MouseBindingsList
+Piperead "mkdir -p $[FVWM_USERDIR]/tmp; \
+	echo -n '' >$[infostore.MouseBindingsList]"
+
+DestroyFunc IncludeStoreMouseBindings
+AddToFunc IncludeStoreMouseBindings
++ I Read $*
+#+ I InfoStoreAdd LoadedMouseBindings "$[infostore.LoadedMouseBindings] $*"
+#+ I SetEnv LoadedMouseBindings "$[LoadedMouseBindings] $*"
++ I PipeRead "echo $* >>$[infostore.MouseBindingsList]"
+
+# This function work like Include, and add the file into a list.
+# It must be used for all keybindings because the bindings editor must know
+# what bindings files are loaded into fvwm in order to work properly.
+DestroyFunc IncludeMouseBinding
+AddToFunc IncludeMouseBinding
++ I Test (f $[FVWM_USERDIR]/$*) IncludeStoreMouseBindings $[FVWM_USERDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/$*) IncludeStoreMouseBindings $[FVWM_CONFIGDIR]/$*
++ I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/$*) IncludeStoreMouseBindings $[FVWM_SYSTEMDIR]/$*
 
 # This function looks for specified file in package-wide directory, then
 # system-wide directory and the user-wide directory at the end, loading any
 # that is found (all of them can be loaded one after another, if present).
-# It is useful for files which holds the general settings, like window styles.
+# It's useful for files which holds the general settings, like window styles.
 #
 DestroyFunc Append
 AddToFunc Append

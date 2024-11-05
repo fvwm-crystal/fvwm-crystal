@@ -46,6 +46,7 @@ dist:
 #	find -maxdepth 1 ! -name "." ! -name ".*" ! -name "*.html" ! -name "fvwm-crystal-$(RELEASE)" \
 #		-exec cp -R -P {} "fvwm-crystal-$(RELEASE)/" \;
 	rsync -a . "../fvwm-crystal-$(RELEASE)" --exclude '.*'
+	rm -f "../fvwm-crystal-$(RELEASE)/update_ChangeLog"
 	tar czf "../fvwm-crystal-$(RELEASE).tar.gz" "../fvwm-crystal-$(RELEASE)"
 	rm -rf "../fvwm-crystal-$(RELEASE)"
 

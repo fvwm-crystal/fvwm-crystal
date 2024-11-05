@@ -28,6 +28,9 @@ install: correctpath install-doc
 	cp -d -r man/* $(DESTDIR)$(prefix)/share/man/man1
 # restore the original file; needed for successive run
 	cp -f tmp/LastChoosenRecipe fvwm/preferences/LastChoosenRecipe
+# remove temporary file
+	rm -rf tmp
+	rm -f fvwm-crystal.sudoers.d
 
 uninstall: uninstall-doc
 	@echo "Uninstalling previously installed fvwm-crystal"

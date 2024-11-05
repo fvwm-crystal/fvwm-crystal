@@ -5,7 +5,7 @@ DestroyModuleConfig About: *
 *About: Line center
 *About: Text "FVWM-Crystal"
 *About: Line center
-*About: Text "$[gt.Version]: 3.7.6"
+*About: Text "$[gt.Version]: 3.7.7-git"
 *About: Line center
 *About: Text "Universe"
 *About: Line center

@@ -4,6 +4,7 @@ Changelog
 
 3.7.6 (2024-11-05)
 ------------------
+- Release name Universe. Update NEWS. [Dominique Michel]
 - Version bump to 3.7.6. [Dominique Michel]
 - Makefile: remove temporary files. [Dominique Michel]
 - DesktopCheckMounts: Fix current instance killing. [Dominique Michel]

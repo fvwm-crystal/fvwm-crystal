@@ -2,8 +2,25 @@ Changelog
 =========
 
 
-(unreleased)
-------------
+3.7.6 (2024-11-05)
+------------------
+- Version bump to 3.7.6. [Dominique Michel]
+- Makefile: remove temporary files. [Dominique Michel]
+- DesktopCheckMounts: Fix current instance killing. [Dominique Michel]
+- DesktopCheckMounts: Fix pgrep with more than 15 characters in process
+  names. [Dominique Michel]
+- Makefile: create the /etc/sudoers.d directory if it do not exist.
+  [Dominique Michel]
+- Crystal_diff: use github local dev copy. [Dominique Michel]
+- ScreenLidSuspend: use sudo on all systems. [Dominique Michel]
+- Exit: fix systemd elogind priority. [Dominique Michel]
+- Add word about new speed values of the Music menu and the related
+  "Symmetry, Music and Water" preprint reference. [Dominique Michel]
+- Add a word about systemd - elogind. [Dominique Michel]
+- Exit: make it to work with sudo. [Dominique Michel]
+- Fix the sudoers file to only use installed software. [Dominique
+  Michel]
+- Add config file for gitchangelog. [Dominique Michel]
 - Exec-Accelerator: fix debian x-terminal-emulator. [Dominique Michel]
 - Use gitchangelog to update the ChangeLog and update it. [Dominique
   Michel]

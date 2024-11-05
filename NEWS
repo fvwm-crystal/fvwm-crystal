@@ -1,3 +1,42 @@
+Version 3.7.6
+-------------
+
+This release is a new features and major bug fixes release.
+- It introduce universal physical constants of the universe into
+FVWM-Crystal and is therefore dedicated to the One that made it possible,
+Pr. Marc Henry, and that release is named Universe.
+
+It is 2 new settings into the Speed Music Menu for alsaplayer and mplayer:
+A 432 and A 429.62. Most songs song are tuned at A=440 Hz, and they will
+detune it to A=432 Hz (because folks use it) or A=429.62 Hz.
+That last diapason was calculated by Prof. Marc Henry and Sylvain
+Bridoux. The A4 = 429.62 Hz value is based on the universal physical
+constants of our universe and on the mass of the water molecule H²O,
+the most abondant molecule in the universe and our bodies. See
+	Symmetry, Music and Water:
+    https://www.preprints.org/manuscript/202401.1231/v1
+
+The fixes includes fixes for the desktop icons (Preferences ->
+Desktop Manager - FVWM-Crystal) after Restart, confused button when Show
+Partition was off, not showing partitions when the user have no access
+rights on them.
+
+The Exit menu was reworked to support systemctl (systemd),
+logind (gentoo version for openrc) and pm-utils.
+
+On some distributions (Debian sid, Ubuntu,...), hibernation may fail
+to works when Secure Boot is enabled in the bios, but that issue concern
+the kernel (WIP) and is out of the scope of FVWM-Crystal.
+
+Internals: The Exec accelerators was reworked to be in sync with current
+systems and should be faster to maintain on the long run.
+
+A lot of other fixes. See ChangeLog for the details.
+
+Enjoy!
+Dominique Michel
+
+
 Version 3.7.5
 -------------
 

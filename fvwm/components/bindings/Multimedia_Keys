@@ -16,7 +16,7 @@ key XF86AudioPlay A $[Mod0] Music-FrameStep
 key XF86AudioPlay A $[Mod1] Music-Speed normal mplayer
 #key XF86AudioPlay A $[Mod1] Music-Speed normal
 key XF86AudioPlay A C Music-Pause
-# key XF86AudioStop A $[Mod0] Music-Stop
+#key XF86AudioStop A $[Mod0] Music-Stop
 key XF86AudioStop A C Music-Pause
 key XF86AudioStop A $[Mod1] Music-Speed normal mplayer
 #key XF86AudioStop A $[Mod1] Music-Play

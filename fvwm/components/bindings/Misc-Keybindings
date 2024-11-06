@@ -1,5 +1,5 @@
 # Some default keybindings, not fitting anywhere else
-# The # at comment ends show my own settings. Make them defsult?
+# The # at comment ends show my own settings.
 
 # Open QuakeConsole using Alt+`
 Key grave A $[Mod1] QuakeConsole

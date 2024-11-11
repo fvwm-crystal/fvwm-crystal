@@ -235,7 +235,7 @@ correctpath:
 	cp -f  tmp/fvwm-crystal.new tmp/fvwm-crystal
 	sed 's:/usr/bin:$(prefix)/bin:' fvwm/preferences/LastChoosenRecipe > tmp/LastChoosenRecipe.new
 	cp -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
-	sed 's:/usr/share:$(prefix/share) bin/fvwm-crystal > tmp/bin/fvwm-crystal.new
+	sed 's:/usr/share:$(prefix/share):' bin/fvwm-crystal > tmp/bin/fvwm-crystal.new
 	cp -f tmp/bin/fvwm-crystal.new bin/fvwm-crystal
 
 uninstall-doc:

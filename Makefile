@@ -223,7 +223,7 @@ clean:
 correctpath:
 	mkdir -p tmp/bin
 	cp -f bin/fvwm-crystal tmp/bin
-	cp -f fvwm-crystal.generate-menu tmp
+	cp -f bin/fvwm-crystal.generate-menu tmp
 	cp -f shared/fvwm-crystal tmp
 	cp -f fvwm/preferences/LastChoosenRecipe tmp
 	# sometime sed do not understand -i => use redirection

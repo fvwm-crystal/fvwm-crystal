@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Generate FVWM-Crystal menu from desktop and icons files provided by the applications.
 # For software which have an icon, generate the Icon and MiniIcon styles.

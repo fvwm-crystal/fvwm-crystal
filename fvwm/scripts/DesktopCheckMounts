@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # FVWM-Crystal helper script that check for mount changes
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/DesktopCheckMounts <delay [s]>
 

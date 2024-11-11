@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Support for amixer controls
 # Written by: Dominique Michel <dominique_libre@sourceforge.net>
 #

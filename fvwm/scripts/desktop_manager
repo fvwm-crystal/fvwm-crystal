@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Generation of the FVWM-Crystal Desktop Manager (icons on the desktop)
 # Written by Dominique Michel <dominique_libre@users.sourceforge.net>, 2015

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Generate iptv playlists for FVWM-Crystal
 #
 # Version:	1.0.1

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # FVWM-Crystal helper script that put the omputer in hibernation
 # when the battery is low
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate <rate [%]> $[infostore.sysctl]

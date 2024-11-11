@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # xrandr wrapper for FVWM-Crystal
 # Dominique Michel <dominique_libre@users.sourceforge.net> 2013

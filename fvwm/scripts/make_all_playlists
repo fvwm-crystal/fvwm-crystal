@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Wrapper for make_playlist into Fvwm-Crystal
 # Dominique Michel <dominique_libre@users.sourceforge.net> 2008-2013

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Find the index of a font
 # Syntax:	findindex.sh "<font name>"
 

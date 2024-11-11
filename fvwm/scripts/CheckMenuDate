@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Check for new desktop files and generate the menu if yes.
 
 DesktopDir=`awk -v ORS="" '!/(#|^$)/{print $0" "}' ${FVWM_USERDIR}/preferences/DesktopDirs`

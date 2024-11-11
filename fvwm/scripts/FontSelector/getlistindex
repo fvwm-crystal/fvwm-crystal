@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Return the font list to the findindex.sh helper script.
 
 PrecedingF=""

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Support for MPlayer(2) media players into Fvwm-Crystal
 # Written by: Dominique Michel <dominique_libre@users.sourceforge.net> 2013
 

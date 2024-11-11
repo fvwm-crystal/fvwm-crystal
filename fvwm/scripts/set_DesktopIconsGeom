@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Set IconColumnsNumber which is used by all recipes to determinate the IconBox size, and
 # by the FVWM-Crystal desktop icons manager.

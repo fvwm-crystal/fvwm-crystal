@@ -27,8 +27,9 @@ install: correctpath install-doc clean
 
 	mkdir -p $(DESTDIR)$(mandir)/man1
 	cp -r man/* $(DESTDIR)$(mandir)/man1
-# restore the original file; needed for successive run
+# restore the original files; needed for successive run
 	cp -f tmp/LastChoosenRecipe fvwm/preferences/LastChoosenRecipe
+	cp -f tmp/fvwm-crystal bin/fvwm-crystal
 
 uninstall: uninstall-doc
 	@echo "Uninstalling previously installed fvwm-crystal"
@@ -221,6 +222,7 @@ clean:
 # It is needed to adjust some path inside fvwm-crystal.generate-menu since this file must know the install path
 correctpath:
 	mkdir -p tmp
+	cp -f bin/fvwm-crystal tmp/fvwm-crystal
 	cp -f bin/fvwm-crystal.generate-menu tmp
 	cp -f shared/fvwm-crystal tmp
 	cp -f fvwm/preferences/LastChoosenRecipe tmp
@@ -233,6 +235,8 @@ correctpath:
 	cp -f  tmp/fvwm-crystal.new > tmp/fvwm-crystal
 	sed 's:/usr/bin:$(prefix)/bin:' fvwm/preferences/LastChoosenRecipe > tmp/LastChoosenRecipe.new
 	cp -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
+	sed 's:/usr/share:$(prefix/share) bin/fvwm-crystal > tmp/fvwm-crystal.new
+	cp -f tmp/fvwm-crystal.new bin/fvwm-crystal
 
 uninstall-doc:
 	-rm -rf $(DESTDIR)$(docdir)

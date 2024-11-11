@@ -11,7 +11,7 @@ docdir?=$(prefix)/share/doc/fvwm-crystal-$(RELEASE)
 all:
 	@echo "There is nothing to compile."
 
-install: correctpath install-doc clean
+install: correctpath install-doc
 	@echo Installing fvwm-crystal $(RELEASE) to $(prefix)
 	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm $(DESTDIR)$(prefix)/share/xsessions $(DESTDIR)/etc/X11/Sessions $(DESTDIR)/etc/sudoers.d
 

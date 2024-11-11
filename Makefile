@@ -246,4 +246,4 @@ install-doc:
 	mkdir -p $(DESTDIR)$(addondir) $(DESTDIR)$(docdir)/html
 	install -m 644 addons/* $(DESTDIR)$(addondir)
 	install -m 644 AUTHORS Contribute NEWS ChangeLog ChangeLog.old Export.README README.md INSTALL $(DESTDIR)$(docdir)
-	cp -d -r doc/* $(DESTDIR)$(docdir)
+	cp -r doc/* $(DESTDIR)$(docdir)

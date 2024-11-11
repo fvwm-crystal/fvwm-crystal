@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # set ramdom wallpapers from the ones in $FVWM_USERDIR/wallpapers/*
 # it follow the symlinks; but all the pictures must be in child directories

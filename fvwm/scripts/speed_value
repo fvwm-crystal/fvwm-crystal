@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Read player's current speed and output the wanted speed
 # pause +- value will not work.
 # No music + or - 1 octave is always no music.

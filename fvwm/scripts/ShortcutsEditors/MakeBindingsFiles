@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # MakeBindingsFiles for FVWM-Crystal
 #
 # Version:	1.0.0

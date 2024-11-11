@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Generation of multimedia browser menu for FVWM-Crystal
 # Written by Dominique Michel <dominique_libre@users.sourceforge.net>, 2008-2013

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # FVWM-Crystal: wraapper for automatic Fullscreen
 # Generate the Window-AutoFS function from the user preferences.

@@ -17,17 +17,17 @@ all:
 	@echo 'To install it into "/usr", run:'
 	@echo '    su -c "make prefix=/usr install"'
 	@echo
-	@echo 'On freebsd, run:'
-	@echo '    make freebsdetc=/usr/local prefix=/usr/local install'
+	@echo 'On freebsd, run as root:'
+	@echo '    make freebsdetc=/usr/local install'
 
 install: correctpath install-doc
 	@echo Installing fvwm-crystal $(RELEASE) to $(prefix)
-	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm $(DESTDIR)$(prefix)/share/xsessions $(DESTDIR)/etc/X11/Sessions $(DESTDIR)/etc/sudoers.d
+	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm $(DESTDIR)$(prefix)/share/xsessions $(DESTDIR)$(freebsdetc)/etc/X11/Sessions $(DESTDIR)$(freebsdetc)/etc/sudoers.d
 
 	install -m 755 bin/fvwm-crystal.apps bin/fvwm-crystal.wallpaper bin/fvwm-crystal bin/fvwm-crystal.infoline bin/fvwm-crystal.mplayer-wrapper bin/fvwm-crystal.play-movies bin/fvwm-crystal.play-playlists bin/fvwm-crystal.videomodeswitch- bin/fvwm-crystal.videomodeswitch+ $(DESTDIR)$(prefix)/bin
 	install -m 755 tmp/fvwm-crystal.generate-menu $(DESTDIR)$(prefix)/bin
 	cp -r fvwm/* $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm/
-	cp tmp/fvwm-crystal $(DESTDIR)/etc/X11/Sessions
+	cp tmp/fvwm-crystal $(DESTDIR)$(freebsdetc)/etc/X11/Sessions
 	cp shared/fvwm-crystal.desktop $(DESTDIR)$(prefix)/share/xsessions
 	sh ./makesudoers.sh
 	mkdir -p $(DESTDIR)/etc/sudoers.d

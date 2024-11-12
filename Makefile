@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-.PHONY: all install uninstall dist correctpermissions install-doc uninstall-doc
+.PHONY: all install uninstall dist correctpath install-doc uninstall-doc 
 
 prefix?=/usr/local
 addondir?=$(prefix)/share/fvwm-crystal/addons
@@ -7,9 +7,18 @@ mandir?=$(prefix)/share/man
 
 RELEASE=`grep Version fvwm/components/functions/About | cut -d" " -f 4 | sed -e 's:"::'`
 docdir?=$(prefix)/share/doc/fvwm-crystal-$(RELEASE)
+freebsdetc?=
 
 all:
 	@echo "There is nothing to compile."
+	@echo
+	@echo 'To install FVWM-Crystal in "/usr/local", run:'
+	@echo '    su -c "make install"'
+	@echo 'To install it into "/usr", run:'
+	@echo '    su -c "make prefix=/usr install"'
+	@echo
+	@echo 'On freebsd, run:'
+	@echo '    make freebsdetc=/usr/local prefix=/usr/local install'
 
 install: correctpath install-doc
 	@echo Installing fvwm-crystal $(RELEASE) to $(prefix)
@@ -22,8 +31,8 @@ install: correctpath install-doc
 	cp shared/fvwm-crystal.desktop $(DESTDIR)$(prefix)/share/xsessions
 	sh ./makesudoers.sh
 	mkdir -p $(DESTDIR)/etc/sudoers.d
-	cp fvwm-crystal.sudoers.d $(DESTDIR)/etc/sudoers.d/fvwm-crystal
-	chmod 440 $(DESTDIR)/etc/sudoers.d/fvwm-crystal
+	cp fvwm-crystal.sudoers.d $(DESTDIR)$(freebsdetc)/etc/sudoers.d/fvwm-crystal
+	chmod 440 $(DESTDIR)$(freebsdetc)/etc/sudoers.d/fvwm-crystal
 
 	mkdir -p $(DESTDIR)$(mandir)/man1
 	cp -r man/* $(DESTDIR)$(mandir)/man1
@@ -37,7 +46,8 @@ uninstall: uninstall-doc
 	rm -f $(DESTDIR)$(prefix)/bin/fvwm-crystal.wallpaper $(DESTDIR)$(prefix)/bin/fvwm-crystal.apps $(DESTDIR)$(prefix)/bin/fvwm-crystal $(DESTDIR)$(prefix)/bin/fvwm-crystal.generate-menu $(DESTDIR)$(prefix)/bin/fvwm-crystal.infoline $(DESTDIR)$(prefix)/bin/fvwm-crystal.mplayer-wrapper $(DESTDIR)$(prefix)/bin/fvwm-crystal.play-movies $(DESTDIR)$(prefix)/bin/fvwm-crystal.videomodeswitch+ $(DESTDIR)$(prefix)/bin/fvwm-crystal.videomodeswitch-
 	rm -f $(DESTDIR)$(prefix)/share/man/man1/fvwm-crystal.1 $(DESTDIR)$(prefix)/share/man/man1/ApplicationDatabase.1 $(DESTDIR)$(prefix)/share/man/man1/CrystalRoxHOWTO.1 $(DESTDIR)$(prefix)/share/man/man1/FVWMCrystalFAQ.1 $(DESTDIR)$(prefix)/share/man/man1/KeyboardBindings.1 $(DESTDIR)$(prefix)/share/man/man1/MouseBindings.1 $(DESTDIR)$(prefix)/share/man/man1/Tips.1
 	rm -f $(DESTDIR)$(prefix)/share/xsessions/fvwm-crystal.desktop $(DESTDIR)/etc/X11/Sessions/fvwm-crystal
-	
+	rm -f $(DESTDIR)$(freebsdetc)/etc/sudoers.d/fvwm-crystal
+
 # This is meant for creating a distribution tarball from the repository and
 # not for the use by end users
 dist:

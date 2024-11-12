@@ -34,14 +34,14 @@ your_id="$(id -un)"
 if [ $# -lt 2 ]; then
 	echo "Running $0 from the shell"
 	# Where are the Fvwm-Crystal menu files:
-	FC_MENUBASEROOT="/usr/share/fvwm-crystal/fvwm/Applications"
-	FC_MENUBASEUSER="/.fvwm-crystal/Applications"
+	FC_MENUBASEROOT="${FVWM_SYSTEMDIR}/Applications"
+	FC_MENUBASEUSER="${FVWM_USERDIR}/Applications"
 	# Where are the Fvwm-Crystal icons files:
-	FC_ICONBASEROOT="/usr/share/fvwm-crystal/fvwm/icons/Default"
-	FC_ICONBASEUSER="/.fvwm-crystal/icons/Default"
+	FC_ICONBASEROOT="${FVWM_SYSTEMDIR}/icons/Default"
+	FC_ICONBASEUSER="${FVWM_USERDIR}/icons/Default"
 	# Where are the Fvwm-Crystal styles files:
-	FC_STYLEBASEROOT="/usr/share/fvwm-crystal/fvwm/components/styles"
-	FC_STYLEBASEUSER="/.fvwm-crystal/components/styles"
+	FC_STYLEBASEROOT="${FVWM_SYSTEMDIR}/components/styles"
+	FC_STYLEBASEUSER="${FVWM_USERDIR}/components/styles"
 	# Test which user run the script. Ir root, install in FVWM-SYSTEMDIR,
 	# otherwise in FVWM_USERDIR. If ROOT, existing entry will be searched
 	# only in FVWM_SYSTEMDIR, otherwise in both FVWM_DIR.

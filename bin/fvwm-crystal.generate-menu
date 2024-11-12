@@ -53,11 +53,11 @@ if [ $# -lt 2 ]; then
 		FC_ICONEXIST="${FC_ICONBASEROOT}"
 #		FC_STYLEEXIST="${FC_STYLEBASEROOT}"
 	else
-		FC_MENUBASE="/home/${your_id}${FC_MENUBASEUSER}"
-		FC_ICONBASE="/home/${your_id}${FC_ICONBASEUSER}"
-		FC_STYLEBASE="/home/${your_id}${FC_STYLEBASEUSER}"
-		FC_MENUEXIST="${FC_MENUBASEROOT} /home/${your_id}${FC_MENUBASEUSER}"
-		FC_ICONEXIST="${FC_ICONBASEROOT} /home/${your_id}${FC_ICONBASEUSER}"
+		FC_MENUBASE="${FC_MENUBASEUSER}"
+		FC_ICONBASE="${FC_ICONBASEUSER}"
+		FC_STYLEBASE="${FC_STYLEBASEUSER}"
+		FC_MENUEXIST="${FC_MENUBASEROOT} ${FC_MENUBASEUSER}"
+		FC_ICONEXIST="${FC_ICONBASEROOT} ${FC_ICONBASEUSER}"
 #		FC_STYLEEXIST="${FC_ICONBASEROOT} /home/${your_id}${FC_STYLEBASEUSER}"
 	fi
 else
@@ -289,7 +289,7 @@ searchoneappdesktop() {
 # Search TryExec in desktop file, Exec if not found
 searchexecname() {
 #	EXEC="$(cat "${1}" | sed -e '/Desktop Entry/,/Desktop Action/ !d' -e '/^\Exec=/!d' -e 's:^.\{0,3\}Exec=\([^ ]*\).*:\1:' -e 's:.*/::')"
-	EXEC="$(grep -m1 ^Exec= "${1}" | sed -e '/^\Exec=/!d' -e 's:^.\{0,3\}Exec=\([^ ]*\).*:\1:' -e 's:.*/::')"
+	EXEC="$(grep -m1 ^Exec= "${1}" | sed -e '/^Exec=/!d' -e 's:^.\{0,3\}Exec=\([^ ]*\).*:\1:' -e 's:.*/::')"
 	export EXEC
 }
 
@@ -306,16 +306,16 @@ searchkeystrings() {
 #	echo "CATNAME = $CATNAME"
 	SOFTNAME=""
 	if [[ "$LOC" != "" ]]; then
-		SOFTNAME="$(cat "${1}" | grep -m 1 ^Name.${LOC}. | sed -e '/^\Name....=/!d' -e 's/Name....=//' -e 's/ /_/g' -e 's:/:-:')"
+		SOFTNAME="$(cat "${1}" | grep -m 1 ^Name.${LOC}. | sed -e '/^Name....=/!d' -e 's/Name....=//' -e 's/ /_/g' -e 's:/:-:')"
 		export SOFTNAME
 #	else
 	fi
 	if [[ "$SOFTNAME" == "" ]]; then
-		SOFTNAME="$(cat "${1}" | sed -e '/Desktop Entry/,/Desktop Action/ !d' -e '/^\Name=/!d' -e 's/Name=//' -e 's/ /_/g' -e 's:/:-:')"
+		SOFTNAME="$(cat "${1}" | sed -e '/Desktop Entry/,/Desktop Action/ !d' -e '/^Name=/!d' -e 's/Name=//' -e 's/ /_/g' -e 's:/:-:')"
 		export SOFTNAME
 	fi
 
-	COMMANDF="$(cat "${1}" | sed -e '/Desktop Entry/,/Desktop Action/ !d' -e '/^\Exec=/!d' -e 's/Exec=//' -e 's:.%.*::' -e 's/ -caption//')"
+	COMMANDF="$(cat "${1}" | sed -e '/Desktop Entry/,/Desktop Action/ !d' -e '/^Exec=/!d' -e 's/Exec=//' -e 's:.%.*::' -e 's/ -caption//')"
 	export COMMANDF
 
 	TERMINAL="$(cat "${1}" | sed -e '/Terminal=true/!d' -e 's/Terminal=//')"

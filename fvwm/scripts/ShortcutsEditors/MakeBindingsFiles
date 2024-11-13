@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # MakeBindingsFiles for FVWM-Crystal
 #
 # Version:	1.0.0
@@ -53,7 +53,7 @@ else
 fi
 
 # make a bindings list from the files list
-find_bindings() {
+bindings_init() {
     echo -n '' > "${BindingsTmpFile}"
     if [ "${1}" == "Key" ]; then
 	echo '# Key binding syntax:' >> "${BindingsTmpFile}"
@@ -75,6 +75,10 @@ find_bindings() {
 	echo "## From ${myline}: {{{1" >> "${BindingsTmpFile}"
 	cat "${myline}" | sed -e "s:	*	: :g" -e "s: * : :g" >> "${BindingsTmpFile}"
     done < "${BindingsFilesList}"
+
+    # We want only 1 vim line at the end of the file, it is added in merge_bindings.
+    sed '/# vim:ft=fvwm/d' "${BindingsTmpFile}"  > "${BindingsTmpFile}.tmp"
+    mv -f "${BindingsTmpFile}.tmp" "${BindingsTmpFile}"
 }
 
 # get the command string associated to a key binding
@@ -125,11 +129,7 @@ funcexist() {
     grep " $tmpv$" "$2" 1>/dev/null
 }
 
-write_bindingsfile() {
-#    echo -n "" > "${BindingsUserFile}"
-    # We want only 1 vim line at the end of the file.
-    sed -i 's/# vim:ft=fvwm/# New line additions:/' "${BindingsUserFile}"
-
+merge_bindings() {
     while read myline ; do
 	# if non empty line
 	if [[ -n "${myline}" ]]; then
@@ -177,20 +177,42 @@ write_bindingsfile() {
     echo "# vim:ft=fvwm" >> "${BindingsUserFile}"
 }
 
-# main()
-if [ -f "${BindingsTmpFile}" ]; then
-    write_bindingsfile "${1}"
-else
-    if [ -f "${BindingsFilesList}" ]; then
-	find_bindings "${1}"
-	# we need all the original lines
-	cp "${BindingsTmpFile}" "${BindingsUserFile}"
-	echo "" >> "${BindingsUserFile}"
-    else
-	echo "For $(basename $0) to run, restart FVWM-Crystal."
-	rm -f "${BindingsTmpFile}"
-	exit 2
+# BindingsTmpFile cleanup and check if new or updated BindingsUserFile is needed.
+write_bindingsfile() {
+    if [ ! -f "${BindingsUserFile}" ]; then
+	echo "User $1 bindings preference file initialisation..."
+	cp -f "${BindingsTmpFile}" "${BindingsUserFile}"
     fi
+    if ! cmp -s "${BindingsTmpFile}" "${BindingsTmpFile}.bak"; then
+	echo "Merging phase 2..."
+	merge_bindings "$1"
+	cp -f "${BindingsTmpFile}" "${BindingsTmpFile}.bak"
+    fi
+}
+
+# main() {{{1
+# First, we need all the lines of the original fvwm-nindings and
+# some way to test if they have changed.
+if [ ! -f "${BindingsFilesList}" ]; then
+	echo "Missing bindings files list, please restart fvwm."
+	exit 0
+fi
+# Create new BindingsTmpFile
+bindings_init "$1"
+
+# If Initial run
+if [ ! -f "${BindingsTmpFile}.bak" ]; then
+	echo "$1 bindings preferences initialisation..."
+	write_bindingsfile "$1"
+	cp "${BindingsTmpFile}" "${BindingsTmpFile}.bak"
+else
+	echo "$1 bindings preferences check..."
+	if ! cmp -s "${BindingsTmpFile}" "${BindingsTmpFile}.bak"; then
+		echo "$1  bindings changes found, merging..."
+		write_bindingsfile "$1"
+	else
+		echo "No change found in $1 bindings, quitting."
+	fi
 fi
 
 FvwmCommand "AT 'FVWM-Crystal Bindings Editor' ${EDITOR} ${BindingsUserFile}"

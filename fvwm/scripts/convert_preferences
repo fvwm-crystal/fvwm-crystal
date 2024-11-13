@@ -4,7 +4,8 @@
 FC_VERSION=`grep Version "${FVWM_SYSTEMDIR}"/components/functions/About | sed -e 's/*About: Text "\$\[gt.Version\]: \([0-9.]\+\)"/\1/'`
 
 convert_preference() {
-	sed -i -e 's:SetEnv:InfoStoreAdd:' "$1"
+	sed -e 's:SetEnv:InfoStoreAdd:' "$1" > "$1".tmp
+	mv -f "$1".tmp "$1"
 }
 
 convert_preferences() {
@@ -24,7 +25,8 @@ else 	C_VERSION=`cat "${FVWM_USERDIR}"/Version`
 	fi
 fi
 if [ -f "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation ]
-	then	sed -i -e "s:Up:Top:" "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation
-		sed -i -e "s:Down:Bottom:" "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation
+	then	sed -e "s:Up:Top:" "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation > "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation.tmp
+		mv -f "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation.tmp  "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation
+		sed -e "s:Down:Bottom:" "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation > "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation.tmp
+		mv -f "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation.tmp "${FVWM_USERDIR}"/preferences/CustomButtonBarLocation
 fi
-

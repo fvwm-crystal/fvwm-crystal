@@ -22,7 +22,7 @@ echo ""
 echo "For best results, install a XDG menu with full support for the additional categories like fvwm-xdg-menu at htpps://github.com/domichel/fvwm-xdg-menu"
 echo ""
 
-mkdir -p ${FVWM_USERDIR}/tmp
+mkdir -p "${FVWM_USERDIR}"/tmp
 MENU_FILE='.menu'
 
 fvwm-menu-desktop \
@@ -31,12 +31,15 @@ fvwm-menu-desktop \
 	--theme FVWM_Xdg \
 	--size 32 \
 	--title FvwmMenu \
-	--mini-icon-dir ${FVWM_USERDIR}/icons/fvwm-desktop > ${FVWM_USERDIR}/${MENU_FILE}
+	--mini-icon-dir "${FVWM_USERDIR}"/icons/fvwm-desktop > "${FVWM_USERDIR}/${MENU_FILE}"
 
 # adapt the XDG config menu to our needs
-sed -i -e 's:Module FvwmPerl -l fvwm-menu-desktop-config.fpl:A $[FVWM_SYSTEMDIR]/scripts/XDG-Menu:' ${FVWM_USERDIR}/${MENU_FILE}
+sed -e 's:Module FvwmPerl -l fvwm-menu-desktop-config.fpl:A $[FVWM_SYSTEMDIR]/scripts/XDG-Menu:' "${FVWM_USERDIR}/${MENU_FILE}" > "${FVWM_USERDIR}/${MENU_FILE}".tmp
+mv -f "${FVWM_USERDIR}/${MENU_FILE}".tmp "${FVWM_USERDIR}/${MENU_FILE}"
 # if changing these gt.strings, adapt addons/make.pot accordingly
-sed -i -e 's:gt.Regenerate:gt.Configure:' ${FVWM_USERDIR}/${MENU_FILE}
-sed -i -e '$s:gt.Configure:gt.Regenerate:' ${FVWM_USERDIR}/${MENU_FILE}
+sed -e 's:gt.Regenerate:gt.Configure:' "${FVWM_USERDIR}/${MENU_FILE}" > "${FVWM_USERDIR}/${MENU_FILE}".tmp
+mv -f "${FVWM_USERDIR}/${MENU_FILE}".tmp "${FVWM_USERDIR}/${MENU_FILE}"
+sed -e '$s:gt.Configure:gt.Regenerate:' "${FVWM_USERDIR}/${MENU_FILE}" > "${FVWM_USERDIR}/${MENU_FILE}".tmp
+mv -f "${FVWM_USERDIR}/${MENU_FILE}".tmp "${FVWM_USERDIR}/${MENU_FILE}"
 
 FvwmCommand 'Include .menu'

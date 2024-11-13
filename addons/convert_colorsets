@@ -1,10 +1,11 @@
 #!/bin/sh
 
 echo ""
+echo "Outdated stuff..."
 echo "To convert existing colorsets, run the following commands into their base folder:"
 echo ""
-echo find -type f -exec sed -i -e \'s:\$\\[cs_:\$\\[infostore\\.cs_:g\' {} \\\;
-echo find -type f -exec sed -i -e \'s:SetEnv:InfoStoreAdd:g\' {} \\\;
+echo find -type f -exec sed -i.bak -e \'s:\$\\[cs_:\$\\[infostore\\.cs_:g\' {} \\\;
+echo find -type f -exec sed -i.bak -e \'s:SetEnv:InfoStoreAdd:g\' {} \\\;
 echo ""
 echo "You can use the first command on directories containing recipes or functions using the old cs_ prefix variables."
 echo The second command will convert all the \'SetEnv\' to \'InfoStoreAdd\'. In consequence, be sure the folder and its subfolder where you run that command only contain colorset related \'SetEnv\'.

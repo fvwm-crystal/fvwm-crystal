@@ -113,7 +113,7 @@ AddToMenu /CustomButtonPager
 DestroyFunc AddCustomButton
 AddToFunc AddCustomButton
 + I PipeRead 'PrefFile="$[FVWM_USERDIR]/preferences/CustomButtonBar"; \
-	touch ${PrefFile}; sed \'$[infostore.CurrentCustomButton]a\\$*\' -i.bak ${PrefFile}; \
+	touch ${PrefFile}; sed -i.bak \'$[infostore.CurrentCustomButton]a\\$*\' ${PrefFile}; \
 	sed -i.bak s:48x48:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}; \
 	sed -i.bak s:32x32:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}; \
 	sed -i.bak s:22x22:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}'

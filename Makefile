@@ -237,16 +237,16 @@ correctpath:
 	cp -f shared/fvwm-crystal tmp
 	cp -f fvwm/preferences/LastChoosenRecipe tmp
 	# sometime sed do not understand -i => use redirection
-	sed 's:FC_MENUBASEROOT="/usr/share:FC_MENUBASEROOT="$(prefix)/share:' tmp/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new
-	sed 's:FC_ICONBASEROOT="/usr/share:FC_ICONBASEROOT="$(prefix)/share:' tmp/fvwm-crystal.generate-menu.new > tmp/fvwm-crystal.generate-menu
-	sed 's:SYSPREFS="/usr/share:SYSPREFS="$(prefix)/share:' tmp/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new
-	cp -f tmp/fvwm-crystal.generate-menu.new tmp/fvwm-crystal.generate-menu
-	sed 's:/usr/share:$(prefix)/share:' tmp/fvwm-crystal > tmp/fvwm-crystal.new
-	cp -f  tmp/fvwm-crystal.new tmp/fvwm-crystal
-	sed 's:/usr/bin:$(prefix)/bin:' fvwm/preferences/LastChoosenRecipe > tmp/LastChoosenRecipe.new
-	cp -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
-	sed 's:/usr/share:$(prefix)/share:' bin/fvwm-crystal > tmp/bin/fvwm-crystal.new
-	cp -f tmp/bin/fvwm-crystal.new bin/fvwm-crystal
+	sed 's:FC_MENUBASEROOT="/usr/share:FC_MENUBASEROOT="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
+	&& sed 's:FC_ICONBASEROOT="/usr/share:FC_ICONBASEROOT="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu.new > tmp/fvwm-crystal.generate-menu
+	sed 's:SYSPREFS="/usr/share:SYSPREFS="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
+	&& cp -f tmp/fvwm-crystal.generate-menu.new tmp/fvwm-crystal.generate-menu
+	sed 's:/usr/share:$(prefix)/share:' < tmp/fvwm-crystal > tmp/fvwm-crystal.new \
+	&& cp -f  tmp/fvwm-crystal.new tmp/fvwm-crystal
+	sed 's:/usr/bin:$(prefix)/bin:' < fvwm/preferences/LastChoosenRecipe > tmp/LastChoosenRecipe.new \
+	&& cp -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
+	sed 's:/usr/share:$(prefix)/share:' < bin/fvwm-crystal > tmp/bin/fvwm-crystal.new \
+	&& cp -f tmp/bin/fvwm-crystal.new bin/fvwm-crystal
 
 uninstall-doc:
 	-rm -rf $(DESTDIR)$(docdir)

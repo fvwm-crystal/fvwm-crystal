@@ -86,9 +86,9 @@ AddToFunc Append
 
 # Load other useful functions by default used in many places
 Include components/bindings/Remove-Defaults
-Include components/functions/Preferences
 Include components/functions/Keyboard-Modifiers
 Include components/functions/FindFunctions
+Include components/functions/Preferences
 LoadPreferences SilentOps
 Include components/functions/Exec-Accelerator
 

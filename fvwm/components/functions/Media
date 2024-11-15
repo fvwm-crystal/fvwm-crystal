@@ -549,7 +549,8 @@ Test (F /dev/dvb/adapter3/frontend0) + I AddToMenu /Music '$[gt.Channels] DVB 4'
 + I AddToMenu /Music '%22x22/fvwm-crystal/audio-x-generic-2.png%$[gt.Player]' Popup /Player
 + I AddToMenu /Music '$[gt.Show/Hide Audio controls]' Music-QJackGUI
 # Alsa use OSS mixer on freebsd, skip it:
-Test (F /proc/asound/pcm) + I AddToMenu /Music '%22x22/fvwm-crystal/mixer-2.png%$[gt.Mixers]' Popup /Mixer
+#Test (F /proc/asound/pcm) 
++ I AddToMenu /Music '%22x22/fvwm-crystal/mixer-2.png%$[gt.Mixers]' Popup /Mixer
 
 # Menu for Bottom position
 AddToFunc Music-generator-bottom

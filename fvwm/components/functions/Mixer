@@ -103,7 +103,8 @@ AddToFunc Change-Volume-Up
 	xmms2)		echo Nop ;; \\
 	*)		echo Nop ;; \\
 esac'
-+ I PipeRead 'if [ $[infostore.Mixer] = amixer ]; then \\
+# freeBSD only support the OSS emulation ALSA devices, disable it when needed:
++ I PipeRead 'if [ -f /proc/asound/pcm ] && [ $[infostore.Mixer] = amixer ]; then \\
 	echo Volume-Tooltip; echo Deschedule $[schedule.last]; echo Schedule 1500 Kill-FvwmTooltip Volume; fi'
 
 # Change-Volume-Down <value> {{{2
@@ -124,7 +125,8 @@ AddToFunc Change-Volume-Down
 	xmms2)		echo Nop ;; \\
 	*)		echo Nop ;; \\
 esac'
-+ I PipeRead 'if [ $[infostore.Mixer] = amixer ]; then \\
+# test /pro/asound/pcm
++ I PipeRead 'if [ -f /proc/asound/pcm ] && [ $[infostore.Mixer] = amixer ]; then \\
 	echo Volume-Tooltip; echo Deschedule $[schedule.last]; echo Schedule 1500 Kill-FvwmTooltip Volume; fi'
 
 # Mixer volume toggle mute {{{2
@@ -207,8 +209,9 @@ AddToMenu /Mixer
 + '%22x22/fvwm-crystal/mixer-2.png%$[gt.Show main mixer]' Mixer-GUI
 + '%22x22/fvwm-crystal/mixer.png%$[gt.Audio mixer]'		Popup /Preferences/Mixer
 + '' Nop
-PipeRead 'if [ $[infostore.Mixer] = amixer ] ; \\
-	then $[FVWM_SYSTEMDIR]/scripts/AmixerControl $[infostore.SoundCard] $[infostore.SoundDevice]; \\
+# Disable it when no /proc/asound/pcm with amixer
+PipeRead 'if [ -f /proc/asound/pcm ] && [ $[infostore.Mixer] = amixer ] ; then \\
+		$[FVWM_SYSTEMDIR]/scripts/AmixerControl $[infostore.SoundCard] $[infostore.SoundDevice]; \\
 	else echo \"+ \\\"$[infostore.Mixer]\\\" Nop\"; \\
 	    for i in 0 -3 -6 -9 -12 -15 -18 -24 -30 -36 -42 -48 -54 -60 -100 ; \\
 	    do		case $i in \\

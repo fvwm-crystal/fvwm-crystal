@@ -242,7 +242,7 @@ correctpath:
 	sed 's:SYSPREFS="/usr/share:SYSPREFS="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
 	&& cp -f tmp/fvwm-crystal.generate-menu.new tmp/fvwm-crystal.generate-menu
 	sed 's:/usr/share:$(prefix)/share:' < tmp/fvwm-crystal > tmp/fvwm-crystal.new \
-	&&  's:/etc/X11:$(freebsdetc)/etc/X11:' < tmp/fvwm-crystal.new > tmp/fvwm-crystal
+	&&  sed 's:/etc/X11:$(freebsdetc)/etc/X11:' < tmp/fvwm-crystal.new > tmp/fvwm-crystal
 	sed 's:/usr/bin:$(prefix)/bin:' < fvwm/preferences/LastChoosenRecipe > tmp/LastChoosenRecipe.new \
 	&& cp -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
 	sed 's:/usr/share:$(prefix)/share:' < bin/fvwm-crystal > tmp/bin/fvwm-crystal.new \

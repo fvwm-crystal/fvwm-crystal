@@ -58,6 +58,7 @@ install: correctpath install-doc
 	cp -f tmp/bak/shared/fvwm-crystal shared/fvwm-crystal
 	cp -f tmp/bak/LastChoosenRecipe fvwm/preferences/LastChoosenRecipe
 	cp -f tmp/bak/EDITOR fvwm/preferences/EDITOR
+	cp -f tmp/bak/Xephyr fvwm/components/functions/Xephyr
 # cleanup
 	rm -rf tmp
 	rm -f fvwm-crystal.sudoers.d
@@ -262,23 +263,27 @@ correctpath:
 	cp shared/fvwm-crystal tmp/bak/shared
 	cp fvwm/preferences/LastChoosenRecipe tmp/bak/LastChoosenRecipe
 	cp fvwm/preferences/EDITOR tmp/bak/EDITOR
+	cp fvwm/components/functions/Xephyr tmp/bak/Xephyr
 	# Set FVWM_SYSTEMDIR and FVWM_CONFIGDIR
 	sed 's:/usr/share:$(prefix)/share:' < bin/fvwm-crystal > tmp/bin/fvwm-crystal.new \
-	&&  sed 's:/etc/X11:$(freebsdetc)/etc/X11:' < tmp/bin/fvwm-crystal.new > bin/fvwm-crystal
+		&&  sed 's:/etc/X11:$(freebsdetc)/etc/X11:' < tmp/bin/fvwm-crystal.new > bin/fvwm-crystal
 	# Set FVWM-Crystal icons and applications database directories.
 	sed 's:FC_MENUBASEROOT="/usr/share:FC_MENUBASEROOT="$(prefix)/share:' < bin/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
-	&& sed 's:FC_ICONBASEROOT="/usr/share:FC_ICONBASEROOT="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu.new > bin/fvwm-crystal.generate-menu
+		&& sed 's:FC_ICONBASEROOT="/usr/share:FC_ICONBASEROOT="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu.new > bin/fvwm-crystal.generate-menu
 	sed 's:SYSPREFS="/usr/share:SYSPREFS="$(prefix)/share:' < bin/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
-	&& mv -f tmp/fvwm-crystal.generate-menu.new bin/fvwm-crystal.generate-menu
+		&& mv -f tmp/fvwm-crystal.generate-menu.new bin/fvwm-crystal.generate-menu
 	# Set fvwm-crystal path in session file.
 	sed 's:/usr/bin:$(prefix)/bin:' < shared/fvwm-crystal > tmp/fvwm-crystal.new \
-	&& mv -f tmp/fvwm-crystal.new shared/fvwm-crystal
+		&& mv -f tmp/fvwm-crystal.new shared/fvwm-crystal
 	# Set preferences path.
 	sed 's:/usr/bin:$(prefix)/bin:' < fvwm/preferences/LastChoosenRecipe > tmp/LastChoosenRecipe.new \
-	&& mv -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
+		&& mv -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
 	# Set editor path, must be set for first statup.
 	sed 's:/bin/nano:$(nano):' < fvwm/preferences/EDITOR > tmp/EDITOR.new \
-	&& mv -f tmp/EDITOR.new fvwm/preferences/EDITOR
+		&& mv -f tmp/EDITOR.new fvwm/preferences/EDITOR
+	# Set path to xsessions files.
+	sed 's:/usr/share:$(prefix)/share:' < fvwm/components/functions/Xephyr > tmp/Xephyr.new \
+		&& mv -f tmp/Xephyr.new fvwm/components/functions/Xephyr
 
 uninstall-doc:
 	-rm -rf $(DESTDIR)$(docdir)

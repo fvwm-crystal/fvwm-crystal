@@ -53,15 +53,21 @@ install: correctpath install-doc
 	mkdir -p $(DESTDIR)$(mandir)/man1
 	cp -r man/* $(DESTDIR)$(mandir)/man1
 # restore the original files; needed for successive run
-	cp -f tmp/LastChoosenRecipe fvwm/preferences/LastChoosenRecipe
-	cp -f tmp/bin/fvwm-crystal bin/fvwm-crystal
+	cp -f tmp/bak/fvwm-crystal bin/fvwm-crystal
+	cp -f tmp/bak/fvwm-crystal.generate-menu bin/fvwm-crystal.generate-menu
+	cp -f tmp/bak/shared/fvwm-crystal shared/fvwm-crystal
+	cp -f tmp/bak/LastChoosenRecipe fvwm/preferences/LastChoosenRecipe
+	cp -f tmp/bak/EDITOR fvwm/preferences/EDITOR
+# cleanup
+	rm -rf tmp
+	rm -f fvwm-crystal.sudoers.d
 
 uninstall: uninstall-doc
 	@echo "Uninstalling previously installed fvwm-crystal"
 	rm -rf $(DESTDIR)$(prefix)/share/fvwm-crystal
 	rm -f $(DESTDIR)$(prefix)/bin/fvwm-crystal.wallpaper $(DESTDIR)$(prefix)/bin/fvwm-crystal.apps $(DESTDIR)$(prefix)/bin/fvwm-crystal $(DESTDIR)$(prefix)/bin/fvwm-crystal.generate-menu $(DESTDIR)$(prefix)/bin/fvwm-crystal.infoline $(DESTDIR)$(prefix)/bin/fvwm-crystal.mplayer-wrapper $(DESTDIR)$(prefix)/bin/fvwm-crystal.play-movies $(DESTDIR)$(prefix)/bin/fvwm-crystal.videomodeswitch+ $(DESTDIR)$(prefix)/bin/fvwm-crystal.videomodeswitch-
 	rm -f $(DESTDIR)$(prefix)/share/man/man1/fvwm-crystal.1 $(DESTDIR)$(prefix)/share/man/man1/ApplicationDatabase.1 $(DESTDIR)$(prefix)/share/man/man1/CrystalRoxHOWTO.1 $(DESTDIR)$(prefix)/share/man/man1/FVWMCrystalFAQ.1 $(DESTDIR)$(prefix)/share/man/man1/KeyboardBindings.1 $(DESTDIR)$(prefix)/share/man/man1/MouseBindings.1 $(DESTDIR)$(prefix)/share/man/man1/Tips.1
-	rm -f $(DESTDIR)$(prefix)/share/xsessions/fvwm-crystal.desktop $(DESTDIR)/etc/X11/Sessions/fvwm-crystal
+	rm -f $(DESTDIR)$(prefix)/share/xsessions/fvwm-crystal.desktop $(DESTDIR)$(freebsdetc)/etc/X11/Sessions/fvwm-crystal
 	rm -f $(DESTDIR)$(freebsdetc)/etc/sudoers.d/fvwm-crystal
 
 # This is meant for creating a distribution tarball from the repository and
@@ -249,6 +255,13 @@ clean:
 correctpath:
 	# On FreeBSD, sed do not understand -i => use redirections.
 	mkdir -p tmp/bin
+	# Make temporary backups
+	mkdir -p tmp/bak/shared
+	cp bin/fvwm-crystal tmp/bak
+	cp bin/fvwm-crystal.generate-menu tmp/bak
+	cp shared/fvwm-crystal tmp/bak/shared
+	cp fvwm/preferences/LastChoosenRecipe tmp/bak/LastChoosenRecipe
+	cp fvwm/preferences/EDITOR tmp/bak/EDITOR
 	# Set FVWM_SYSTEMDIR and FVWM_CONFIGDIR
 	sed 's:/usr/share:$(prefix)/share:' < bin/fvwm-crystal > tmp/bin/fvwm-crystal.new \
 	&&  sed 's:/etc/X11:$(freebsdetc)/etc/X11:' < tmp/bin/fvwm-crystal.new > bin/fvwm-crystal

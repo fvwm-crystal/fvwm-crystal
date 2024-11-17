@@ -8,6 +8,7 @@ mandir?=$(prefix)/share/man
 RELEASE=`grep Version fvwm/components/functions/About | cut -d" " -f 4 | sed -e 's:"::'`
 docdir?=$(prefix)/share/doc/fvwm-crystal-$(RELEASE)
 freebsdetc?=
+nano?=/bin/nano
 
 all:
 	@echo "There is nothing to compile."
@@ -17,8 +18,23 @@ all:
 	@echo 'To install it into "/usr", run:'
 	@echo '    su -c "make prefix=/usr install"'
 	@echo
-	@echo 'On freebsd, run as root:'
-	@echo '    make freebsdetc=/usr/local install'
+	@echo 'The variable EDITOR is set by fvwm-crystal and is needed to work'
+	@echo 'for its first statup. Its value is set by default to'
+	@echo '    EDITOR="/bin/nano"'
+	@echo 'Check where nano is installed with'
+	@echo '    whereis nano'
+	@echo 'If it is installed into another path, run make install with:'
+	@echo '    nano=/path/to/nano'
+	@echo 'As example:'
+	@echo '    su -c "make nano=/usr/bin/nano install"'
+	@echo 'nano is used to show a preferences editor at first startup.'
+	@echo 'You can recall that preferences editor and change the default user'
+	@echo 'editor at any time from Crystal menu -> Preferences -> Preferences editor.'
+	@echo
+	@echo 'Some system like freebsd separate the base system from the other software.'
+	@echo 'On such system, run as root:'
+	@echo '    make freebsdetc=/usr/local nano=/usr/local/bin/nano install'
+	@echo
 
 install: correctpath install-doc
 	@echo Installing fvwm-crystal $(RELEASE) to $(prefix)
@@ -231,22 +247,25 @@ clean:
 
 # It is needed to adjust some path inside fvwm-crystal.generate-menu since this file must know the install path
 correctpath:
+	# On FreeBSD, sed do not understand -i => use redirections.
 	mkdir -p tmp/bin
-	cp -f bin/fvwm-crystal tmp/bin
-	cp -f bin/fvwm-crystal.generate-menu tmp
-	cp -f shared/fvwm-crystal tmp
-	cp -f fvwm/preferences/LastChoosenRecipe tmp
-	# sometime sed do not understand -i => use redirection
-	sed 's:FC_MENUBASEROOT="/usr/share:FC_MENUBASEROOT="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
-	&& sed 's:FC_ICONBASEROOT="/usr/share:FC_ICONBASEROOT="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu.new > tmp/fvwm-crystal.generate-menu
-	sed 's:SYSPREFS="/usr/share:SYSPREFS="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
-	&& cp -f tmp/fvwm-crystal.generate-menu.new tmp/fvwm-crystal.generate-menu
-	sed 's:/usr/share:$(prefix)/share:' < tmp/fvwm-crystal > tmp/fvwm-crystal.new \
-	&&  sed 's:/etc/X11:$(freebsdetc)/etc/X11:' < tmp/fvwm-crystal.new > tmp/fvwm-crystal
-	sed 's:/usr/bin:$(prefix)/bin:' < fvwm/preferences/LastChoosenRecipe > tmp/LastChoosenRecipe.new \
-	&& cp -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
+	# Set FVWM_SYSTEMDIR and FVWM_CONFIGDIR
 	sed 's:/usr/share:$(prefix)/share:' < bin/fvwm-crystal > tmp/bin/fvwm-crystal.new \
-	&& cp -f tmp/bin/fvwm-crystal.new bin/fvwm-crystal
+	&&  sed 's:/etc/X11:$(freebsdetc)/etc/X11:' < tmp/bin/fvwm-crystal.new > bin/fvwm-crystal
+	# Set FVWM-Crystal icons and applications database directories.
+	sed 's:FC_MENUBASEROOT="/usr/share:FC_MENUBASEROOT="$(prefix)/share:' < bin/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
+	&& sed 's:FC_ICONBASEROOT="/usr/share:FC_ICONBASEROOT="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu.new > bin/fvwm-crystal.generate-menu
+	sed 's:SYSPREFS="/usr/share:SYSPREFS="$(prefix)/share:' < bin/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
+	&& mv -f tmp/fvwm-crystal.generate-menu.new bin/fvwm-crystal.generate-menu
+	# Set fvwm-crystal path in session file.
+	sed 's:/usr/bin:$(prefix)/bin:' < shared/fvwm-crystal > tmp/fvwm-crystal.new \
+	&& mv -f tmp/fvwm-crystal.new shared/fvwm-crystal
+	# Set preferences path.
+	sed 's:/usr/bin:$(prefix)/bin:' < fvwm/preferences/LastChoosenRecipe > tmp/LastChoosenRecipe.new \
+	&& mv -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
+	# Set editor path, must be set for first statup.
+	sed 's:/bin/nano:$(nano):' < fvwm/preferences/EDITOR > tmp/EDITOR.new \
+	&& mv -f tmp/EDITOR.new fvwm/preferences/EDITOR
 
 uninstall-doc:
 	-rm -rf $(DESTDIR)$(docdir)

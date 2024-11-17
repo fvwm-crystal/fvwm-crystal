@@ -59,6 +59,7 @@ install: correctpath install-doc
 	cp -f tmp/bak/LastChoosenRecipe fvwm/preferences/LastChoosenRecipe
 	cp -f tmp/bak/EDITOR fvwm/preferences/EDITOR
 	cp -f tmp/bak/Xephyr fvwm/components/functions/Xephyr
+	cp -f tmp/bak/Fvwm-Crystal-Menu fvwm/components/functions/Fvwm-Crystal-Menu
 # cleanup
 	rm -rf tmp
 	rm -f fvwm-crystal.sudoers.d
@@ -264,6 +265,7 @@ correctpath:
 	cp fvwm/preferences/LastChoosenRecipe tmp/bak/LastChoosenRecipe
 	cp fvwm/preferences/EDITOR tmp/bak/EDITOR
 	cp fvwm/components/functions/Xephyr tmp/bak/Xephyr
+	cp fvwm/components/functions/Fvwm-Crystal-Menu tmp/bak/Fvwm-Crystal-Menu
 	# Set FVWM_SYSTEMDIR and FVWM_CONFIGDIR
 	sed 's:/usr/share:$(prefix)/share:' < bin/fvwm-crystal > tmp/bin/fvwm-crystal.new \
 		&&  sed 's:/etc/X11:$(freebsdetc)/etc/X11:' < tmp/bin/fvwm-crystal.new > bin/fvwm-crystal
@@ -284,6 +286,8 @@ correctpath:
 	# Set path to xsessions files.
 	sed 's:/usr/share:$(prefix)/share:' < fvwm/components/functions/Xephyr > tmp/Xephyr.new \
 		&& mv -f tmp/Xephyr.new fvwm/components/functions/Xephyr
+	sed 's:/usr/share/xsessions:$(prefix)/share/xsessions:' < fvwm/components/functions/Fvwm-Crystal-Menu > tmp/Fvwm-Crystal-Menu.new \
+		&& mv -f tmp/Fvwm-Crystal-Menu.new fvwm/components/functions/Fvwm-Crystal-Menu
 
 uninstall-doc:
 	-rm -rf $(DESTDIR)$(docdir)

@@ -28,8 +28,12 @@ all:
 	@echo 'As example:'
 	@echo '    su -c "make nano=/usr/bin/nano install"'
 	@echo 'nano is used to show a preferences editor at first startup.'
-	@echo 'You can recall that preferences editor and change the default user'
+	@echo
+	@echo 'You can recall the preferences editor and change the default user'
 	@echo 'editor at any time from Crystal menu -> Preferences -> Preferences editor.'
+	@echo
+	@echo 'You can also use that variable to set another user editor - tested with'
+	@echo 'nano and (X)emacs.'
 	@echo
 	@echo 'Some system like freebsd separate the base system from the other software.'
 	@echo 'On such system, run as root:'

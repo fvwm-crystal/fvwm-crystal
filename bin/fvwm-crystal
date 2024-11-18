@@ -68,8 +68,6 @@ FSYS_IS_FREEBSD="0"
 # and to get the subshell with mc:
 # This will not change the internal fvwm shell (sh) used by Piperead.
 if [ "$(uname)" = "FreeBSD" ]; then
-	SHELL="/usr/local/bin/bash"
-	export SHELL
 	FSYS_IS_FREEBSD="1"
 fi
 ##

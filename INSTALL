@@ -159,6 +159,9 @@ Needed:
 - file (used by the wallpaper thumbnailer)
 - xdg-user-dirs for localized xdg desktop user directories and icons
 - xdg-open
+- on freebsd, the user shell must not be sh or csh because they are
+    too restrictive, which makes several functions to fail. bash
+    willl be fine.
 
 Strongly recommended:
 ---------------------

@@ -50,7 +50,6 @@ install: correctpath install-doc
 	cp bin/fvwm-crystal $(DESTDIR)$(freebsdetc)/etc/X11/Sessions
 	cp shared/fvwm-crystal.desktop $(DESTDIR)$(prefix)/share/xsessions
 	sh ./makesudoers.sh
-	mkdir -p $(DESTDIR)/etc/sudoers.d
 	cp fvwm-crystal.sudoers.d $(DESTDIR)$(freebsdetc)/etc/sudoers.d/fvwm-crystal
 	chmod 440 $(DESTDIR)$(freebsdetc)/etc/sudoers.d/fvwm-crystal
 

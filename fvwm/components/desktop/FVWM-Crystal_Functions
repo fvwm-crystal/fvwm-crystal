@@ -51,6 +51,6 @@ Include components/functions/Developer-Menu
 Include components/functions/Urgency-Hint
 Include components/functions/FvwmFormDefault
 Include components/functions/FvwmIdent
-Include preferences/LastChoosenWallpaper
+# Include preferences/LastChoosenWallpaper # moved into comp func Crystal-StartFunction
 
 # vim:ft=fvwm

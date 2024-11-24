@@ -1,0 +1,17 @@
+# Start function for FVWM-Crystal
+#
+# Version:	1.0.0
+# License: 	GPL 3+
+#
+# Author:	Dominique Michel <dominique_libre@users.sourceforge.net>	
+#
+# Created:	<11/24/2024>
+# Changed:	<MM/DD/YYYY>
+#
+# Description:	<Start function for Fvwm-Crystal>
+
+# At init only: + I Test (Init); at Restart only: + I Test (Restart); at both: no Test.
+DestroyFunc StartFunction
+AddToFunc StartFunction
++ I Test (Init) Include preferences/LastChoosenWallpaper
+

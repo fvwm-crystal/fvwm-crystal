@@ -85,6 +85,7 @@ AddToFunc Append
 + I Test (f $[FVWM_USERDIR]/$*) Read $[FVWM_USERDIR]/$*
 
 # Load other useful functions by default used in many places
+Include components/functions/Crystal-StartFunction
 Include components/bindings/Remove-Defaults
 Include components/functions/Keyboard-Modifiers
 Include components/functions/FindFunctions

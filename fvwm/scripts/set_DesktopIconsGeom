@@ -23,7 +23,8 @@ then
     IconNumber=1
     if [[ "${ShowXDG}" == "yes" ]]; then IconNumber=9; fi
     if [[ "${ShowPartitions}" == "yes" ]]
-	then	mount | gawk -v sq="'" '/^\/.*|^simple-mtpfs.*\// { print "" sq "" $3 "" sq ""; }' | sort > ${tmpdrivefile} # | sed -e 's:\\:\\\\:g'
+	# When changing that line, change it into desktop_manager too:
+	then	mount | gawk -v sq="'" '/^\/.*|^(simple-mtpfs|http|zroot).*\// { print "" sq "" $3 "" sq ""; }' | sort > ${tmpdrivefile} # | sed -e 's:\\:\\\\:g'
 		IconNumber="$((${IconNumber}+`wc -l < ${tmpdrivefile}`))"
 		IconNumber="$((${IconNumber}+`wc -l < ${HOME}/.fvwm-crystal/preferences/ShowDirectories`))"
     fi

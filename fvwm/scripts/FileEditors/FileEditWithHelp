@@ -52,7 +52,7 @@ End
 # Quit Function {{{1
 QuitFunc
 Begin
-  Do {UnsetEnv FileEditWithHelp}
+#  Do {UnsetEnv FileEditWithHelp} # Make the varenv to be lost after Restart with freebsd
 #  Do {Echo The font: }$SetFont{ is xft:}$FontName{:pixelsize=}$Size{:}$Style
 End
 

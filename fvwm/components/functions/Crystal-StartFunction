@@ -10,8 +10,13 @@
 #
 # Description:	<Start function for Fvwm-Crystal>
 
-# At init only: + I Test (Init); at Restart only: + I Test (Restart); at both: no Test.
+# StartFunction: At init only: + I Test (Init); at Restart only: + I Test (Restart); at both: no Test.
+# ExitFunction: Idem with Quit or ToRestart
 DestroyFunc StartFunction
+DestroyFunc InitFunction
+DestroyFunc RestartFunction
+DestroyFunc ExitFunction
+
 AddToFunc StartFunction
 + I Test (Init) Include preferences/LastChoosenWallpaper
 

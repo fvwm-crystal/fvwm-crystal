@@ -20,7 +20,7 @@ echo "" > "${deskmanfile}"
 IconNumber=1
 if [[ "${ShowXDG}" == "yes" ]]; then IconNumber=9; fi
 if [[ "${ShowPartitions}" == "yes" ]]
-	# When changing that line, change it into set_DesltopIconsGeom accordingly:
+	# When changing that line, change it into set_DesktopIconsGeom accordingly:
 	#then	TmpP="$(mount | gawk '/^\/.*|^(simple-mtpfs|http|zroot).*\// { print "" "" $3 "" ""; }' |sort)"
 	then	TmpP="$(mount | gawk '/^.*\// { print "" "" $3 "" ""; }' |sort)"
 		for part in $TmpP ; do
@@ -77,6 +77,7 @@ fi
 echo "+ '\$[gt.XDG user directories]' PopUp /Preferences/XDG" >> "${deskmanfile}"
 echo "+ '\$[gt.Mounted partitions]' PopUp /Preferences/Partitions" >> "${deskmanfile}"
 echo "+ '\$[gt.Show directories]' LaunchFileWithHelp ShowDirectories" >> "${deskmanfile}"
+#echo "+ '\$[gt.Show directories]' A nano \$[FVWM_USERDIR]/preferences/ShowDirectories" >> "${deskmanfile}"
 echo "+ '\$[gt.Actions]' PopUp /Preferences/FileBrowser" >> "${deskmanfile}"
 echo "+ '\$[gt.Emplacement]' Popup /Preferences/DeskIconsPlace" >> "${deskmanfile}"
 echo "+ '\$[gt.Show on top with panels]' Popup /Preferences/DeskIconsTop" >> "${deskmanfile}"

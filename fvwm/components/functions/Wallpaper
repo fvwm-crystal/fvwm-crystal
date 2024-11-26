@@ -9,9 +9,9 @@ AddToFunc Wallpaper-StopLoop
 # Set the specified wallpaper using available programs
 DestroyFunc Wallpaper-Set
 AddToFunc Wallpaper-Set
-+ I Test (x Esetroot) Exec Esetroot -scale $*
++ I Test (x feh) Exec feh --bg-scale --no-fehbg $*
++ I TestRc (NoMatch) Test (x Esetroot) Exec Esetroot -scale $*
 + I TestRc (NoMatch) Test (x hsetroot) Exec hsetroot -fill $*
-+ I TestRc (NoMatch) Test (x feh) Exec feh --bg-scale --no-fehbg $*
 + I SavePreferences LastChoosenWallpaper "Wallpaper-Set $*"
 # Fix icon redraw in stalonetray
 + I Schedule 1000 All (FvwmStalonePanel) Iconify True

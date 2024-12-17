@@ -113,15 +113,20 @@ AddToMenu /CustomButtonPager
 DestroyFunc AddCustomButton
 AddToFunc AddCustomButton
 + I PipeRead 'PrefFile="$[FVWM_USERDIR]/preferences/CustomButtonBar"; \
-	touch ${PrefFile}; sed -i.bak \'$[infostore.CurrentCustomButton]a\\$*\' ${PrefFile}; \
-	sed -i.bak s:48x48:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}; \
-	sed -i.bak s:32x32:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}; \
-	sed -i.bak s:22x22:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}'
+	touch ${PrefFile}; head -n $[infostore.CurrentCustomButton] ${PrefFile} > ${PrefFile}.new; \
+	echo "$*" >> ${PrefFile}.new; \
+	tail -n +$[infostore.CurrentCustomButton]${PrefFile} >> ${PrefFile}.new; \
+	sed s:48x48:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: < ${PrefFile}.new > ${PrefFile}; \
+	sed s:32x32:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: < ${PrefFile} > ${PrefFile}.new; \
+	sed s:22x22:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: < ${PrefFile}.new > ${PrefFile}; \
+	rm -f ${PrefFile}.new'
 + I GenerateCustomButtonBar
 
 DestroyFunc DeleteThatButton
 AddToFunc DeleteThatButton
-+ I PipeRead 'sed "\\:^$0:d" -i.bak $[FVWM_USERDIR]/preferences/CustomButtonBar'
++ I PipeRead 'PrefFile="$[FVWM_USERDIR]/preferences/CustomButtonBar"; \
+	sed "\\:^$0:d" < ${PrefFile} > ${PrefFile}.new; \
+	mv -f ${PrefFile}.new ${PrefFile}'
 + I GenerateCustomButtonBar
 
 # The button size

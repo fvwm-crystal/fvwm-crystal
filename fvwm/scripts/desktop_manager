@@ -19,16 +19,21 @@ echo "" > "${deskmanfile}"
 # Number of icons to show: {{{2
 IconNumber=1
 if [[ "${ShowXDG}" == "yes" ]]; then IconNumber=9; fi
-if [[ "${ShowPartitions}" == "yes" ]]
+if [[ "${ShowPartitions}" == "yes" ]] ; then
 	# When changing that line, change it into set_DesktopIconsGeom accordingly:
-	#then	TmpP="$(mount | gawk '/^\/.*|^(simple-mtpfs|http|zroot).*\// { print "" "" $3 "" ""; }' |sort)"
-	then	TmpP="$(mount | gawk '/^.*\// { print "" "" $3 "" ""; }' |sort)"
-		for part in $TmpP ; do
-			if [[ $(ls $part 2>/dev/null) ]] ; then
-				echo \'$part\'
-			fi
-		done > ${7} #| sed -e 's:\\:\\\\:g' 
-		IconNumber="$((${IconNumber}+`wc -l < ${7}`))"
+	if [[ "$(uname)" == "FreeBSD" ]]; then
+		FreeBSDRoot=$(df -h | grep -m1 /home | cut  -d" " -f1 | sed "s:\(^.*\)\(/home.*$\):\1:")
+		TmpP=$(mount | grep -e "${FreeBSDRoot}/" | cut -d" " -f3 | sort)
+	else
+		TmpP="$(mount | gawk '/^\/.*|^(simple-mtpfs|http).*\// { print "" "" $3 "" ""; }' |sort)"
+#		TmpP="$(mount | gawk '/^.*\// { print "" "" $3 "" ""; }' |sort)"
+	fi
+	for part in $TmpP ; do
+		if [[ $(ls $part 2>/dev/null) ]] ; then
+			echo \'$part\'
+		fi
+	done > ${7} #| sed -e 's:\\:\\\\:g'
+	IconNumber="$((${IconNumber}+`wc -l < ${7}`))"
 fi
 IconNumber="$((${IconNumber}+`wc -l < ${FVWM_USERDIR}/preferences/ShowDirectories`))"
 # Available number of icons on the EWMH screen height: {{{2

@@ -115,7 +115,7 @@ AddToFunc AddCustomButton
 + I PipeRead 'PrefFile="$[FVWM_USERDIR]/preferences/CustomButtonBar"; \
 	touch ${PrefFile}; head -n $[infostore.CurrentCustomButton] ${PrefFile} > ${PrefFile}.new; \
 	echo "$*" >> ${PrefFile}.new; \
-	tail -n +$[infostore.CurrentCustomButton]${PrefFile} >> ${PrefFile}.new; \
+	tail -n +$[infostore.CurrentCustomButton] ${PrefFile} >> ${PrefFile}.new; \
 	sed s:48x48:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: < ${PrefFile}.new > ${PrefFile}; \
 	sed s:32x32:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: < ${PrefFile} > ${PrefFile}.new; \
 	sed s:22x22:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: < ${PrefFile}.new > ${PrefFile}; \

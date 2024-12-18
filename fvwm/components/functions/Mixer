@@ -33,15 +33,18 @@ LoadPreferences DefaultMixer
 CheckPreferences DefaultMixer "InfoStoreAdd Mixer amixer"
 # If there is no selected sound card and device, load the default
 LoadPreferences DefaultSoundCard
-CheckPreferences DefaultSoundCard "InfoStoreAdd SoundCard 0"
+Test (EnvMatch FSYS_IS_FREEBSD 0) CheckPreferences DefaultSoundCard "InfoStoreAdd SoundCard 0"
+TestRc (NoMatch) CheckPreferences DefaultSoundCard "InfoStoreAdd SoundCard default"
 LoadPreferences DefaultSoundDevice
 CheckPreferences DefaultSoundDevice "InfoStoreAdd SoundDevice 1"
 
 # AlsaMixer: value for volume steps in dB. It is hardware dependant. With the other
 # mixers, the result will vary. Use only decimal . as separator or bc will bail:
-PipeRead 'if [ $[infostore.Mixer] = amixer ] ; then \\
-	echo "InfoStoreAdd Vol_Step `amixer -c$[infostore.SoundCard] cget numid=$[infostore.SoundDevice]|grep dB|sed -e \\"s:\\(.*step=\\)\\(.*dB\\)\\(.*\\):\\2:\\" -e \\"s:dB::\\"`"; \\
-	else echo "InfoStoreAdd Vol_Step 1.5"; fi'
+PipeRead 'if [ $[FSYS_IS_FREEBSD = 0 ] ; then \\
+	    if [ $[infostore.Mixer] = amixer ] ; then \\
+		echo "InfoStoreAdd Vol_Step `amixer -c$[infostore.SoundCard] cget numid=$[infostore.SoundDevice]|grep dB|sed -e \\"s:\\(.*step=\\)\\(.*dB\\)\\(.*\\):\\2:\\" -e \\"s:dB::\\"`"; \\
+	    fi; \\
+	  else echo "InfoStoreAdd Vol_Step 1.5"; fi'
 PipeRead 'if [ $[infostore.Mixer] = amixer ] ; then \\
 	echo "InfoStoreAdd Vol_StepMax `amixer -c$[infostore.SoundCard] cget numid=$[infostore.SoundDevice]|grep type|sed -e \\"s:\\(.*max=\\)\\(.*,step\\)\\(.*\\):\\2:\\" -e \\"s:,step::\\"`"; fi'
 
@@ -125,7 +128,7 @@ AddToFunc Change-Volume-Down
 	xmms2)		echo Nop ;; \\
 	*)		echo Nop ;; \\
 esac'
-# test /pro/asound/pcm
+# test /proc/asound/pcm
 + I PipeRead 'if [ -f /proc/asound/pcm ] && [ $[infostore.Mixer] = amixer ]; then \\
 	echo Volume-Tooltip; echo Deschedule $[schedule.last]; echo Schedule 1500 Kill-FvwmTooltip Volume; fi'
 
@@ -182,7 +185,8 @@ AddToFunc Mixer-GUI-amixer
 + I All ("ALSA Mixer card $[infostore.SoundCard]", !Iconic) ThisWindow Iconify True
 + I TestRc (Match) Break
 + I TestRc (NoMatch) All ("ALSA Mixer card $[infostore.SoundCard]", Iconic) ThisWindow Iconify False
-+ I TestRc (NoMatch) None ("ALSA Mixer card $[infostore.SoundCard]") AT "ALSA Mixer card $[infostore.SoundCard]" "alsamixer -c $[infostore.SoundCard]"
++ I TestRc (NoMatch) KeepRc Test (EnvMatch FSYS_IS_FREEBSD 0) None ("ALSA Mixer card $[infostore.SoundCard]") AT "ALSA Mixer card $[infostore.SoundCard]" "alsamixer -c $[infostore.SoundCard]"
++ I TestRc (NoMatch) Test (EnvMatch FSYS_IS_FREEBSD 1) None ("ALSA Mixer card $[infostore.SoundCard]") AT "ALSA Mixer card $[infostore.SoundCard]" "alsamixer -D $[infostore.SoundCard]"
 
 #
 DestroyFunc Mixer-GUI

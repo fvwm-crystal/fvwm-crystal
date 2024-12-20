@@ -59,8 +59,8 @@
 # common Media Music functions {{{1
 Include components/functions/Media-Music-functions
 # Mixer
-# On freebsd, ALSA use OSS:
-Test (F /proc/asound/pcm) Include components/functions/Mixer
+Test (EnvMatch FSYS_IS_FREEBSD 0) Include components/functions/Mixer
+Test (EnvMatch FSYS_IS_FREEBSD 1) Include components/functions/Mixer-BSD
 
 # Variables {{{1
 # DVB channel lists (mplayer) {{{2

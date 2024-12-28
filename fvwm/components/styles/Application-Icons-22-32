@@ -19,6 +19,7 @@ Style AcroRead		MiniIcon 22x22/apps/acroread.png, Icon 32x32/apps/acroread.png
 Style Aeolus		MiniIcon 22x22/apps/aeolus.png, Icon 32x32/apps/aeolus.png
 Style akregator		MiniIcon 22x22/apps/akregator.png, Icon 32x32/apps/akregator.png
 Style Aliki		MiniIcon 22x22/apps/aliki.png, Icon 32x32/apps/aliki.png
+Style "Alsa Mixer*"	NoIcon
 Style alsamixer		MiniIcon 22x22/apps/alsamixer.png, Icon 32x32/apps/alsamixer.png
 Style alsamixerguis	MiniIcon 22x22/apps/alsamixerguis.png, Icon 32x32/apps/alsamixerguis.png
 Style amarok		MiniIcon 22x22/apps/amarok.png, Icon 32x32/apps/amarok.png

@@ -133,6 +133,8 @@ Style Fifteen		MiniIcon 22x22/apps/fifteen.png, Icon 32x32/apps/fifteen.png
 Style filerunner	MiniIcon 22x22/apps/filerunner.png, Icon 32x32/apps/filerunner.png
 Style Firefox		MiniIcon 22x22/apps/firefox.png, Icon 32x32/apps/firefox.png
 Style Firefox-bin	UseStyle Firefox
+Style firefox-bin	UseStyle Firefox
+Style firefox-bin	UseStyle Firefox
 Style Flipgame		MiniIcon 22x22/apps/flipgame.png, Icon 32x32/apps/flipgame.png
 Style Flock-bin		MiniIcon 22x22/apps/flock.png, Icon 32x32/apps/flock.png
 Style FoxApp		MiniIcon 22x22/apps/xfe.png, Icon 32x32/apps/xfe.png

@@ -248,7 +248,8 @@ searchallappdesktop() {
 	echo "This will take a while..."
 	while read myline ; do
 		if [[ -n "${myline}" ]]; then
-			TestDeskType="$(grep -h '\<Type\>' "${myline}")"
+			# We want only the Application Type when several Type keys in deskzop file
+			TestDeskType="$(grep -h '\<Type=Application\>' "${myline}")"
 			OnlyShowIn="$(grep -h '\<OnlyShowIn\>' "${myline}")"
 			NotShowIn="$(grep -h '\<NotShowIn\>' "${myline}")"
 			NoDisplay="$(grep -h '\<NoDisplay\>' "${myline}")"
@@ -270,7 +271,7 @@ searchoneappdesktop() {
 
 	while read myline ; do
 		if [[ -n "${myline}" ]]; then
-			TestDeskType="$(grep -h '\<Type\>' "${myline}")"
+			TestDeskType="$(grep -h '\<Type=Application\>' "${myline}")"
 			OnlyShowIn="$(grep -h '\<OnlyShowIn\>' "${myline}")"
 			NotShowIn="$(grep -h '\<NotShowIn\>' "${myline}")"
 			NoDisplay="$(grep -h '\<NoDisplay\>' "${myline}")"
@@ -279,6 +280,7 @@ searchoneappdesktop() {
 			#  && [[ "${NotShowIn}" == "" ]]
 			if [[ "${TestDeskType}" == "${DESKTYPE}" ]] && [[ "${OnlyShowIn}" == "" ]] && [[ "${NoDisplay}" == "" ]] && [[ "${Hidden}" == "" ]]; then
 				echo "${myline}" >> filelist
+				echo myline = "${myline}"
 			fi
 		fi
 		break

@@ -28,7 +28,10 @@ DestroyModuleConfig ShowDirectories-Dialog: *
 *ShowDirectories-Dialog: Text "$[gt.Some file browsers can support more than 2 paths.]"
 *ShowDirectories-Dialog: Line center
 *ShowDirectories-Dialog: Line center
-*ShowDirectories-Dialog: Text "$[gt.Path names with spaces must be quoted with single quotes.]"
+*ShowDirectories-Dialog: Text "$[gt.Path names with spaces must be quoted with single quotes,]"
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Line center
+*ShowDirectories-Dialog: Text "$[gt.and their path must be absolute.]"
 *ShowDirectories-Dialog: Line center
 *ShowDirectories-Dialog: Line center
 *ShowDirectories-Dialog: Text "$[gt.If you don’t want any such icons,]"

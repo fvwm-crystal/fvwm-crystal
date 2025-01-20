@@ -1,34 +1,69 @@
 #!/usr/bin/make -f
-.PHONY: all install uninstall dist correctpermissions install-doc uninstall-doc
+.PHONY: all install uninstall dist correctpath install-doc uninstall-doc 
 
 prefix?=/usr/local
 addondir?=$(prefix)/share/fvwm-crystal/addons
+mandir?=$(prefix)/share/man
 
 RELEASE=`grep Version fvwm/components/functions/About | cut -d" " -f 4 | sed -e 's:"::'`
 docdir?=$(prefix)/share/doc/fvwm-crystal-$(RELEASE)
+freebsdetc?=
+nano?=/bin/nano
 
 all:
 	@echo "There is nothing to compile."
+	@echo
+	@echo 'To install FVWM-Crystal in "/usr/local", run:'
+	@echo '    su -c "make install"'
+	@echo 'To install it into "/usr", run:'
+	@echo '    su -c "make prefix=/usr install"'
+	@echo
+	@echo 'The variable EDITOR is set by fvwm-crystal and is needed to work'
+	@echo 'for its first statup. Its value is set by default to'
+	@echo '    EDITOR="/bin/nano"'
+	@echo 'Check where nano is installed with'
+	@echo '    whereis nano'
+	@echo 'If it is installed into another path, run make install with:'
+	@echo '    nano=/path/to/nano'
+	@echo 'As example:'
+	@echo '    su -c "make nano=/usr/bin/nano install"'
+	@echo 'nano is used to show a preferences editor at first startup.'
+	@echo
+	@echo 'You can recall the preferences editor and change the default user'
+	@echo 'editor at any time from Crystal menu -> Preferences -> Preferences editor.'
+	@echo
+	@echo 'You can also use that variable to set another user editor - tested with'
+	@echo 'nano and (X)emacs.'
+	@echo
+	@echo 'Some system like freebsd separate the base system from the other software.'
+	@echo 'On such system, run as root:'
+	@echo '    make freebsdetc=/usr/local nano=/usr/local/bin/nano install'
+	@echo
 
 install: correctpath install-doc
 	@echo Installing fvwm-crystal $(RELEASE) to $(prefix)
-	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm $(DESTDIR)$(prefix)/share/xsessions $(DESTDIR)/etc/X11/Sessions $(DESTDIR)/etc/sudoers.d
+	mkdir -p $(DESTDIR)$(prefix)/bin $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm $(DESTDIR)$(prefix)/share/xsessions $(DESTDIR)$(freebsdetc)/etc/X11/Sessions $(DESTDIR)$(freebsdetc)/etc/sudoers.d
 
 	install -m 755 bin/fvwm-crystal.apps bin/fvwm-crystal.wallpaper bin/fvwm-crystal bin/fvwm-crystal.infoline bin/fvwm-crystal.mplayer-wrapper bin/fvwm-crystal.play-movies bin/fvwm-crystal.play-playlists bin/fvwm-crystal.videomodeswitch- bin/fvwm-crystal.videomodeswitch+ $(DESTDIR)$(prefix)/bin
-	install -m 755 tmp/fvwm-crystal.generate-menu $(DESTDIR)$(prefix)/bin
-	cp -d -r fvwm/* $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm/
-	cp tmp/fvwm-crystal $(DESTDIR)/etc/X11/Sessions
+	install -m 755 bin/fvwm-crystal.generate-menu $(DESTDIR)$(prefix)/bin
+	cp -r fvwm/* $(DESTDIR)$(prefix)/share/fvwm-crystal/fvwm/
+	cp shared/fvwm-crystal $(DESTDIR)$(freebsdetc)/etc/X11/Sessions
 	cp shared/fvwm-crystal.desktop $(DESTDIR)$(prefix)/share/xsessions
 	sh ./makesudoers.sh
-	mkdir -p $(DESTDIR)/etc/sudoers.d
-	cp fvwm-crystal.sudoers.d $(DESTDIR)/etc/sudoers.d/fvwm-crystal
-	chmod 440 $(DESTDIR)/etc/sudoers.d/fvwm-crystal
+	cp fvwm-crystal.sudoers.d $(DESTDIR)$(freebsdetc)/etc/sudoers.d/fvwm-crystal
+	chmod 440 $(DESTDIR)$(freebsdetc)/etc/sudoers.d/fvwm-crystal
 
-	mkdir -p $(DESTDIR)$(prefix)/share/man/man1
-	cp -d -r man/* $(DESTDIR)$(prefix)/share/man/man1
-# restore the original file; needed for successive run
-	cp -f tmp/LastChoosenRecipe fvwm/preferences/LastChoosenRecipe
-# remove temporary file
+	mkdir -p $(DESTDIR)$(mandir)/man1
+	cp -r man/* $(DESTDIR)$(mandir)/man1
+# restore the original files; needed for successive run
+	cp -f tmp/bak/fvwm-crystal bin/fvwm-crystal
+	cp -f tmp/bak/fvwm-crystal.generate-menu bin/fvwm-crystal.generate-menu
+	cp -f tmp/bak/shared/fvwm-crystal shared/fvwm-crystal
+	cp -f tmp/bak/LastChoosenRecipe fvwm/preferences/LastChoosenRecipe
+	cp -f tmp/bak/EDITOR fvwm/preferences/EDITOR
+	cp -f tmp/bak/Xephyr fvwm/components/functions/Xephyr
+	cp -f tmp/bak/Fvwm-Crystal-Menu fvwm/components/functions/Fvwm-Crystal-Menu
+# cleanup
 	rm -rf tmp
 	rm -f fvwm-crystal.sudoers.d
 
@@ -37,8 +72,9 @@ uninstall: uninstall-doc
 	rm -rf $(DESTDIR)$(prefix)/share/fvwm-crystal
 	rm -f $(DESTDIR)$(prefix)/bin/fvwm-crystal.wallpaper $(DESTDIR)$(prefix)/bin/fvwm-crystal.apps $(DESTDIR)$(prefix)/bin/fvwm-crystal $(DESTDIR)$(prefix)/bin/fvwm-crystal.generate-menu $(DESTDIR)$(prefix)/bin/fvwm-crystal.infoline $(DESTDIR)$(prefix)/bin/fvwm-crystal.mplayer-wrapper $(DESTDIR)$(prefix)/bin/fvwm-crystal.play-movies $(DESTDIR)$(prefix)/bin/fvwm-crystal.videomodeswitch+ $(DESTDIR)$(prefix)/bin/fvwm-crystal.videomodeswitch-
 	rm -f $(DESTDIR)$(prefix)/share/man/man1/fvwm-crystal.1 $(DESTDIR)$(prefix)/share/man/man1/ApplicationDatabase.1 $(DESTDIR)$(prefix)/share/man/man1/CrystalRoxHOWTO.1 $(DESTDIR)$(prefix)/share/man/man1/FVWMCrystalFAQ.1 $(DESTDIR)$(prefix)/share/man/man1/KeyboardBindings.1 $(DESTDIR)$(prefix)/share/man/man1/MouseBindings.1 $(DESTDIR)$(prefix)/share/man/man1/Tips.1
-	rm -f $(DESTDIR)$(prefix)/share/xsessions/fvwm-crystal.desktop $(DESTDIR)/etc/X11/Sessions/fvwm-crystal
-	
+	rm -f $(DESTDIR)$(prefix)/share/xsessions/fvwm-crystal.desktop $(DESTDIR)$(freebsdetc)/etc/X11/Sessions/fvwm-crystal
+	rm -f $(DESTDIR)$(freebsdetc)/etc/sudoers.d/fvwm-crystal
+
 # This is meant for creating a distribution tarball from the repository and
 # not for the use by end users
 dist:
@@ -218,18 +254,43 @@ dist-minimal:
 
 clean:
 	rm -rf tmp
+	rm -f fvwm-crystal.sudoers.d
 
 # It is needed to adjust some path inside fvwm-crystal.generate-menu since this file must know the install path
 correctpath:
-	mkdir -p tmp
-	cp -f bin/fvwm-crystal.generate-menu tmp
-	cp -f shared/fvwm-crystal tmp
-	cp -f fvwm/preferences/LastChoosenRecipe tmp
-	sed -i 's:FC_MENUBASEROOT="/usr/share:FC_MENUBASEROOT="$(prefix)/share:' tmp/fvwm-crystal.generate-menu
-	sed -i 's:FC_ICONBASEROOT="/usr/share:FC_ICONBASEROOT="$(prefix)/share:' tmp/fvwm-crystal.generate-menu
-	sed -i 's:SYSPREFS="/usr/share:SYSPREFS="$(prefix)/share:' tmp/fvwm-crystal.generate-menu
-	sed -i 's:/usr/share:$(prefix)/share:' tmp/fvwm-crystal
-	sed -i 's:/usr/bin:$(prefix)/bin:' fvwm/preferences/LastChoosenRecipe
+	# On FreeBSD, sed do not understand -i => use redirections.
+	mkdir -p tmp/bin
+	# Make temporary backups
+	mkdir -p tmp/bak/shared
+	cp bin/fvwm-crystal tmp/bak
+	cp bin/fvwm-crystal.generate-menu tmp/bak
+	cp shared/fvwm-crystal tmp/bak/shared
+	cp fvwm/preferences/LastChoosenRecipe tmp/bak/LastChoosenRecipe
+	cp fvwm/preferences/EDITOR tmp/bak/EDITOR
+	cp fvwm/components/functions/Xephyr tmp/bak/Xephyr
+	cp fvwm/components/functions/Fvwm-Crystal-Menu tmp/bak/Fvwm-Crystal-Menu
+	# Set FVWM_SYSTEMDIR and FVWM_CONFIGDIR
+	sed 's:/usr/share:$(prefix)/share:' < bin/fvwm-crystal > tmp/bin/fvwm-crystal.new \
+		&&  sed 's:/etc/X11:$(freebsdetc)/etc/X11:' < tmp/bin/fvwm-crystal.new > bin/fvwm-crystal
+	# Set FVWM-Crystal icons and applications database directories.
+	sed 's:FC_MENUBASEROOT="/usr/share:FC_MENUBASEROOT="$(prefix)/share:' < bin/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
+		&& sed 's:FC_ICONBASEROOT="/usr/share:FC_ICONBASEROOT="$(prefix)/share:' < tmp/fvwm-crystal.generate-menu.new > bin/fvwm-crystal.generate-menu
+	sed 's:SYSPREFS="/usr/share:SYSPREFS="$(prefix)/share:' < bin/fvwm-crystal.generate-menu > tmp/fvwm-crystal.generate-menu.new \
+		&& mv -f tmp/fvwm-crystal.generate-menu.new bin/fvwm-crystal.generate-menu
+	# Set fvwm-crystal path in session file.
+	sed 's:/usr/bin:$(prefix)/bin:' < shared/fvwm-crystal > tmp/fvwm-crystal.new \
+		&& mv -f tmp/fvwm-crystal.new shared/fvwm-crystal
+	# Set preferences path.
+	sed 's:/usr/bin:$(prefix)/bin:' < fvwm/preferences/LastChoosenRecipe > tmp/LastChoosenRecipe.new \
+		&& mv -f tmp/LastChoosenRecipe.new fvwm/preferences/LastChoosenRecipe
+	# Set editor path, must be set for first statup.
+	sed 's:/bin/nano:$(nano):' < fvwm/preferences/EDITOR > tmp/EDITOR.new \
+		&& mv -f tmp/EDITOR.new fvwm/preferences/EDITOR
+	# Set path to xsessions files.
+	sed 's:/usr/share:$(prefix)/share:' < fvwm/components/functions/Xephyr > tmp/Xephyr.new \
+		&& mv -f tmp/Xephyr.new fvwm/components/functions/Xephyr
+	sed 's:/usr/share/xsessions:$(prefix)/share/xsessions:' < fvwm/components/functions/Fvwm-Crystal-Menu > tmp/Fvwm-Crystal-Menu.new \
+		&& mv -f tmp/Fvwm-Crystal-Menu.new fvwm/components/functions/Fvwm-Crystal-Menu
 
 uninstall-doc:
 	-rm -rf $(DESTDIR)$(docdir)
@@ -239,4 +300,4 @@ install-doc:
 	mkdir -p $(DESTDIR)$(addondir) $(DESTDIR)$(docdir)/html
 	install -m 644 addons/* $(DESTDIR)$(addondir)
 	install -m 644 AUTHORS Contribute NEWS ChangeLog ChangeLog.old Export.README README.md INSTALL $(DESTDIR)$(docdir)
-	cp -d -r doc/* $(DESTDIR)$(docdir)
+	cp -r doc/* $(DESTDIR)$(docdir)

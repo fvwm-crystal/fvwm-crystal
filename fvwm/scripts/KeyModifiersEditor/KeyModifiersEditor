@@ -297,7 +297,7 @@ Main
 	    Set $RELOAD2 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod }$OldTitle200{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod }$OldTitle200{"; sed -i.bak "/$FileStr/d" }$SAVEFILE{'}
 #	    Do {Echo cmd = }$cmd
 	    Do $cmd
 	    Set $OldTitle200 = $Title200
@@ -310,7 +310,7 @@ Main
 	    Set $RELOAD2 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'String="SetEnv Mod }$Title200{"; if [ "$(grep \'SetEnv Mod \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Set $cmd = {PipeRead 'String="SetEnv Mod }$Title200{"; if [ "$(grep \'SetEnv Mod \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i.bak "/$FileStr/d" }$SAVEFILE{; else sed -i.bak -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
 	    Do $cmd
 	    Set $OldTitle200 = $Title200
 	    Set $RELOAD2 = {1}
@@ -408,7 +408,7 @@ Main
 	    Set $RELOAD3 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod0 }$OldTitle300{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod0 }$OldTitle300{"; sed -i.bak "/$FileStr/d" }$SAVEFILE{'}
 	    Do $cmd
 	    Set $OldTitle300 = $Title300
 	    Set $RELOAD3 = {1}
@@ -420,7 +420,7 @@ Main
 	    Set $RELOAD3 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'String="SetEnv Mod0 }$Title300{"; if [ "$(grep \'SetEnv Mod0 \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod0 \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Set $cmd = {PipeRead 'String="SetEnv Mod0 }$Title300{"; if [ "$(grep \'SetEnv Mod0 \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod0 \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i.bak "/$FileStr/d" }$SAVEFILE{; else sed -i.bak -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
 	    Do $cmd
 	    Set $OldTitle200 = $Title300
 	    Set $RELOAD3 = {1}
@@ -518,7 +518,7 @@ Main
 	    Set $RELOAD4 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod1 }$OldTitle400{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod1 }$OldTitle400{"; sed -i.bak "/$FileStr/d" }$SAVEFILE{'}
 	    Do $cmd
 	    Set $OldTitle400 = $Title400
 	    Set $RELOAD4 = {1}
@@ -530,7 +530,7 @@ Main
 	    Set $RELOAD4 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'String="SetEnv Mod1 }$Title400{"; if [ "$(grep \'SetEnv Mod1 \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod1 \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Set $cmd = {PipeRead 'String="SetEnv Mod1 }$Title400{"; if [ "$(grep \'SetEnv Mod1 \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod1 \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i.bak "/$FileStr/d" }$SAVEFILE{; else sed -i.bak -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
 	    Do $cmd
 	    Set $OldTitle400 = $Title400
 	    Set $RELOAD4 = {1}
@@ -628,7 +628,7 @@ Main
 	    Set $RELOAD5 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod2 }$OldTitle500{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+	    Set $cmd = {PipeRead 'FileStr="SetEnv Mod2 }$OldTitle500{"; sed -i.bak "/$FileStr/d" }$SAVEFILE{'}
 	    Do $cmd
 	    Set $OldTitle500 = $Title500
 	    Set $RELOAD5 = {1}
@@ -640,7 +640,7 @@ Main
 	    Set $RELOAD5 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'String="SetEnv Mod2 }$Title500{"; if [ "$(grep \'SetEnv Mod2 \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod2 \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Set $cmd = {PipeRead 'String="SetEnv Mod2 }$Title500{"; if [ "$(grep \'SetEnv Mod2 \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv Mod2 \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i.bak "/$FileStr/d" }$SAVEFILE{; else sed -i.bak -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
 	    Do $cmd
 	    Set $OldTitle500 = $Title500
 	    Set $RELOAD5 = {1}
@@ -738,7 +738,7 @@ Main
 	    Set $RELOAD6 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'FileStr="SetEnv SelectOnRelease }$OldTitle600{"; sed -i "/$FileStr/d" }$SAVEFILE{'}
+	    Set $cmd = {PipeRead 'FileStr="SetEnv SelectOnRelease }$OldTitle600{"; sed -i.bak "/$FileStr/d" }$SAVEFILE{'}
 	    Do $cmd
 	    Set $OldTitle600 = $Title600
 	    Set $RELOAD6 = {1}
@@ -750,7 +750,7 @@ Main
 	    Set $RELOAD6 = {0}
 	Else
 	Begin
-	    Set $cmd = {PipeRead 'String="SetEnv SelectOnRelease }$Title600{"; if [ "$(grep \'SetEnv SelectOnRelease \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv SelectOnRelease \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i "/$FileStr/d" }$SAVEFILE{; else sed -i -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
+	    Set $cmd = {PipeRead 'String="SetEnv SelectOnRelease }$Title600{"; if [ "$(grep \'SetEnv SelectOnRelease \' }$SAVEFILE{)" = "" ]; then echo "$String" >>}$SAVEFILE{; else FileStr="$(grep \'SetEnv SelectOnRelease \' }$SAVEFILE{)"; if [ "$FileStr" = "$String" ]; then  sed -i.bak "/$FileStr/d" }$SAVEFILE{; else sed -i.bak -e "s/$FileStr/$String/" }$SAVEFILE{; fi; fi'}
 	    Do $cmd
 	    Set $OldTitle600 = $Title600
 	    Set $RELOAD6 = {1}

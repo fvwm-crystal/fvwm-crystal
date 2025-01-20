@@ -1,4 +1,5 @@
-#!/bin/env bash
+#!/usr/bin/env bash
+
 # This file is part of fvwm-crystal.
 # Author: Dominique Michel
 # Licence: GPLv3
@@ -21,10 +22,12 @@ fi
 if ! grep -q gtk-font-name "${Gtk2PrefFile}"; then
 	echo "gtk-font-name=\"${GtkFontName}\"" >> ${Gtk2PrefFile}
 else
-	sed -i "s:gtk-font-name=\".*\":gtk-font-name=\"${GtkFontName}\":" "${Gtk2PrefFile}"
+	sed "s:gtk-font-name=\".*\":gtk-font-name=\"${GtkFontName}\":" "${Gtk2PrefFile}" >  "${Gtk2PrefFile}".tmp
+	mv -f "${Gtk2PrefFile}".tmp > "${Gtk2PrefFile}"
 fi
 if ! grep -q gtk-font-name "${Gtk3PrefFile}"; then
 	echo "gtk-font-name=${GtkFontName}" >> ${Gtk3PrefFile}
 else
-	sed -i "s:gtk-font-name=.*:gtk-font-name=${GtkFontName}:" "${Gtk3PrefFile}"
+	sed -e "s:gtk-font-name=.*:gtk-font-name=${GtkFontName}:" "${Gtk3PrefFile}" > "${Gtk3PrefFile}".tmp
+	mv -f "${Gtk3PrefFile}".tmp "${Gtk3PrefFile}"
 fi

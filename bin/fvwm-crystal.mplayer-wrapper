@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/usr/bin/env /bash
+=======
+#!/usr/bin/env bash
+>>>>>>> freebsd
 # 
 # mplayer wrapper for FVWM-Crystal
 # Written by Dominique Michel <dominique_libre@users.sourceforge.net>

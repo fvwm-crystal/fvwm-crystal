@@ -19,16 +19,23 @@ echo "" > "${deskmanfile}"
 # Number of icons to show: {{{2
 IconNumber=1
 if [[ "${ShowXDG}" == "yes" ]]; then IconNumber=9; fi
-if [[ "${ShowPartitions}" == "yes" ]]
-	then	TmpP="$(mount | gawk '/^\/.*|^(simple-mtpfs|http).*\// { print "" "" $3 "" ""; }' |sort)"
-		for part in $TmpP ; do
-			if [[ $(ls $part 2>/dev/null) ]] ; then
-				echo \'$part\'
-			fi
-		done > ${7} #| sed -e 's:\\:\\\\:g' 
-		IconNumber="$((${IconNumber}+`wc -l < ${7}`))"
+if [[ "${ShowPartitions}" == "yes" ]] ; then
+	# When changing that line, change it into set_DesktopIconsGeom accordingly:
+	if [[ "$(uname)" == "FreeBSD" ]]; then
+		FreeBSDRoot=$(df -h | grep -m1 /home | cut  -d" " -f1 | sed "s:\(^.*\)\(/home.*$\):\1:")
+		TmpP=$(mount | grep -e "${FreeBSDRoot}/" | cut -d" " -f3 | sort)
+	else
+		TmpP="$(mount | gawk '/^\/.*|^(simple-mtpfs|http).*\// { print "" "" $3 "" ""; }' |sort)"
+#		TmpP="$(mount | gawk '/^.*\// { print "" "" $3 "" ""; }' |sort)"
+	fi
+	for part in $TmpP ; do
+		if [[ $(ls $part 2>/dev/null) ]] ; then
+			echo \'$part\'
+		fi
+	done > ${7} #| sed -e 's:\\:\\\\:g'
+	IconNumber="$((${IconNumber}+`wc -l < ${7}`))"
 fi
-IconNumber="$((${IconNumber}+`wc -l < ${HOME}/.fvwm-crystal/preferences/ShowDirectories`))"
+IconNumber="$((${IconNumber}+`wc -l < ${FVWM_USERDIR}/preferences/ShowDirectories`))"
 # Available number of icons on the EWMH screen height: {{{2
 if [ "${10}" -gt "${15}" ]
 	then EWMHTop="${10}"
@@ -75,6 +82,7 @@ fi
 echo "+ '\$[gt.XDG user directories]' PopUp /Preferences/XDG" >> "${deskmanfile}"
 echo "+ '\$[gt.Mounted partitions]' PopUp /Preferences/Partitions" >> "${deskmanfile}"
 echo "+ '\$[gt.Show directories]' LaunchFileWithHelp ShowDirectories" >> "${deskmanfile}"
+#echo "+ '\$[gt.Show directories]' A nano \$[FVWM_USERDIR]/preferences/ShowDirectories" >> "${deskmanfile}"
 echo "+ '\$[gt.Actions]' PopUp /Preferences/FileBrowser" >> "${deskmanfile}"
 echo "+ '\$[gt.Emplacement]' Popup /Preferences/DeskIconsPlace" >> "${deskmanfile}"
 echo "+ '\$[gt.Show on top with panels]' Popup /Preferences/DeskIconsTop" >> "${deskmanfile}"
@@ -212,9 +220,10 @@ then partitions=""
 		echo "+ I *DesktopIcons: (1x1, Padding 1 1, Frame 0, Icon ${icon}, ActiveIcon ${icon}.active.png, PressIcon ${icon}.active.png, Action (Mouse 1) \"${4} ${line} ${3}\", Action (Mouse 2) \"${5} ${line} ${3}\", Action (Mouse 3) \"Menu /Partitions${line}\")" >> "${deskmanfile}"
       		partitions="${partitions} ${line}"
 	done <${7}
-      	echo "InfoStoreAdd PartitionModules \"${partitions}\""
-# We don't want a PipeRead that will block FVWM every 5 seconds
-pidof -x DesktopCheckMounts 1>/dev/null || echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
+	# If $partitions is empty, Infostore need a space
+	echo "InfoStoreAdd PartitionModules \"${partitions} \""
+	# We don't want a PipeRead that will block FVWM every 5 seconds
+	pidof -x DesktopCheckMounts 1>/dev/null || echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
 else pidof -x DesktopCheckMounts 1>/dev/null && killall DesktopCheckMounts
 fi
 # directories

@@ -41,7 +41,7 @@
 # flag, remove the lines containing `fuzzy', and (optionally) remove
 # marked obsolete entries at the end of the PO files.
 
-
+# Don't use 'sed -i' that fail with freeBSD. Use redirection instead.
 
 # Defaults if no option(s) specified
 NOLOC="0"
@@ -206,7 +206,8 @@ while [ -s .make.pot.tmp ]; do
 				>>$i.pot
 	fi
 
-	sed -i -e "\\]\\]${STRING}\$]d" .make.pot.tmp
+	sed -e "\\]\\]${STRING}\$]d" .make.pot.tmp .make.pot.tmp2
+	mv -f .make.pot.tmp2 .make.pot.tmp
 
 	# Prevent infinite loops
 	COUNT2="$(wc -l .make.pot.tmp | sed -e 's/\([[:digit:]]*\).*/\1/')"
@@ -243,9 +244,9 @@ if [ -e $i.po ]; then
 		MERGEOPTS="$MERGEOPTS -s"
 	fi
 
-	msgmerge $MERGEOPTS $i.po $i.pot && (rm -f $i.pot; sed -i -e \
+	msgmerge $MERGEOPTS $i.po $i.pot && (rm -f $i.pot; sed -e \
 		"s/^\"Project-Id-Version:.*/\"Project-Id-Version: fvwm-crystal ${VERSION}\\\\n\"/" \
-			$i.po)
+			$i.po2) && mv -f $i.po2 $i.po
 fi
 
 

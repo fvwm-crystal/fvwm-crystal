@@ -159,6 +159,9 @@ Needed:
 - file (used by the wallpaper thumbnailer)
 - xdg-user-dirs for localized xdg desktop user directories and icons
 - xdg-open
+- on freebsd, the user shell must not be sh or csh because they are
+    too restrictive, which makes several functions to fail. bash
+    willl be fine.
 
 Strongly recommended:
 ---------------------
@@ -186,7 +189,9 @@ Optional, but supported:
   player support (even video support with mplayer)
   The mpd support depend on python-mpd (the github python-mpd2 up-to-date version).
 - 'transset' and 'xcompmgr'for full transparency support.
-- A mixer application. I recommand alsamixer.
+- A mixer application. I recommand alsamixer on linux, it will provide both amixer
+  for the music menu and the key bindings, and alsamixer as console GUI. On FreeBSD,
+  install mixer for menu and bindings and bsdmixer for the GUI.
 - 'sudo' and 'gksudo' for running text/graphical applications as superuser and
   for reboot/shutdown options in the Exit menu
 - 'xrandr' for video mode switching

@@ -1,0 +1,258 @@
+# Support for mixer controls in FVWM-Crystal
+# Written by: Dominique Michel <dominique_libre@sourceforge.net>
+#
+# This file contain code for all the mixers.
+#
+# The original mixers are ALSA mixer (alsamixer, alsamixergui and
+# alsamixerguis (a script part of bmpdj)),
+# audacious, aumix, cdcd, cmus, mpd, quodlibet and xmms2.
+#
+# The original controls was written by Maciej Delmanowski <harnir@linux.net.pl>
+# at the exception of alsamixer, bindings for multimadia keys
+# and dB support by Dominique Michel,
+# audacious control by Rafael Antonio Porras Samaniego <spoek@distrobit.net>
+# and xmms2 control by Michal Gorny <peres.fvxm@mailnull.com>
+#
+# Only alsamixer do have direct dB control. This is a must have feature for a professional audio mixer.
+# It will be approximated for the other mixers.
+# Update: The alsamixer control use now the alsamixer native steps, it was tested
+# with card using dB. It should hopefully work for cards without dB support, at the exception of the
+# volume tooltip.
+#
+# Alsamixer support up to eight sound cards. You can choose the one and the volume control in the prefs.
+#
+# To call the functions, in the menus, it is part of "Popup /Music"
+# Button 1: Mouse 4 "Change-Volume-Up"; Mouse 5 "Change-Volume-Down"
+# Button 2: Mouse 3 "Menu /Mixer"
+# 
+# Amixer do have tooltip support now; it show the current volume.
+# Modified version for FreeBSD.
+
+# Preferences {{{1
+# If there is no selected mixer, load the default
+LoadPreferences DefaultMixer
+CheckPreferences DefaultMixer "InfoStoreAdd Mixer mixer"
+# If there is no selected sound card and device, load the default
+LoadPreferences DefaultSoundCard
+CheckPreferences DefaultSoundCard "InfoStoreAdd SoundCard 0"
+LoadPreferences DefaultSoundDevice
+CheckPreferences DefaultSoundDevice "InfoStoreAdd SoundDevice 1"
+
+# AlsaMixer don't support dB in FreeBSD
+# Should be fine with 24 bits sound cards, with other cards,
+# the result will vary. Use only decimal . as separator or bc will bail:
+InfoStoreAdd Vol_Step 1.5
+PipeRead 'if [ $[infostore.Mixer] = amixer ] ; then \\
+	echo "InfoStoreAdd Vol_StepMax `amixer -D$[infostore.SoundCard] cget numid=$[infostore.SoundDevice]|grep type|sed -e \\"s:\\(.*max=\\)\\(.*,step\\)\\(.*\\):\\2:\\" -e \\"s:,step::\\"`"; fi'
+
+# Initialisations {{{1
+# aumix {{{2
+# Set VolControl: Test if MASTER mixer exist, fallback to PCM
+PipeRead "if [ $[infostore.Mixer] = aumix ] ; then NVolControl=`aumix -d /dev/mixer$[infostore.SoundCard] -q | grep \'master\\|vol\' -c` ; echo InfoStoreAdd VolControl `if [ $NVolControl = 0 ]; then echo w; else echo v ; fi` ; fi"
+
+# amixer: Memorize the volume {{{2
+DestroyFunc AmixerCurrentVolume
+AddToFunc AmixerCurrentVolume
++ I PipeRead 'if [ $[infostore.Mixer] = amixer ] ; then \\
+	echo "InfoStoreAdd CurrentVolume `amixer -D $[infostore.SoundCard] cget numid=$[infostore.SoundDevice] | grep \": values\" | sed -e \"s:.*values=::\" -e \"s:,.*::\"`"; \\
+	fi'
+PipeRead 'if [ $[infostore.Mixer] = amixer ] ; then \\
+	echo AmixerCurrentVolume; fi'
+
+# Mute = off {{{2
+InfoStoreAdd MixerMute 0
+InfoStoreAdd MixerMuteAP 0
+InfoStoreAdd MixerMuteCdcd 0
+InfoStoreAdd MixerMuteMP 0
+InfoStoreAdd MixerMuteMP2 0
+
+# Basics functions {{{1
+# Mixer-Volume <value> {{{2
+# 0 <= value <= 100; used by the menu
+# amixer use the native amixer steps
+DestroyFunc Mixer-Volume
+AddToFunc Mixer-Volume
++ I PipeRead 'case $[infostore.Mixer] in \\
+	amixer)		exec amixer -D $[infostore.SoundCard] cset numid=$[infostore.SoundDevice] `echo \"(87-(($[0]*(100/$[infostore.Vol_StepMax]))*$[infostore.Vol_Step]))\"|bc -l` > /dev/null ; \\
+			echo AmixerCurrentVolume ;; \\
+	mixer)		exec mixer -f /dev/mixer$[infostore.SoundCard] $[infostore.SoundDevice]=$[0]% ;; \\
+	aumix)		exec aumix -d /dev/mixer$[infostore.SoundCard] -\'$[infostore.VolControl]\' $[0] ;; \\
+	audacious)	exec audtool set-volume $[0] ;; \\
+	cdcd)		exec cdcd setvol $[0] > /dev/null ;; \\
+	cmus)		exec cmus-remote --volume $[0]% > /dev/null ;; \\
+	mpd)		exec mpc volume $[0] > /dev/null ;; \\
+	quodlibet)	exec quodlibet --volume $[0] > /dev/null ;; \\
+	xmms2)		exec xmms2 config output.volume $[0]/$[0] ;; \\
+	*)		exec amixer -c $[infostore.SoundCard] set '$[infostore.VolControl]' $[0] > /dev/null ;; \\
+esac'
+
+# Change-Volume-Up <step> {{{2
+DestroyFunc Change-Volume-Up
+AddToFunc Change-Volume-Up
++ I PipeRead 'case $[infostore.Mixer] in \\
+	amixer)		tmpval=`amixer -D $[infostore.SoundCard] cget numid=$[infostore.SoundDevice] | grep \": values\" | sed -e \"s:.*values=::\" -e \"s:,.*::\"`; \\
+			echo "InfoStoreAdd CurrentVolume $((${tmpval}+1))" ; \\
+			if [ $0 != 10 ]; then \\
+			    exec amixer -D $[infostore.SoundCard] cset numid=$[infostore.SoundDevice] $((${tmpval}+1)) > /dev/null; \\
+			else exec amixer -D $[infostore.SoundCard] cset numid=$[infostore.SoundDevice] $((${tmpval}+2)) > /dev/null; fi ;; \\
+	mixer)		step=$(echo $[infostore.Vol_Step]*2|bc -l) ; exec mixer -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' +${step} ;; \\
+	aumix)		step=$(echo $[infostore.Vol_Step]*2|bc -l) ; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' +${step} ;; \\
+	audacious)	exec audtool set-volume +$[0] ;; \\
+	cdcd)		echo Nop ;; \\
+	cmus)		exec cmus-remote --volume +$[0]% > /dev/null ;; \\
+	mpd)		exec mpc volume +`echo "($[0]*2+0.5)/1" | bc` > /dev/null ;; \\
+	quodlibet)	exec quodlibet --volume-up > /dev/null ;; \\
+	xmms2)		echo Nop ;; \\
+	*)		echo Nop ;; \\
+esac'
++ I PipeRead 'if [ $[infostore.Mixer] = amixer ]; then \\
+	echo Volume-Tooltip; echo Deschedule $[schedule.last]; echo Schedule 1500 Kill-FvwmTooltip Volume; fi'
+
+# Change-Volume-Down <value> {{{2
+DestroyFunc Change-Volume-Down
+AddToFunc Change-Volume-Down
++ I PipeRead 'case $[infostore.Mixer] in \\
+	amixer)		tmpval=`amixer -D $[infostore.SoundCard] cget numid=$[infostore.SoundDevice] | grep \": values\" | sed -e \"s:.*values=::\" -e \"s:,.*::\"`; \\
+			echo "InfoStoreAdd CurrentVolume $((${tmpval}-1))" ; \\
+			if [ $0 != 10 ]; then \\
+				exec amixer -D $[infostore.SoundCard] cset numid=$[infostore.SoundDevice] $((${tmpval}-1)) > /dev/null ; \\
+			else exec amixer -D $[infostore.SoundCard] cset numid=$[infostore.SoundDevice] $((${tmpval}-2)) > /dev/null; fi ;; \\
+	aumix)		step=$(echo $[infostore.Vol_Step]*2|bc -l) ; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' -"${step}" ;; \\
+	audacious)	exec audtool set-volume -$[0] ;; \\
+	cdcd)		echo Nop ;; \\
+	cmus)		exec cmus-remote --volume -$[0]% > /dev/null ;; \\
+	mpd)		exec mpc volume -`echo "($[0]*2+0.5)/1" | bc` > /dev/null ;; \\
+	quodlibet)	exec quodlibet --volume-down > /dev/null ;; \\
+	xmms2)		echo Nop ;; \\
+	*)		echo Nop ;; \\
+esac'
++ I PipeRead 'if [ $[infostore.Mixer] = amixer ]; then \\
+	echo Volume-Tooltip; echo Deschedule $[schedule.last]; echo Schedule 1500 Kill-FvwmTooltip Volume; fi'
+
+# Mixer volume toggle mute {{{2
+# Selected player will toggle the pause.
+# If alsamixer or aumix is selected, it will mute toggle too. 
+DestroyFunc Mixer-Volume-Toggle
+AddToFunc Mixer-Volume-Toggle
++ I PipeRead 'if [ $[infostore.Mixer] = amixer ]; then \\
+	if [ $[infostore.MixerMute] = 0 ]; then \\
+		amixer -D $[infostore.SoundCard] cset numid=$[infostore.SoundDevice] 0 > /dev/null; echo "InfoStoreAdd MixerMute 1"; \\
+	else amixer -D $[infostore.Soundcard] cset numid=$[infostore.SoundDevice] $[infostore.CurrentVolume] > /dev/null; echo "InfoStoreAdd MixerMute 0"; fi; fi'
++ I PipeRead 'if [ $[infostore.Mixer] = mixer ]; then \\
+	if [ $[infostore.MixerMute] = 0 ]; then echo "InfoStoreAdd MixerMute 1"; tmpval=`mixer -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]'q | sed -e "s:.*, ::"`; echo "InfoStoreAdd CurrentVolume $tmpval"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' 0 > /dev/null; else echo "InfoStoreAdd MixerMute 0"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' $[infostore.CurrentVolume] > /dev/null; fi; fi'
++ I PipeRead 'if [ $[infostore.Mixer] = aumix ]; then \\
+	if [ $[infostore.MixerMute] = 0 ]; then echo "InfoStoreAdd MixerMute 1"; tmpval=`aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]'q | sed -e "s:.*, ::"`; echo "InfoStoreAdd CurrentVolume $tmpval"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' 0 > /dev/null; else echo "InfoStoreAdd MixerMute 0"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' $[infostore.CurrentVolume] > /dev/null; fi; fi'
++ I PipeRead 'if [ $[infostore.MusicPlayer] = audacious ]; then \\
+	exec audtool playback-playpause > /dev/null; fi'
++ I PipeRead 'if [ $[infostore.MusicPlayer] = cdcd ]; then \\
+	if [ $[infostore.MixerMuteCdcd] = 0 ]; then echo "InfoStoreAdd MixerMuteCdcd 1"; exec cdcd pause > /dev/null; else echo "InfoStoreAdd MixerMuteCdcd 0"; cdcd resume > /dev/null; fi; fi'
++ I PipeRead 'if [ $[infostore.Musicplayer] =  cmus ]; then \\
+	exec cmus-remote --pause > /dev/null; fi'
++ I PipeRead 'if [ $[infostore.MusicPlayer] =  mpd ]; then \\
+	exec mpc toggle > /dev/null; fi'
++ I PipeRead 'if [ $[infostore.MusicPlayer] =  quodlibet ]; then \\
+	exec quodlibet --play-pause > /dev/null; fi'
++ I PipeRead 'if [ $[infostore.MusicPlayer] =  xmms2 ]; then \\
+	exec xmms2 toggle > /dev/null; fi'
+# the other players
++ I PipeRead 'if [ $[infostore.MusicPlayer] =  alsaplayer ] || [ $[infostore.MusicPlayer] =  alsaplayerdaemon ]; then \\
+	if [ $[infostore.MixerMuteAP] = 0 ]; then echo "InfoStoreAdd MixerMuteAP 1";	exec alsaplayer --speed 0; else echo "InfoStoreAdd MixerMuteAP 0"; exec alsaplayer --speed $[infostore.speed]; fi; fi'
++ I PipeRead 'if [ $[infostore.MusicPlayer] =  mocp ]; then \\
+	exec mocp --sync --toggle-pause; fi'
++ I PipeRead 'if [ $[infostore.MusicPlayer] =  mplayer ]; then \\
+	if [ $[infostore.MixerMuteMP] = 0 ]; then echo "InfoStoreAdd MixerMuteMP 1";	echo "Exec exec echo pause > /home/$[infostore.USERDIR]/.mplayer/pipe"; else echo "InfoStoreAdd MixerMuteMP 0"; echo "Exec exec echo pause > /home/$[infostore.USERDIR]/.mplayer/pipe"; fi; fi'
++ I PipeRead 'if [ $[infostore.MusicPlayer] =  mplayer2 ]; then \\
+	if [ $[infostore.MixerMuteMP2] = 0 ]; then echo "InfoStoreAdd MixerMuteMP2 1"; echo "Exec exec echo pause > /home/$[infostore.USERDIR]/.mplayer/pipe"; else echo "InfoStoreAdd MixerMuteMP2 0"; echo "Exec exec echo pause > /home/$[infostore.USERDIR]/.mplayer/pipe"; fi; fi'
+
+# Mixer volume mute toggle mute {{{2
+# Toggle only alsamixer, mixer or aumix if selected. 
+DestroyFunc Mixer-Mute-Toggle
+AddToFunc Mixer-Mute-Toggle
++ I PipeRead 'if [ $[infostore.Mixer] = amixer ]; then \\
+	if [ $[infostore.MixerMute] = 0 ]; then \\
+		amixer -D $[infostore.SoundCard] cset numid=$[infostore.SoundDevice] 0 > /dev/null; echo "InfoStoreAdd MixerMute 1"; \\
+	else amixer -D $[infostore.Soundcard] cset numid=$[infostore.SoundDevice] $[infostore.CurrentVolume] > /dev/null; echo "InfoStoreAdd MixerMute 0"; fi; fi'
++ I PipeRead 'if [ $[infostore.Mixer] = mixer ]; then \\
+	if [ $[infostore.MixerMute] = 0 ]; then echo "InfoStoreAdd MixerMute 1"; tmpval=`mixer -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]'q | sed -e "s:.*, ::"`; echo "InfoStoreAdd CurrentVolume $tmpval"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' 0 > /dev/null; else echo "InfoStoreAdd MixerMute 0"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' $[infostore.CurrentVolume] > /dev/null; fi; fi'
++ I PipeRead 'if [ $[infostore.Mixer] = aumix ]; then \\
+	if [ $[infostore.MixerMute] = 0 ]; then echo "InfoStoreAdd MixerMute 1"; tmpval=`aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]'q | sed -e "s:.*, ::"`; echo "InfoStoreAdd CurrentVolume $tmpval"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' 0 > /dev/null; else echo "InfoStoreAdd MixerMute 0"; exec aumix -d /dev/mixer$[infostore.SoundCard] -'$[infostore.VolControl]' $[infostore.CurrentVolume] > /dev/null; fi; fi'
+
+# Show/Hide the GUI {{{2
+# The quoting is broken in FvwmPrompt, so put the alsamixer into a separated function.
+# That new function will de|iconify the alsamixer window,
+# which restore its last state (maximized|fullscreen|...) and position.
+DestroyFunc Mixer-GUI-amixer
+AddToFunc Mixer-GUI-amixer
++ I All ("ALSA Mixer card $[infostore.SoundCard]", !Iconic) ThisWindow Iconify True
++ I TestRc (Match) Break
++ I TestRc (NoMatch) All ("ALSA Mixer card $[infostore.SoundCard]", Iconic) ThisWindow Iconify False
++ I TestRc (NoMatch) None ("ALSA Mixer card $[infostore.SoundCard]") AT "ALSA Mixer card $[infostore.SoundCard]" "alsamixer -D $[infostore.SoundCard]"
+
+DestroyFunc Mixer-GUI-dsbmixer
+AddToFunc Mixer-GUI-dsbmixer
++ I Style dsbmixer NoIcon
++ I All ("DSBMixer", !Iconic) ThisWindow Iconify True
++ I TestRc (Match) Break
++ I TestRc (NoMatch) All ("DSBMixer", Iconic) ThisWindow Iconify False
++ I TestRc (NoMatch) None ("DSBMixer") Exec dsbmixer
+
+#
+DestroyFunc Mixer-GUI
+AddToFunc Mixer-GUI
+PipeRead 'case $[infostore.Mixer] in \\
+	mixer)		echo "+ I Mixer-GUI-dsbmixer" ;; \\
+	amixer)		echo "+ I Mixer-GUI-amixer" ;; \\
+	aumix)		echo "+ I All (aumix) Close" ; \\
+			echo "+ I TestRc (NoMatch) X aumix -d /dev/mixer$[infostore.SoundCard] -I" ;; \\
+	audacious)	echo "+ I Nop" ;; \\
+	cdcd)		echo "+ I Nop" ;; \\
+	cmus)		echo "+ I Nop" ;; \\
+	mpd)		echo "+ I Nop" ;; \\
+	quodlibet)	echo "+ I Nop" ;; \\
+	xmms2)		echo "+ I Nop" ;; \\
+	*)		echo "+ I Nop" ;; \\
+esac'
+#	amixer)		echo "+ I All (\\\"ALSA Mixer*\\\") Close" ; \\
+#			echo "+ I TestRc (Match) None (\\\"ALSA Mixer\\\") AT \\\"ALSA Mixer card $[infostore.SoundCard]\\\" \\\"alsamixer -c $[infostore.SoundCard]\\\"" ;; \\
+
+# Menus {{{1
+# Mixer menu {{{2
+DestroyMenu /Mixer
+AddToMenu /Mixer
++ '%22x22/fvwm-crystal/mixer-2.png%$[gt.Show main mixer]' Mixer-GUI
++ '%22x22/fvwm-crystal/mixer.png%$[gt.Audio mixer]'		Popup /Preferences/Mixer
++ '' Nop
+PipeRead 'if [ $[infostore.Mixer] = amixer ] ; \\
+	then $[FVWM_SYSTEMDIR]/scripts/AmixerControl $[infostore.SoundCard] $[infostore.SoundDevice]; \\
+	else echo \"+ \\\"$[infostore.Mixer] mixer$[infostore.SoundCard] $[infostore.SoundDevice]\\\" Nop\"; \\
+	    for i in 0 -3 -6 -9 -12 -15 -18 -24 -30 -36 -42 -48 -54 -60 -100 ; \\
+	    do		case $i in \\
+				0)	vol=100;; \\
+				-3)	vol=95;; \\
+				-6)	vol=91;; \\
+				-9)	vol=86;; \\
+				-12)	vol=81;; \\
+				-15)	vol=76;; \\
+				-18)	vol=72;; \\
+				-24)	vol=62;; \\
+				-30)	vol=53;; \\
+				-36)	vol=43;; \\
+				-42)	vol=34;; \\
+				-48)	vol=24;; \\
+				-54)	vol=15;; \\
+				-60)	vol=6;; \\
+				-100)	vol=0;; \\
+				*)	vol=50;; \\
+			esac; \\
+			echo \"+ \\\"${i} dB\\\" Mixer-Volume ${vol}\" ; \\
+	    done; fi'
+
+# Volume tooltip {{{1
+# amixer: Show the volume tooltip in dB
+DestroyFunc Volume-Tooltip
+AddToFunc Volume-Tooltip
++ I PipeRead '$[FVWM_SYSTEMDIR]/scripts/AmixerCurrentdBVolume $[infostore.SoundCard] $[infostore.SoundDevice]'
++ I PipeRead 'echo "Fvwm-Tooltip Volume \\"$[infostore.MixerControl]\\" \\"$[infostore.CurrentdBVolume] dB\\" +$(($[vp.width]/2))-$(($[vp.height]/2)) 20 750"'
+#+ I PipeRead 'echo "Fvwm-Tooltip Volume \\"$[gt.Sound Card] $[infostore.SoundCard] $[infostore.MixerControl]\\" \\"$[infostore.CurrentdBVolume] dB\\" +$(($[vp.width]/2))-$(($[vp.height]/2)) 20 750"'
+
+# vim:ft=fvwm

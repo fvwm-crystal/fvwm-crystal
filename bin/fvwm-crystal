@@ -62,8 +62,17 @@ if [ "${FVWM_EXEC}" = "fvwm3" ]; then
 	        export FVWM3_LOGFILE
 	fi
 fi
-#
-export FVWM_USERDIR FVWM_CONFIGDIR FVWM_SYSTEMDIR FVWM_DISTROMENUDIR FVWM_DISTROMENUNAME
+## FreeBSD
+FSYS_IS_FREEBSD="0"
+# For the exec accelerator to work with calls like'urxvt -e <cmd>'
+# and to get the subshell with mc:
+# This will not change the internal fvwm shell (sh) used by Piperead.
+if [ "$(uname)" = "FreeBSD" ]; then
+	FSYS_IS_FREEBSD="1"
+fi
+##
+export FVWM_USERDIR FVWM_CONFIGDIR FVWM_SYSTEMDIR FVWM_DISTROMENUDIR \
+	FVWM_DISTROMENUNAME FSYS_IS_FREEBSD
 
 # Default path
 # if a variable 'configfile' is defined in the environment, its value is

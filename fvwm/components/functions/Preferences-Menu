@@ -584,6 +584,7 @@ DestroyModuleConfig Module MediaDirectories-Dialog: *
 DestroyMenu /Preferences/Mixer
 AddToMenu /Preferences/Mixer
 Test (x amixer)		+ '%22x22/apps/alsamixer.png%ALSA Mixer' SelectMixer amixer
+Test (x mixer)		+ '%22x22/apps/alsamixer.png%FreeBSD Mixer' SelectMixer mixer
 Test (x aumix) 		+ '%22x22/apps/aumix.png%Aumix'	SelectMixer aumix
 			+ "" Nop
 Test (x mpc)		+ '%22x22/apps/gmpc.png%MPD'		SelectMixer mpd
@@ -594,20 +595,34 @@ Test (x cmus-remote)	+ '%22x22/apps/cmus.png%C* Music Player' SelectMixer cmus
 Test (x cdcd) 		+ '%22x22/apps/goobox.png%cdcd'	SelectMixer cdcd
 Test (x audacious) 	+ '%22x22/apps/audacious.png%Audacious'	SelectMixer audacious
 Test (x amixer)		+ "" Nop
-Test (x amixer) PipeRead `for i in $(sed -e 's/\\([0-9]*\\).*/\\1/' -e 's/^0//' < /proc/asound/pcm | uniq); \
+Test (EnvMatch FSYS_IS_FREEBSD 0) Test (x amixer) PipeRead `for i in $(sed -e 's/\\([0-9]*\\).*/\\1/' -e 's/^0//' < /proc/asound/pcm | uniq); \
      	do for j in $(amixer -c "$i" controls | grep Volume | sed -e 's:\\(numid=\\)\\(.*\\)\\(,iface.*\\):\\2:'); \
 	       do ControlT="$(amixer -c ${i} cget numid=${j})"; \
 	       Control="$(echo ${ControlT} | sed -e "s:\\(.*name='\\)\\(.*\\)\\('.*\\):\\2:")"; \
 	       echo "+ '%22x22/apps/alsamixer.png%$[gt.Sound Card] ${i} ${Control}' SelectSoundCard '${i}' '${j}'"; \
 	       done; \
 	 done`
+Test (EnvMatch FSYS_IS_FREEBSD 1) Test (EnvMatch infostore.Mixer amixer) PipeRead `for i in $(grep ^pcm < /dev/sndstat | sed -e "s:\\(.*\\)\\( .*\$\\):\\2:" -e "s;:;;"); \
+     	do for j in $(amixer -D "$i" controls | grep Volume | sed -e 's:\\(numid=\\)\\(.*\\)\\(,iface.*\\):\\2:'); \
+	       do ControlT="$(amixer -D ${i} cget numid=${j})"; \
+	       Control="$(echo ${ControlT} | sed -e "s:\\(.*name='\\)\\(.*\\)\\('.*\\):\\2:")"; \
+	       echo "+ '%22x22/apps/alsamixer.png%$[gt.Sound Card] ${i} ${Control}' SelectSoundCard '${i}' '${j}'"; \
+	       done; \
+	 done`
+Test (EnvMatch FSYS_IS_FREEBSD 1) Test (!EnvMatch infostore.Mixer amixer) PipeRead `for i in $(mixer -a | grep ^pcm | sed -e "s:\\(^pcm\\)\\(..\\)\\(.*\\):\\2:" -e "s;:;;"); \
+     	do for j in $(mixer -f /dev/mixer"${i}" -o | grep volume | cut -d"." -f1); \
+    	    do echo "+ '%22x22/apps/alsamixer.png%$[gt.Sound Card] mixer${i}:${j}' SelectSoundCard '${i}' '${j}'"; \
+    	    done; \
+	done`
 
 DestroyFunc SelectMixer
 AddToFunc SelectMixer
-+ I FindCommand DefaultMixer $0 amixer aumix mpd quodlibet audacious xmms xmms2 cmus cdcd
++ I FindCommand DefaultMixer $0 amixer mixer aumix mpd quodlibet audacious xmms xmms2 cmus cdcd
 + I SavePreferences DefaultMixer "InfoStoreAdd Mixer $[infostore.DefaultMixer]"
 + I PipeRead `echo InfoStoreAdd Mixer $[infostore.DefaultMixer]`
-+ I Schedule 500 Include components/functions/Mixer
++ I Test (EnvMatch FSYS_IS_FREEBSD 0) Schedule 500 Include components/functions/Mixer
++ I Test (EnvMatch FSYS_IS_FREEBSD 1) Schedule 500 Include components/functions/Preferences-Menu
++ I Test (EnvMatch FSYS_IS_FREEBSD 1) Schedule 500 Include components/functions/Mixer-BSD
 
 DestroyFunc SelectSoundCard
 AddToFunc SelectSoundCard
@@ -615,7 +630,8 @@ AddToFunc SelectSoundCard
 + I SavePreferences DefaultSoundDevice "InfoStoreAdd SoundDevice '$1'"
 + I PipeRead `echo InfoStoreAdd SoundCard $0`
 + I PipeRead `echo InfoStoreAdd SoundDevice \\'$1\\'`
-+ I Schedule 1000 Include components/functions/Mixer
++ I Test (EnvMatch FSYS_IS_FREEBSD 0) Schedule 1000 Include components/functions/Mixer
++ I Test (EnvMatch FSYS_IS_FREEBSD 1) Schedule 1000 Include components/functions/Mixer-BSD
 
 #
 # Window focus policy

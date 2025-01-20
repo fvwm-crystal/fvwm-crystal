@@ -26,7 +26,8 @@ Test (!EnvisSet FVWM_SYSTEMDIR) SetEnv FVWM_SYSTEMDIR $.
 Test (!EnvisSet FVWM_DISTROMENUDIR) SetEnv FVWM_DISTROMENUDIR /var/lib/fvwm-crystal
 
 # Where is FvwmMfl socket, use $DISPLAY in order to get unique names with Xephyr
-Test (EnvMatch FVWM_IS_FVWM3 1, !EnvIsSet FVWMMFL_SOCKET) SetEnv FVWMMFL_SOCKET $[FVWM_USERDIR]/fvwm_mfl_$[DISPLAY].sock
+# Seam to be fixed into fvwm. See LoadCommonStuffs.
+#Test (EnvMatch FVWM_IS_FVWM3 1, !EnvIsSet FVWMMFL_SOCKET) SetEnv FVWMMFL_SOCKET $[FVWM_USERDIR]/fvwm_mfl_$[DISPLAY].sock
 
 # Name of the distribution menu
 Test (!EnvisSet FVWM_DISTROMENUNAME) SetEnv FVWM_DISTROMENUNAME debian

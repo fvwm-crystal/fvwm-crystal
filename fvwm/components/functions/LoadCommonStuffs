@@ -20,8 +20,8 @@ ImagePath $[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]:$[FVWM_SYSTEMDIR]/icons/
 # In case of X crash, the FvwmMFL sock and pid files can be lying around, fix it.
 DestroyFunc CheckStartFvwmMFL
 AddToFunc CheckStartFvwmMFL
-+ I Piperead "if [ -e $[FVWMMFL_SOCKET] ]; then rm $[FVWMMFL_SOCKET]; fi"
-+ I Piperead 'if [ -e ${FVWMMFL_SOCKET%sock}pid ]; then rm $[FVWMMFL_SOCKET%sock}pid; fi'
+#+ I Piperead "if [ -e $[FVWMMFL_SOCKET] ]; then rm $[FVWMMFL_SOCKET]; fi"
+#+ I Piperead 'if [ -e ${FVWMMFL_SOCKET%sock}pid ]; then rm $[FVWMMFL_SOCKET%sock}pid; fi'
 + I Module FvwmMFL
 
 # Includes and FVWM modules {{{1

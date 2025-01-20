@@ -35,7 +35,8 @@ AddToFunc ExitFunction I Test (ToRestart) Exec exec rm $[infostore.tmpdrivefile]
 
 # For the recipes
 SetEnv DefaultDesktopManager Crystal
-AddToFunc ExitFunction I UnsetEnv DefaultDesktopManager
+# Remove the SetEnv with freeBSD fvwm2, so comment that:
+#AddToFunc ExitFunction I UnsetEnv DefaultDesktopManager
 
 # umount/pumount wrapper
 DestroyFunc DesktopUmount

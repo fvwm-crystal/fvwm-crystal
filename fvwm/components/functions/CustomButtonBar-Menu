@@ -113,15 +113,20 @@ AddToMenu /CustomButtonPager
 DestroyFunc AddCustomButton
 AddToFunc AddCustomButton
 + I PipeRead 'PrefFile="$[FVWM_USERDIR]/preferences/CustomButtonBar"; \
-	touch ${PrefFile}; sed \'$[infostore.CurrentCustomButton]a\\$*\' -i ${PrefFile}; \
-	sed -i s:48x48:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}; \
-	sed -i s:32x32:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}; \
-	sed -i s:22x22:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: ${PrefFile}'
+	touch ${PrefFile}; head -n $[infostore.CurrentCustomButton] ${PrefFile} > ${PrefFile}.new; \
+	echo "$*" >> ${PrefFile}.new; \
+	tail -n +$(($[infostore.CurrentCustomButton]+1)) ${PrefFile} >> ${PrefFile}.new; \
+	sed s:48x48:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: < ${PrefFile}.new > ${PrefFile}; \
+	sed s:32x32:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: < ${PrefFile} > ${PrefFile}.new; \
+	sed s:22x22:$[infostore.CustomButtonSize]x$[infostore.CustomButtonSize]: < ${PrefFile}.new > ${PrefFile}; \
+	rm -f ${PrefFile}.new'
 + I GenerateCustomButtonBar
 
 DestroyFunc DeleteThatButton
 AddToFunc DeleteThatButton
-+ I PipeRead 'sed "\\:^$0:d" -i $[FVWM_USERDIR]/preferences/CustomButtonBar'
++ I PipeRead 'PrefFile="$[FVWM_USERDIR]/preferences/CustomButtonBar"; \
+	sed "\\:^$0:d" < ${PrefFile} > ${PrefFile}.new; \
+	mv -f ${PrefFile}.new ${PrefFile}'
 + I GenerateCustomButtonBar
 
 # The button size
@@ -129,24 +134,24 @@ DestroyFunc ButtonSmallSize
 AddToFunc ButtonSmallSize
 + I InfoStoreAdd CustomButtonSize 22
 + I SavePreferences CustomButtonSize "InfoStoreAdd CustomButtonSize 22
-+ I PipeRead "sed -i s:48x48:22x22: $[FVWM_USERDIR]/preferences/CustomButtonBar"
-+ I PipeRead "sed -i s:32x32:22x22: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I PipeRead "sed -i.bak s:48x48:22x22: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I PipeRead "sed -i.bak s:32x32:22x22: $[FVWM_USERDIR]/preferences/CustomButtonBar"
 + I GenerateCustomButtonBar
 
 DestroyFunc ButtonMediumSize
 AddToFunc ButtonMediumSize
 + I InfoStoreAdd CustomButtonSize 32
 + I SavePreferences CustomButtonSize "InfoStoreAdd CustomButtonSize 32
-+ I PipeRead "sed -i s:48x48:32x32: $[FVWM_USERDIR]/preferences/CustomButtonBar"
-+ I PipeRead "sed -i s:22x22:32x32: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I PipeRead "sed -i.bak s:48x48:32x32: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I PipeRead "sed -i.bak s:22x22:32x32: $[FVWM_USERDIR]/preferences/CustomButtonBar"
 + I GenerateCustomButtonBar
 
 DestroyFunc ButtonBigSize
 AddToFunc ButtonBigSize
 + I InfoStoreAdd CustomButtonSize 48
 + I SavePreferences CustomButtonSize "InfoStoreAdd CustomButtonSize 48
-+ I PipeRead "sed -i s:32x32:48x48: $[FVWM_USERDIR]/preferences/CustomButtonBar"
-+ I PipeRead "sed -i s:22x22:48x48: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I PipeRead "sed -i.bak s:32x32:48x48: $[FVWM_USERDIR]/preferences/CustomButtonBar"
++ I PipeRead "sed -i.bak s:22x22:48x48: $[FVWM_USERDIR]/preferences/CustomButtonBar"
 + I GenerateCustomButtonBar
 
 DestroyMenu /CustomButtonSize

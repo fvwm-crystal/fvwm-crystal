@@ -22,10 +22,17 @@ if [[ "`cat ${FVWM_USERDIR}/preferences/DefaultDesktopManager | grep components/
 then
     IconNumber=1
     if [[ "${ShowXDG}" == "yes" ]]; then IconNumber=9; fi
-    if [[ "${ShowPartitions}" == "yes" ]]
-	then	mount | gawk -v sq="'" '/^\/.*|^simple-mtpfs.*\// { print "" sq "" $3 "" sq ""; }' | sort > ${tmpdrivefile} # | sed -e 's:\\:\\\\:g'
-		IconNumber="$((${IconNumber}+`wc -l < ${tmpdrivefile}`))"
-		IconNumber="$((${IconNumber}+`wc -l < ${HOME}/.fvwm-crystal/preferences/ShowDirectories`))"
+    if [[ "${ShowPartitions}" == "yes" ]]; then
+	# When changing that line, change it into desktop_manager too:
+	FreeBSDRoot=""
+	if [[ "$(uname)" == "FreeBSD" ]]; then
+		FreeBSDRoot=$(df -h | grep -m1 /home | cut  -d" " -f1 | sed "s:\(^.*\)\(/home.*$\):\1:")
+		mount | grep -e "${FreeBSDRoot}/" | cut -d" " -f3 | sort > ${tmpdrivefile} # | sed -e 's:\\:\\\\:g'
+	else
+		mount | gawk -v sq="'" "/^\/.*|^(simple-mtpfs|http).*\// { print \"\" sq \"\" $3 \"\" sq \"\"; }" | sort > ${tmpdrivefile} # | sed -e 's:\\:\\\\:g'
+	fi
+	IconNumber="$((${IconNumber}+`wc -l < ${tmpdrivefile}`))"
+	IconNumber="$((${IconNumber}+`wc -l < ${HOME}/.fvwm-crystal/preferences/ShowDirectories`))"
     fi
     IconRowsNumber="$((((${1}-((${EWMH_BS_Panel_Top}+${EWMH_BS_Panel_Bottom}))))/50))"
     echo "SetEnv IconRowsNumber ${IconRowsNumber}"

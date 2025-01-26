@@ -1,55 +1,52 @@
 #!/usr/bin/env bash
+
 # FVWM-Crystal helper script that check for mount changes
-# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/DesktopCheckMounts <delay [s]>
+# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/DesktopCheckMounts <delay [s]> <optional PID>
 
 # debug
 #env >> /tmp/examine_env.$$ 2>1&
+#echo $$
 
-# be sure no old instance are runninng
+PFExec="${FVWM_SYSTEMDIR}/scripts/DesktopCheckParent"
+ParentFvwm=$(${PFExec})
+
+# be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
 for i in $(pgrep -f DesktopCheckMounts) ; do
-	[ "$i" != "$$" ] && kill $i
+    if [[ $$ -ne ${i} ]] ; then
+	if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
+    	    kill ${i}
+    	fi
+    fi
 done
-rm /tmp/crystal_desktopcheckmount_* 2>/dev/null
-
-# the PID to kill if fvwm is interrupted
-TMPFILE="/tmp/crystal_desktopcheckmount_$$"
-touch ${TMPFILE}
-
-cleanup() {
-	rm ${TMPFILE}
-	exit 0
-}
-
-trap cleanup INT QUIT TERM
 
 # We only want the partitions the user have access to => use their path
 MountedP=$(mount|cut -d" " -f3)
 check_access() {
-	AccTo=""
-	for part in $1 ; do
-		if [[ $(ls $part 2>/dev/null) ]] ; then
-			AccTo="${AccTo} $part"
-		fi
-	done
-	echo "${AccTo}"
+    AccTo=""
+    for part in $1 ; do
+	if [[ $(ls $part 2>/dev/null) ]] ; then
+	    AccTo="${AccTo} $part"
+	fi
+    done
+    echo "${AccTo}"
 }
-AMountedP="$(check_access "$MountedP")"
+MountedP="$(check_access "${MountedP}")"
 
 # the main loop
 while :
 do
-	sleep "$1"
-	# fvwm is started by exec; be sure it is running
-	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
+    sleep "$1"
+    # fvwm is started by exec; be sure it is running
+    pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
 
-	NMountedP=$(mount|cut -d" " -f3)
-	NAMountedP="$(check_access "$NMountedP")"
-	if [[ "$NAMountedP" != "$AMountedP" ]]; then
-		AMountedP="${NAMountedP}"
-		if [[ "${FVWM_IS_FVWM3}" == "1" ]]; then
-			FvwmPrompt LoadDesktopIcons
-		else
-			FvwmCommand LoadDesktopIcons
-		fi
+    NMountedP=$(mount|cut -d" " -f3)
+    NMountedP="$(check_access "${NMountedP}")"
+    if [[ "$NMountedP" != "$MountedP" ]]; then
+	MountedP="${NMountedP}"
+	if [[ "${FVWM_IS_FVWM3}" == "1" ]]; then
+	    FvwmPrompt LoadDesktopIcons
+	else
+	    FvwmCommand LoadDesktopIcons
 	fi
+    fi
 done

@@ -94,13 +94,6 @@ cleanup() {
 	rm -f /tmp/fullscreen* 2>/dev/null
 	# check for old instances and PID orfaned files
 	# TODO: make it to work with Xephyr and fvwm3.
-	# 	normally not needed here because DesktopCheckMounts take care of it, check this.
-	for i in $(ls /tmp/crystal_desktopcheckmount_* 2>/dev/null); do
-		pid=$(echo $i | sed -e 's:/tmp/crystal_desktopcheckmount_::')
-		kill $pid 2>/dev/null
-		rm -f $i
-		exitcode="1"
-	done
 	for i in $(ls /tmp/crystal_update_infoline_* 2>/dev/null); do
 		pid=$(echo $i | sed -e 's:/tmp/crystal_update_infoline_::')
 		kill $pid 2>/dev/null

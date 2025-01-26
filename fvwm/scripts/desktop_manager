@@ -12,7 +12,7 @@
 # 		Include tmp/DesktopIcons
 
 deskmanfile="${FVWM_USERDIR}/tmp/DesktopIcons"
-echo "" > "${deskmanfile}"
+echo -n "" > "${deskmanfile}"
 
 # We must calculate the size of the button box {{{1
 # Home: 1 icon, XDG user dirs: 8 icons, partitions: variable, directories: variable
@@ -222,9 +222,16 @@ then partitions=""
 	done <${7}
 	# If $partitions is empty, Infostore need a space
 	echo "InfoStoreAdd PartitionModules \"${partitions} \""
-	# We don't want a PipeRead that will block FVWM every 5 seconds
-	pidof -x DesktopCheckMounts 1>/dev/null || echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
-else pidof -x DesktopCheckMounts 1>/dev/null && killall DesktopCheckMounts
+	# ShowPartitions=yes => start DCM if not already started by same fvwm instance
+	if [ "x$(${FVWM_SYSTEMDIR}/scripts/CheckDesktopCheckMounts 2>/dev/null)" == "x" ] ; then
+		echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
+	fi
+	# else kill it
+else
+	DcmPid="$(${FVWM_SYSTEMDIR}/scripts/CheckDesktopCheckMounts 2>/dev/null)"
+	if [ "x${DcmPid}" != "x" ] ; then
+		kill ${DcmPid} 2>/dev/null
+	fi
 fi
 # directories
 # To work with spaces into the directories names, you must quote them with single quotes in ${FVWM_USERDIR}/preferences/ShowDirectories
@@ -239,5 +246,4 @@ do	echo "DestroyMenu /Directories${line}"
 done <${FVWM_USERDIR}/preferences/ShowDirectories
 echo "+ I Style DesktopIcons !Borders" >> "${deskmanfile}"
 echo "+ I Module FvwmButtons DesktopIcons" >> "${deskmanfile}"
-
 echo "ShowDesktopIcons" >> "${deskmanfile}"

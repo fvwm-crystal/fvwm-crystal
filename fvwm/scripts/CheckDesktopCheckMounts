@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# FVWM-Crystal helper script that return DesktopCheckMounts PID if started by the same fvwm parent than this script
+# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/CheckDesktopCheckMounts <optional PID>
+
+# debug
+#env >> /tmp/examine_env.$$ 2>1&
+#echo $$
+
+# Check fvwm parent PID:
+PFExec="${FVWM_SYSTEMDIR}/scripts/DesktopCheckParent"
+ParentFvwm=$(${PFExec})
+
+# be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
+for i in $(pgrep -f DesktopCheckMounts) ; do
+    if [[ $$ -ne ${i} ]] ; then
+	if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] ; then
+    	    echo ${i}
+    	    exit
+    	else
+    	    exit 1
+    	fi
+    fi
+done

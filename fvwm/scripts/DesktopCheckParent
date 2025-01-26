@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+
+# FVWM-Crystal helper script that return the parent fvwm pid of a process
+# Usage:from other helper scripts:
+#	${FVWM_SYSTEMDIR}/scripts/DesktopCheckParent <pid>
+
+parent_pid() {
+	ps -p $(ps -p $(echo $1) -o ppid=) -o pid=
+}
+
+function top_level_parent_pid {
+	Ppid=$(parent_pid $1)
+	# no infinite loop when no fvwm parent is found:
+    	if [ ${Ppid} -eq 1 ] ; then
+    		echo nofvwmp
+    		exit
+    	fi
+
+        if [ "$(ps -p ${Ppid} -o comm=)" == "$2" ] ; then
+		echo ${Ppid}
+		exit
+	else
+		top_level_parent_pid ${Ppid} ${FvwmExec}
+        fi
+}
+
+if [ "${FVWM_IS_FVWM3}" == "1" ]; then
+    FvwmExec="fvwm3"
+else
+    FvwmExec="fvwm"
+fi
+Pid=${1:-$$}
+top_level_parent_pid ${Pid} ${FvwmExec}

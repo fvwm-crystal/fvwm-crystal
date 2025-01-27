@@ -9,6 +9,7 @@ AddToMenu /Preferences
 + '%22x22/fvwm-crystal/user-desktop.png%$[gt.Used recipe]'		Popup /Preferences/Recipes
 + '%22x22/fvwm-crystal/geometry.png%$[gt.Desktop geometry]'	Popup /Preferences/Geometry
 + '%22x22/fvwm-crystal/font.png%$[gt.Character fonts]'	Script scripts/FontSelector/FontSelector
++ '%22x22/fvwm-crystal/keyboard.png%$[gt.Keyboard map]'	Popup /Preferences/SetKeyboardMap
 + '%22x22/fvwm-crystal/handles.png%$[gt.Handle width]'	Popup /Preferences/HandleWidth
 Test (x xcompmgr) Test (x transset) + '%22x22/fvwm-crystal/BlingBling.png%$[gt.Translucency]'		Popup /Preferences/Translucency
 Test (x xcompmgr) Test (x transset) + '%22x22/fvwm-crystal/BlingBling2.png%$[gt.Bling bling]'		Popup /Preferences/BlingBling
@@ -140,6 +141,42 @@ AddToFunc MenuHandleWidth
 + I Piperead 'echo InfoStoreAdd handle_width $0'
 + I SavePreferences HandleWidth "InfoStoreAdd handle_width $[0]"
 + I Style * HandleWidth $[0]
+
+#
+# Keyboard
+#
+DestroyMenu /Preferences/SetKeyboardMap
+AddToMenu /Preferences/SetKeyboardMap
++ '%22x22/fvwm-crystal/Jewel2.png%$[gt.Standard]' Keyboard-Set Standard
++ '%22x22/fvwm-crystal/Jewel2.png%$[gt.Dvorak]' Keyboard-Set Dvorak
++ '%22x22/fvwm-crystal/Jewel2.png%$[gt.Vertical]' Keyboard-Set Vertical
++ '%22x22/fvwm-crystal/Jewel2.png%$[gt.Vertical dvorak]' Keyboard-Set VerticalDvorak
+
+DestroyFunc Keyboard-Set
+AddToFunc Keyboard-Set
++ I SavePreferences KeyboardMap "SetKeyboardMap$*"
++ I SetKeyboardMap$*
+
+DestroyFunc SetKeyboardStandard
+AddToFunc SetKeyboardStandard
++ I Include components/desktop/Keyboard
++ I Include components/desktop/Keyboard_NumLock
+
+DestroyFunc SetKeyboardDvorak
+AddToFunc SetKeyboardDvorak
++ I Include components/desktop/Keyboard-Dvorak
++ I Include components/desktop/Keyboard-Dvorak_NumLock
+
+DestroyFunc SetKeyboardVertical
+AddToFunc SetKeyboardVertical
++ I Include components/desktop/Keyboard-Vertical
++ I Include components/desktop/Keyboard-Vertical_NumLock
+
+
+DestroyFunc SetKeyboardVerticalDvorak
+AddToFunc SetKeyboardVerticalDvorak
++ I Include components/desktop/Keyboard-Vertical-Dvorak
++ I Include components/desktop/Keyboard-Vertical-Dvorak_NumLock
 
 #
 # Transparency

@@ -69,7 +69,7 @@ AddToMenu /AutoHibernate
 DestroyFunc ScreenLidSuspend
 AddToFunc ScreenLidSuspend
 + I Exec exec $[FVWM_SYSTEMDIR]/scripts/ScreenLidSuspend $0
-+ I SavePreferences ScreenLidSuspend "Exec if [ \\`pgrep -c ScreenLidSuspen\\` -eq 0 ]; then exec $[FVWM_SYSTEMDIR]/scripts/ScreenLidSuspend $0; fi"
++ I SavePreferences ScreenLidSuspend "Exec exec $[FVWM_SYSTEMDIR]/scripts/ScreenLidSuspend $0"
 
 DestroyFunc NoScreenLidSuspend
 AddToFunc NoScreenLidSuspend

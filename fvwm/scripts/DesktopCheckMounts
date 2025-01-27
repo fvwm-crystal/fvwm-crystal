@@ -3,50 +3,57 @@
 # FVWM-Crystal helper script that check for mount changes
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/DesktopCheckMounts <delay [s]> <optional PID>
 
-# debug
-#env >> /tmp/examine_env.$$ 2>1&
-#echo $$
-
+# be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
 PFExec="${FVWM_SYSTEMDIR}/scripts/DesktopCheckParent"
 ParentFvwm=$(${PFExec})
-
-# be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
 for i in $(pgrep -f DesktopCheckMounts) ; do
-    if [[ $$ -ne ${i} ]] ; then
-	if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
-    	    kill ${i}
-    	fi
-    fi
+	if [[ $$ -ne ${i} ]] ; then
+		if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
+			kill ${i}
+    		fi
+	fi
 done
+
+# delete PID file at exit
+cleanup() {
+	echo cleanup $0
+	exit 0
+}
+trap cleanup INT QUIT TERM
 
 # We only want the partitions the user have access to => use their path
 MountedP=$(mount|cut -d" " -f3)
 check_access() {
-    AccTo=""
-    for part in $1 ; do
-	if [[ $(ls $part 2>/dev/null) ]] ; then
-	    AccTo="${AccTo} $part"
-	fi
-    done
-    echo "${AccTo}"
+	AccTo=""
+	for part in $1 ; do
+		if [[ $(ls $part 2>/dev/null) ]] ; then
+			AccTo="${AccTo} $part"
+		fi
+	done
+	echo "${AccTo}"
 }
 MountedP="$(check_access "${MountedP}")"
 
 # the main loop
 while :
 do
-    sleep "$1"
-    # fvwm is started by exec; be sure it is running
-    pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
-
-    NMountedP=$(mount|cut -d" " -f3)
-    NMountedP="$(check_access "${NMountedP}")"
-    if [[ "$NMountedP" != "$MountedP" ]]; then
-	MountedP="${NMountedP}"
-	if [[ "${FVWM_IS_FVWM3}" == "1" ]]; then
-	    FvwmPrompt LoadDesktopIcons
-	else
-	    FvwmCommand LoadDesktopIcons
+	# exit if $$ get attached to init at fvwmQuit
+	if [[ "nofvwmp" == "$(${PFExec} $$)" ]] ; then
+		cleanup
 	fi
-    fi
+
+	sleep "$1"
+	# fvwm is started by exec; be sure it is running
+	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
+
+	NMountedP=$(mount|cut -d" " -f3)
+	NMountedP="$(check_access "${NMountedP}")"
+	if [[ "$NMountedP" != "$MountedP" ]]; then
+		MountedP="${NMountedP}"
+		if [[ "${FVWM_IS_FVWM3}" == "1" ]]; then
+			FvwmPrompt LoadDesktopIcons
+		else
+			FvwmCommand LoadDesktopIcons
+		fi
+	fi
 done

@@ -1,29 +1,24 @@
 #!/usr/bin/env bash
 # On laptop, suspend hybrid from components/functions/Exit
 
-lidsleeppm() {
-	while :
-	do
-	    sleep 5
-	    grep -q closed /proc/acpi/button/lid/*/state
-	    if [ $? = 0 ]; then
-		case $2 in
-		    pm)
-			sudo $1
-			;;
-		    log)
-			sudo $1 hybrid-sleep
-			;;
-		    sys)
-			sudo $1 hybrid-sleep -i
-			;;
-		    *)
-			exit 1
-			;;
-		esac
-	    fi
-	done
+# be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
+# It should work on linux and freebsd
+PFExec="${FVWM_SYSTEMDIR}/scripts/DesktopCheckParent"
+ParentFvwm=$(${PFExec})
+for i in $(pgrep -f ScreenLidSuspend) ; do
+	if [[ $$ -ne ${i} ]] ; then
+		if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
+			kill ${i}
+		fi
+	fi
+done
+
+# Be sure it don't attach to init at Quit
+cleanup() {
+	echo cleanup $0
+	exit 0
 }
+trap cleanup INT QUIT TERM
 
 if [[ $1 == *pm* ]] ; then
 	PMV=pm
@@ -33,4 +28,29 @@ elif [[ $1 == *loginctl ]] ; then
 	PMV=log
 fi
 
-lidsleeppm $1 "${PMV}"
+while :
+do
+	# exit if $$ get attached to init at fvwmQuit
+	if [[ "nofvwmp" == "$(${PFExec} $$)" ]] ; then
+		cleanup
+	fi
+
+	sleep 5
+	grep -q closed /proc/acpi/button/lid/*/state
+	if [ $? = 0 ]; then
+		case "${PMV}" in
+			pm)
+				sudo "${PMV}"
+				;;
+			log)
+				sudo "${PMV}" hybrid-sleep
+				;;
+			sys)
+				sudo "${PMV}" hybrid-sleep -i
+				;;
+			*)
+				exit 1
+				;;
+		esac
+	fi
+done

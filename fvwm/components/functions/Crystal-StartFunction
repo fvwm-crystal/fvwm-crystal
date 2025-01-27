@@ -12,11 +12,19 @@
 
 # StartFunction: At init only: + I Test (Init); at Restart only: + I Test (Restart); at both: no Test.
 # ExitFunction: Idem with Quit or ToRestart
-DestroyFunc StartFunction
 DestroyFunc InitFunction
-DestroyFunc RestartFunction
-DestroyFunc ExitFunction
+AddToFunc InitFunction
++ I Nop
 
+DestroyFunc RestartFunction
+AddToFunc RestartFunction
++ I Nop
+
+DestroyFunc ExitFunction
+AddToFunc ExitFunction
++ I Nop
+
+DestroyFunc StartFunction
 AddToFunc StartFunction
 + I Test (Init) Include preferences/LastChoosenWallpaper
 

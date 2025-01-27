@@ -144,13 +144,9 @@ DestroyFunc SetFileBrowser
 AddToFunc SetFileBrowser
 + I SavePreferences FileBrowser$[0] "InfoStoreAdd FileBrowser$[0] \'$[1]\'"
 + I InfoStoreAdd FileBrowser$[0] '$[1]'
-+ I Exec exec killall DesktopCheckMounts $[infostore.SILENT]
 + I KillModule FvwmButtons DesktopIcons
 + I DestroyModuleConfig DesktopIcons: *
 + I Exec exec FvwmCommand "Include components/apps/DesktopIcons"
-
-AddToFunc ExitFunction I Test (Quit) Exec exec killall DesktopCheckMounts $[infostore.SILENT]
-AddToFunc ExitFunction I Test (ToRestart) Exec exec killall DesktopCheckMounts $[infostore.SILENT]
 
 DestroyMenu /Preferences/DeskIconsPlace
 AddToMenu /Preferences/DeskIconsPlace
@@ -160,7 +156,6 @@ AddToMenu /Preferences/DeskIconsPlace
 
 DestroyFunc SetDeskIconsPlace
 AddToFunc SetDeskIconsPlace
-+ I Exec exec killall DesktopCheckMounts $[infostore.SILENT]
 + I SavePreferences DeskIconsSign.$[infostore.Recipe] "InfoStoreAdd DeskIconsSign \'$[0]\'"
 + I InfoStoreAdd DeskIconsSign '$[0]'
 + I KillModule FvwmButtons DesktopIcons

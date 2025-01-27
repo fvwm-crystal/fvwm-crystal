@@ -17,18 +17,11 @@
 InfoStoreAdd Icon_Theme "Default"
 ImagePath $[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]:$[FVWM_SYSTEMDIR]/icons/$[infostore.Icon_Theme]
 
-# In case of X crash, the FvwmMFL sock and pid files can be lying around, fix it.
-DestroyFunc CheckStartFvwmMFL
-AddToFunc CheckStartFvwmMFL
-#+ I Piperead "if [ -e $[FVWMMFL_SOCKET] ]; then rm $[FVWMMFL_SOCKET]; fi"
-#+ I Piperead 'if [ -e ${FVWMMFL_SOCKET%sock}pid ]; then rm $[FVWMMFL_SOCKET%sock}pid; fi'
-+ I Module FvwmMFL
-
 # Includes and FVWM modules {{{1
 # Should be before everything else
 Include components/functions/Clear-FVWM-Settings
 AddToFunc StartFunction
-+ I Test (EnvMatch FVWM_IS_FVWM3 1) CheckStartFvwmMFL
++ I Test (EnvMatch FVWM_IS_FVWM3 1) Module FvwmMFL
 + I Test (!EnvMatch FVWM_IS_FVWM3 1) PipeRead "echo 'Module FvwmCommandS'"
 
 # Default FVWM-Crystal functions, initialization {{{2

@@ -62,8 +62,7 @@ Include components/bindings/Window-Border
 Include components/bindings/Window-Transparency
 
 # Keyboard bindings {{{2
-Include components/desktop/Keyboard
-Include components/desktop/Keyboard_NumLock
+LoadPreferences KeyboardMap
 Include components/desktop/Numpad
 Include components/bindings/Multimedia_Keys
 Include components/bindings/Multimedia_Keys_NumLock

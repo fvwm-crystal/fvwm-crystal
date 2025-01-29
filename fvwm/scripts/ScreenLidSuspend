@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # On laptop, suspend hybrid from components/functions/Exit
 
+source "${FVWM_SYSTEMDIR}"/scripts/DesktopCheckParent
+
 # be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
 # It should work on linux and freebsd
-PFExec="${FVWM_SYSTEMDIR}/scripts/DesktopCheckParent"
+PFExec="search_parent_pid"
 ParentFvwm=$(${PFExec})
 for i in $(pgrep -f ScreenLidSuspend) ; do
 	if [[ $$ -ne ${i} ]] ; then
@@ -31,7 +33,7 @@ fi
 while :
 do
 	# exit if $$ get attached to init at fvwmQuit
-	if [[ "nofvwmp" == "$(${PFExec} $$)" ]] ; then
+	if [[ "${ParentFvwm}" != "$(${PFExec} $$)" ]] ; then
 		cleanup
 	fi
 

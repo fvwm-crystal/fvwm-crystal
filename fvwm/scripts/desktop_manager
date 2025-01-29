@@ -225,7 +225,7 @@ then partitions=""
 	# ShowPartitions=yes => start DCM if not already started by same fvwm instance
 	if [ "x$(${FVWM_SYSTEMDIR}/scripts/CheckDesktopCheckMounts 2>/dev/null)" == "x" ] ; then
 		echo "Test (!Start) Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
-		echo "Test (Init) AddToFunc StartFunction I Test (Init) Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
+		echo "Test (Start) AddToFunc StartFunction I Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
 	fi
 	# else kill it
 else
@@ -249,4 +249,4 @@ echo "+ I Style DesktopIcons !Borders" >> "${deskmanfile}"
 echo "" >> "${deskmanfile}"
 echo "ShowDesktopIcons" >> "${deskmanfile}"
 echo "Test (!Start) Module FvwmButtons DesktopIcons" >> "${deskmanfile}"
-echo "Test (Init) AddToFunc StartFunction I Module FvwmButtons DesktopIcons" >> "${deskmanfile}"
+echo "Test (Start) AddToFunc StartFunction I Module FvwmButtons DesktopIcons" >> "${deskmanfile}"

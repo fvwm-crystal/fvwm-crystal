@@ -3,9 +3,11 @@
 # FVWM-Crystal helper script that check for mount changes
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/DesktopCheckMounts <delay [s]> <optional PID>
 
+source "${FVWM_SYSTEMDIR}"/scripts/DesktopCheckParent
+
 # be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
-PFExec="${FVWM_SYSTEMDIR}/scripts/DesktopCheckParent"
-ParentFvwm=$(${PFExec})
+PFExec="search_parent_pid"
+ParentFvwm=$(${PFExec} $$)
 for i in $(pgrep -f DesktopCheckMounts) ; do
 	if [[ $$ -ne ${i} ]] ; then
 		if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
@@ -37,8 +39,8 @@ MountedP="$(check_access "${MountedP}")"
 # the main loop
 while :
 do
-	# exit if $$ get attached to init at fvwmQuit
-	if [[ "nofvwmp" == "$(${PFExec} $$)" ]] ; then
+	# exit if $$ get re-parented at fvwm Quit
+	if [[ "${ParentFvwm}" != "$(${PFExec} $$)" ]] ; then
 		cleanup
 	fi
 

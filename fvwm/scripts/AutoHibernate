@@ -4,8 +4,10 @@
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate <rate [%]> $[infostore.sysctl]
 #        launched from components/functions/Exit
 
+source "${FVWM_SYSTEMDIR}"/scripts/DesktopCheckParent
+
 # be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
-PFExec="${FVWM_SYSTEMDIR}/scripts/DesktopCheckParent"
+PFExec="search_parent_pid"
 ParentFvwm=$(${PFExec})
 for i in $(pgrep -f AutoHibernate) ; do
 	if [[ $$ -ne ${i} ]] ; then
@@ -44,8 +46,8 @@ Resumed="0"
 
 while :
 do
-	# exit if $$ get attached to init at fvwm Quit
-	if [[ "nofvwmp" == "$(${PFExec} $$)" ]] ; then
+	# exit if $$ get re-parented at fvwm Quit
+	if [[ "${ParentFvwm}" != "$(${PFExec} $$)" ]] ; then
 		cleanup
 	fi
 

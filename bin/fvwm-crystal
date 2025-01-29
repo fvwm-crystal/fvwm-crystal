@@ -61,6 +61,10 @@ if [ "${FVWM_EXEC}" = "fvwm3" ]; then
 	        FVWM3_LOGFILE="${HOME}/.fvwm-crystal.log"
 	        export FVWM3_LOGFILE
 	fi
+	# Be sure the helper scripts find the FvwmMFL socket and put it into a non world writable place
+	FVWMMFL_SOCKET_PATH="${FVWM_USERDIR}/tmp/fvwmmfl/fvwm_mfl_${DISPLAY}.sock"
+	mkdir -p "${FVWM_USERDIR}/tmp/fvwmmfl"
+	export FVWMMFL_SOCKET_PATH
 fi
 ## FreeBSD
 FSYS_IS_FREEBSD="0"

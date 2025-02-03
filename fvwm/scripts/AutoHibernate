@@ -4,56 +4,51 @@
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate <rate [%]> $[infostore.sysctl]
 #        launched from components/functions/Exit
 
-source "${FVWM_SYSTEMDIR}"/scripts/DesktopCheckParent
+#source "${FVWM_SYSTEMDIR}"/scripts/DesktopCheckParent
 
 # be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
-PFExec="search_parent_pid"
-ParentFvwm=$(${PFExec})
-for i in $(pgrep -f AutoHibernate) ; do
-	if [[ $$ -ne ${i} ]] ; then
-		if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
-			kill ${i}
-		fi
-	fi
-done
+#PFExec="search_parent_pid"
+#ParentFvwm=$(${PFExec})
+#for i in $(pgrep -f AutoHibernate) ; do
+#	if [[ $$ -ne ${i} ]] ; then
+#		if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
+#			kill ${i}
+#		fi
+#	fi
+#done
 
 cleanup() {
-	echo cleanup $0
+	echo cleanup "$0"
 	exit 0
 }
-trap cleanup INT QUIT TERM
+trap "cleanup" SIGHUP SIGTERM SIGKILL
 
 if [[ ! "$2" ]]; then
 	cleanup
 fi
 
 # write the preference file
-echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/AutoHibernate $1 $2" > ${FVWM_USERDIR}/preferences/AutoHibernation
+echo "Exec exec ${FVWM_SYSTEMDIR}/scripts/AutoHibernate $1 $2" > "${FVWM_USERDIR}"/preferences/AutoHibernation
 
 # check for battery file
-if [ -e /sys/class/power_supply/BAT0/energy_now ]
-then NOWBAT="energy"
-else 	if [ -e /sys/class/power_supply/BAT0/charge_now ]
-	then NOWBAT="charge"
-	else cleanup
+if [ -e /sys/class/power_supply/BAT0/energy_now ]; then
+	NOWBAT="energy"
+else
+	if [ -e /sys/class/power_supply/BAT0/charge_now ]; then
+		NOWBAT="charge"
+	else
+		cleanup
 	fi
 fi
 
 # the main loop
-CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now)/(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100))))
+CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now) / ($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100)))
 MinCharge=$(($1+1))
 Resumed="0"
 
 while :
 do
-	# exit if $$ get re-parented at fvwm Quit
-	if [[ "${ParentFvwm}" != "$(${PFExec} $$)" ]] ; then
-		cleanup
-	fi
-
 	sleep "5"
-	# fvwm is started by exec; be sure it is running
-	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
 
 	if [[ "$CurrentCharge" -lt "$MinCharge" ]]; then
 		# avoid hibernation loop
@@ -68,12 +63,12 @@ do
 			# we must kill that script after rebbot to avoid loop
 			Resumed="1"
 		else
-			CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now)/(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100))))
+			CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now) / ($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100)))
 		fi
 	else
-		CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now)/(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100))))
+		CurrentCharge=$(($(cat /sys/class/power_supply/BAT0/${NOWBAT}_now) / ($(cat /sys/class/power_supply/BAT0/${NOWBAT}_full)/100)))
 		# return to normal loop after resuming when CurrentCharge > $1
-		if [[ "$((1+${CurrentCharge}))" -gt "${MinCharge}" ]]; then
+		if [[ "$((1 + CurrentCharge))" -gt "${MinCharge}" ]]; then
 			Resumed="0"
 		fi
 	fi

@@ -3,32 +3,32 @@
 # FVWM-Crystal helper script that check for mount changes
 # Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/DesktopCheckMounts <delay [s]> <optional PID>
 
-source "${FVWM_SYSTEMDIR}"/scripts/DesktopCheckParent
+#source "${FVWM_SYSTEMDIR}"/scripts/DesktopCheckParent
 
 # be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
-PFExec="search_parent_pid"
-ParentFvwm=$(${PFExec} $$)
-for i in $(pgrep -f DesktopCheckMounts) ; do
-	if [[ $$ -ne ${i} ]] ; then
-		if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
-			kill ${i}
-    		fi
-	fi
-done
+#PFExec="search_parent_pid"
+#ParentFvwm=$(${PFExec} $$)
+#for i in $(pgrep -f DesktopCheckMounts) ; do
+#	if [[ $$ -ne ${i} ]] ; then
+#		if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
+#			kill ${i}
+#    		fi
+#	fi
+#done
 
 # delete PID file at exit
 cleanup() {
-	echo cleanup $0
+	echo cleanup "$0"
 	exit 0
 }
-trap cleanup INT QUIT TERM
+trap "cleanup" SIGHUP SIGTERM SIGKILL
 
 # We only want the partitions the user have access to => use their path
 MountedP=$(mount|cut -d" " -f3)
 check_access() {
 	AccTo=""
 	for part in $1 ; do
-		if [[ $(ls $part 2>/dev/null) ]] ; then
+		if [[ $(ls "${part}" 2>/dev/null) ]] ; then
 			AccTo="${AccTo} $part"
 		fi
 	done
@@ -39,14 +39,7 @@ MountedP="$(check_access "${MountedP}")"
 # the main loop
 while :
 do
-	# exit if $$ get re-parented at fvwm Quit
-	if [[ "${ParentFvwm}" != "$(${PFExec} $$)" ]] ; then
-		cleanup
-	fi
-
 	sleep "$1"
-	# fvwm is started by exec; be sure it is running
-	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
 
 	NMountedP=$(mount|cut -d" " -f3)
 	NMountedP="$(check_access "${NMountedP}")"

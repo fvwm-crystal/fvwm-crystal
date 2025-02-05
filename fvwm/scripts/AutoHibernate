@@ -49,6 +49,8 @@ Resumed="0"
 while :
 do
 	sleep "5"
+	# fvwm is started by exec; be sure it is running
+#	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
 
 	if [[ "$CurrentCharge" -lt "$MinCharge" ]]; then
 		# avoid hibernation loop

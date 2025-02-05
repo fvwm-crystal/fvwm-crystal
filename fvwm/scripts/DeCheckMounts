@@ -16,6 +16,12 @@
 #	fi
 #done
 
+# tell the kernal to handle parent death into a robust way
+#setpriv --pdeathsig TERM
+
+# write the PID to a file
+echo "$$" > "${FVWM_USERDIR}/tmp/DeCheckMounts_${DISPLAY}".pid
+
 # delete PID file at exit
 cleanup() {
 	echo cleanup "$0"
@@ -39,7 +45,15 @@ MountedP="$(check_access "${MountedP}")"
 # the main loop
 while :
 do
+	# exit if $$ get re-parented at fvwm Quit
+#	if [[ "${ParentFvwm}" != "$(${PFExec} $$)" ]] ; then
+#		cleanup
+#	fi
+	trap cleanup QUIT HUP  SIGHUP
+
 	sleep "$1"
+	# fvwm is started by exec; be sure it is running
+#	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
 
 	NMountedP=$(mount|cut -d" " -f3)
 	NMountedP="$(check_access "${NMountedP}")"

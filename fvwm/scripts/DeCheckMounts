@@ -45,12 +45,6 @@ MountedP="$(check_access "${MountedP}")"
 # the main loop
 while :
 do
-	# exit if $$ get re-parented at fvwm Quit
-#	if [[ "${ParentFvwm}" != "$(${PFExec} $$)" ]] ; then
-#		cleanup
-#	fi
-	trap cleanup QUIT HUP  SIGHUP
-
 #	sleep "$1"
 	read -t "$1" -s -N 1 nop
 	# fvwm is started by exec; be sure it is running

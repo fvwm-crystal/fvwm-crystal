@@ -29,8 +29,43 @@ AddToFunc KillScript
 + I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/$*) KillModule FvwmScript $[FVWM_CONFIGDIR]/$*
 + I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/$*) KillModule FvwmScript $[FVWM_SYSTEMDIR]/$*
 
+# This function check if a script is runing, if yes, it is killed  and restarted,
+# if no, it is started.
+#
+#DestroyFunc StartExecScript
+#AddToFunc StartExecScript
+#+ I PipeRead 'if [ -f $(cat $[FVWM_USERDIR]/tmp/$[0]_$[DISPLAY].pid ]; then \
+#		kill -9 $(cat $[FVWM_USERDIR]/tmp/$[0]_$[DISPLAY].pid 2>/dev/null) 2>/dev/null; \
+#		echo "ExecScript $*": \
+#	    else echo "ExecScript $*": fi'
+
+# This function start a shell script using Exec
+# As to depend on SIGHUP or other signals to kill the script at Quit is not reliable, due to
+# signal queuing by the kernel (man 7 signal),
+# the script must initialise a PID file in ${FVWM_USERDIR}/tmp with
+#    echo $$ > ${FVWM_USERDIT}/tmp/<script_name>_${DISPLAY}.pid
+# where <script_name> must not be longuer than 15 characters.
+# We use PipeRead to be sure that fvwm get the time to execute the commands before exits.
+#
+DestroyFunc ExecScript
+AddToFunc ExecScript
+#+ I AddToFunc ExitFunction I Test (Quit) PipeRead "kill $(cat $[FVWM_USERDIR]/tmp/$0_$[DISPLAY].pid 2>/dev/null) 2>/dev/null"
+#+ I AddToFunc ExitFunction I Test (Quit) PipeRead "rm $[FVWM_USERDIR]/tmp/$0_$[DISPLAY].pid 2>/dev/null"
++ I Test (f $[FVWM_USERDIR]/tmp/$[0]_$[DISPLAY].pid) PipeRead "kill -9 $(cat $[FVWM_USERDIR]/tmp/$[0]_$[DISPLAY].pid 2>/dev/null) 2>/dev/null"
++ I Test (f $[FVWM_USERDIR]/scripts/$0) Exec exec setpriv --pdeathsig TERM $[FVWM_USERDIR]/scripts/$*
++ I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/scripts/$0) Exec exec setpriv --pdeathsig TERM $[FVWM_CONFIGDIR]/scripts/$*
++ I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/scripts/$0) Exec exec setpriv --pdeathsig TERM $[FVWM_SYSTEMDIR]/scripts/$*
+
+# This function kills previously started shell script and remove its PID file
+#
+DestroyFunc KillExecScript
+AddToFunc KillExecScript
++ I PipeRead "kill $(cat $[FVWM_USERDIR]/tmp/$[0]_$[DISPLAY].pid) 2>/dev/null; \
+	rm $[FVWM_USERDIR]/tmp/$[0]_$[DISPLAY].pid 2>/dev/null"
+
 # Helper function for IncludeKeyBinding
 # File to store the list of bindings files
+#
 InfoStoreAdd KeyBindingsList $[FVWM_USERDIR]/tmp/KeyBindingsList
 Piperead "mkdir -p $[FVWM_USERDIR]/tmp; \
 	echo -n '' >$[infostore.KeyBindingsList]"
@@ -67,6 +102,7 @@ AddToFunc IncludeStoreMouseBindings
 # This function work like Include, and add the file into a list.
 # It must be used for all keybindings because the bindings editor must know
 # what bindings files are loaded into fvwm in order to work properly.
+#
 DestroyFunc IncludeMouseBinding
 AddToFunc IncludeMouseBinding
 + I Test (f $[FVWM_USERDIR]/$*) IncludeStoreMouseBindings $[FVWM_USERDIR]/$*

@@ -223,7 +223,8 @@ then partitions=""
 	# If $partitions is empty, Infostore need a space
 	echo "InfoStoreAdd PartitionModules \"${partitions} \""
 	# ShowPartitions=yes => start DCM if not already started by same fvwm instance
-	if [ "x$(${FVWM_SYSTEMDIR}/scripts/CheckDesktopCheckMounts 2>/dev/null)" == "x" ] ; then
+#	if [ "x$(${FVWM_SYSTEMDIR}/scripts/CheckDesktopCheckMounts 2>/dev/null)" == "x" ] ; then
+	if [ -f "${FVWM_USERDIR}/tmp/DeCheckMounts_${DISPLAY}" ]; then
 		echo "Test (!Start) Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
 		echo "Test (Start) AddToFunc StartFunction I Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
 	fi

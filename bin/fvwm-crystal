@@ -14,16 +14,15 @@ configname=config
 
 # We now have both fvwm and fvwm3. fvwm-crystal work with both of them.
 # Use $FVWM_EXEC if set, fvwm3 if present, fvvwm otherwise:
-if [ "x${FVWM_EXEC}" = "x" ]; then
+if [ "${FVWM_EXEC}" = "" ]; then
     	for name in fvwm3 fvwm fvwm2; do
-	    FVWM_EXEC=`which "${name}" 2>/dev/null`
-	    if [ $? = 0 ]; then
+	    if FVWM_EXEC=$(which "${name}" 2>/dev/null); then
 		break
 	    fi
 	done
 fi
-FVWM_EXEC=`basename ${FVWM_EXEC}`
-if [ "x${FVWM_EXEC}" = "x" ]; then
+FVWM_EXEC=$(basename "${FVWM_EXEC}")
+if [ "${FVWM_EXEC}" = "" ]; then
 	echo 'No fvwm, fvwm2 or fvwm3 executable found in $PATH.'
 	echo "Please adjust your PATH accordingly or install fvwm."
 	echo "If fvwm is installed in another location, you can provide it as:"
@@ -57,14 +56,15 @@ if [ -z "${FVWM_DISTROMENUNAME}" ]; then
 fi
 # Where to write the log when fvwm3 is in debug mode
 if [ "${FVWM_EXEC}" = "fvwm3" ]; then
-	if [ "x${FVWM3_LOGFILE}" = "x" ]; then
+	if [ "${FVWM3_LOGFILE}" = "" ]; then
 	        FVWM3_LOGFILE="${HOME}/.fvwm-crystal.log"
 	        export FVWM3_LOGFILE
 	fi
-	# Be sure the helper scripts find the FvwmMFL socket and put it into a non world writable place
+	# Be sure the helper scripts find the FvwmMFL socket
 	FVWMMFL_SOCKET_PATH="${FVWM_USERDIR}/tmp/fvwmmfl/fvwm_mfl_${DISPLAY}.sock"
 	mkdir -p "${FVWM_USERDIR}/tmp/fvwmmfl"
 	export FVWMMFL_SOCKET_PATH
+echo	export FVWMMFL_SOCKET_PATH
 fi
 ## FreeBSD
 FSYS_IS_FREEBSD="0"
@@ -86,8 +86,8 @@ if [ -n "$FVWMCRYSTAL_BASECONFIG" ]; then
 	configfile="$FVWMCRYSTAL_BASECONFIG"
 elif [ -f "$HOME/fvwm-crystal/$configname" ]; then
 	configfile=$HOME/fvwm-crystal/$configname;
-elif [ -f "`dirname ${0}`/../share/fvwm-crystal/fvwm/$configname" ]; then
-	configfile="`dirname ${0}`/../share/fvwm-crystal/fvwm/$configname";
+elif [ -f "$(dirname "${0}")/../share/fvwm-crystal/fvwm/$configname" ]; then
+	configfile="$(dirname "${0}")/../share/fvwm-crystal/fvwm/$configname";
 fi
 
 # This script will also kill the helper scripts when needed
@@ -99,16 +99,16 @@ cleanup() {
 	# check for old instances and PID orfaned files
 	# TODO: make it to work with Xephyr and fvwm3.
 	for i in $(ls /tmp/crystal_update_infoline_* 2>/dev/null); do
-		pid=$(echo $i | sed -e 's:/tmp/crystal_update_infoline_::')
-		kill $pid 2>/dev/null
-		rm -f $i
+		pid=$(echo "$i" | sed -e 's:/tmp/crystal_update_infoline_::')
+		kill "$pid" 2>/dev/null
+		rm -f "$i"
 		exitcode="1"
 	done
 	for i in $(ls /tmp/crystal_mplayer_* 2>/dev/null); do
-		pid=$(echo $i | sed -e 's:/tmp/crystal_mplayer_::')
-		kill $pid 2>/dev/null
-		kill -9 $pid 2>/dev/null
-		rm -f $i
+		pid=$(echo "$i" | sed -e 's:/tmp/crystal_mplayer_::')
+		kill "$pid" 2>/dev/null
+		kill -9 "$pid" 2>/dev/null
+		rm -f "$i"
 		exitcode="1"
 	done
 	# exit if not startup
@@ -133,19 +133,20 @@ if [ -f "${FVWM3_LOGFILE}" ]; then
 	rm -f "${FVWM3_LOGFILE}"
 fi
 
-#exec fvwm -f $configfile $@
-if [ "x${FVWMCRYSTAL_DEBUG}" = "x" ]; then
+# exec fvwm -f $configfile $@
+# We use setsid to be sure the scripts started by Exec get SIGHUP and quit at fvwm exit
+if [ "${FVWMCRYSTAL_DEBUG}" = "" ]; then
 	echo "Fvwm-Crystal starting using ${FVWM_EXEC}."
-	exec ${FVWM_EXEC} -f $configfile $@
+	exec ${FVWM_EXEC} -f "$configfile" "$@"
 else
 	if [ "${FVWM_EXEC}" = "fvwm3" ]; then
 		echo "Fvwm-Crystal starting using ${FVWM_EXEC} in debug mode, the log file is ${FVWM3_LOGFILE}."
-		exec ${FVWM_EXEC} -v -f $configfile $@
+		exec ${FVWM_EXEC} -v -f "$configfile" "$@"
 	else
 		echo "Debug mode is not supported by ${FVWM_EXEC}. It print all errors to stderr."
 		echo "You can redirect these errors into a file whith the following line in ~/.xinitrc:"
 		echo '     exec /usr/bin/fvwm-crystal 2>./.errors.fvwm-crystal'
 		echo "Fvwm-Crystal starting using ${FVWM_EXEC}."
-		exec ${FVWM_EXEC} -f $configfile $@
+		exec ${FVWM_EXEC} -f "$configfile" "$@"
 	fi
 fi

@@ -27,7 +27,16 @@ cleanup() {
 	echo cleanup "$0"
 	exit 0
 }
-trap "cleanup" SIGHUP SIGTERM SIGKILL
+trap "cleanup" SIGHUP SIGTERM
+
+send_to_fvwm() {
+	if [ "${FVWM_IS_FVWM3}" = "1" ]; then
+		FvwmPrompt "$@"
+	else
+		FvwmCommand "$@"
+	fi
+}
+send_to_fvwm InfoStoreAdd DeCheckMounts_"${DISPLAY}" "$$"
 
 # We only want the partitions the user have access to => use their path
 MountedP=$(mount|cut -d" " -f3)
@@ -54,10 +63,6 @@ do
 	NMountedP="$(check_access "${NMountedP}")"
 	if [[ "$NMountedP" != "$MountedP" ]]; then
 		MountedP="${NMountedP}"
-		if [[ "${FVWM_IS_FVWM3}" == "1" ]]; then
-			FvwmPrompt LoadDesktopIcons
-		else
-			FvwmCommand LoadDesktopIcons
-		fi
+		send_to_fvwm LoadDesktopIcons
 	fi
 done

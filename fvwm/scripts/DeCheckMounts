@@ -27,7 +27,7 @@ cleanup() {
 	echo cleanup "$0"
 	exit 0
 }
-trap "cleanup" SIGHUP SIGTERM
+trap "cleanup" HUP TERM
 
 send_to_fvwm() {
 	if [ "${FVWM_IS_FVWM3}" = "1" ]; then
@@ -43,7 +43,7 @@ MountedP=$(mount|cut -d" " -f3)
 check_access() {
 	AccTo=""
 	for part in $1 ; do
-		if [[ $(ls "${part}" 2>/dev/null) ]] ; then
+		if [ "$(ls "${part}" 2>/dev/null)" ] ; then
 			AccTo="${AccTo} $part"
 		fi
 	done
@@ -55,6 +55,7 @@ MountedP="$(check_access "${MountedP}")"
 while :
 do
 #	sleep "$1"
+	# read -t is not posix => keep bash. or revert to sleep and use sh
 	read -t "$1" -s -N 1 nop
 	# fvwm is started by exec; be sure it is running
 #	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup

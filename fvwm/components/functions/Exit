@@ -32,35 +32,34 @@ Test (x /usr/sbin/pm-suspend-hybrid) InfoStoreAdd pmquit /usr/sbin/
 Test (x /sbin/pm-suspend-hybrid) InfoStoreAdd pmquit /sbin/
 
 # ps -C ... truncate the command name (see man 5 proc); use pgrep -f ...
-DestroyFunc KillAutoHibernate
-AddToFunc KillAutoHibernate
-+ I Piperead 'pgrep -f AutoHibernate 1>/dev/null && killall -9 AutoHibernate $[infostore.SILENT]'
+DestroyFunc RunAutoHibernate
+AddToFunc RunAutoHibernate
++ I ExecScript AutoHibernate $*
 
 DestroyFunc EndAutoHibernate
 AddToFunc EndAutoHibernate
-+ I KillAutoHibernate
++ I KillExecScript AutoHibernate
 + I SavePreferences AutoHibernation Nop
 
 DestroyMenu /AutoHibernateValue
 AddToMenu /AutoHibernateValue
-+ "$[gt. 1 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 1 $[infostore.sysctl]
-+ "$[gt. 2 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 2 $[infostore.sysctl]
-+ "$[gt. 3 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 3 $[infostore.sysctl]
-+ "$[gt. 5 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 5 $[infostore.sysctl]
-+ "$[gt.10 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 10 $[infostore.sysctl]
-+ "$[gt.15 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 15 $[infostore.sysctl]
-+ "$[gt.20 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 20 $[infostore.sysctl]
-+ "$[gt.25 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 25 $[infostore.sysctl]
-+ "$[gt.50 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 50 $[infostore.sysctl]
-+ "$[gt.75 %]" Exec exec $[FVWM_SYSTEMDIR]/scripts/AutoHibernate 75 $[infostore.sysctl]
++ "$[gt. 1 %]" RunAutoHibernate 1 $[infostore.sysctl]
++ "$[gt. 2 %]" RunAutoHibernate 2 $[infostore.sysctl]
++ "$[gt. 3 %]" RunAutoHibernate 3 $[infostore.sysctl]
++ "$[gt. 5 %]" RunAutoHibernate 5 $[infostore.sysctl]
++ "$[gt.10 %]" RunAutoHibernate 10 $[infostore.sysctl]
++ "$[gt.15 %]" RunAutoHibernate 15 $[infostore.sysctl]
++ "$[gt.20 %]" RunAutoHibernate 20 $[infostore.sysctl]
++ "$[gt.25 %]" RunAutoHibernate 25 $[infostore.sysctl]
++ "$[gt.50 %]" RunAutoHibernate 50 $[infostore.sysctl]
++ "$[gt.75 %]" RunAutoHibernate 75 $[infostore.sysctl]
 
 DestroyFunc AutoHibernate-generator
 AddToFunc AutoHibernate-generator
 + I DestroyMenu recreate /AutoHibernate
-+ I Piperead "if [ $(pgrep AutoHibernate) ]; \
-	then echo AddToMenu /AutoHibernate \\'$[gt.Stop]\\' EndAutoHibernate; \
-	else echo AddToMenu /AutoHibernate \\'$[gt.Start when battery is as low as]\\' Popup /AutoHibernateValue; \
-	fi"
++ I PipeRead 'if pgrep -xa bash | grep AutoHibernate 1>&2 >/dev/null; then \
+	echo AddToMenu /AutoHibernate \\"$[gt.Stop]\\" EndAutoHibernate; else \
+	echo AddToMenu /AutoHibernate \\"$[gt.Start when battery is as low as]\\" Popup /AutoHibernateValue; fi'
 
 DestroyMenu /AutoHibernate
 AddToMenu /AutoHibernate
@@ -68,18 +67,18 @@ AddToMenu /AutoHibernate
 
 DestroyFunc ScreenLidSuspend
 AddToFunc ScreenLidSuspend
-+ I Exec exec $[FVWM_SYSTEMDIR]/scripts/ScreenLidSuspend $0
-+ I SavePreferences ScreenLidSuspend "Exec exec $[FVWM_SYSTEMDIR]/scripts/ScreenLidSuspend $0"
++ I ExecScript ScreenLidSuspend $0
++ I SavePreferences ScreenLidSuspend "ExecScript ScreenLidSuspend $0"
 
 DestroyFunc NoScreenLidSuspend
 AddToFunc NoScreenLidSuspend
-+ I Piperead 'pkill ScreenLidSuspen'
++ I KillExecScript ScreenLidSuspend
 + I SavePreferences ScreenLidSuspend Nop
 
 DestroyFunc ScreenLidSuspend-generator
 AddToFunc ScreenLidSuspend-generator
 + I DestroyMenu recreate /ScreenLidSuspend
-+ I Piperead "if [ `pgrep -c ScreenLidSuspen` -gt 0 ]; \
++ I Piperead "if pgrep -xa bash | grep ScreenLidSuspend 1>&2 >/dev/null; \
 	then echo AddToMenu /ScreenLidSuspend \\'$[gt.No resume hybride with screen lid]\\' NoScreenLidSuspend; \
 	else echo AddToMenu /ScreenLidSuspend \\'$[gt.Resume hybride with screen lid]\\' ScreenLidSuspend $[infostore.sysctl]; \
 	fi"

@@ -185,8 +185,8 @@ AddToFunc LoadDesktopIcons
 	\"$[infostore.FileBrowser1]\" \"$[infostore.FileBrowser2]\" $[vp.height] $[infostore.tmpdrivefile] \
 	$[infostore.EWMH_CBB_Left] $[infostore.EWMH_CBB_Right] $[infostore.EWMH_CBB_Top] $[infostore.EWMH_CBB_Bottom] \
 	$[vp.width] $[infostore.EWMH_Recipe_Left] $[infostore.EWMH_Recipe_Right] $[infostore.EWMH_Recipe_Top] $[infostore.EWMH_Recipe_Bottom]'
-+ I Include tmp/DesktopIcons
-+ I RedrawIconBox
++ I Schedule 500 Include tmp/DesktopIcons
++ I Schedule 600 RedrawIconBox
 
 LoadDesktopIcons
 

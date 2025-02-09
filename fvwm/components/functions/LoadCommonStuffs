@@ -20,9 +20,6 @@ ImagePath $[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]:$[FVWM_SYSTEMDIR]/icons/
 # Includes and FVWM modules {{{1
 # Should be before everything else
 Include components/functions/Clear-FVWM-Settings
-AddToFunc StartFunction
-+ I Test (EnvMatch FVWM_IS_FVWM3 1) Module FvwmMFL
-+ I Test (!EnvMatch FVWM_IS_FVWM3 1) PipeRead "echo 'Module FvwmCommandS'"
 
 # Default FVWM-Crystal functions, initialization {{{2
 Include components/desktop/FVWM-Crystal_Functions
@@ -35,7 +32,6 @@ Include components/functions/Fvwm-Crystal-Menu
 Include components/functions/CheckForFiles
 Include components/functions/Tooltip
 Include components/functions/Panel-Display
-Append preferences/Startup
 
 # Preferred applications {{{2
 Include components/functions/Screenshot-import

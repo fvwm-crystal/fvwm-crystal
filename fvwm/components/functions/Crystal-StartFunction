@@ -12,19 +12,24 @@
 
 # StartFunction: At init only: + I Test (Init); at Restart only: + I Test (Restart); at both: no Test.
 # ExitFunction: Idem with Quit or ToRestart
-DestroyFunc InitFunction
-AddToFunc InitFunction
-+ I Nop
+#DestroyFunc InitFunction
+#AddToFunc InitFunction
+#+ I Nop
 
-DestroyFunc RestartFunction
-AddToFunc RestartFunction
-+ I Nop
+#DestroyFunc RestartFunction
+#AddToFunc RestartFunction
+#+ I Nop
 
-DestroyFunc ExitFunction
-AddToFunc ExitFunction
-+ I Nop
+#DestroyFunc ExitFunction
+#AddToFunc ExitFunction
+#+ I Nop
 
 DestroyFunc StartFunction
 AddToFunc StartFunction
++ I EchoFuncDefinition StartFunction
 + I Test (Init) Include preferences/LastChoosenWallpaper
++ I Test (EnvMatch FVWM_IS_FVWM3 1) Module FvwmMFL
++ I Test (!EnvMatch FVWM_IS_FVWM3 1) PipeRead "echo 'Module FvwmCommandS'"
 
+# User autostart; use AddToFunc StartFunction
+Append preferences/Startup

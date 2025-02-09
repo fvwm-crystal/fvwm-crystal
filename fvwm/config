@@ -1,6 +1,13 @@
+##########################################
 #
 # FVWM-Crystal - main initialization file
 #
+
+# FIXME: Too much things are into parallel chain loaded files, which makes really
+#	hard to debug synchro issues. Use a much more linear file chain.
+# For that, Crystal should mimic the default fvwm config order.
+
+# 1) Set some variables and basic functions:
 
 # By default, FVWM ignore the caps lock.
 # Must be first. L: caps lock; 2: num-lock; 5: scroll-lock
@@ -15,7 +22,7 @@ InfoStoreAdd CRYSTAL_START 1
 
 # Where is the user-wide configuration
 Test (!EnvisSet FVWM_USERDIR) SetEnv FVWM_USERDIR $[HOME]/.fvwm-crystal
-
+# 
 # Where is the system-wide configuration
 Test (!EnvisSet FVWM_CONFIGDIR) SetEnv FVWM_CONFIGDIR /etc/X11/fvwm/fvwm-crystal
 
@@ -24,10 +31,6 @@ Test (!EnvisSet FVWM_SYSTEMDIR) SetEnv FVWM_SYSTEMDIR $.
 
 # Where the distribution specific menu is located
 Test (!EnvisSet FVWM_DISTROMENUDIR) SetEnv FVWM_DISTROMENUDIR /var/lib/fvwm-crystal
-
-# Where is FvwmMfl socket, use $DISPLAY in order to get unique names with Xephyr
-# Seam to be fixed into fvwm. See LoadCommonStuffs.
-#Test (EnvMatch FVWM_IS_FVWM3 1, !EnvIsSet FVWMMFL_SOCKET) SetEnv FVWMMFL_SOCKET $[FVWM_USERDIR]/fvwm_mfl_$[DISPLAY].sock
 
 # Name of the distribution menu
 Test (!EnvisSet FVWM_DISTROMENUNAME) SetEnv FVWM_DISTROMENUNAME debian
@@ -46,11 +49,15 @@ PipeRead "$[FVWM_SYSTEMDIR]/scripts/convert_preferences"
 
 # Load last used recipe
 LoadPreferences LastChoosenRecipe
+
+# FIXME: continue from here
 # Load stuffs common to all the recipes
 Include components/functions/LoadCommonStuffs
+
 # Load the recipe
 Read "$[infostore.Fvwm_Crystal_Recipe]"
 
+# FIXME: Considere to split it into several files
 # Load user configuration file, if it is present
 Include userconfig
 

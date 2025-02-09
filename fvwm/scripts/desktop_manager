@@ -5,7 +5,7 @@
 # Generate the desktop manager in $[FVWM_USERDIR]/tmp/DesktopIcons.
 
 # Syntax:
-# ($1 $2 $3)	PipeRead '$[FVWM_SYSTEMDIR]/scripts/desktop_manager $[infostore.DeskIconsSign] $[infostore.cs_transparent] $[infostore.SILENT] \
+# ($1 $2 $3)	PipeRead '$[FVWM_SYSTEMDIR]/scripts/desktop_manager $[infostore.DeskIconsSign].$[infostore.Recipe] $[infostore.cs_transparent] $[infostore.SILENT] \
 # ($4 $5 $6 $7)		$[infostore.FileBrowser1] $[infostore.FileBrowser2] $[vp.height] $[infostore.tmpdrivefile] \
 # ($8 $9 $10 $11)	$[infostore.EWMH_CBB_Left] $[infostore.EWMH_CBB_Right] $[infostore.EWMH_CBB_Top] $[infostore.EWMH_CBB_Bottom] \
 # ($12 13 14 15 16)	$[vp.width] $[infostore.EWMH_Recipe_Left] $[infostore.EWMH_Recipe_Right] $[infostore.EWMH_Recipe_Top] $[infostore.EWMH_Recipe_Bottom]'
@@ -224,10 +224,12 @@ then partitions=""
 	echo "InfoStoreAdd PartitionModules \"${partitions} \""
 	# ShowPartitions=yes => start DCM if not already started by same fvwm instance
 #	if [ "x$(${FVWM_SYSTEMDIR}/scripts/CheckDesktopCheckMounts 2>/dev/null)" == "x" ] ; then
-	if [ -f "${FVWM_USERDIR}/tmp/DeCheckMounts_${DISPLAY}" ]; then
-		echo "Test (!Start) Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
-		echo "Test (Start) AddToFunc StartFunction I Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
-	fi
+#		echo "Test (!Start) Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
+#		echo "Test (Start) AddToFunc StartFunction I Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
+#	fi
+	echo "Test (!Start) ExecScript DeCheckMounts 4 \$[FVWMMFL_SOCKET_PATH]"
+#	echo "Test (Start) AddToFunc StartFunction I ExecScript DeCheckMounts 4 \$[FVWMMFL_SOCKET_PATH]"
+	echo "Test (Start) Schedule 10000 ExecScript DeCheckMounts 4 \$[FVWMMFL_SOCKET_PATH]"
 	# else kill it
 else
 	DcmPid="$(${FVWM_SYSTEMDIR}/scripts/CheckDesktopCheckMounts 2>/dev/null)"

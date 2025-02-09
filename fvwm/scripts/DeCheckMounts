@@ -1,33 +1,30 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # FVWM-Crystal helper script that check for mount changes
-# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/DesktopCheckMounts <delay [s]> <optional PID>
+# Usage: Exec exec $[FVWM_SYSTEMDIR]/scripts/DesktopCheckMounts <delay [s]>
+# or:	 ExecScript DesktopCheckMounts <delay [s]>
 
-#source "${FVWM_SYSTEMDIR}"/scripts/DesktopCheckParent
-
-# be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
-#PFExec="search_parent_pid"
-#ParentFvwm=$(${PFExec} $$)
-#for i in $(pgrep -f DesktopCheckMounts) ; do
-#	if [[ $$ -ne ${i} ]] ; then
-#		if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
-#			kill ${i}
-#    		fi
-#	fi
-#done
-
-# tell the kernal to handle parent death into a robust way
-#setpriv --pdeathsig TERM
-
-# write the PID to a file
-echo "$$" > "${FVWM_USERDIR}/tmp/DeCheckMounts_${DISPLAY}".pid
-
-# delete PID file at exit
+# cleanup can be done after fvwm exits, be sure these vars are setup:
+FVWM_USERDIR="${FVWM_USERDIR}"
+DISPLAY="${DISPLAY}"
+# See ExecScript in components/Standard:
+PIDFile="${FVWM_USERDIR}/tmp/DeCheckMounts_${DISPLAY}.pid"
 cleanup() {
-	echo cleanup "$0"
+	rm -f "${PIDFile}"
+	echo "cleanup $$"
 	exit 0
 }
 trap "cleanup" HUP TERM
+
+# test OK: echo "FVWMMFL_SOCKET_PATH = ${FVWMMFL_SOCKET_PATH}" > ${FVWM_USERDIR}/tmp/fvwm_mfl_sock
+
+# kill old instance
+if [ -f "${PIDFile}" ]; then
+	kill -9 "$(cat "${PIDFile}")" 2>/dev/null
+fi
+# write PID file
+mkdir -p "${FVWM_USERDIR}"/tmp
+echo "$$" > "${PIDFile}"
 
 send_to_fvwm() {
 	if [ "${FVWM_IS_FVWM3}" = "1" ]; then
@@ -36,7 +33,6 @@ send_to_fvwm() {
 		FvwmCommand "$@"
 	fi
 }
-send_to_fvwm InfoStoreAdd DeCheckMounts_"${DISPLAY}" "$$"
 
 # We only want the partitions the user have access to => use their path
 MountedP=$(mount|cut -d" " -f3)
@@ -54,15 +50,11 @@ MountedP="$(check_access "${MountedP}")"
 # the main loop
 while :
 do
-#	sleep "$1"
-	# read -t is not posix => keep bash. or revert to sleep and use sh
-	read -t "$1" -s -N 1 nop
-	# fvwm is started by exec; be sure it is running
-#	pidof fvwm 1>/dev/null || pidof fvwm3 1>/dev/null || cleanup
+	sleep "$1"
 
 	NMountedP=$(mount|cut -d" " -f3)
 	NMountedP="$(check_access "${NMountedP}")"
-	if [[ "$NMountedP" != "$MountedP" ]]; then
+	if [ "$NMountedP" != "$MountedP" ]; then
 		MountedP="${NMountedP}"
 		send_to_fvwm LoadDesktopIcons
 	fi

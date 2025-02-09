@@ -1,26 +1,25 @@
 #!/usr/bin/env bash
 # On laptop, suspend hybrid from components/functions/Exit
 
-#source "${FVWM_SYSTEMDIR}"/scripts/DesktopCheckParent
-
-# be sure no old instance are runninng for the same fvwm parent or with no fvwm parent:
-# It should work on linux and freebsd
-#PFExec="search_parent_pid"
-#ParentFvwm=$(${PFExec})
-#for i in $(pgrep -f ScreenLidSuspend) ; do
-#	if [[ $$ -ne ${i} ]] ; then
-#		if [[ ${ParentFvwm} -eq $(${PFExec} ${i}) ]] || [[ "nofvwmp" == "$(${PFExec} ${i})" ]] ; then
-#			kill ${i}
-#		fi
-#	fi
-#done
-
-# Be sure it don't attach to init at Quit
+# cleanup can be done after fvwm exits, be sure these vars are setup:
+FVWM_USERDIR="${FVWM_USERDIR}"
+DISPLAY="${DISPLAY}"
+# See ExecScript in components/Standard:
+PIDFile="${FVWM_USERDIR}/tmp/ScreenLidSuspend_${DISPLAY}.pid"
 cleanup() {
-	echo cleanup "$0"
+	rm -f "${PIDFile}"
+	echo "cleanup $$"
 	exit 0
 }
-trap "cleanup" SIGHUP SIGTERM SIGKILL
+trap "cleanup" HUP TERM
+
+# kill old instance
+if [ -f "${PIDFile}" ]; then
+	kill -9 "$(cat "${PIDFile}")" 2>/dev/null
+fi
+# write PID file
+mkdir -p "${FVWM_USERDIR}"/tmp
+echo "$$" > "${PIDFile}"
 
 if [[ $1 == *pm* ]] ; then
 	PMV=pm
@@ -32,11 +31,6 @@ fi
 
 while :
 do
-	# exit if $$ get attached to init at fvwmQuit
-#	if [[ "${ParentFvwm}" != "$(${PFExec} $$)" ]] ; then
-#		cleanup
-#	fi
-
 	sleep 5
 	grep -q closed /proc/acpi/button/lid/*/state
 	if [ $? = 0 ]; then

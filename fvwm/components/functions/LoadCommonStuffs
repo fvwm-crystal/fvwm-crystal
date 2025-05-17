@@ -20,9 +20,19 @@ ImagePath $[FVWM_USERDIR]/icons/$[infostore.Icon_Theme]:$[FVWM_SYSTEMDIR]/icons/
 # In case of X crash, the FvwmMFL sock and pid files can be lying around, fix it.
 DestroyFunc CheckStartFvwmMFL
 AddToFunc CheckStartFvwmMFL
-#+ I Piperead "if [ -e $[FVWMMFL_SOCKET] ]; then rm $[FVWMMFL_SOCKET]; fi"
-#+ I Piperead 'if [ -e ${FVWMMFL_SOCKET%sock}pid ]; then rm $[FVWMMFL_SOCKET%sock}pid; fi'
-+ I Module FvwmMFL
++ I PipeRead 'if [ -e $[FVWMMFL_SOCKET] ]; then \
++     # Check if the socket is actually valid and usable
++     if ! FvwmCommand "Echo FVWMMFL_TEST" >/dev/null 2>&1; then \
++         echo "InfoStoreAdd fvwmmfl_needs_restart 1"; \
++         rm $[FVWMMFL_SOCKET]; \
++         if [ -e ${FVWMMFL_SOCKET%sock}pid ]; then \
++             rm ${FVWMMFL_SOCKET%sock}pid; \
++         fi; \
++     else \
++         echo "InfoStoreAdd fvwmmfl_needs_restart 0"; \
++     fi; \
++ fi'
++ I Test (EnvMatch FVWM_IS_FVWM3 1, InfoStoreAdd fvwmmfl_needs_restart 1, !EnvIsSet FVWM_RUNNING) Module FvwmMFL
 
 # Includes and FVWM modules {{{1
 # Should be before everything else

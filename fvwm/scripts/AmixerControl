@@ -5,20 +5,35 @@
 # Usage:
 # PipeRead "AmixerControl $[infostore.SoundCard] $[infostore.SoundDevice]
 
+die() {
+    echo "$@" >&2
+    exit 1
+}
+
 # Variables
 MenuStepMax=15
 
 # Initialisations
+errstr_prefix="$0: soundcard '$1' sounddevice '$2': "
 # The control's name:
 CName=`amixer -c $1 cget numid="$2"|grep numid|sed -e "s:.*name='::" -e "s:'::"`
+[[ -n $CName ]] || die "${errstr_prefix} could not determine controller name"
+
 # The hardware maximum step (and volume):
 CStepMax=`amixer -c $1 cget numid="$2"|grep type|sed -e "s:.*max=::" -e "s:,step.*::"`
+[[ $CStepMax =~ ^[0-9]+$ ]] || die "${errstr_prefix} invalid hardware max step '${CStepMax}'"
+
 # The hardware minimum step:
 CStepMin=`amixer -c $1 cget numid="$2"|grep type|sed -e "s:.*min=::" -e "s:,max.*::"`
+[[ $CStepMin =~ ^[0-9]+$ ]] || die "${errstr_prefix} invalid hardware min step '${CStepMin}'"
+
 # The minimum level of the volume:
 CVolMin=`amixer -c $1 cget numid="$2"|grep dBscale|sed -e "s:.*dBscale-min=::" -e "s:dB.*::"`
+[[ $CVolMin =~ ^[0-9]+$ ]] || die "${errstr_prefix} invalid min volume '${CVolMin}'"
+
 # The hardware step level:
 CStepLevel=`amixer -c $1 cget numid="$2"|grep dBscale|sed -e "s:.*step=::" -e "s:dB.*::"`
+[[ $CStepLevel =~ ^[0-9]+$ ]] || die "${errstr_prefix} invalid hw step level '${CStepLevel}'"
 
 # Menu steps
 if [ ${CStepMax} -le $MenuStepMax ]

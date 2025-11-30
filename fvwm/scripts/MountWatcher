@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+#
+# MountWatcher
+# ------------
+# Periodically monitors the set of mounted filesystems and notifies FVWM
+# whenever a change is detected. This script is intended to be launched
+# by FVWM via "Exec" and will automatically stop when FVWM exits.
+#
+# Launch from fvwm:
+#
+#    Exec exec $[FVWM_USERDIR]/scripts/MountWatcher
+#
+# or with debug output:
+#
+# Debug logs (and all logs) are written to $FVWM3_LOGFILE if exported by fvwm-crystal.
+# Otherwise logs fall back to /dev/null.
+#
+#    Exec exec DEBUG=1 $[FVWM_USERDIR]/scripts/MountWatcher
+#
+# The script sends the FVWM command:
+#
+#    LoadDesktopIcons
+#
+# whenever the mount table changes.
+#
+# This script terminates automatically when FVWM exits. It is safe across:
+#   - fvwm restarts
+#   - parent PID changes
+#   - hibernation/resume
+#   - systemd or openrc systems
+#
+# This script is launched from scripts/desktop_manager by
+# pgrep -f MountWatcher 2>&1>/dev/null || echo ExecScript MountWatcher
+
+#set -euo pipefail
+IFS=$'\n\t'
+
+###########################################################################
+# Configuration
+###########################################################################
+
+# How often to check for changes (seconds)
+INTERVAL=4
+
+# FVWM command executed when mounted filesystems change
+FVWM_EVENT_COMMAND="LoadDesktopIcons"
+
+# FVWM command binary (FVWM2 and FVWM3 both provide this)
+FVWMCMD="FvwmCommand"
+
+###########################################################################
+# Debug logging
+#
+# Enabled when DEBUG=1 is in the environment.
+# Logs to $FVWM3_LOGFILE when defined, otherwise to stderr.
+# All messages are prefixed with 'MountWatcher:'.
+###########################################################################
+debug() {
+    if [ "${DEBUG}" = 1 ]; then return; fi
+
+    local msg="MountWatcher: $*"
+
+    if [ -n "${FVWM3_LOGFILE:-}" ]; then
+        printf '%s\n' "$msg" >> "$FVWM3_LOGFILE"
+    else
+        printf '%s\n' "$msg" >&2
+    fi
+}
+
+###########################################################################
+# Detect whether the parent FVWM process is still alive.
+#
+# FVWM death → script must exit.
+#
+# On Linux/FreeBSD, an orphaned process inherits PPID=1 (or rarely 0).
+###########################################################################
+parent_alive() {
+    local ppid
+    ppid="$(ps -o ppid= -p "$$" 2>/dev/null | tr -d ' ')"
+
+    # Can't determine PPID → assume FVWM is gone
+    [ -z "$ppid" ] && return 1
+
+    # PPID=1 or 0 → script was reparented → FVWM is gone
+    [ "$ppid" -eq 1 ] && return 1
+    [ "$ppid" -eq 0 ] && return 1
+
+    return 0
+}
+
+###########################################################################
+# Read currently mounted filesystems in a portable way.
+#
+# Linux:    /proc/self/mounts
+# FreeBSD:  mount -p
+###########################################################################
+read_mounts() {
+    if [ -r /proc/self/mounts ]; then
+        cat /proc/self/mounts
+    else
+        mount -p
+    fi
+}
+
+###########################################################################
+# Main
+###########################################################################
+
+debug "Starting MountWatcher"
+debug "Using FVWM command: $FVWMCMD"
+
+prev_sig=""
+
+while parent_alive; do
+    # Compute signature of current mount table
+    sig="$(read_mounts | sha1sum | cut -d' ' -f1)"
+
+    if [ "$sig" != "$prev_sig" ]; then
+        debug "Detected mount table change"
+        prev_sig="$sig"
+
+        # FVWM may be reloading → ignore transient errors
+        $FVWMCMD "$FVWM_EVENT_COMMAND" 2>/dev/null || true
+    fi
+
+    sleep "$INTERVAL"
+done
+
+debug "FVWM no longer alive — MountWatcher exiting"
+exit 0

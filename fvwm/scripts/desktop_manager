@@ -227,15 +227,19 @@ then partitions=""
 #		echo "Test (!Start) Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
 #		echo "Test (Start) AddToFunc StartFunction I Exec exec ${FVWM_SYSTEMDIR}/scripts/DesktopCheckMounts 4"
 #	fi
-	echo "Test (!Start) ExecScript DeCheckMounts 4 \$[FVWMMFL_SOCKET_PATH]"
+	#echo "Test (!Start) ExecScript  MountWatcher"
+	# DeCheckMounts 4 \$[FVWMMFL_SOCKET_PATH]"
 #	echo "Test (Start) AddToFunc StartFunction I ExecScript DeCheckMounts 4 \$[FVWMMFL_SOCKET_PATH]"
-	echo "Test (Start) Schedule 10000 ExecScript DeCheckMounts 4 \$[FVWMMFL_SOCKET_PATH]"
+	#echo "Test (Start) Schedule 10000 ExecScript MountWatcher"
+	pgrep -f MountWatcher 2>&1>/dev/null || echo "ExecScript MountWatcher"
+	# DeCheckMounts 4 \$[FVWMMFL_SOCKET_PATH]"
 	# else kill it
 else
-	DcmPid="$(${FVWM_SYSTEMDIR}/scripts/CheckDesktopCheckMounts 2>/dev/null)"
-	if [ "x${DcmPid}" != "x" ] ; then
-		kill ${DcmPid} 2>/dev/null
-	fi
+#	DcmPid="$(${FVWM_SYSTEMDIR}/scripts/CheckDesktopCheckMounts 2>/dev/null)"
+#	if [ "x${DcmPid}" != "x" ] ; then
+#		kill ${DcmPid} 2>/dev/null
+#	fi
+	pgrep -f MountWatcher 2>&1>/dev/null && kill -9 $(pgrep -f MountWatcher 2>/dev/null) 2>&1>/dev/null
 fi
 # directories
 # To work with spaces into the directories names, you must quote them with single quotes in ${FVWM_USERDIR}/preferences/ShowDirectories

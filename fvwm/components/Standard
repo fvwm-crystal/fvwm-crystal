@@ -43,9 +43,9 @@ AddToFunc KillScript
 DestroyFunc ExecScript
 AddToFunc ExecScript
 + I Test (f $[FVWM_USERDIR]/tmp/$[0]_$[DISPLAY].pid) PipeRead "kill -9 $(cat $[FVWM_USERDIR]/tmp/$[0]_$[DISPLAY].pid 2>/dev/null) 2>/dev/null"
-+ I Test (f $[FVWM_USERDIR]/scripts/$0) Exec exec setpriv --pdeathsig TERM $[FVWM_USERDIR]/scripts/$*
-+ I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/scripts/$0) Exec exec setpriv --pdeathsig TERM $[FVWM_CONFIGDIR]/scripts/$*
-+ I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/scripts/$0) Exec exec setpriv --pdeathsig TERM $[FVWM_SYSTEMDIR]/scripts/$*
++ I Test (f $[FVWM_USERDIR]/scripts/$0) Exec exec $[FVWM_USERDIR]/scripts/$*
++ I TestRc (NoMatch) Test (f $[FVWM_CONFIGDIR]/scripts/$0) Exec exec $[FVWM_CONFIGDIR]/scripts/$*
++ I TestRc (NoMatch) Test (f $[FVWM_SYSTEMDIR]/scripts/$0) Exec exec $[FVWM_SYSTEMDIR]/scripts/$*
 
 # This function kills previously started shell script and remove its PID file
 #

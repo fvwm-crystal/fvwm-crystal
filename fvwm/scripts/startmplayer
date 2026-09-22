@@ -9,7 +9,8 @@
 
 # -cache needed for IPTV and other linear network streams.
 #$1 -ao jack, -fs -fixed-vo -slave -idle -cache 8092 -capture -input file=/home/$2/.mplayer/pipe $3 &
-$1 -ao jack, -fs -fixed-vo -slave -idle ${MPlayerParams} -capture -input file=/home/$2/.mplayer/pipe $3 &
+# mplayer ao jack don't like piewirem so do not interfere with the user mplayer setup in ~/.mplayer/config
+$1  -fs -fixed-vo -slave -idle ${MPlayerParams} -capture -input file=/home/$2/.mplayer/pipe $3 &
 
 FvwmCommand "InfoStoreAdd MplayerPid $!"
 touch /tmp/crystal_mplayer_$!
